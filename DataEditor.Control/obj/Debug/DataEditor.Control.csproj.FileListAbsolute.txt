@@ -1,0 +1,11 @@
+X:\VS Projects\DataEditor.Ruby\DataEditor.Control\obj\Debug\DataEditor.Control.csprojResolveAssemblyReference.cache
+X:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.Control.dll
+X:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.Control.pdb
+X:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.Contract.dll
+X:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.FuzzyData.dll
+X:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.Help.dll
+X:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.Contract.pdb
+X:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.Help.pdb
+X:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.FuzzyData.pdb
+X:\VS Projects\DataEditor.Ruby\DataEditor.Control\obj\Debug\DataEditor.Control.dll
+X:\VS Projects\DataEditor.Ruby\DataEditor.Control\obj\Debug\DataEditor.Control.pdb

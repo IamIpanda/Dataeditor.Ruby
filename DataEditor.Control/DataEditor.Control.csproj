@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Collector.cs" />
     <Compile Include="DataContainer.cs" />
+    <Compile Include="Event.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Monitor.cs" />
     <Compile Include="ObjectEditor.cs" />

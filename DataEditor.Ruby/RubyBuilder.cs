@@ -139,7 +139,7 @@ namespace DataEditor.Ruby
             // 生成控件参数
             var argument = editor.GetParameter(parameters);
             // 标记其父亲控件
-            editor.Parent = builder.container;
+            editor.Container = builder.container;
             // 转换成控件形式
             System.Windows.Forms.Control control = editor.Binding;
             if (control == null) { builder.NotBindingControl(editor); return; }

@@ -40,9 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action.cs" />
     <Compile Include="Calculator.cs" />
     <Compile Include="Data.cs" />
-    <Compile Include="Event.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="Option.cs" />
@@ -52,6 +52,7 @@
     <Compile Include="Reflect.cs" />
     <Compile Include="Rtp.cs" />
     <Compile Include="Serialization.cs" />
+    <Compile Include="Taint.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Settings.txt" />

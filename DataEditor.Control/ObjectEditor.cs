@@ -6,9 +6,11 @@ namespace DataEditor.Control
 {
     public interface ObjectEditor : Contract.ObjectEditor, Contract.Iconic
     {
-        ObjectEditor Parent { get; set; }
+        ObjectEditor Container { get; set; }
         System.Windows.Forms.Label Label { get; set; }
         System.Windows.Forms.Control Binding { get; }
+        bool CheckValue();
+
 
     }
 }

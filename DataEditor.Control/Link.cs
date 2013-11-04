@@ -8,15 +8,15 @@ namespace DataEditor.Control
 	public class Link
 	{
         public static Link Instance { get; set; }
-        public Help.LinkTable<FuzzyObject, Control.ObjectEditor> Collection { get; set; }
+        public Dictionary<FuzzyObject, Control.ObjectEditor> Collection { get; set; }
         static Link()
         { Instance = new Link(); }
         protected Link()
-        { Collection = new Help.LinkTable<FuzzyObject, Control.ObjectEditor>(); }
+        { Collection = new Dictionary<FuzzyObject,ObjectEditor>(); }
         public FuzzyObject this[Control.ObjectEditor editor]
         {
-            get { return Collection[editor]; }
-            set { Collection.Add(value, editor); }
+            get { return editor.Value; }
+            set { editor.Value = value; }
         }
         public Control.ObjectEditor this[FuzzyObject key]
         {

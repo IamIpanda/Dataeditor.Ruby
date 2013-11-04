@@ -5,7 +5,7 @@ using DataEditor.Help;
 using System.IO;
 using System.Reflection;
 
-namespace DataEditor.Arce.Interpreter
+namespace DataEditor.Help
 {
     public class Collector
     {

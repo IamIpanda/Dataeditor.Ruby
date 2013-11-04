@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataEditor.Control
+namespace DataEditor.Help
 {
     public class Window
     {

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DataEditor.Control;
 
-namespace DataEditor.Control
+namespace DataEditor.Help
 {
     static partial class Monitor
     {

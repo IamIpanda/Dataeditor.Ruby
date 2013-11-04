@@ -44,7 +44,6 @@
     <Compile Include="Calculator.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="Log.cs" />
-    <Compile Include="Method.cs" />
     <Compile Include="Option.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Path.cs" />

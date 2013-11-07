@@ -48,6 +48,8 @@
     <Compile Include="ObjectEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Window.cs" />
+    <Compile Include="WrapBaseContainer.cs" />
+    <Compile Include="WrapBaseEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">

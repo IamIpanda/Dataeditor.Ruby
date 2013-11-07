@@ -13,7 +13,8 @@ namespace DataEditor.Help
             {
                 IronRuby.Builtins.RubySymbol sym = ob as IronRuby.Builtins.RubySymbol;
                 if (sym == null) continue;
-                parameter.Arguments.Add(sym.ToString(), hash[ob]);
+                if (sym.ToString().ToUpper() == "ACTUAL") RubyActualToSymbol(parameter, hash[ob]);
+                else parameter.Arguments.Add(sym.ToString().ToUpper(), RubyCheckValue(parameter, hash[ob]));
             }
         }
         public static object RubyCheckValue(this DataEditor.Help.Parameter parameter, object target)
@@ -47,6 +48,23 @@ namespace DataEditor.Help
             foreach (var name in target.GetNames())
                 child.Arguments.Add(name, RubyCheckValue(parameter, target.Values[count++]));
             return child;
+        }
+        public static void RubyActualToSymbol(this DataEditor.Help.Parameter parameter, object value)
+        {
+            if (value is IronRuby.Builtins.RubySymbol) parameter.Arguments.Add("ACTUAL",
+                FuzzyData.FuzzySymbol.GetSymbol((value as IronRuby.Builtins.RubySymbol).ToString()));
+            else if (value is IronRuby.Builtins.Hash)
+            {
+                var actual_hash = value as IronRuby.Builtins.Hash;
+                FuzzyData.FuzzySymbolComplex ans = FuzzyData.FuzzySymbolComplex.GetSymbol("Multi" + actual_hash.GetHashCode().ToString());
+                foreach (object key in actual_hash.Keys)
+                {
+                    var child_sym = actual_hash[key] as IronRuby.Builtins.RubySymbol;
+                    if (child_sym == null) continue;
+                    ans.Extra.Add(key.ToString(), FuzzyData.FuzzySymbol.GetSymbol(child_sym.ToString()));
+                }
+                parameter.Arguments.Add("ACTUAL", ans);
+            }
         }
     }
 }

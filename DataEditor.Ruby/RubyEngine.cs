@@ -16,6 +16,7 @@ namespace DataEditor.Ruby
             LoadAssembly(typeof(RubyEngine).Assembly);
             LoadAssembly(typeof(Help.Log).Assembly);
             LoadAssembly(typeof(FuzzyData.FuzzyObject).Assembly);
+            LoadAssembly(typeof(Control.ObjectEditor).Assembly);
         }
         public object this[string key]
         {

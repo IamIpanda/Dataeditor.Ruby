@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Control.Wrapper"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Control.Prototype", "..\DataEditor\DataEditor.Control.Prototype\DataEditor.Control.Prototype.csproj", "{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Control.Window", "DataEditor.Control.Window\DataEditor.Control.Window.csproj", "{9D0F2890-FEB9-4A0B-AD23-DB7752EDDE30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D0F2890-FEB9-4A0B-AD23-DB7752EDDE30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D0F2890-FEB9-4A0B-AD23-DB7752EDDE30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D0F2890-FEB9-4A0B-AD23-DB7752EDDE30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D0F2890-FEB9-4A0B-AD23-DB7752EDDE30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

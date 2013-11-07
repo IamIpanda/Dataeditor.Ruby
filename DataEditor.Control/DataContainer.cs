@@ -7,5 +7,6 @@ namespace DataEditor.Control
     public interface DataContainer : Control.ObjectEditor
     {
         System.Windows.Forms.Control.ControlCollection Controls { get; }
+        void SetSize(System.Drawing.Size size);
     }
 }

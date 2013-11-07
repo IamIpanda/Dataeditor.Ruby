@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using IronRuby.Builtins;
 using DataEditor.Control;
+using DataEditor.Help;
 
 namespace DataEditor.Ruby
 {
@@ -25,12 +26,12 @@ namespace DataEditor.Ruby
             this.container = container;
             this.target = container.Controls;
         }
-        protected virtual DataEditor SearchControl(RubySymbol type)
+        protected virtual Control.ObjectEditor SearchControl(RubySymbol type)
         {
             throw new NotImplementedError();
         }
-        protected virtual DataEditor NotNamedControl(RubySymbol tpye) { return null; }
-        protected virtual void NotBindingControl(DataEditor Editor) { }
+        protected virtual Control.ObjectEditor NotNamedControl(RubySymbol tpye) { return null; }
+        protected virtual void NotBindingControl(Control.ObjectEditor Editor) { }
         protected virtual System.Windows.Forms.Label GetLabel(int x, int y, string text)
         {
             var Label = new System.Windows.Forms.Label();
@@ -137,7 +138,13 @@ namespace DataEditor.Ruby
             var editor = builder.SearchControl(type);
             if (editor == null) return;
             // 生成控件参数
-            var argument = editor.GetParameter(parameters);
+            // 这里认为，控件一开始就生成好了默认的参数。
+            var argument = editor.Argument;
+            // 如果没有，那么新建一个
+            if (argument == null) argument = new Parameter();
+            argument.LoadFromRubyHash(parameters);
+            editor.Argument = argument;
+            // 上传控件参数
             // 标记其父亲控件
             editor.Container = builder.container;
             // 转换成控件形式

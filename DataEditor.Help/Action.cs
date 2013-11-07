@@ -4,12 +4,15 @@ using System.Text;
 
 namespace DataEditor.Help
 {
-    public struct Change
+    public class Change
     {
         public FuzzyData.FuzzyObject New { get; set; }
         public FuzzyData.FuzzyObject Old { get; set; }
         public Change(FuzzyData.FuzzyObject old, FuzzyData.FuzzyObject _new)
-        { Old = old; New = _new; }
+        { 
+            Old = old ?? FuzzyData.FuzzyNil.Instance;
+            New = _new ?? FuzzyData.FuzzyNil.Instance;
+        }
     }
     public class Action
     {

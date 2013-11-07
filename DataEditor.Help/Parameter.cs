@@ -51,9 +51,5 @@ namespace DataEditor.Help
                 return value as string;
             }
         }
-        public class Actual
-        {
- 
-        }
     }
 }

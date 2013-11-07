@@ -37,3 +37,6 @@ X:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\IronRuby.Libraries.YAML
 X:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\Microsoft.Dynamic.dll
 X:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\Microsoft.Scripting.Debugging.dll
 X:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\Microsoft.Scripting.dll
+X:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\Ruby\Help.rb
+X:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\Ruby\Initialize.rb
+X:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\Ruby\main.rb

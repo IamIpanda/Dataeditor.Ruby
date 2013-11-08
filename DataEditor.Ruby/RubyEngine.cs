@@ -17,6 +17,7 @@ namespace DataEditor.Ruby
             LoadAssembly(typeof(Help.Log).Assembly);
             LoadAssembly(typeof(FuzzyData.FuzzyObject).Assembly);
             LoadAssembly(typeof(Control.ObjectEditor).Assembly);
+            LoadAssembly(typeof(System.Windows.Forms.Form).Assembly);
         }
         public object this[string key]
         {
@@ -25,6 +26,7 @@ namespace DataEditor.Ruby
         }
         public void LoadAssembly (System.Reflection.Assembly assembly)
         {
+            Help.Log.log("Ruby 引擎加载了程序集 " + assembly.ToString());
             engine.Runtime.LoadAssembly(assembly);
         }
         public dynamic Execute (string code)

@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using DataEditor.FuzzyData;
 
-namespace DataEditor.Control
+namespace DataEditor.Help
 {
 	public class Link
 	{
@@ -12,7 +12,7 @@ namespace DataEditor.Control
         static Link()
         { Instance = new Link(); }
         protected Link()
-        { Collection = new Dictionary<FuzzyObject,ObjectEditor>(); }
+        { Collection = new Dictionary<FuzzyObject,Control.ObjectEditor>(); }
         public FuzzyObject this[Control.ObjectEditor editor]
         {
             get { return editor.Value; }

@@ -15,7 +15,7 @@ namespace DataEditor.Ruby
         {
             InitializeComponent();
             RubyEngine engine = new RubyEngine();
-            engine.ExecuteFile("Ruby/main.rb");
+            dynamic x = engine.ExecuteFile("Ruby/main.rb");
          }
 
         private void Form1_Load(object sender, EventArgs e)

@@ -5,7 +5,7 @@ using DataEditor.Control;
 
 namespace DataEditor.Help
 {
-    static partial class Monitor
+    static public partial class Monitor
     {
         static Dictionary<FuzzyData.FuzzyObject, List<ObjectEditor>> verse
             = new Dictionary<FuzzyData.FuzzyObject, List<ObjectEditor>>();

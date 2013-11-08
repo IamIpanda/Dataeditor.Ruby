@@ -45,6 +45,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>W:\IronRuby 1.0v4\bin\IronRuby.Libraries.YAML.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Dynamic">
       <HintPath>W:\IronRuby 1.0v4\bin\Microsoft.Dynamic.dll</HintPath>
     </Reference>

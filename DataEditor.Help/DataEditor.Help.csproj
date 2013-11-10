@@ -62,6 +62,10 @@
       <Project>{d7dfc2b5-bb85-4037-b052-c4f1e3c1bde0}</Project>
       <Name>DataEditor.Contract</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataEditor.FuzzyData.Serialization.RubyMarshal\DataEditor.FuzzyData.Serialization.RubyMarshal.csproj">
+      <Project>{a9c0dc50-cec6-401b-92e3-65787c9bedc9}</Project>
+      <Name>DataEditor.FuzzyData.Serialization.RubyMarshal</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

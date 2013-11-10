@@ -7,14 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DataEditor.Ruby
+namespace DataEditor.Titan
 {
     public partial class Form1 : Form
     {
         public Form1 ()
         {
             InitializeComponent();
-            RubyEngine engine = new RubyEngine();
+            var engine = new Ruby.RubyEngine();
+            Help.Serialization.LoadFile("Test/PjVATst/Data/Actors.rvdata2");
             dynamic x = engine.ExecuteFile("Ruby/main.rb");
          }
 

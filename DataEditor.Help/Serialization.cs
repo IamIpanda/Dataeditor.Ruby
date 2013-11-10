@@ -10,13 +10,18 @@ namespace DataEditor.Help
         static Contract.Serialization Default;
         static List<Contract.Serialization> serializations = new List<Contract.Serialization>();
         static Dictionary<string, Contract.Serialization> flags = new Dictionary<string, Contract.Serialization>();
-        static Serialization() { LoadDlls(); }
+        static Serialization() { serializations.Add(new DataEditor.FuzzyData.Serialization.RubyMarshal.RubyMarshalAdapter()); LoadDlls(); }
         static void LoadDlls()
         {
             System.IO.DirectoryInfo Directory = new System.IO.DirectoryInfo("Program/Serialization");
             if (!(Directory.Exists)) Directory.Create();
             foreach (Assembly ass in Reflect.GetDirectory(Directory))
                 LoadDll(ass);
+            foreach (Contract.Serialization serialization in serializations)
+                if (serialization.GetType().Name == "RubyMarshalAdapter" || serialization.GetType().Name == "RubyMarshal")
+                    Default = serialization;
+            if (Default == null)
+                Default = serializations[0];
         }
         static void LoadDll(Assembly Ass)
         {
@@ -35,11 +40,6 @@ namespace DataEditor.Help
                     else
                         flags.Add(key, serialization);
                 }
-            foreach (Contract.Serialization serialization in serializations)
-                if (serialization.GetType().Name == "RubyMarshalAdapter" || serialization.GetType().Name == "RubyMarshal")
-                    Default = serialization;
-            if (Default == null)
-                Default = serializations[0];
         }
         static bool Fit(Type serialization)
         {

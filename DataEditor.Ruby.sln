@@ -19,6 +19,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Control.Prototyp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Control.Window", "DataEditor.Control.Window\DataEditor.Control.Window.csproj", "{9D0F2890-FEB9-4A0B-AD23-DB7752EDDE30}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Titan", "DataEditor.Titan\DataEditor.Titan.csproj", "{E506000C-8D1D-43CD-98BB-B3684D6EDFAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.FuzzyData.Extra", "DataEditor.FuzzyData.Extra\DataEditor.FuzzyData.Extra.csproj", "{3332A025-6E2B-4D9F-8A46-9F2350B39750}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.FuzzyData.Serialization", "DataEditor.FuzzyData.Serialization\DataEditor.FuzzyData.Serialization.csproj", "{51801EBF-64AB-4AD1-B509-BC9B1674D65A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.FuzzyData.Serialization.RubyMarshal", "DataEditor.FuzzyData.Serialization.RubyMarshal\DataEditor.FuzzyData.Serialization.RubyMarshal.csproj", "{A9C0DC50-CEC6-401B-92E3-65787C9BEDC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +65,22 @@ Global
 		{9D0F2890-FEB9-4A0B-AD23-DB7752EDDE30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D0F2890-FEB9-4A0B-AD23-DB7752EDDE30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D0F2890-FEB9-4A0B-AD23-DB7752EDDE30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E506000C-8D1D-43CD-98BB-B3684D6EDFAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E506000C-8D1D-43CD-98BB-B3684D6EDFAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E506000C-8D1D-43CD-98BB-B3684D6EDFAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E506000C-8D1D-43CD-98BB-B3684D6EDFAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3332A025-6E2B-4D9F-8A46-9F2350B39750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3332A025-6E2B-4D9F-8A46-9F2350B39750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3332A025-6E2B-4D9F-8A46-9F2350B39750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3332A025-6E2B-4D9F-8A46-9F2350B39750}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51801EBF-64AB-4AD1-B509-BC9B1674D65A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51801EBF-64AB-4AD1-B509-BC9B1674D65A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51801EBF-64AB-4AD1-B509-BC9B1674D65A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51801EBF-64AB-4AD1-B509-BC9B1674D65A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9C0DC50-CEC6-401B-92E3-65787C9BEDC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9C0DC50-CEC6-401B-92E3-65787C9BEDC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9C0DC50-CEC6-401B-92E3-65787C9BEDC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9C0DC50-CEC6-401B-92E3-65787C9BEDC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

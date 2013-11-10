@@ -1,4 +1,4 @@
-﻿namespace DataEditor.Ruby
+﻿namespace DataEditor.Titan
 {
     partial class Form1
     {

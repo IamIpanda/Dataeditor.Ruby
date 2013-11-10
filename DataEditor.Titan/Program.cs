@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace DataEditor.Ruby
+namespace DataEditor.Titan
 {
     static class Program
     {
@@ -11,7 +11,7 @@ namespace DataEditor.Ruby
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
-        static void Main ()
+        static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

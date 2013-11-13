@@ -5,3 +5,7 @@
 
 require "Ruby/Initialize.rb"
 require "Ruby/Help.rb"
+
+puts FData
+puts FData[1]
+puts FData[1]["name"]

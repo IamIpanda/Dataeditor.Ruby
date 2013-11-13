@@ -28,10 +28,14 @@ class <<Text
 		return ans
 	end
 end
-# 全局方法 puts 修正
-# 改为一个MessageBox
-def puts(obj)
-	System::Windows::Forms::MessageBox.Show obj.inspect
+# Data 修正。
+# 为 Data 修正了 []
+class <<Data
+	alias :old_get_value :[]
+	def [](index)
+		index = index.ToStirng() if index.is_a(String)
+		return old_get_value(index)
+	end
 end
 # FuzzyObject 修正
 # 提供了便捷的 []
@@ -39,11 +43,13 @@ class DataEditor::FuzzyData::FuzzyObject
 	alias :old_get_value :[]
 	def [](index)
 		index = index.ToString() if(index.is_a?(Symbol))
+		index = "@" + index if index[0,1] != "@"
 		return old_get_value(index)
 	end
 end
-
-t = Text.new do
-	"FUCL"
+# 全局方法 puts 修正
+# 改为一个 MessageBox
+def puts(obj)
+	System::Windows::Forms::MessageBox.Show obj.inspect
 end
-puts t
+

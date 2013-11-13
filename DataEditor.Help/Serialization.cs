@@ -17,11 +17,7 @@ namespace DataEditor.Help
             if (!(Directory.Exists)) Directory.Create();
             foreach (Assembly ass in Reflect.GetDirectory(Directory))
                 LoadDll(ass);
-            foreach (Contract.Serialization serialization in serializations)
-                if (serialization.GetType().Name == "RubyMarshalAdapter" || serialization.GetType().Name == "RubyMarshal")
-                    Default = serialization;
-            if (Default == null)
-                Default = serializations[0];
+            Default = serializations[0];
         }
         static void LoadDll(Assembly Ass)
         {

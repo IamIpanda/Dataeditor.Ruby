@@ -8,6 +8,7 @@ namespace DataEditor.Ruby
 {
     public class RubyEngine
     {
+       
         protected Microsoft.Scripting.Hosting.ScriptEngine engine;
         public Microsoft.Scripting.Hosting.ScriptEngine Engine { get { return engine; } }
         public RubyEngine ()

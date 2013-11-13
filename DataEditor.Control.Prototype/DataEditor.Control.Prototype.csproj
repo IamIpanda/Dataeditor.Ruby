@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataEditor.Control.Prototype</RootNamespace>
+    <AssemblyName>DataEditor.Control.Prototype</AssemblyName>
+    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProtoAutoSizeTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProtoDropItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoDropItem.Designer.cs">
+      <DependentUpon>ProtoDropItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProtoFullListBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoFullListBox.Designer.cs">
+      <DependentUpon>ProtoFullListBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProtoImageControl.cs" />
+    <Compile Include="ProtoImageDisplayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoIndexTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoIndexTextBox.Designer.cs">
+      <DependentUpon>ProtoIndexTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProtoIntegerMixEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoIntegerMixEditor.Designer.cs">
+      <DependentUpon>ProtoIntegerMixEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProtoIntegerText.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoIntegerText.Designer.cs">
+      <DependentUpon>ProtoIntegerText.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProtoComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProtoFrameControl.cs" />
+    <Compile Include="ProtoIntegerDisplayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoIntegerEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoLeftListBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoLeftListBox.Designer.cs">
+      <DependentUpon>ProtoLeftListBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProtoListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProtoListControl.cs" />
+    <Compile Include="ProtoListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProtoColoredListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProtoRtpViewList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProtoSelectable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoSelectable.Designer.cs">
+      <DependentUpon>ProtoSelectable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProtoTitleBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoTitleBox.Designer.cs">
+      <DependentUpon>ProtoTitleBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProtoRadioContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoRadioContainer.Designer.cs">
+      <DependentUpon>ProtoRadioContainer.cs</DependentUpon>
+    </Compile>
+    <None Include="[A]ProtoImageIndexDisplayer.cs">
+      <SubType>UserControl</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataEditor.Ruby\DataEditor.Control\DataEditor.Control.csproj">
+      <Project>{ae8bbeb5-cb95-4ad0-b7c3-f7c03ff5b352}</Project>
+      <Name>DataEditor.Control</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataEditor.Ruby\DataEditor.Help\DataEditor.Help.csproj">
+      <Project>{aafc4019-7092-4e66-9f1d-8a3ea4ba75a0}</Project>
+      <Name>DataEditor.Help</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">
+      <Project>{d7dfc2b5-bb85-4037-b052-c4f1e3c1bde0}</Project>
+      <Name>DataEditor.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataEditor\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
+      <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
+      <Name>DataEditor.FuzzyData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ProtoDropItem.resx">
+      <DependentUpon>ProtoDropItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoFullListBox.resx">
+      <DependentUpon>ProtoFullListBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoImageDisplayer.resx">
+      <DependentUpon>ProtoImageDisplayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoIndexTextBox.resx">
+      <DependentUpon>ProtoIndexTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoIntegerMixEditor.resx">
+      <DependentUpon>ProtoIntegerMixEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoIntegerText.resx">
+      <DependentUpon>ProtoIntegerText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoIntegerDisplayer.resx">
+      <DependentUpon>ProtoIntegerDisplayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoIntegerEditor.resx">
+      <DependentUpon>ProtoIntegerEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoLeftListBox.resx">
+      <DependentUpon>ProtoLeftListBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoSelectable.resx">
+      <DependentUpon>ProtoSelectable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoTitleBox.resx">
+      <DependentUpon>ProtoTitleBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoRadioContainer.resx">
+      <DependentUpon>ProtoRadioContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="[A]ProtoImageIndexDisplayer.resx">
+      <DependentUpon>[A]ProtoImageIndexDisplayer.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

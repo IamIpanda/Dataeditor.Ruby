@@ -15,8 +15,9 @@ namespace DataEditor.Titan
         {
             InitializeComponent();
             var engine = new Ruby.RubyEngine();
-            Help.Serialization.LoadFile("Test/PjVATst/Data/Actors.rvdata2");
-            dynamic x = engine.ExecuteFile("Ruby/main.rb");
+            object x = Help.Serialization.LoadFile("Test/PjVATst/Data/Actors.rvdata2");
+            engine["FData"] = x;
+            dynamic t = engine.ExecuteFile("Ruby/main.rb");
          }
 
         private void Form1_Load(object sender, EventArgs e)

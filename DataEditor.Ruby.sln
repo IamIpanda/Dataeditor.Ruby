@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.FuzzyData", "..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Control.Wrapper", "DataEditor.Control.Wrapper\DataEditor.Control.Wrapper.csproj", "{6FF3006B-22AD-4225-9B8A-DE6FBC0BA745}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Control.Prototype", "..\DataEditor\DataEditor.Control.Prototype\DataEditor.Control.Prototype.csproj", "{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Control.Window", "DataEditor.Control.Window\DataEditor.Control.Window.csproj", "{9D0F2890-FEB9-4A0B-AD23-DB7752EDDE30}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Titan", "DataEditor.Titan\DataEditor.Titan.csproj", "{E506000C-8D1D-43CD-98BB-B3684D6EDFAE}"
@@ -26,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.FuzzyData.Serialization", "DataEditor.FuzzyData.Serialization\DataEditor.FuzzyData.Serialization.csproj", "{51801EBF-64AB-4AD1-B509-BC9B1674D65A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.FuzzyData.Serialization.RubyMarshal", "DataEditor.FuzzyData.Serialization.RubyMarshal\DataEditor.FuzzyData.Serialization.RubyMarshal.csproj", "{A9C0DC50-CEC6-401B-92E3-65787C9BEDC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Control.Prototype", "DataEditor.Control.Prototype\DataEditor.Control.Prototype.csproj", "{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,10 +57,6 @@ Global
 		{6FF3006B-22AD-4225-9B8A-DE6FBC0BA745}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FF3006B-22AD-4225-9B8A-DE6FBC0BA745}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FF3006B-22AD-4225-9B8A-DE6FBC0BA745}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9D0F2890-FEB9-4A0B-AD23-DB7752EDDE30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9D0F2890-FEB9-4A0B-AD23-DB7752EDDE30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D0F2890-FEB9-4A0B-AD23-DB7752EDDE30}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -81,6 +77,10 @@ Global
 		{A9C0DC50-CEC6-401B-92E3-65787C9BEDC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9C0DC50-CEC6-401B-92E3-65787C9BEDC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9C0DC50-CEC6-401B-92E3-65787C9BEDC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -50,6 +50,7 @@
     <Compile Include="Window.cs" />
     <Compile Include="WrapBaseContainer.cs" />
     <Compile Include="WrapBaseEditor.cs" />
+    <Compile Include="WrapBaseWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">

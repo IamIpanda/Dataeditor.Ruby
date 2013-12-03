@@ -14,7 +14,7 @@ namespace DataEditor.Help
         static Collector()
         {
             DirectoryInfo directory = new DirectoryInfo("Program/Control/Wrapper");
-            if (!directory.Exists) return;
+            if (!directory.Exists) directory.Create();
             List<Assembly> la = Help.Reflect.GetDirectory(directory);
 
             foreach (Assembly ass in la)
@@ -29,7 +29,7 @@ namespace DataEditor.Help
                 foreach ( Type t in ass.GetExportedTypes() )
                 {
                     // Log.log("正在扫描类型：" + t.ToString());
-                    if ( t.IsClass && !t.IsAbstract)
+                    if ( t.IsClass && !t.IsAbstract && !t.IsGenericType)
                         foreach ( Type Inter in t.GetInterfaces() )
                             if ( Inter == basetype )
                             {

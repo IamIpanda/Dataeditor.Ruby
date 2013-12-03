@@ -46,7 +46,7 @@ namespace DataEditor.Help
             Parameter child = new Parameter();
             int count = 0;
             foreach (var name in target.GetNames())
-                child.Arguments.Add(name, RubyCheckValue(parameter, target.Values[count++]));
+                child.Arguments.Add(name.ToUpper(), RubyCheckValue(parameter, target.Values[count++]));
             return child;
         }
         public static void RubyActualToSymbol(this DataEditor.Help.Parameter parameter, object value)

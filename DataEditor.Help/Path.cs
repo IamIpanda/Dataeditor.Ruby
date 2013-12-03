@@ -33,6 +33,14 @@ namespace DataEditor.Help
                 else paths.Add(name, value); 
             }
         }
+        public string RequestPath(string name, string description)
+        {
+            if (paths.ContainsKey(name.ToUpper())) return paths[name.ToUpper()];
+            var dialog = new System.Windows.Forms.FolderBrowserDialog();
+            dialog.Description = "程序向您请求短名为 " + name + " 的文件夹。\n" + description;
+            if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK) return dialog.SelectedPath;
+            else return "";
+        }
         protected bool SearchFileByFull(string file, out string answer, string path)
         {
             string full_path = System.IO.Path.Combine(path, file);

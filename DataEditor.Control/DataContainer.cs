@@ -8,5 +8,10 @@ namespace DataEditor.Control
     {
         System.Windows.Forms.Control.ControlCollection Controls { get; }
         void SetSize(System.Drawing.Size size);
+        bool CanAdd(System.Windows.Forms.Control control);
+        int start_x { get; }
+        int start_y { get; }
+        int end_x { get; }
+        int end_y { get; }
     }
 }

@@ -25,6 +25,7 @@ namespace DataEditor.Help
         public Parameter()
         {
             Defaults = new Dictionary<string, object>();
+            Arguments = new Dictionary<string, object>();
         }
         public T GetAegument<T>(string key)
         {
@@ -39,16 +40,21 @@ namespace DataEditor.Help
         public class Text
         {
             Contract.Runable GetString { get; set; }
-            List<object> Watch { get; set; }
+            public List<object> Watch { get; set; }
             public Text(Contract.Runable get_string = null)
             {
                 GetString = get_string;
                 Watch = new List<object>();
             }
+            public Text(string default_value)
+            {
+                GetString = new Help.Return(default_value);
+                Watch = new List<object>();
+            }
             public string ToString(params object[] argument)
             {
                 object value = GetString.call(argument);
-                return value as string;
+                return value.ToString();
             }
         }
     }

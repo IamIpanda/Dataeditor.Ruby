@@ -21,6 +21,8 @@ namespace DataEditor.Ruby
 
         protected RubyBuilder(DataContainer container, int default_head_x = 0, int default_head_y = 0)
         {
+            if (default_head_x == 0) default_head_x = container.start_x;
+            if (default_head_y == 0) default_head_y = container.start_y;
             max_x = head_x = now_x = default_head_x;
             max_y = head_y = now_y = default_head_y;
             this.container = container;
@@ -28,7 +30,8 @@ namespace DataEditor.Ruby
         }
         protected virtual Control.ObjectEditor SearchControl(RubySymbol type)
         {
-            throw new NotImplementedError();
+            string name = type.ToString();
+            return Help.Collector.Instance[name] as Control.ObjectEditor;
         }
         protected virtual Control.ObjectEditor NotNamedControl(RubySymbol tpye) { return null; }
         protected virtual void NotBindingControl(Control.ObjectEditor Editor) { }
@@ -41,6 +44,7 @@ namespace DataEditor.Ruby
         }
         protected virtual System.Drawing.Size CalcLabel(int label_value, System.Windows.Forms.Label label, int width, int height)
         {
+            label.Size = label.PreferredSize;
             int extra_w = 0, extra_h = 0;
             switch (label_value)
             {
@@ -72,11 +76,11 @@ namespace DataEditor.Ruby
         }
         protected virtual void AddLabel(System.Windows.Forms.Label label)
         {
-            target.Add(label);
+            if (container.CanAdd(label)) target.Add(label);
         }
         protected virtual void AddControl(System.Windows.Forms.Control control)
         {
-            target.Add(control);
+            if (container.CanAdd(control)) target.Add(control);
         }
 
 
@@ -89,7 +93,8 @@ namespace DataEditor.Ruby
         {
             if (Builders.Count == 0) return default(System.Drawing.Size);
             var builder = Builders.Pop();
-            var size = new System.Drawing.Size(builder.max_x, builder.max_y);
+            var size = new System.Drawing.Size(builder.max_x + builder.container.end_x, builder.max_y + builder.container.end_y);
+            builder.container.SetSize(size);
             return size;
         }
         public static void Space(int space = 20)
@@ -130,13 +135,13 @@ namespace DataEditor.Ruby
         {
             // TODO : Finish it.
         }
-        public static void Push(RubySymbol type, Hash parameters, Proc after)
+        public static ObjectEditor Push(RubySymbol type, Hash parameters, IronRuby.Builtins.Proc after)
         {
             // 获得目前在顶的构造器
             var builder = Builders.Peek();
             // 检索此名称的控件
             var editor = builder.SearchControl(type);
-            if (editor == null) return;
+            if (editor == null) return null;
             // 生成控件参数
             // 这里认为，控件一开始就生成好了默认的参数。
             var argument = editor.Argument;
@@ -149,22 +154,27 @@ namespace DataEditor.Ruby
             editor.Container = builder.container;
             // 转换成控件形式
             System.Windows.Forms.Control control = editor.Binding;
-            if (control == null) { builder.NotBindingControl(editor); return; }
+            if (control == null) { builder.NotBindingControl(editor); return null; }
             // 绑定默认事件
             control.Leave += Help.Event.OnLeave;
             // 绑定关系
             control.Tag = editor;
             // 生成和计算 Label
-            var label = builder.GetLabel(builder.now_x, builder.now_y, argument.GetAegument<string>("text"));
-            var size = builder.CalcLabel(argument.GetAegument<int>("label"), label, control.Width, control.Height);
+            string label_text= argument.GetAegument<string>("text");
+            int label_argument = argument.GetAegument<int>("label");
+            var label = builder.GetLabel(builder.now_x, builder.now_y, label_text);
+            var size = builder.CalcLabel(label_argument, label, control.Width, control.Height);
             // 上传 Label
-            builder.AddLabel(label);
+            if (label_argument != 0) builder.AddLabel(label);
             // 标定位置
             control.Location = new System.Drawing.Point(builder.now_x + size.Width, builder.now_y + size.Height);
             // 结算坐标
             builder.CalcCoodinate(control, size.Width + control.Width, size.Height + control.Height);
+            // 执行块
+            if (after != null) after.Call(editor);
             // 上传控件
             builder.AddControl(control);
+            return editor;
         }
     }
 }

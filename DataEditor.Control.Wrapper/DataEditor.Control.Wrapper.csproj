@@ -37,6 +37,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Choose.cs" />
+    <Compile Include="Container\Group.cs" />
+    <Compile Include="Container\Tab.cs" />
+    <Compile Include="Container\Tabs.cs" />
+    <Compile Include="Float.cs" />
+    <Compile Include="Int.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Text.cs" />
   </ItemGroup>

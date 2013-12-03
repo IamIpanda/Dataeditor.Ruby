@@ -1,6 +1,6 @@
 ﻿namespace DataEditor.Titan
 {
-    partial class Form1
+    partial class Titan
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -30,19 +30,20 @@
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // Titan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(769, 453);
+            this.Name = "Titan";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
 
     }
 }

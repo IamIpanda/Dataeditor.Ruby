@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DataEditor.Control;
 
 namespace DataEditor.Help
 {
@@ -9,13 +10,13 @@ namespace DataEditor.Help
         static public Window Instance { get; set; }
         static Window() { Instance = new Window(); }
         protected Window() { }
-        protected Dictionary<string, System.Windows.Forms.Form> windows = new Dictionary<string, System.Windows.Forms.Form>();
-        public System.Windows.Forms.Form this[string key]
+        protected Dictionary<string, WrapBaseWindow> windows = new Dictionary<string, WrapBaseWindow>();
+        public WrapBaseWindow this[string key]
         {
             get 
             {
                 key = key.ToUpper();
-                System.Windows.Forms.Form form = null;
+                WrapBaseWindow form = null;
                 windows.TryGetValue(key, out form); 
                 return form;
             }

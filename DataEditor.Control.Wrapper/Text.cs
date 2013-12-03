@@ -17,8 +17,6 @@ namespace DataEditor.Control.Wrapper
         {
             control.Text = value.Text;
         }
-
-
         public override bool CheckValue()
         {
             return control.Text == value.Text;

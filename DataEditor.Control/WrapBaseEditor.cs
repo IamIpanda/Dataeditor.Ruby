@@ -13,13 +13,14 @@ namespace DataEditor.Control
         abstract public void Pull();
         abstract public void Bind();
         abstract public bool CheckValue();
-        abstract public string Flag { get; }
+        public bool EnableData { get; set; }
+        public virtual string Flag { get { return this.GetType().Name; } }
         public virtual DataContainer Container { get; set; }
         public virtual System.Windows.Forms.Label Label { get; set; }
         public virtual System.Windows.Forms.Control Binding { get; set; }
         protected virtual TValue ConvertToValue(FuzzyData.FuzzyObject origin) { return origin as TValue; }
 
-        public WrapBaseEditor() { Bind(); SetDefaultArgument(); }
+        public WrapBaseEditor() { Bind(); SetDefaultArgument(); EnableData = true; }
         public virtual void OnEnter(object sender, EventArgs e) { }
         public virtual void OnLeave(object sender, EventArgs e) { }
         public virtual Help.Parameter Argument
@@ -44,9 +45,13 @@ namespace DataEditor.Control
             set
             {
                 TValue ans = ConvertToValue(value);
-                if (ans == null) return;
-                this.value = ans;
-                Pull();
+                if (ans != null)
+                {
+                    Binding.Enabled = true;
+                    this.value = ans;
+                    Pull();
+                }
+                else if (Binding != null && EnableData) Binding.Enabled = false;
             }
         }
         public virtual FuzzyData.FuzzyObject Parent
@@ -66,7 +71,8 @@ namespace DataEditor.Control
         }
         protected virtual FuzzyData.FuzzyObject GetValueFromChild(FuzzyData.FuzzyObject parent, FuzzyData.FuzzySymbol symbol)
         {
-            if (parent == null || symbol == null) return null;
+            if (symbol == null || symbol.Name == "") return parent;
+            if (parent == null ) return null;
             if (symbol is FuzzyData.FuzzySymbolComplex)
             {
                 var sym = symbol as FuzzyData.FuzzySymbolComplex;
@@ -87,6 +93,16 @@ namespace DataEditor.Control
             argument = new Help.Parameter();
             argument.Defaults.Add("WIDTH", -1);
             argument.Defaults.Add("HEIGHT", -1);
+            argument.Defaults.Add("LABEL", 1);
+            argument.Defaults.Add("TEXT", "UNTITLED");
         }
+    }
+    public abstract class WrapControlEditor<TValue, TControl> : WrapBaseEditor<TValue>
+        where TValue : FuzzyData.FuzzyObject
+        where TControl : System.Windows.Forms.Control, new()
+    {
+        protected TControl Control = new TControl();
+        public override void Bind() { Binding = Control; }
+
     }
 }

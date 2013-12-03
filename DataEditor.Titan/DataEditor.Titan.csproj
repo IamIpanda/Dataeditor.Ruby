@@ -68,16 +68,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Titan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Titan.Designer.cs">
+      <DependentUpon>Titan.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Titan.resx">
+      <DependentUpon>Titan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -97,6 +97,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Ruby\File - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\File - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Ruby\Help.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -106,8 +112,31 @@
     <None Include="Ruby\main.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Ruby\test.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">
+      <Project>{d7dfc2b5-bb85-4037-b052-c4f1e3c1bde0}</Project>
+      <Name>DataEditor.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataEditor\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
+      <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
+      <Name>DataEditor.FuzzyData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Control.Window\DataEditor.Control.Window.csproj">
+      <Project>{9d0f2890-feb9-4a0b-ad23-db7752edde30}</Project>
+      <Name>DataEditor.Control.Window</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Control.Wrapper\DataEditor.Control.Wrapper.csproj">
+      <Project>{6ff3006b-22ad-4225-9b8a-de6fbc0ba745}</Project>
+      <Name>DataEditor.Control.Wrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Control\DataEditor.Control.csproj">
+      <Project>{ae8bbeb5-cb95-4ad0-b7c3-f7c03ff5b352}</Project>
+      <Name>DataEditor.Control</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataEditor.Help\DataEditor.Help.csproj">
       <Project>{aafc4019-7092-4e66-9f1d-8a3ea4ba75a0}</Project>
       <Name>DataEditor.Help</Name>

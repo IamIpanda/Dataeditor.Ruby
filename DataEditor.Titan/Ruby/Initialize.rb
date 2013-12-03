@@ -16,8 +16,9 @@ Engine     = DataEditor::Ruby::RubyEngine
 
 # Builder 修正。
 # 为 Builder 添加了块的支持。
-def Builder.Add(type,parameter,&block)
-	Builder.Push(type,parameter,block)
+def Builder.Add(type,parameter = {},&block)
+	editor = Builder.Push(type,parameter,block)
+	return editor
 end
 # Text 修正。
 # 为 Text 添加了块的支持。
@@ -30,15 +31,18 @@ class <<Text
 end
 # Data 修正。
 # 为 Data 修正了 []
+=begin
 class <<Data
 	alias :old_get_value :[]
 	def [](index)
-		index = index.ToStirng() if index.is_a(String)
+		index = index.ToStirng() if index.is_a?(String)
 		return old_get_value(index)
 	end
 end
+=end
 # FuzzyObject 修正
 # 提供了便捷的 []
+=begin
 class DataEditor::FuzzyData::FuzzyObject
 	alias :old_get_value :[]
 	def [](index)
@@ -47,9 +51,10 @@ class DataEditor::FuzzyData::FuzzyObject
 		return old_get_value(index)
 	end
 end
+=end
 # 全局方法 puts 修正
 # 改为一个 MessageBox
-def puts(obj)
+def puts(*obj)
 	System::Windows::Forms::MessageBox.Show obj.inspect
 end
 

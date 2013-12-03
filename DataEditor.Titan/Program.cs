@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 namespace DataEditor.Titan
 {
+    class WrapTitan : DataEditor.Control.Window.EditorWindow.WrapEditorWindow<Titan> { }
     static class Program
     {
         /// <summary>
@@ -15,7 +16,9 @@ namespace DataEditor.Titan
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            WrapTitan titan = new WrapTitan();
+            DataEditor.Help.Window.Instance["main"] = titan;
+            Application.Run(titan.Window);
         }
     }
 }

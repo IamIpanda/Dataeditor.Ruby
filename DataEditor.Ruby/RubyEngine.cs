@@ -49,7 +49,9 @@ namespace DataEditor.Ruby
             }
             catch ( Exception ex )
             {
-                throw ex;
+                System.Windows.Forms.MessageBox.Show("Titan Rock the Ground！\n" + ex.ToString(), "Ruby 程序执行错误",
+                    System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                return null;
             }
         }
     }

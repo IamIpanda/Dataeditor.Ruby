@@ -8,7 +8,7 @@ namespace DataEditor.FuzzyData
     {
         public FuzzyComplex() { consistence = new Dictionary<string, FuzzyObject>(); }
         public Dictionary<string, FuzzyObject> consistence { get; set; }
-        public FuzzyObject this[string index]
+        public new FuzzyObject this[string index]
         {
             get { FuzzyObject answer = null; consistence.TryGetValue(index, out answer); return answer; }
         }
@@ -31,7 +31,7 @@ namespace DataEditor.FuzzyData
     {
         protected FuzzySymbolComplex(string s) : base(s) { Extra = new Dictionary<string, FuzzySymbol>(); }
         public Dictionary<string, FuzzySymbol> Extra { get; set; }
-        public static FuzzySymbolComplex GetSymbol(string text)
+        public new static FuzzySymbolComplex GetSymbol(string text)
         {
             var list = GetSymbols();
             if (list.ContainsKey(text) && list[text] is FuzzySymbolComplex) return list[text] as FuzzySymbolComplex;

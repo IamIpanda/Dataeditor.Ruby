@@ -10,6 +10,7 @@ Path       = DataEditor::Help::Path.Instance
 Log        = DataEditor::Help::Log
 
 Text       = DataEditor::Help::Parameter::Text
+Split      = DataEditor::Help::Parameter::Split
 
 Builder    = DataEditor::Ruby::RubyBuilder
 Engine     = DataEditor::Ruby::RubyEngine
@@ -29,32 +30,12 @@ class <<Text
 		return ans
 	end
 end
-# Data 修正。
-# 为 Data 修正了 []
-=begin
-class <<Data
-	alias :old_get_value :[]
-	def [](index)
-		index = index.ToStirng() if index.is_a?(String)
-		return old_get_value(index)
-	end
-end
-=end
-# FuzzyObject 修正
-# 提供了便捷的 []
-=begin
-class DataEditor::FuzzyData::FuzzyObject
-	alias :old_get_value :[]
-	def [](index)
-		index = index.ToString() if(index.is_a?(Symbol))
-		index = "@" + index if index[0,1] != "@"
-		return old_get_value(index)
-	end
-end
-=end
 # 全局方法 puts 修正
 # 改为一个 MessageBox
 def puts(*obj)
 	System::Windows::Forms::MessageBox.Show obj.inspect
 end
-
+class Split
+	COUNT = DataEditor::Help::Parameter::Split::SplitType.Count
+	VALUE = DataEditor::Help::Parameter::Split::SplitType.Value
+end

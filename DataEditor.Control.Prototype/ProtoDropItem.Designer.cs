@@ -35,13 +35,14 @@
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button1.Location = new System.Drawing.Point(614, 0);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
+            this.button1.Location = new System.Drawing.Point(253, 0);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(67, 215);
+            this.button1.Size = new System.Drawing.Size(25, 22);
             this.button1.TabIndex = 4;
             this.button1.Text = "∷";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // protoSelectable1
             // 
@@ -49,7 +50,7 @@
             this.protoSelectable1.Location = new System.Drawing.Point(0, 0);
             this.protoSelectable1.Margin = new System.Windows.Forms.Padding(6);
             this.protoSelectable1.Name = "protoSelectable1";
-            this.protoSelectable1.Size = new System.Drawing.Size(614, 215);
+            this.protoSelectable1.Size = new System.Drawing.Size(253, 22);
             this.protoSelectable1.TabIndex = 6;
             this.protoSelectable1.DoubleClick += new System.EventHandler(this.protoSelectable1_DoubleClick);
             // 
@@ -61,7 +62,7 @@
             this.Controls.Add(this.protoSelectable1);
             this.Controls.Add(this.button1);
             this.Name = "ProtoDropItem";
-            this.Size = new System.Drawing.Size(681, 215);
+            this.Size = new System.Drawing.Size(278, 22);
             this.Resize += new System.EventHandler(this.ProtoDropItem_Resize);
             this.ResumeLayout(false);
 

@@ -118,7 +118,7 @@ namespace DataEditor.Control.Prototype
         }
         static ProtoImageBackgroundDisplayer()
         {
-            LoadSettings();
+            //LoadSettings();
         }
         static public void SaveSettings()
         {

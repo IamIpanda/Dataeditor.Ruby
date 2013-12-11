@@ -18,9 +18,16 @@ class Help
 			Help.Auto_Get_Text(*args)
 		end
 	end
-	def self.VX_Image_Split
-		
-	end
+	VX_IMAGE_SPLIT = 
+	{
+		""  => Split.new(Split::COUNT,4,Split::COUNT,2),
+		"$" => Split.new(Split::COUNT,1,Split::COUNT,1)
+	}	
+	VX_IMAGE_SHOW = 
+	{
+		""  => Split.new(Split::COUNT,3,Split::COUNT,4,1,0),
+		"!" => Split.new(Split::COUNT,1,Split::COUNT,4,0,0)		
+	}
 end
 
 Color = Struct.new(:red,:green,:blue,:alpha)
@@ -32,7 +39,6 @@ Filechoice = Struct.new(:data,:id,:filter,:text,:watch) do
 		self.id = id
 		self.filter = filter
 		self.text = Help.Get_Default_Text
-		puts self.text
 		self.watch = []
 	end
 end

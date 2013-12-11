@@ -57,5 +57,51 @@ namespace DataEditor.Help
                 return value.ToString();
             }
         }
+        public class Split
+        {
+            public enum SplitType { Count, Value };
+            public SplitType TypeX { get; set; }
+            public SplitType TypeY { get; set; }
+            public int ValueX { get; set; }
+            public int ValueY { get; set; }
+            public int LastXIndex { get; set; }
+            public int LastYIndex { get; set; }
+            public int LastWidth { get; set; }
+            public int LastHeight { get; set; }
+            public System.Drawing.Rectangle this[int x = -1, int y = -1, int w = -1, int h = -1]
+            {
+                get
+                {
+                    if (x == -1) x = LastXIndex; else LastXIndex = x;
+                    if (y == -1) y = LastYIndex; else LastYIndex = y;
+                    if (w == -1)  w= LastWidth; else LastHeight = w;
+                    if (h == -1) h = LastHeight; else LastHeight = h;
+                    int count_x = TypeX == SplitType.Count ? ValueX : w / ValueX;
+                    int count_y = TypeY == SplitType.Count ? ValueY : h / ValueY;
+                    int part_w = w / count_x;
+                    int part_h = h / count_y;
+                    return new System.Drawing.Rectangle(x * part_w, y * part_h, part_w, part_h);
+                }
+            }
+            public System.Drawing.Rectangle this[int index, int w = -1, int h = -1]
+            {
+                get
+                {
+                    if (w == -1) w = LastWidth; else LastHeight = w;
+                    if (h == -1) h = LastHeight; else LastHeight = h;
+                    int count_x = TypeX == SplitType.Count ? ValueX : w / ValueX;
+                    return this[index % count_x, index / count_x, w, h];
+                }
+            }
+            public Split(SplitType type_x, int x_value, SplitType type_y, int y_value, int x = 0, int y = 0)
+            {
+                this.TypeX = type_x;
+                this.TypeY = type_y;
+                this.ValueX = x_value;
+                this.ValueY = y_value;
+                LastXIndex = x;
+                LastYIndex = y;
+            }
+        }
     }
 }

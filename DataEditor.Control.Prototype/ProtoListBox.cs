@@ -66,7 +66,8 @@ namespace DataEditor.Control.Prototype
         protected Brush GetBackColor(DrawItemEventArgs e)
         {
             int index = e.Index;
-            Color color = BackColors[index];
+            Color color = default(Color);
+            BackColors.TryGetValue(index, out color);
             if (color != default(Color))
                 return new SolidBrush(CheckEnabled(color));
             index %= ProtoListControlHelp.DefaultBackColors.Count;
@@ -77,7 +78,9 @@ namespace DataEditor.Control.Prototype
             DrawItemState state = e.State;
             if (GetFocused(state))
                 return new SolidBrush(CheckEnabled(ProtoListControlHelp.DefaultForeColorOnFocus));
-            Color color = ForeColors[e.Index];
+            //Color color = ForeColors[e.Index];
+            Color color = default(Color);
+            ForeColors.TryGetValue(e.Index, out color);
             if (color != default(Color))
                 return new SolidBrush(CheckEnabled(color));
             else return new SolidBrush(CheckEnabled(ForeColor));

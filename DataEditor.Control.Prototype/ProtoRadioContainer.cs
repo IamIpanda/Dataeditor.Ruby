@@ -49,6 +49,5 @@ namespace DataEditor.Control.Prototype
             get { return (int)tableLayoutPanel1.ColumnStyles[0].Width; }
             set { tableLayoutPanel1.ColumnStyles[0].Width = value; }
         }
-        public new System.Windows.Forms.Control.ControlCollection Controls { get { return panel1.Controls; } }
     }
 }

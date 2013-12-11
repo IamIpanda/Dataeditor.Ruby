@@ -125,6 +125,10 @@
       <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
       <Name>DataEditor.FuzzyData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Control.Prototype\DataEditor.Control.Prototype.csproj">
+      <Project>{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}</Project>
+      <Name>DataEditor.Control.Prototype</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataEditor.Control.Window\DataEditor.Control.Window.csproj">
       <Project>{9d0f2890-feb9-4a0b-ad23-db7752edde30}</Project>
       <Name>DataEditor.Control.Window</Name>

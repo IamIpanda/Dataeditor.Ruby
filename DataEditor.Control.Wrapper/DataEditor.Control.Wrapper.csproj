@@ -33,15 +33,25 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Choose.cs" />
+    <Compile Include="Complex.cs" />
     <Compile Include="Container\Group.cs" />
+    <Compile Include="Container\List.cs" />
     <Compile Include="Container\Tab.cs" />
     <Compile Include="Container\Tabs.cs" />
     <Compile Include="Float.cs" />
+    <Compile Include="Image.cs" />
+    <Compile Include="Image.Choser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Image.Choser.Designer.cs">
+      <DependentUpon>Image.Choser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Int.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Text.cs" />
@@ -59,6 +69,10 @@
       <Project>{02449edb-b4b5-47e6-ad29-7cc1c8b0bf09}</Project>
       <Name>DataEditor.Control.Prototype</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Control.Window\DataEditor.Control.Window.csproj">
+      <Project>{9d0f2890-feb9-4a0b-ad23-db7752edde30}</Project>
+      <Name>DataEditor.Control.Window</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataEditor.Control\DataEditor.Control.csproj">
       <Project>{ae8bbeb5-cb95-4ad0-b7c3-f7c03ff5b352}</Project>
       <Name>DataEditor.Control</Name>
@@ -67,6 +81,11 @@
       <Project>{aafc4019-7092-4e66-9f1d-8a3ea4ba75a0}</Project>
       <Name>DataEditor.Help</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Image.Choser.resx">
+      <DependentUpon>Image.Choser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

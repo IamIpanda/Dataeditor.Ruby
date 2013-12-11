@@ -7,27 +7,19 @@ using System.Drawing;
 
 namespace DataEditor.Control.Prototype
 {
-    // TODO : Rebuild it
     public class ProtoImageIndexDisplayer : ProtoImageBackgroundDisplayer
     {
         public event EventHandler<EventArgs> SelectedIndexChanged;
         Pen WhitePen, BlackPen;
-        [System.ComponentModel.Browsable(false)]
-        public int Index {
-            get
-            {
-                if ( Rect == null ) return 0;
-                return Rect[Rect.X, Rect.Y];
-            }
-            set { if ( Rect == null ) return; Rect.SetIndex(value); OnSelectedIndexChanged(); }
-        }
-        public Adapter.AdvanceImage.AdvanceImageRect Rect { get; set; }
-        public Adapter.AdvanceImage Value { get; set; }
-
+        public Size ClipSize { get; set; }
+        public int Index { get; set; }
+        
         public ProtoImageIndexDisplayer ()
         {
             this.WhitePen = new Pen(Color.White, 2F);
             this.BlackPen = new Pen(Color.Black, 0.2F);
+            this.ClipSize = new System.Drawing.Size(32, 32);
+            this.Index = 0;
             InitializeComponent();
             this.SelectedIndexChanged += ProtoImageIndexDisplayer_SelectedIndexChanged;
             this.SetStyle(ControlStyles.Selectable, true);
@@ -40,18 +32,23 @@ namespace DataEditor.Control.Prototype
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            if ( bitmap == null || Rect == null ) return;
-            Rectangle r = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-            Rectangle ans = Rect.Split(r);
+            if ( bitmap == null ) return;
+            int x_count = bitmap.Width / ClipSize.Width;
+            int x = Index % x_count * ClipSize.Width;
+            int y = Index / x_count * ClipSize.Height;
+            Rectangle ans = new Rectangle(x, y, ClipSize.Width, ClipSize.Height);
             if ( Blocks > 1 ) e.Graphics.DrawRectangle(WhitePen, ans.X + 1, ans.Y + 1, ans.Width - 2.5F, ans.Height - 2.5F);
         }
 
         private void WrapImageDisplayer_MouseClick(object sender, MouseEventArgs e)
         {
             if (base.bitmap == null) return;
-            if ( Rect == null ) return;
-            Rect.SetIndex(e.X, e.Y);
-            this.Index = Rect[Rect.X, Rect.Y];
+            int x_count = bitmap.Width / ClipSize.Width;
+            int y_count = bitmap.Height / ClipSize.Height;
+            int x = e.X / ClipSize.Width;
+            int y = e.Y / ClipSize.Height;
+            if (x >= x_count || y >= y_count) return;
+            Index = y * x_count + x;
             OnSelectedIndexChanged();
         }
 
@@ -59,23 +56,18 @@ namespace DataEditor.Control.Prototype
         {
             get 
             {
-                if (base.bitmap == null) return 0;
-                if ( Rect == null ) return 0;
-                return Rect.Blocks;
+                if (Bitmap == null) return 0;
+                return Bitmap.Width / ClipSize.Width * Bitmap.Height / ClipSize.Height;
             }
-        }
-
-        private void ProtoImageIndexDisplayer_KeyDown(object sender, KeyEventArgs e)
-        {
-            //MessageBox.Show("SHIT");
         }
 
         protected void ChangeIndex (int x, int y)
         {
-            if ( Rect == null ) return;
-            int index = this.Index + Rect[x, y];
-            if ( index < 0 ) while ( index < 0 ) index += Rect.Blocks;
-            index %= Rect.Blocks;
+            if (base.bitmap == null) return;
+            int x_count = bitmap.Width / ClipSize.Width;
+            int index = Index + y * x_count + x;
+            while (index < 0) index += Blocks;
+            while (index > Blocks) index -= Blocks;
             this.Index = index;
             OnSelectedIndexChanged();
         }
@@ -84,6 +76,7 @@ namespace DataEditor.Control.Prototype
         {
             if ( SelectedIndexChanged != null )
                 SelectedIndexChanged(this, new EventArgs());
+            Invalidate();
         }
 
 
@@ -95,7 +88,6 @@ namespace DataEditor.Control.Prototype
             // 
             this.Name = "ProtoImageIndexDisplayer";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ProtoImageIndexDisplayer_KeyDown_1);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ProtoImageIndexDisplayer_KeyDown);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.WrapImageDisplayer_MouseClick);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.ProtoImageIndexDisplayer_PreviewKeyDown);
             this.ResumeLayout(false);

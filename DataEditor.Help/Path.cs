@@ -86,7 +86,7 @@ namespace DataEditor.Help
 
 
 
-        static class RTPManager
+        static public class RTPManager
         {
             static private List<Color> colors = new List<Color>()
             {

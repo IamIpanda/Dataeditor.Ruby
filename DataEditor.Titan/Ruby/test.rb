@@ -7,8 +7,8 @@ Path["project"] = "Test/PjVATst"
 Path.RequestPath("project","请选择工程文件夹")
 require "Ruby/File - va.rb"
 Builder.In(Window["Main"])
-Builder.In(Builder.Add(:tabs, {}))
-	Builder.In(Builder.Add(:tab, {:text => "www"}))
+Builder.Add(:tabs) do
+	Builder.Add(:tab, {:text => "www"}) do
 		Builder.Add(:text,{:text => "FUCK"})
 		Builder.Add(:int,{:text => "WTF" , :maxvalue => 1000})
 		Builder.Add(:float, {:text => "Floats", :digit => 3})
@@ -26,15 +26,33 @@ Builder.In(Builder.Add(:tabs, {}))
 		window = Proc.new do |window, value|
 			window.Binding.Text = "我是傻雕"
 			Builder.In(window)
-				Builder.Add(:choose, {:text => "RUSB?", :choice => {-1 => "Yes!", 0 => "Of course!"}})
+				Builder.Add(:choose, {:text => "你是傻逼吧？", :choice => {-1 => "Yes!", 0 => "Of course!"}})
 			Builder.Out
 			window.Binding.Height = 600
 		end
-		Builder.Add(:complex, {:text => "drop_item", :text => text, :window => window})
-	Builder.Out
-	Builder.In(Builder.Add(:tabs, {}))
-		#Builder.In(Builder.Add(:list, {:text => Help.Get_Default_Text}))
-			
-		#Builder.Out
-	Builder.Out
-Builder.Out
+		Builder.Add(:complex, {:text => "drop_item", :textbook => text, :window => window})
+	end
+	Builder.Add(:tab) do
+		x = Builder.Add(:list, {:textbook => Help.Get_Default_Text})
+		x.Value = Data["actor"]
+	end
+	Builder.Add(:tab , {:text => "我是傻逼"}) do
+		#Builder.Add(:textlist, {:choice => ["A","B","C","D","E","F"], :value => [1,2,3,4,5,6,7], :default => "C"})
+		window = Proc.new do |window, value|
+
+		end
+		text = []
+		text[0] = Text.new { |value, *args| value[:id].to_s }
+		text[1] = Text.new do |value, watch, *args|
+			"测试"
+		end
+		columns = ["学会的等级", "技能"]
+		Builder.Add(:view, {
+			:text => "ListViewTest",
+			:catalogue => text, 
+			:window => window,
+			:new => nil
+	  })
+		end
+	end
+#Builder.Out

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DataEditor.FuzzyData;
 
 namespace DataEditor.Titan
 {
@@ -18,6 +19,7 @@ namespace DataEditor.Titan
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            new DataEditor.Control.Wrapper.Container.List();
             Help.Path.Instance["project"] = "Test/PjVATst/";
             Help.Collector.AddAssembly(typeof(DataEditor.Control.Window.EditorWindow).Assembly);
             Help.Collector.AddAssembly(typeof(DataEditor.Control.Wrapper.Text).Assembly);

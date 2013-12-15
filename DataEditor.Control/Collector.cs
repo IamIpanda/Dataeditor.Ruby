@@ -29,15 +29,15 @@ namespace DataEditor.Help
                 foreach ( Type t in ass.GetExportedTypes() )
                 {
                     // Log.log("正在扫描类型：" + t.ToString());
-                    if ( t.IsClass && !t.IsAbstract && !t.IsGenericType)
-                        foreach ( Type Inter in t.GetInterfaces() )
-                            if ( Inter == basetype )
-                            {
-                                object o = ass.CreateInstance(t.FullName);
-                                string key = (o as DataEditor.Control.ObjectEditor).Flag;
-                                if ( !Types.ContainsKey(key) )
-                                { Types.Add(key, t); Log.log("导入了类型：[" + key + "]" + t.ToString()); }
-                            }
+                    if (!t.IsClass || t.IsAbstract || t.IsGenericType) continue;
+                    foreach ( Type Inter in t.GetInterfaces() )
+                        if ( Inter == basetype )
+                        {
+                            object o = ass.CreateInstance(t.FullName);
+                            string key = (o as DataEditor.Control.ObjectEditor).Flag;
+                            if ( !Types.ContainsKey(key) )
+                            { Types.Add(key, t); Log.log("导入了类型：[" + key + "]" + t.ToString()); }
+                        }
                 }
             }
         }

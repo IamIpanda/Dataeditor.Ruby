@@ -37,6 +37,4 @@ X:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.Ruby.dll.con
 X:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.Ruby.dll
 X:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\obj\Debug\DataEditor.Ruby.dll
 X:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.dll
-X:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.FuzzyData.Serialization.dll
 X:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.pdb
-X:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.FuzzyData.Serialization.pdb

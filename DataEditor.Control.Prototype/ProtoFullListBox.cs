@@ -15,7 +15,7 @@ namespace DataEditor.Control.Prototype
         {
             InitializeComponent();
         }
-        public new System.Windows.Forms.Control.ControlCollection Controls
+        public System.Windows.Forms.Control.ControlCollection InnerControls
         {
             get { return panel1.Controls; }
         }

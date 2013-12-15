@@ -4,39 +4,62 @@ using System.Text;
 
 namespace DataEditor.Control.Wrapper.Container
 {
-    // TODO: Finish it.
     public class List : WrapControlContainer<Prototype.ProtoFullListBox>
     {
-        public override string Flag { get { return "List"; } }
+        FuzzyData.FuzzyArray target_array;
+        public override string Flag { get { return "list"; } }
         public override FuzzyData.FuzzyObject Value
         {
-            get { return GetValue(Control.SelectedIndex); }
-            set { base.Value = value; }
+            get
+            {
+                if (value == null || catalogue == null) return null;
+                int j = Control.SelectedIndex;
+                if (j < 0) return null;
+                int i = catalogue.Link.Reverse[j];
+                return target_array[i] as FuzzyData.FuzzyObject;
+            }
+            set 
+            {
+                base.Value = value;
+            }
+        }
+        public override void Pull()
+        {
+            target_array = base.Value as FuzzyData.FuzzyArray;
+            if (target_array == null) return;
+            catalogue.InitializeText(target_array.list);
         }
 
         public override void Reset()
         {
-
+            var text = argument.GetAegument<Help.Parameter.Text>("TEXTBOOK");
+            var filter = argument.GetAegument<Contract.Runable>("FILTER");
+            catalogue = new Help.Catalogue(Control.Items, text, filter);
+            Control.Dock = System.Windows.Forms.DockStyle.Fill;
         }
-        protected Help.Parameter.Text text;
-        void RefreshText(int index = -1)
+        protected override void SetDefaultArgument()
         {
-            if (index < 0) { for (int i = 0; i < Control.Items.Count; i++) RefreshText(i); return; }
-            if (text != null) Control.Items[index] = text.ToString(index, text.Watch, index);
+            base.SetDefaultArgument();
+            argument.Defaults.Add("TEXTBOOK", new Help.Parameter.Text("卖萌的阿尔西斯"));
+            argument.Defaults.Add("FILTER", null);
         }
-        FuzzyData.FuzzyObject GetValue(int index)
-        {
-            throw new NotImplementedException();
-        }
+        protected Help.Catalogue catalogue = null;
         public override void Bind()
         {
             base.Bind();
             Control.SelectedIndexChanged += Control_SelectedIndexChanged;
         }
+        public override System.Windows.Forms.Control.ControlCollection Controls
+        {
+            get
+            {
+                return Control.InnerControls;
+            }
+        }
 
         void Control_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            base.Pull();
         }
     }
 }

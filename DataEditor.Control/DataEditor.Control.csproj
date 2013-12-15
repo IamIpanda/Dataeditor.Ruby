@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Catalogue.cs" />
     <Compile Include="Collector.cs" />
     <Compile Include="DataContainer.cs" />
     <Compile Include="Event.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Window.cs" />
     <Compile Include="WrapBaseContainer.cs" />
     <Compile Include="WrapBaseEditor.cs" />
+    <Compile Include="WrapBaseValueContainer.cs" />
     <Compile Include="WrapBaseWindow.cs" />
   </ItemGroup>
   <ItemGroup>

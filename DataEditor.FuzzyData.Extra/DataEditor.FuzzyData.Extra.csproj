@@ -54,10 +54,6 @@
       <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
       <Name>DataEditor.FuzzyData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataEditor.FuzzyData.Serialization\DataEditor.FuzzyData.Serialization.csproj">
-      <Project>{51801ebf-64ab-4ad1-b509-bc9b1674d65a}</Project>
-      <Name>DataEditor.FuzzyData.Serialization</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

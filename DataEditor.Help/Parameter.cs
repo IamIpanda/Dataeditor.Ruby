@@ -13,6 +13,7 @@ namespace DataEditor.Help
     ///     runable
     ///     color
     ///     text
+    ///     split
     ///     list
     ///     dictionary
     ///     parameter
@@ -37,25 +38,31 @@ namespace DataEditor.Help
             if (ob is T) return (T)ob;
             return default(T);
         }
-        public class Text
+        public class Text : ICloneable
         {
             Contract.Runable GetString { get; set; }
-            public List<object> Watch { get; set; }
+            public List<FuzzyData.FuzzyObject> Watch { get; set; }
             public Text(Contract.Runable get_string = null)
             {
                 GetString = get_string;
-                Watch = new List<object>();
+                Watch = new List<FuzzyData.FuzzyObject>();
+            }
+            public Text(Text origin) 
+            {
+                GetString = origin.GetString;
+                Watch = new List<FuzzyData.FuzzyObject>();
             }
             public Text(string default_value)
             {
                 GetString = new Help.Return(default_value);
-                Watch = new List<object>();
+                Watch = new List<FuzzyData.FuzzyObject>();
             }
-            public string ToString(params object[] argument)
+            public virtual string ToString(params object[] argument)
             {
                 object value = GetString.call(argument);
                 return value.ToString();
             }
+            public object Clone() { return new Text(this); }
         }
         public class Split
         {

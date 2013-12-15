@@ -68,7 +68,7 @@ namespace DataEditor.Control.Wrapper
         public FuzzyData.FuzzyComplex Value { get; set; }
         public string Path { get; set; }
         public Image.SplitManager Split { get; set; }
-        public Image.SplitManager Show { get; set; }
+        public new Image.SplitManager Show { get; set; }
         public Image_Choser()
         {
             InitializeComponent();

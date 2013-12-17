@@ -20,6 +20,8 @@ namespace DataEditor.Control.Prototype
             set { radioButton1.Text = value; }
         }
 
+        public RadioButton Radio { get { return radioButton1; } }
+
         private void radioButton1_SizeChanged(object sender, EventArgs e)
         {
             ResetRadio();
@@ -37,7 +39,6 @@ namespace DataEditor.Control.Prototype
                 (panel2.Height - radioButton1.Height) / 2);
         }
 
-        public RadioButton Radio { get { return radioButton1; } }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {

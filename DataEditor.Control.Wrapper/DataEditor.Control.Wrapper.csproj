@@ -38,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buuton.cs" />
     <Compile Include="Choose.cs" />
     <Compile Include="Complex.cs" />
     <Compile Include="Container\Group.cs" />

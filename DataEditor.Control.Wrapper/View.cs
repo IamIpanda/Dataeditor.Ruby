@@ -7,7 +7,7 @@ namespace DataEditor.Control.Wrapper
 {
     public class View : DataEditor.Control.WrapControlEditor<FuzzyData.FuzzyArray, Prototype.ProtoListView>
     {
-        public override string Flag { get { return "View"; } }
+        public override string Flag { get { return "view"; } }
         protected FuzzyData.FuzzyObject model = null;
         protected MultiCatalogue catalogue = null;
 

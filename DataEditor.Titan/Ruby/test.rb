@@ -51,8 +51,20 @@ Builder.Add(:tabs) do
 			:text => "ListViewTest",
 			:catalogue => text, 
 			:window => window,
-			:new => nil
+			:columns => columns,
+			:new => nil,
+			:width => 600,
+			:height => 400
 	  })
+		end
+		block = Proc.new { puts "Yes you are SB!" }
+		Builder.Add(:tab, {}) do
+			Builder.Add(:radio , {:group => "SB_GROUP_FOR_TEST", :key => 1000 , :text => "Untitled"}) do
+				Builder.Add(:button, {:text => "I'm SB", :run => block}) 
+			end
+			Builder.Add(:radio , {:group => "SB_GROUP_FOR_TEST", :key => 2000 , :text => "Vntitled"})
+			Builder.Add(:radio , {:group => "SB_GROUP_FOR_TEST", :key => 3000 , :text => "Wntitled"})
+			Builder.Add(:radio , {:group => "SB_GROUP_FOR_TEST", :key => 4000 , :text => "Xntitled"})
 		end
 	end
 #Builder.Out

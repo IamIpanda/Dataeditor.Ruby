@@ -28,7 +28,7 @@ namespace DataEditor.Help
             Defaults = new Dictionary<string, object>();
             Arguments = new Dictionary<string, object>();
         }
-        public T GetAegument<T>(string key)
+        public T GetArgument<T>(string key)
         {
             key = key.ToUpper();
             object ob = null;

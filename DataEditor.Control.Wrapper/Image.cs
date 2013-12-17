@@ -57,8 +57,8 @@ namespace DataEditor.Control.Wrapper
         }
         public override void Reset()
         {
-            var splits = argument.GetAegument<Dictionary<object, object>>("SPLIT");
-            var shows = argument.GetAegument<Dictionary<object, object>>("SHOW");
+            var splits = argument.GetArgument<Dictionary<object, object>>("SPLIT");
+            var shows = argument.GetArgument<Dictionary<object, object>>("SHOW");
             foreach (var pair in splits)
                 if (pair.Value is Help.Parameter.Split)
                     Split.Main.Add(pair.Key.ToString(), pair.Value as Help.Parameter.Split);
@@ -79,7 +79,7 @@ namespace DataEditor.Control.Wrapper
             var file_name = Value["name"] as FuzzyData.FuzzyString;
             var file_index = Value["index"] as FuzzyData.FuzzyFixnum;
             var file_hue = Value["hue"] as FuzzyData.FuzzyFixnum;
-            string path = argument.GetAegument<string>("PATH");
+            string path = argument.GetArgument<string>("PATH");
             if (file_name == null) return;
             string string_file_name = System.IO.Path.Combine(path, file_name.Text);
             string file = "";
@@ -107,7 +107,7 @@ namespace DataEditor.Control.Wrapper
             Image_Choser choser = new Image_Choser();
             choser.Split = Split;
             choser.Show = Show;
-            choser.Path = argument.GetAegument<string>("PATH");
+            choser.Path = argument.GetArgument<string>("PATH");
             choser.ShowDialog();
         }
     }

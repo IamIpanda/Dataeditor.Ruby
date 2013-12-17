@@ -35,9 +35,9 @@ namespace DataEditor.Control.Wrapper
         {
             base.Reset();
             if (Binding == null) return;
-            Control.Maximum = argument.GetAegument<int>("MAXVALUE");
-            Control.Minimum = argument.GetAegument<int>("MINVALUE");
-            Control.Increment = (decimal)argument.GetAegument<double>("INCREMENT");
+            Control.Maximum = argument.GetArgument<int>("MAXVALUE");
+            Control.Minimum = argument.GetArgument<int>("MINVALUE");
+            Control.Increment = (decimal)argument.GetArgument<double>("INCREMENT");
         }
     }
 }

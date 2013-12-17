@@ -33,7 +33,7 @@ namespace DataEditor.Control.Wrapper
         void Control_ButtonClicked(object sender, EventArgs e)
         {
             var dialog = new Window.WindowWithOK.WrapWindowWithOK<Window.WindowWithOK>();
-            var builder = argument.GetAegument<Contract.Runable>("WINDOW");
+            var builder = argument.GetArgument<Contract.Runable>("WINDOW");
             if (builder == null) return;
             builder.call(dialog, value);
             if (dialog.Show() == System.Windows.Forms.DialogResult.OK)
@@ -43,7 +43,7 @@ namespace DataEditor.Control.Wrapper
         }
         void RefreshText()
         {
-            var text = argument.GetAegument<Help.Parameter.Text>("TEXT");
+            var text = argument.GetArgument<Help.Parameter.Text>("TEXT");
             if (text == null) return;
             Control.Text = text.ToString(value);
             Control.Invalidate();

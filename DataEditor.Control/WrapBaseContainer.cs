@@ -24,8 +24,8 @@ namespace DataEditor.Control
         public override void Reset()
         {
             base.Reset();
-            Binding.BackColor = argument.GetAegument<System.Drawing.Color>("BACKCOLOR");
-            Binding.Text = argument.GetAegument<string>("TEXT");
+            Binding.BackColor = argument.GetArgument<System.Drawing.Color>("BACKCOLOR");
+            Binding.Text = argument.GetArgument<string>("TEXT");
         }
         protected override void SetDefaultArgument()
         {

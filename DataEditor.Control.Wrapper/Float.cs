@@ -35,10 +35,10 @@ namespace DataEditor.Control.Wrapper
         {
             base.Reset();
             if (Binding == null) return;
-            Control.Maximum = argument.GetAegument<int>("MAXVALUE");
-            Control.Minimum = argument.GetAegument<int>("MINVALUE");
-            Control.DecimalPlaces = argument.GetAegument<int>("DIGIT");
-            Control.Increment = (decimal)argument.GetAegument<double>("INCREMENT");
+            Control.Maximum = argument.GetArgument<int>("MAXVALUE");
+            Control.Minimum = argument.GetArgument<int>("MINVALUE");
+            Control.DecimalPlaces = argument.GetArgument<int>("DIGIT");
+            Control.Increment = (decimal)argument.GetArgument<double>("INCREMENT");
         }
     }
 }

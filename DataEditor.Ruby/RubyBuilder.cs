@@ -160,8 +160,8 @@ namespace DataEditor.Ruby
             // 绑定关系
             control.Tag = editor;
             // 生成和计算 Label
-            string label_text= argument.GetAegument<string>("text");
-            int label_argument = argument.GetAegument<int>("label");
+            string label_text= argument.GetArgument<string>("text");
+            int label_argument = argument.GetArgument<int>("label");
             var label = builder.GetLabel(builder.now_x, builder.now_y, label_text);
             var size = builder.CalcLabel(label_argument, label, control.Width, control.Height);
             // 上传 Label

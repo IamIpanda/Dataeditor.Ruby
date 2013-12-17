@@ -44,10 +44,14 @@ namespace DataEditor.Control.Prototype
             panel1.Enabled = radioButton1.Checked;
         }
 
-        protected int RadioWidth
+        public int RadioWidth
         {
             get { return (int)tableLayoutPanel1.ColumnStyles[0].Width; }
             set { tableLayoutPanel1.ColumnStyles[0].Width = value; }
+        }
+        public System.Windows.Forms.Control.ControlCollection PanelCollection
+        {
+            get { return panel1.Controls; }
         }
     }
 }

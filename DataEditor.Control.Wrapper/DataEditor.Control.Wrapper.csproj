@@ -42,6 +42,7 @@
     <Compile Include="Complex.cs" />
     <Compile Include="Container\Group.cs" />
     <Compile Include="Container\List.cs" />
+    <Compile Include="Container\Metro.cs" />
     <Compile Include="Container\Tab.cs" />
     <Compile Include="Container\Tabs.cs" />
     <Compile Include="Float.cs" />
@@ -54,6 +55,7 @@
     </Compile>
     <Compile Include="Int.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Radio.cs" />
     <Compile Include="Text.cs" />
     <Compile Include="View.cs" />
   </ItemGroup>

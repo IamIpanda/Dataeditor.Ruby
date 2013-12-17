@@ -24,7 +24,7 @@ namespace DataEditor.Control.Wrapper
             // i 表示用户看到的选项ID，j 表示实际上的值
             int i = -1, j = -1;
             // 抓取主参数
-            Dictionary<object, object> choices = argument.GetAegument<Dictionary<object, object>>("CHOICE");
+            Dictionary<object, object> choices = argument.GetArgument<Dictionary<object, object>>("CHOICE");
             // 依次遍历
             foreach (object ob in choices.Keys)
             {
@@ -46,17 +46,17 @@ namespace DataEditor.Control.Wrapper
                     Help.Parameter file_choice = choices[ob] as Help.Parameter;
                     if (file_choice == null) continue;
                     //  从选项中获取目标文件的短名
-                    string key = file_choice.GetAegument<string>("DATA");
+                    string key = file_choice.GetArgument<string>("DATA");
                     // 将文件数据读取
                     FuzzyData.FuzzyArray targets = Help.Data.Instance[key] as FuzzyData.FuzzyArray;
                     if (targets == null) continue;
                     // 获取指定的Text文档
-                    Help.Parameter.Text text = file_choice.GetAegument<Help.Parameter.Text>("TEXT");
+                    Help.Parameter.Text text = file_choice.GetArgument<Help.Parameter.Text>("TEXT");
                     if (text == null) continue;
                     // 获取指定的过滤器
-                    Contract.Runable filter = file_choice.GetAegument<Contract.Runable>("FILTER");
+                    Contract.Runable filter = file_choice.GetArgument<Contract.Runable>("FILTER");
                     // 获取指定的ID值
-                    string id_symbol = file_choice.GetAegument<string>("ID");
+                    string id_symbol = file_choice.GetArgument<string>("ID");
                     FuzzyData.FuzzySymbol id_fuzzy_symbol = FuzzyData.FuzzySymbol.GetSymbol("@" + id_symbol);
 
                     // 开始遍历

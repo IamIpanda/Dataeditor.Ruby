@@ -105,6 +105,9 @@
     <Compile Include="ProtoColoredListBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ProtoMetroContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ProtoRtpViewList.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -175,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoLeftListBox.resx">
       <DependentUpon>ProtoLeftListBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoMetroContainer.resx">
+      <DependentUpon>ProtoMetroContainer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoSelectable.resx">
       <DependentUpon>ProtoSelectable.cs</DependentUpon>

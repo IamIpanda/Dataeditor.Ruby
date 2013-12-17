@@ -133,7 +133,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            base.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ProtoIntegerMixEditor";
             this.Size = new System.Drawing.Size(867, 396);
             this.tableLayoutPanel1.ResumeLayout(false);

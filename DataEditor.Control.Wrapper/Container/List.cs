@@ -32,8 +32,8 @@ namespace DataEditor.Control.Wrapper.Container
 
         public override void Reset()
         {
-            var text = argument.GetAegument<Help.Parameter.Text>("TEXTBOOK");
-            var filter = argument.GetAegument<Contract.Runable>("FILTER");
+            var text = argument.GetArgument<Help.Parameter.Text>("TEXTBOOK");
+            var filter = argument.GetArgument<Contract.Runable>("FILTER");
             catalogue = new Help.Catalogue(Control.Items, text, filter);
             Control.Dock = System.Windows.Forms.DockStyle.Fill;
         }

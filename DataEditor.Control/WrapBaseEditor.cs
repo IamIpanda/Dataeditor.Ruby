@@ -31,9 +31,9 @@ namespace DataEditor.Control
         public virtual void Reset()
         {
             if (argument == null || Binding == null) return;
-            int width = argument.GetAegument<int>("WIDTH");
-            int height = argument.GetAegument<int>("HEIGHT");
-            key = argument.GetAegument<FuzzyData.FuzzySymbol>("ACTUAL");
+            int width = argument.GetArgument<int>("WIDTH");
+            int height = argument.GetArgument<int>("HEIGHT");
+            key = argument.GetArgument<FuzzyData.FuzzySymbol>("ACTUAL");
             if (width > 0) Binding.Width = width;
             if (height > 0) Binding.Height = height;
             Binding.Leave += OnLeave;

@@ -37,7 +37,8 @@ namespace DataEditor.Help
                     var text = new Parameter.Text(Text);
                     catalogue.Add(text);
                     Items.Add(text.ToString(value[i], text.Watch, i, j));
-                    if (text.Watch != null && text.Watch.Count != 0) Monitor.Watch(text, TextChanged, text.Watch.ToArray());
+                    if (text.Watch != null && text.Watch.Count != 0) 
+                        Monitor.Watch(text, TextChanged, text.Watch.ToArray());
                     j++;
                 }
         }

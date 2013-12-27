@@ -3,9 +3,9 @@
 # Run Single Tests.
 
 
-Path["project"] = "Test/PjVATst"
+Path["project"] = "Test/PjVXTst"
 Path.RequestPath("project","请选择工程文件夹")
-require "Ruby/File - va.rb"
+require "Ruby/File - vx.rb"
 Builder.In(Window["Main"])
 Builder.Add(:tabs) do
 	Builder.Add(:tab, {:text => "www"}) do
@@ -37,7 +37,8 @@ Builder.Add(:tabs) do
 		x.Value = Data["actor"]
 	end
 	Builder.Add(:tab , {:text => "我是傻逼"}) do
-		#Builder.Add(:textlist, {:choice => ["A","B","C","D","E","F"], :value => [1,2,3,4,5,6,7], :default => "C"})
+		Builder.Add(:textlist, {:choice => ["A","B","C","D","E","F"], :value => [1,2,3,4,5,6,7], 
+			:default => 0, :file => Data["actor"], :show => Help.Get_Default_Text})
 		window = Proc.new do |window, value|
 
 		end
@@ -59,10 +60,17 @@ Builder.Add(:tabs) do
 		end
 		block = Proc.new { puts "Yes you are SB!" }
 		Builder.Add(:tab, {}) do
-			Builder.Add(:radio , {:group => "SB_GROUP_FOR_TEST", :key => 1000 , :text => "Untitled"}) do
+			s = Builder.Add(:radio , {:group => "SB_GROUP_FOR_TEST", :key => 1000 , :text => "Untitled"}) do
+				Builder.Add(:button, {:text => "I'm SB", :run => block}) 
+				Builder.Add(:button, {:text => "I'm SB", :run => block}) 
+				Builder.Add(:button, {:text => "I'm SB", :run => block}) 
+				Builder.Add(:button, {:text => "I'm SB", :run => block}) 
+				Builder.Add(:button, {:text => "I'm SB", :run => block}) 
 				Builder.Add(:button, {:text => "I'm SB", :run => block}) 
 			end
-			Builder.Add(:radio , {:group => "SB_GROUP_FOR_TEST", :key => 2000 , :text => "Vntitled"})
+			Builder.Add(:radio , {:group => "SB_GROUP_FOR_TEST", :key => 2000 , :text => "Vntitled"}) do
+				Builder.Add(:button, {:text => "Click Me", :run => Proc.new { puts "WOW" }})
+			end
 			Builder.Add(:radio , {:group => "SB_GROUP_FOR_TEST", :key => 3000 , :text => "Wntitled"})
 			Builder.Add(:radio , {:group => "SB_GROUP_FOR_TEST", :key => 4000 , :text => "Xntitled"})
 		end

@@ -38,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actor.cs" />
     <Compile Include="Buuton.cs" />
     <Compile Include="Choose.cs" />
     <Compile Include="Complex.cs" />
@@ -46,6 +47,7 @@
     <Compile Include="Container\Metro.cs" />
     <Compile Include="Container\Tab.cs" />
     <Compile Include="Container\Tabs.cs" />
+    <Compile Include="Experience.cs" />
     <Compile Include="Float.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="Image.Choser.cs">
@@ -55,6 +57,10 @@
       <DependentUpon>Image.Choser.cs</DependentUpon>
     </Compile>
     <Compile Include="Int.cs" />
+    <Compile Include="ListBuff.cs" />
+    <Compile Include="ListCheck.cs" />
+    <Compile Include="ListText.cs" />
+    <Compile Include="Paper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Radio.cs" />
     <Compile Include="Text.cs" />
@@ -80,6 +86,10 @@
     <ProjectReference Include="..\DataEditor.Control\DataEditor.Control.csproj">
       <Project>{ae8bbeb5-cb95-4ad0-b7c3-f7c03ff5b352}</Project>
       <Name>DataEditor.Control</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.FuzzyData.Extra\DataEditor.FuzzyData.Extra.csproj">
+      <Project>{3332a025-6e2b-4d9f-8a46-9f2350b39750}</Project>
+      <Name>DataEditor.FuzzyData.Extra</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataEditor.Help\DataEditor.Help.csproj">
       <Project>{aafc4019-7092-4e66-9f1d-8a3ea4ba75a0}</Project>

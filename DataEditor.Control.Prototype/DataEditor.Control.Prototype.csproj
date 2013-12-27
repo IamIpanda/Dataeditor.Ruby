@@ -117,6 +117,9 @@
     <Compile Include="ProtoSelectable.Designer.cs">
       <DependentUpon>ProtoSelectable.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProtoTextListbox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ProtoTitleBox.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -25,6 +25,7 @@ namespace DataEditor.Help
         }
         public void InitializeText(List<object> value)
         {
+            if (value == null) { Help.Log.log("传给了 catalogue 一个不存在的值。"); return; }
             using_value = value;
             Items.Clear();
             Link.Clear();

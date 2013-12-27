@@ -31,6 +31,7 @@ namespace DataEditor.Control.Wrapper
         protected int radio_key = -1;
         public override void SetSize(System.Drawing.Size size)
         {
+            if (size.Height < 18) size.Height = 18;
             Control.Size = new System.Drawing.Size(
                 size.Width + Control.RadioWidth + Control.Margin.Horizontal, size.Height);
         }

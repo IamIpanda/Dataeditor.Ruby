@@ -168,16 +168,17 @@ namespace DataEditor.Ruby
             if (label_argument != 0) builder.AddLabel(label);
             // 标定位置
             control.Location = new System.Drawing.Point(builder.now_x + size.Width, builder.now_y + size.Height);
+            // 执行块
+                // 若这是一个容器，则装载它，执行块，然后卸装
+
+            if (editor is DataContainer)
+            {
+                In(editor as DataContainer);
+                if (after != null) after.Call(editor);
+                Out();
+            }
             // 结算坐标
             builder.CalcCoodinate(control, size.Width + control.Width, size.Height + control.Height);
-            // 执行块
-            if (after != null)
-            {
-                // 若这是一个容器，则装载它，执行块，然后卸装
-                if (editor is DataContainer) In(editor as DataContainer);
-                after.Call(editor);
-                if (editor is DataContainer) Out();
-            }
             // 上传控件
             builder.AddControl(control);
             return editor;

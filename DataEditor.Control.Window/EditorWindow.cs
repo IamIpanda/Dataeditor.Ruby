@@ -38,5 +38,10 @@ namespace DataEditor.Control.Window
             public override System.Windows.Forms.Control.ControlCollection Controls { get { return Window.pnMain.Controls;  } }
             public override string Flag { get { return "editor"; } }
         }
+
+        private void msMain_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }

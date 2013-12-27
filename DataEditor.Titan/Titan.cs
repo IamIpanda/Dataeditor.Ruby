@@ -25,8 +25,6 @@ namespace DataEditor.Titan
             Help.Collector.AddAssembly(typeof(DataEditor.Control.Wrapper.Text).Assembly);
 
             var engine = new Ruby.RubyEngine();
-            object x = Help.Serialization.LoadFile("Test/PjVATst/Data/Actors.rvdata2");
-            engine["FData"] = x;
             engine.ExecuteFile("Ruby/main.rb");
         }
     }

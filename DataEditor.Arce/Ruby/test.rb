@@ -2,9 +2,13 @@
 # Arce Scrupt : Test.rb
 # Run Single Tests.
 
+require "Lead.rb"
 
 Path["project"] = "Test/PjVXTst"
+puts "FUCK!!!"
+=begin
 Path.RequestPath("project","请选择工程文件夹")
+
 require "Ruby/File - vx.rb"
 Builder.In(Window["Main"])
 Builder.Add(:tabs) do
@@ -37,8 +41,8 @@ Builder.Add(:tabs) do
 		x.Value = Data["actor"]
 	end
 	Builder.Add(:tab , {:text => "我是傻逼"}) do
-		Builder.Add(:textlist, {:choice => ["A","B","C","D","E","F"], :value => [1,2,3,4,5,6,7], 
-			:default => 0, :file => Data["actor"], :show => Help.Get_Default_Text})
+		Builder.Add(:textlist, {:choices => ["A","B","C","D","E","F"], :value => [1,2,3,4,5,6,7], 
+			:default => 0, :file => Data["actor"], :textbook => Help.Get_Default_Text})
 		window = Proc.new do |window, value|
 
 		end
@@ -76,3 +80,4 @@ Builder.Add(:tabs) do
 		end
 	end
 #Builder.Out
+=end

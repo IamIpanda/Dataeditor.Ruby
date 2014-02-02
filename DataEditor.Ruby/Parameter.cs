@@ -17,12 +17,11 @@ namespace DataEditor.Help
                 else parameter.Arguments.Add(sym.ToString().ToUpper(), RubyCheckValue(parameter, hash[ob]));
             }
         }
-        // TODO : ENCODING CHANGE!
         public static object RubyCheckValue(this DataEditor.Help.Parameter parameter, object target)
         {
             if (target is IronRuby.Builtins.Hash) return RubyHashToDictionary(parameter, target as IronRuby.Builtins.Hash);
             else if (target is IronRuby.Builtins.RubyStruct) return RubyStructToParameter(parameter, target as IronRuby.Builtins.RubyStruct);
-            else if (target is IronRuby.Builtins.MutableString) return System.Text.Encoding.Default.GetString((target as IronRuby.Builtins.MutableString).ToByteArray());
+            else if (target is IronRuby.Builtins.MutableString) return RubyEncodingChange(parameter, target as IronRuby.Builtins.MutableString);
             else if (target is IronRuby.Builtins.RubySymbol) return target.ToString();
             else if (target is IronRuby.Builtins.Proc) return new Ruby.Proc(target as IronRuby.Builtins.Proc);
             else if (target is IronRuby.Builtins.RubyArray) return RubyArrayToList(parameter, target as IronRuby.Builtins.RubyArray);
@@ -66,6 +65,10 @@ namespace DataEditor.Help
                 }
                 parameter.Arguments.Add("ACTUAL", ans);
             }
+        }
+        public static string RubyEncodingChange(this DataEditor.Help.Parameter parameter, IronRuby.Builtins.MutableString str)
+        {
+            return str.ToString(System.Text.Encoding.UTF8);
         }
     }
 }

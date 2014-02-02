@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F5FD5556-E0F3-4E5E-9640-274E37980412}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataEditor.Arce</RootNamespace>
+    <AssemblyName>DataEditor.Arce</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="IronRuby, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>W:\IronRuby 1.0v4\bin\IronRuby.dll</HintPath>
+    </Reference>
+    <Reference Include="IronRuby.Libraries">
+      <HintPath>W:\IronRuby 1.0v4\bin\IronRuby.Libraries.dll</HintPath>
+    </Reference>
+    <Reference Include="IronRuby.Libraries.YAML">
+      <HintPath>W:\IronRuby 1.0v4\bin\IronRuby.Libraries.YAML.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Dynamic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>W:\IronRuby 1.0v4\bin\Microsoft.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>W:\IronRuby 1.0v4\bin\Microsoft.Scripting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting.Debugging">
+      <HintPath>W:\IronRuby 1.0v4\bin\Microsoft.Scripting.Debugging.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Engine.cs" />
+    <Compile Include="Lead.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lead.Designer.cs">
+      <DependentUpon>Lead.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Titan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Titan.Designer.cs">
+      <DependentUpon>Titan.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Lead.resx">
+      <DependentUpon>Lead.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Titan.resx">
+      <DependentUpon>Titan.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Ruby\Help.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\Initialize.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\Lead.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\main.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\Menu.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\test.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\Actor - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\Animation - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\Armor - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\Class - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\CommonEvent - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\Enemy - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\File - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\Item - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\Skill - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\State - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\System - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\Term - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\Tileset - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\Troop - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VA\Weapon - va.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VX\Actor - vx.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VX\Animation - vx.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VX\Armor - vx.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VX\Class - vx.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VX\CommonEvent - vx.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VX\Enemy - vx.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VX\File - vx.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VX\Item - vx.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VX\Skill - vx.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VX\State - vx.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VX\System - vx.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VX\Term - vx.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VX\Troop - vx.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\VX\Weapon - vx.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\Actor - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\Animation - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\Armor - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\Class - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\CommonEvent - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\Enemy - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\File - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\Item - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\Skill - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\State - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\System - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\Tileset - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\Troop - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\Weapon - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">
+      <Project>{d7dfc2b5-bb85-4037-b052-c4f1e3c1bde0}</Project>
+      <Name>DataEditor.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataEditor\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
+      <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
+      <Name>DataEditor.FuzzyData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Control.Prototype\DataEditor.Control.Prototype.csproj">
+      <Project>{02449edb-b4b5-47e6-ad29-7cc1c8b0bf09}</Project>
+      <Name>DataEditor.Control.Prototype</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Control.Window\DataEditor.Control.Window.csproj">
+      <Project>{9d0f2890-feb9-4a0b-ad23-db7752edde30}</Project>
+      <Name>DataEditor.Control.Window</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Control.Wrapper\DataEditor.Control.Wrapper.csproj">
+      <Project>{6ff3006b-22ad-4225-9b8a-de6fbc0ba745}</Project>
+      <Name>DataEditor.Control.Wrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Control\DataEditor.Control.csproj">
+      <Project>{ae8bbeb5-cb95-4ad0-b7c3-f7c03ff5b352}</Project>
+      <Name>DataEditor.Control</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.FuzzyData.Extra\DataEditor.FuzzyData.Extra.csproj">
+      <Project>{3332a025-6e2b-4d9f-8a46-9f2350b39750}</Project>
+      <Name>DataEditor.FuzzyData.Extra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.FuzzyData.Serialization.RubyMarshal\DataEditor.FuzzyData.Serialization.RubyMarshal.csproj">
+      <Project>{a9c0dc50-cec6-401b-92e3-65787c9bedc9}</Project>
+      <Name>DataEditor.FuzzyData.Serialization.RubyMarshal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Help\DataEditor.Help.csproj">
+      <Project>{aafc4019-7092-4e66-9f1d-8a3ea4ba75a0}</Project>
+      <Name>DataEditor.Help</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Ruby\DataEditor.Ruby.csproj">
+      <Project>{b4233af4-e637-4e9c-8991-3499e9b3ee31}</Project>
+      <Name>DataEditor.Ruby</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>COPY ..\..\..\DataEditor.FuzzyData.Serialization.RubyMarshal\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.dll     Program\Serialization\DataEditor.FuzzyData.Serialization.RubyMarshal.dll
+COPY ..\..\..\DataEditor.FuzzyData.Extra\bin\Debug\DataEditor.FuzzyData.Extra.dll          Program\Serialization\UserDefined\RGSSData.dll</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

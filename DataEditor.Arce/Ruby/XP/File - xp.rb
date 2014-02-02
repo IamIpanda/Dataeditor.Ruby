@@ -1,6 +1,8 @@
 # Arce Script : File - xp.rb
 # Load All the File needed in RPG Maker XP Environment
 
+require "Ruby/Help.rb"
+
 Data["actor"] = "Data/Actors.rxdata"
 Data["class"] = "Data/Classes.rxdata"
 Data["skill"] = "Data/Skills.rxdata"

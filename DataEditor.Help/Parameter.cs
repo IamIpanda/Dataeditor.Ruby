@@ -38,6 +38,10 @@ namespace DataEditor.Help
             if (ob is T) return (T)ob;
             return default(T);
         }
+
+
+
+
         public class Text : ICloneable
         {
             Contract.Runable GetString { get; set; }

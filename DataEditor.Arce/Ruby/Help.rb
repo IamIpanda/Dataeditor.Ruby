@@ -13,11 +13,24 @@ class Help
 		watch.push name
 		return sprintf("%03d:%s",id.Value,name.Text)
 	end
+	def self.System_Property_Text(*args)
+		string = args[0]
+		watch.clear
+		watch.push string
+		return sprintf("%s",string)
+	end
 	def self.Get_Default_Text
 		return Text.new do |*args|
 			Help.Auto_Get_Text(*args)
 		end
 	end
+	def self.Get_Property_Text
+		return Text.new do |*args|
+			Help.System_Property_Text(*args)
+		end
+	end
+	XP_IMAGE_SPLIT = { "" => Split.new(Split::COUNT,4,Split::COUNT,4) }
+	XP_IMAGE_SHOW  = { "" => Split.new(Split::COUNT,1,Split::COUNT,1) }
 	VX_IMAGE_SPLIT = 
 	{
 		""  => Split.new(Split::COUNT,4,Split::COUNT,2),
@@ -28,6 +41,11 @@ class Help
 		""  => Split.new(Split::COUNT,3,Split::COUNT,4,1,0),
 		"!" => Split.new(Split::COUNT,1,Split::COUNT,4,0,0)		
 	}
+
+	def self.stop
+	  System::Diagnostics::Debugger.Break
+	end
+
 end
 
 Color = Struct.new(:red,:green,:blue,:alpha)
@@ -41,4 +59,8 @@ Filechoice = Struct.new(:data,:id,:filter,:text,:watch) do
 		self.text = Help.Get_Default_Text
 		self.watch = []
 	end
+end
+
+def choice(str)
+	return Filechoice.new(str)
 end

@@ -179,6 +179,7 @@ namespace DataEditor.Ruby
             }
             // 结算坐标
             builder.CalcCoodinate(control, size.Width + control.Width, size.Height + control.Height);
+            // if (type.ToString() == "tab" || type.ToString() == ":tab") System.Diagnostics.Debugger.Break();
             // 上传控件
             builder.AddControl(control);
             return editor;

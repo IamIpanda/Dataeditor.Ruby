@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataEditor.Control.Wrapper
 {
-    public class Buuton : WrapControlEditor<FuzzyData.FuzzyObject,System.Windows.Forms.Button>
+    public class Button : WrapControlEditor<FuzzyData.FuzzyObject,System.Windows.Forms.Button>
     {
         public override string Flag { get { return "button"; } }
         Contract.Runable target = null;

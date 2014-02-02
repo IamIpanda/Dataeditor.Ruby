@@ -4,7 +4,4 @@ using System.Text;
 
 namespace DataEditor.Control.Wrapper
 {
-    public class Actor
-    {
-    }
 }

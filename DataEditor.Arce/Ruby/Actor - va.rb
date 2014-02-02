@@ -8,6 +8,6 @@ Builder.Add(:list , { :text => "角色" ,:textbook => Help.Get_Default_Text}) do
 	Builder.Add(:choose , {
 		:actual => :classes , 
 		:text => "职业" ,
-		:choices => { nil => FileChoice.new("class") }
+		:choices => { nil => Filechoice.new("class") }
 		})
 end

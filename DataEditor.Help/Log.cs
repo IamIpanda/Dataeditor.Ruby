@@ -31,7 +31,8 @@ namespace DataEditor.Help
         static public void log(string info)
         {
             Text.WriteLine("[" + DateTime.Now.ToString()+ "] " + info);
-            Flush();
+            System.Diagnostics.Debugger.Log(1, "Log", info + "\n");
+            // Flush();
         }
         static public void Flush ()
         {

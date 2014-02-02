@@ -27,7 +27,7 @@ namespace DataEditor.Control.Prototype
         {
             if (e.Index < 0)
                 return;
-            if (Items.Count == 0)
+            if (Items.Count == 0 || e.Index >= Items.Count)
                 return;
             if (Items.Count == 0 && Focused)
             {

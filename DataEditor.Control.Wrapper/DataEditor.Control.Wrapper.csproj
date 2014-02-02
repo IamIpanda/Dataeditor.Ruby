@@ -39,7 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actor.cs" />
-    <Compile Include="Buuton.cs" />
+    <Compile Include="Button.cs" />
     <Compile Include="Choose.cs" />
     <Compile Include="Complex.cs" />
     <Compile Include="Container\Group.cs" />
@@ -57,6 +57,7 @@
       <DependentUpon>Image.Choser.cs</DependentUpon>
     </Compile>
     <Compile Include="Int.cs" />
+    <Compile Include="List.cs" />
     <Compile Include="ListBuff.cs" />
     <Compile Include="ListCheck.cs" />
     <Compile Include="ListText.cs" />

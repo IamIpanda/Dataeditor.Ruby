@@ -36,7 +36,7 @@ namespace DataEditor.FuzzyData
             var list = GetSymbols();
             if (list.ContainsKey(text) && list[text] is FuzzySymbolComplex) return list[text] as FuzzySymbolComplex;
             var ans = new FuzzySymbolComplex(text);
-            list.Add(text, ans);
+           // list.Add(text, ans);
             return ans;
         }
     }

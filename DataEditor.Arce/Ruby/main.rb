@@ -5,5 +5,4 @@
 
 require "Ruby/Initialize.rb"
 require "Ruby/Help.rb"
-
-require "Ruby/test.rb"
+require "Ruby/Lead.rb"

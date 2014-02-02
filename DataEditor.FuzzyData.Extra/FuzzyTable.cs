@@ -79,5 +79,22 @@ namespace DataEditor.FuzzyData
             else
               throw new ArgumentException("Index out of border : " + x.ToString() + "," + y.ToString() + "," + z.ToString());
         }
+        /// <summary>
+        /// 核心超频连线！
+        /// 注意！这个操作符变更了它的原本含义。
+        /// 将左操作数变成右操作数的别称。
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static FuzzyTable operator |(FuzzyTable self, FuzzyTable source)
+        {
+            self.x_size = source.x_size;
+            self.y_size = source.y_size;
+            self.z_size = source.z_size;
+            self.dimension = source.dimension;
+            self.value = source.value;
+            return self;
+        }
     }
 }

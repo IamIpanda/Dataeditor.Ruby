@@ -22,11 +22,13 @@ namespace DataEditor.Help
         protected LinkedList<Change> Record = new LinkedList<Change>();
         public void Do(FuzzyData.FuzzyObject old,FuzzyData.FuzzyObject _new)
         {
+            Log.log("Action 记录了一个动作，来自" + old.GetType().ToString()); 
             while (Record.Count >= 99) Record.RemoveFirst();
             Record.AddLast(new Change(old, _new));
         }
         public void Undo()
         {
+            Log.log("Action 弹回了一个动作");
             Change c = Record.Last.Value;
             var temp = c.New & c.Old;
             Record.RemoveLast();

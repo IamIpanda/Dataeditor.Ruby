@@ -25,7 +25,6 @@ namespace DataEditor.Arce
             IronRuby.Builtins.MutableString str = IronRuby.Builtins.MutableString.Create(Path, IronRuby.Builtins.RubyEncoding.UTF8);
             proc.Call(str);
             (Help.Window.Instance["Main"] as WrapTitan).Window.Show();
-            WrapTitan titan = (Help.Window.Instance["Main"]) as WrapTitan;
             
         }
         static public void OpenFile(string Path)

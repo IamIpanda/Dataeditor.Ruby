@@ -70,9 +70,9 @@ namespace DataEditor.Control.Wrapper
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
-            argument.Defaults.Add("PATH", "Graphics/");
-            argument.Defaults.Add("SPLIT", new Dictionary<object, object>());
-            argument.Defaults.Add("SHOW", new Dictionary<object, object>());
+            argument.SetArgument("path", "Graphics/");
+            argument.SetArgument("split", new Dictionary<object, object>());
+            argument.SetArgument("show", new Dictionary<object, object>());
         }
         protected void Invalidate()
         {

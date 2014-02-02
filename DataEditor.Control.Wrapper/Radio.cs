@@ -71,8 +71,8 @@ namespace DataEditor.Control.Wrapper
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
-            argument.Defaults.Add("KEY", -1);
-            argument.Defaults.Add("GROUP", "UNGROUPED");
+            argument.SetArgument("key", -1);
+            argument.SetArgument("group", "ungrouped", Help.Parameter.ArgumentType.Option);
         }
     }
 }

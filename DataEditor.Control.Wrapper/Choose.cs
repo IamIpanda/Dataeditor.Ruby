@@ -92,7 +92,7 @@ namespace DataEditor.Control.Wrapper
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
-            argument.Defaults.Add("CHOICE", new Dictionary<object, object>());
+            argument.SetArgument("choice", new Dictionary<object, object>());
         }
 
         public override void Push()

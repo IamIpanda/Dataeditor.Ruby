@@ -148,8 +148,12 @@ namespace DataEditor.Ruby
             // 如果没有，那么新建一个
             if (argument == null) argument = new Parameter();
             argument.LoadFromRubyHash(parameters);
-            editor.Argument = argument;
+            // 校验参数
+            string ArgumentError;
+            if (argument.CheckArgument(out ArgumentError) == false)
+                Help.Log.log(type + "型的参数不准确：\r" + ArgumentError);
             // 上传控件参数
+            editor.Argument = argument;
             // 标记其父亲控件
             editor.Container = builder.container;
             // 转换成控件形式
@@ -179,7 +183,6 @@ namespace DataEditor.Ruby
             }
             // 结算坐标
             builder.CalcCoodinate(control, size.Width + control.Width, size.Height + control.Height);
-            // if (type.ToString() == "tab" || type.ToString() == ":tab") System.Diagnostics.Debugger.Break();
             // 上传控件
             builder.AddControl(control);
             return editor;

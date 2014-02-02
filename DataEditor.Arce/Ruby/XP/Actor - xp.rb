@@ -2,13 +2,14 @@
 # Arce Script: actor - xp.rb
 # describe the user interface of actor
 
+puts "SAFE"
 require "Ruby/XP/File - xp.rb"
 
 Builder.Add(:tab , { :text => "角色" }) do
 	list = Builder.Add(:list, {:textbook => Help.Get_Default_Text, :text => "角色"}) do
 		Builder.Add(:text , {:actual => :name , :text => "名称" })
 			choice = Filechoice.new("class")
-		Builder.Add(:choose , {:actual => :class , :text => "职业" , :choices => { nil => choice } })
+		Builder.Add(:choose , {:actual => :class_id , :text => "职业" , :choice => { nil => choice } })
 			Builder.Order
 		Builder.Add(:int , {:actual => :start_level , :text => "初始等级"})
 		Builder.Add(:int , {:actual => :final_level , :text => "最终等级"})

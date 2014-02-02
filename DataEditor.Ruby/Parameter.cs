@@ -44,6 +44,7 @@ namespace DataEditor.Help
         public static Parameter RubyStructToParameter(this DataEditor.Help.Parameter parameter, IronRuby.Builtins.RubyStruct target)
         {
             Parameter child = new Parameter();
+            child.Unreliable = true;
             int count = 0;
             foreach (var name in target.GetNames())
                 child.Arguments.Add(name.ToUpper(), RubyCheckValue(parameter, target.Values[count++]));
@@ -52,7 +53,7 @@ namespace DataEditor.Help
         public static void RubyActualToSymbol(this DataEditor.Help.Parameter parameter, object value)
         {
             if (value is IronRuby.Builtins.RubySymbol) parameter.Arguments.Add("ACTUAL",
-                FuzzyData.FuzzySymbol.GetSymbol((value as IronRuby.Builtins.RubySymbol).ToString()));
+                FuzzyData.FuzzySymbol.GetSymbol("@" + (value as IronRuby.Builtins.RubySymbol).ToString()));
             else if (value is IronRuby.Builtins.Hash)
             {
                 var actual_hash = value as IronRuby.Builtins.Hash;
@@ -61,7 +62,7 @@ namespace DataEditor.Help
                 {
                     var child_sym = actual_hash[key] as IronRuby.Builtins.RubySymbol;
                     if (child_sym == null) continue;
-                    ans.Extra.Add(key.ToString(), FuzzyData.FuzzySymbol.GetSymbol(child_sym.ToString()));
+                    ans.Extra.Add(key.ToString(), FuzzyData.FuzzySymbol.GetSymbol("@" + child_sym.ToString()));
                 }
                 parameter.Arguments.Add("ACTUAL", ans);
             }

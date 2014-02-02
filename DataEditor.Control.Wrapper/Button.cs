@@ -28,9 +28,9 @@ namespace DataEditor.Control.Wrapper
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
-            argument.Defaults["LABEL"] = 0;
-            argument.Defaults.Add("PARAMETER", new List<object>());
-            argument.Defaults.Add("RUN", null);
+            argument.OverrideArgument("label", 0, Help.Parameter.ArgumentType.HardlyEver);
+            argument.SetArgument("parameter", new List<object>(), Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("run", null, Help.Parameter.ArgumentType.Must);
         }
 
         void Control_Click(object sender, EventArgs e)

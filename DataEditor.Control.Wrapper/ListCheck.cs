@@ -39,8 +39,8 @@ namespace DataEditor.Control.Wrapper
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
-            argument.Defaults.Add("DATA", new FuzzyData.FuzzyArray());
-            argument.Defaults.Add("SHOW", null);
+            argument.SetArgument("data", new FuzzyData.FuzzyArray());
+            argument.SetArgument("textbook", null);
         }
     }
 }

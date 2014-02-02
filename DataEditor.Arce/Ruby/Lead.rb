@@ -1,3 +1,4 @@
+#encoding:utf-8
 # Lead.rb
 # Lead the user to run.
 
@@ -41,6 +42,7 @@ class Lead
 			return search_ruby_file(file)
 		end
 		def open_project(path)
+
 			dir = File.dirname(path)
 			file = File.basename(path)
 			ext = File.extname(path)

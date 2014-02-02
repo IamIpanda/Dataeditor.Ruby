@@ -50,12 +50,12 @@ namespace DataEditor.Control.Wrapper
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
-            argument.Defaults.Add("TEXTBOOK", new List<object>());
-            argument.Defaults.Add("VALUE", new List<object>());
-            argument.Defaults.Add("COLORS", DefaultColors);
-            argument.Defaults.Add("DEFAULT", 0);
-            argument.Defaults.Add("DATA", new FuzzyData.FuzzyArray());
-            argument.Defaults.Add("SHOW", null);
+            argument.SetArgument("textbook", new List<object>());
+            argument.SetArgument("value", new List<object>());
+            argument.SetArgument("data", new FuzzyData.FuzzyArray());
+            argument.SetArgument("colors", DefaultColors, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("default", 0, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("show", null, Help.Parameter.ArgumentType.HardlyEver);
         }
     }
 }

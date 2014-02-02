@@ -36,10 +36,10 @@ namespace DataEditor.Control.Wrapper
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
-            argument.Defaults.Add("WINDOW", new Help.Return(null));
-            argument.Defaults.Add("COLUMNS", new string[0]);
-            argument.Defaults.Add("CATALOGUE", new List<object>());
-            argument.Defaults.Add("NEW", null);
+            argument.SetArgument("window", null);
+            argument.SetArgument("column", new string[0]);
+            argument.SetArgument("catalogue",new List<object>());
+            argument.SetArgument("new", null, Help.Parameter.ArgumentType.Option);
         }
         public override void Bind()
         {

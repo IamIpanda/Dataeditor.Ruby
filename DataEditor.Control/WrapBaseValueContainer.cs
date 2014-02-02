@@ -30,8 +30,8 @@ namespace DataEditor.Control
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
-            argument.Defaults.Add("BACKCOLOR", default(System.Drawing.Color));
-            argument.Defaults["LABEL"] = 0;
+            argument.SetArgument("backcolor", default(System.Drawing.Color), Help.Parameter.ArgumentType.Option);
+            argument.OverrideArgument("label", 0);
         }
         public override FuzzyData.FuzzyObject Parent
         {

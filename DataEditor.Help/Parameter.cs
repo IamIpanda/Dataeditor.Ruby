@@ -22,25 +22,79 @@ namespace DataEditor.Help
     public partial class Parameter
     {
         public Dictionary<string, object> Arguments { get; set; }
-        public Dictionary<string, object> Defaults { get; set; }
+        protected Dictionary<string, object> Defaults { get; set; }
+        protected Dictionary<string, ArgumentType> Types = new Dictionary<string, ArgumentType>();
+        public bool Unreliable { get; set; }
         public Parameter()
         {
             Defaults = new Dictionary<string, object>();
             Arguments = new Dictionary<string, object>();
+            Unreliable = false;
         }
         public T GetArgument<T>(string key)
         {
             key = key.ToUpper();
+            ArgumentType type = ArgumentType.Option;
+            if (!Unreliable)
+            {
+                if (Types.TryGetValue(key, out type) == false)
+                    Help.Log.log("程序正在试图请求一个未被设定的参数值：" + key);
+                if (type == ArgumentType.HardlyEver) Help.Log.log("程序正在试图修改一个不被推荐的值 " + key);
+            }
             object ob = null;
             Arguments.TryGetValue(key, out ob);
-            if (ob is T) return (T)ob;
+            if (ob != null)
+                if (ob is T) return (T)ob;
+                else Help.Log.log("程序在正在请求" + key + ":" + typeof(T).ToString() + " 但获得了一个" + ob.GetType().ToString());
+            if (!Unreliable)
+                 if (type == ArgumentType.Must) Help.Log.log("未提供参数 " + key + "，程序将返回一个不可靠的值");
             Defaults.TryGetValue(key, out ob);
             if (ob is T) return (T)ob;
             return default(T);
         }
 
+        public enum ArgumentType { Must, Option, HardlyEver }
+        public void SetArgument(string name, object _default, ArgumentType type = ArgumentType.Must)
+        {
+            name = name.ToUpper();
+            if (Defaults.ContainsKey(name)) System.Diagnostics.Debugger.Break();
+            Defaults.Add(name, _default);
+            Types.Add(name, type);
+        }
+        public void OverrideArgument(string name, object _default, ArgumentType type = ArgumentType.HardlyEver)
+        {
+            name = name.ToUpper();
+            if (!(Defaults.ContainsKey(name))) System.Diagnostics.Debugger.Break();
+            Defaults[name] = _default;
+            Types[name] = type;
+        }
+        public void RemoveArgument(string name)
+        {
+            if (!(Defaults.ContainsKey(name))) System.Diagnostics.Debugger.Break();
+            Defaults.Remove(name);
+            Types.Remove(name);
+        }
+        public bool CheckArgument()
+        {
+            foreach (string key in Defaults.Keys)
+                if (Types[key] == ArgumentType.Must && !(Arguments.ContainsKey(key))) return false;
+            return true;
+        }
 
-
+        public bool CheckArgument(out string str)
+        {
+            StringBuilder sb = new StringBuilder();
+            bool ans = true;
+            foreach (string key in Defaults.Keys)
+                if (Types[key] == ArgumentType.Must && !(Arguments.ContainsKey(key)))
+                {
+                    ans = false;
+                    sb.Append("没有提供参数 ");
+                    sb.AppendLine(key);
+                }
+            str = sb.ToString();
+            return ans;
+        }
 
         public class Text : ICloneable
         {

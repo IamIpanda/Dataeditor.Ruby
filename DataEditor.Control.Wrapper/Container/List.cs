@@ -40,8 +40,8 @@ namespace DataEditor.Control.Wrapper.Container
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
-            argument.Defaults.Add("TEXTBOOK", new Help.Parameter.Text("卖萌的阿尔西斯"));
-            argument.Defaults.Add("FILTER", null);
+            argument.SetArgument("textbook", new Help.Parameter.Text("卖萌的阿尔西斯"));
+            argument.SetArgument("filter", null, Help.Parameter.ArgumentType.Option);
         }
         protected Help.Catalogue catalogue = null;
         public override void Bind()

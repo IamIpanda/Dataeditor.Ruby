@@ -26,10 +26,10 @@ namespace DataEditor.Control.Wrapper
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
-            argument.Defaults.Add("MINVALUE", 0);
-            argument.Defaults.Add("MAXVALUE", int.MaxValue);
-            argument.Defaults.Add("DIGIT", 0);
-            argument.Defaults.Add("INCREMENT", 1D);
+            argument.SetArgument("minvalue", 0, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("maxvalue", int.MaxValue, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("digit", 0, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("increment", 1D, Help.Parameter.ArgumentType.Option);
         }
         public override void Reset()
         {

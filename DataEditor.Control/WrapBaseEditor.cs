@@ -91,10 +91,11 @@ namespace DataEditor.Control
         protected virtual void SetDefaultArgument()
         {
             argument = new Help.Parameter();
-            argument.Defaults.Add("WIDTH", -1);
-            argument.Defaults.Add("HEIGHT", -1);
-            argument.Defaults.Add("LABEL", 1);
-            argument.Defaults.Add("TEXT", "UNTITLED");
+            argument.SetArgument("width", -1, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("height", -1, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("label", 1, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("text", "Untitled", Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("actual", null, Help.Parameter.ArgumentType.Must);
         }
     }
     public abstract class WrapControlEditor<TValue, TControl> : WrapBaseEditor<TValue>

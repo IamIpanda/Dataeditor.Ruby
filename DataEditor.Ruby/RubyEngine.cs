@@ -19,6 +19,7 @@ namespace DataEditor.Ruby
             LoadAssembly(typeof(FuzzyData.FuzzyObject).Assembly);
             LoadAssembly(typeof(Control.ObjectEditor).Assembly);
             LoadAssembly(typeof(System.Windows.Forms.Form).Assembly);
+            LoadAssembly(typeof(System.Drawing.Color).Assembly);
         }
         public object this[string key]
         {

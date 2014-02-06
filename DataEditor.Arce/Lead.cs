@@ -14,6 +14,17 @@ namespace DataEditor.Arce
         public Lead()
         {
             InitializeComponent();
+
+
+            string[] loads = new string[] { @"Program\Serialization\DataEditor.FuzzyData.Serialization.RubyMarshal.dll"
+                , @"Program\Serialization\UserDefined\DataEditor.FuzzyData.Extra.dll" };
+            Array.ForEach(loads, (string ass) =>
+            {
+                System.Reflection.Assembly.LoadFile(System.IO.Path.Combine(
+                        System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath),
+                        ass
+                    ));
+            });
         }
         protected override void protoListBox1_DoubleClick(object sender, EventArgs e)
         {

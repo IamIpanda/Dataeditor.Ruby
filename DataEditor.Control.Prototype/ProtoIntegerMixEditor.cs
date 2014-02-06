@@ -126,6 +126,9 @@ namespace DataEditor.Control.Prototype
         }
         protected void ConcernValue()
         {
+            PreviousData.Clear();
+            PreviousData.AddRange(Value);
+            Value = PreviousData;
             PreviousData = null;
             if (PreviousColor != null)
                 protoIntegerEditor1.DataColor = PreviousColor ?? Color.Gray;

@@ -30,8 +30,16 @@ namespace DataEditor.Help
         }
         public bool SearchFile(string file,out string full_path)
         {
-            full_path = System.IO.Path.Combine(this.Path, file);
-            return System.IO.File.Exists(full_path);
+            full_path = "";
+            string temp_full_path = System.IO.Path.Combine(this.Path, file);
+            string directory_path = System.IO.Path.GetDirectoryName(temp_full_path);
+            string file_name = System.IO.Path.GetFileName(temp_full_path);
+            var dir = new System.IO.DirectoryInfo(directory_path);
+            if (!dir.Exists) return false;
+            var ans = dir.GetFiles(file_name + "*");
+            if (ans.Length == 0) return false;
+            full_path = ans[0].FullName;
+            return true;
 
         }
         static public Rtp FromString(String s, Color c)

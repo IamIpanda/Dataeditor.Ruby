@@ -70,7 +70,7 @@ namespace DataEditor.Ruby
             }
             else
             {
-                now_w += w + control.Margin.Right;
+                now_x += w + control.Margin.Right;
                 if (h > now_h) now_h = h;
             }
         }
@@ -121,6 +121,23 @@ namespace DataEditor.Ruby
                 builder.now_h = 0;
             }
         }
+        public static void OrderAndNext()
+        {
+            var builder = Builders.Peek();
+            if (builder.mode == ControlOrder.Column)
+            {
+                builder.head_x = builder.now_x = builder.max_x;
+                builder.now_y = builder.container.start_y;
+                builder.now_w = builder.now_h = 0;
+            }
+            else
+            {
+                builder.head_y = builder.now_y = builder.max_y;
+                builder.head_x = builder.max_x;
+                builder.now_x = builder.container.start_x;
+                builder.now_w = builder.now_h = 0;
+            }
+        }
         public static void Order(int i = -1)
         {
             var builder = Builders.Peek();
@@ -131,9 +148,17 @@ namespace DataEditor.Ruby
             else
                 builder.mode = builder.mode == ControlOrder.Row ? ControlOrder.Column : ControlOrder.Row;
         }
-        public static void Text(string text = "")
+        public static System.Windows.Forms.Label Text(string text = "", int extra_w = 0, int extra_h = 0)
         {
-            // TODO : Finish it.
+            var builder = Builders.Peek();
+            var label = new System.Windows.Forms.Label();
+            label.Text = text;
+            label.Size = label.PreferredSize;
+            label.Location = new System.Drawing.Point(builder.now_x, builder.now_y);
+            var size = new System.Drawing.Size(label.Width + extra_w, label.Height + extra_h);
+            builder.AddLabel(label);
+            builder.CalcCoodinate(label, size.Width, size.Height);
+            return label;
         }
         public static ObjectEditor Push(RubySymbol type, Hash parameters, IronRuby.Builtins.Proc after)
         {
@@ -141,7 +166,12 @@ namespace DataEditor.Ruby
             var builder = Builders.Peek();
             // 检索此名称的控件
             var editor = builder.SearchControl(type);
-            if (editor == null) return null;
+            if (editor == null)
+            {
+                // 找不到时，记录并返回
+                Help.Log.log("找不到下述关键字的控件：" + type.ToString());
+                return null;
+            }
             // 生成控件参数
             // 这里认为，控件一开始就生成好了默认的参数。
             var argument = editor.Argument;
@@ -170,11 +200,11 @@ namespace DataEditor.Ruby
             var size = builder.CalcLabel(label_argument, label, control.Width, control.Height);
             // 上传 Label
             if (label_argument != 0) builder.AddLabel(label);
+            editor.Label = label;
             // 标定位置
             control.Location = new System.Drawing.Point(builder.now_x + size.Width, builder.now_y + size.Height);
             // 执行块
-                // 若这是一个容器，则装载它，执行块，然后卸装
-
+            // 若这是一个容器，则装载它，执行块，然后卸装
             if (editor is DataContainer)
             {
                 In(editor as DataContainer);

@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(769, 453);
+            this.ClientSize = new System.Drawing.Size(1045, 736);
             this.Name = "Titan";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Titan_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);

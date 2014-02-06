@@ -32,7 +32,7 @@ namespace DataEditor.FuzzyData
             x = r.ReadInt32();
             y = r.ReadInt32();
             z = r.ReadInt32();
-            //Console.WriteLine("c1" + check1.ToString() + "d" + d.ToString() + "x" + x.ToString() + "y" + y.ToString() + "z" + z.ToString());
+            //System.Diagnostics.Debugger.Log(5,"LOG", ("c1" + check1.ToString() + "d" + d.ToString() + "x" + x.ToString() + "y" + y.ToString() + "z" + z.ToString() + "\r"));
             check2 = r.ReadInt32();
             FuzzyTable ft = new FuzzyTable(x, y, z);
             ft.dimension = d;

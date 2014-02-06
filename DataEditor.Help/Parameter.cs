@@ -36,16 +36,17 @@ namespace DataEditor.Help
             key = key.ToUpper();
             ArgumentType type = ArgumentType.Option;
             if (!Unreliable)
-            {
                 if (Types.TryGetValue(key, out type) == false)
                     Help.Log.log("程序正在试图请求一个未被设定的参数值：" + key);
-                if (type == ArgumentType.HardlyEver) Help.Log.log("程序正在试图修改一个不被推荐的值 " + key);
-            }
             object ob = null;
             Arguments.TryGetValue(key, out ob);
             if (ob != null)
+            {
+                if (!Unreliable && type == ArgumentType.HardlyEver) 
+                    Help.Log.log("程序正在试图修改一个不被推荐的值 " + key);
                 if (ob is T) return (T)ob;
                 else Help.Log.log("程序在正在请求" + key + ":" + typeof(T).ToString() + " 但获得了一个" + ob.GetType().ToString());
+            }
             if (!Unreliable)
                  if (type == ArgumentType.Must) Help.Log.log("未提供参数 " + key + "，程序将返回一个不可靠的值");
             Defaults.TryGetValue(key, out ob);

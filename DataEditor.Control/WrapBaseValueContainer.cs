@@ -6,7 +6,6 @@ namespace DataEditor.Control
 {
     public abstract class WrapBaseValueContainer<T> : WrapBaseEditor<T>, DataContainer where T : FuzzyData.FuzzyObject
     {
-        protected FuzzyData.FuzzyObject parent = null;
         public virtual int end_x { get { return 0; } }
         public virtual int end_y { get { return 0; } }
         public virtual int start_x { get { return 0; } }
@@ -17,7 +16,7 @@ namespace DataEditor.Control
         public override void Pull()
         {
             if (parent == null) return;
-            foreach (System.Windows.Forms.Control control in Controls)
+            foreach (System.Windows.Forms.Control control in Controls )
                 if (control.Tag != null && control.Tag is ObjectEditor)
                     (control.Tag as ObjectEditor).Parent = parent;
         }
@@ -32,14 +31,6 @@ namespace DataEditor.Control
             base.SetDefaultArgument();
             argument.SetArgument("backcolor", default(System.Drawing.Color), Help.Parameter.ArgumentType.Option);
             argument.OverrideArgument("label", 0);
-        }
-        public override FuzzyData.FuzzyObject Parent
-        {
-            set
-            {
-                this.parent = value;
-                base.Parent = value;
-            }
         }
     }
     public abstract class WrapControlValueContainer<TValue, TControl> : WrapBaseValueContainer<TValue>

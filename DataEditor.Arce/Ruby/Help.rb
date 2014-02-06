@@ -1,4 +1,4 @@
-#encoding:UTF-8
+# This file is in coding: UTF-8
 # Arce Script : Help.rb
 # All the Methods Needed in Running
 
@@ -29,8 +29,8 @@ class Help
 			Help.System_Property_Text(*args)
 		end
 	end
-	XP_IMAGE_SPLIT = { "" => Split.new(Split::COUNT,4,Split::COUNT,4) }
-	XP_IMAGE_SHOW  = { "" => Split.new(Split::COUNT,1,Split::COUNT,1) }
+	XP_IMAGE_SPLIT = { "" => Split.new(Split::COUNT,1,Split::COUNT,1) }
+	XP_IMAGE_SHOW  = { "" => Split.new(Split::COUNT,4,Split::COUNT,4) }
 	VX_IMAGE_SPLIT = 
 	{
 		""  => Split.new(Split::COUNT,4,Split::COUNT,2),
@@ -48,7 +48,20 @@ class Help
 
 end
 
-Color = Struct.new(:red,:green,:blue,:alpha)
+Color = Struct.new(:red,:green,:blue,:alpha) do
+	def initialize(r,g,b,a = 255)
+		self.red = r
+		self.green = g
+		self.blue = b
+		self.alpha = a
+	end
+	def to_i
+		return self.alpha << 24 + self.red << 16 + self.green << 8 + self.blue
+	end
+	def to_c
+		return System::Drawing::Color.FromArgb(self.alpha,self.red,self.green,self.blue)
+	end
+end
 Rect = Struct.new(:x,:y,:width,:height)
 Tone = Struct.new(:red,:green,:blue,:gray)
 Filechoice = Struct.new(:data,:id,:filter,:text,:watch) do
@@ -61,6 +74,28 @@ Filechoice = Struct.new(:data,:id,:filter,:text,:watch) do
 	end
 end
 
-def choice(str)
-	return Filechoice.new(str)
+class DataEditor::FuzzyData::FuzzyArray
+	alias __get_value []
+	def each(&block)
+		count = self.Count
+		for i in 0...count
+			block.call(self[i])
+		end
+	end
+	def [](index)
+		return __get_value(index.Value) if (index.is_a?(DataEditor::FuzzyData::FuzzyFixnum))
+		if (index.is_a?(DataEditor::FuzzyData::FuzzyArray))
+			ans = []
+			index.each { |item| ans.push self[item] }
+			return ans
+		end
+		return __get_value(index)
+	end
+	def select(&block)
+		ans = []
+		for i in 0...self.count
+			ans.push self[i] if block.call(self[i])
+		end
+		ans
+	end
 end

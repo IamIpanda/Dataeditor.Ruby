@@ -7,6 +7,7 @@ namespace DataEditor.Control
     public abstract class WrapBaseEditor<TValue> : ObjectEditor where TValue : FuzzyData.FuzzyObject
     {
         protected TValue value;
+        protected FuzzyData.FuzzyObject parent;
         protected FuzzyData.FuzzySymbol key;
         protected Help.Parameter argument;
         abstract public void Push();
@@ -56,8 +57,10 @@ namespace DataEditor.Control
         }
         public virtual FuzzyData.FuzzyObject Parent
         {
+            get { return parent; }
             set
             {
+                parent = value;
                 FuzzyData.FuzzyObject origin = GetValueFromChild(value);
                 TValue ans = ConvertToValue(origin);
                 if (ans == null) return;
@@ -85,6 +88,7 @@ namespace DataEditor.Control
             {
                 object temp = null;
                 parent.InstanceVariables.TryGetValue(symbol, out temp);
+                if (temp == null) Help.Log.log("在 " + Flag + " 中未找到所宣告的下述值：" + key);
                 return temp as FuzzyData.FuzzyObject;
             }
         }

@@ -36,12 +36,14 @@ namespace DataEditor.Control.Wrapper.Container
             var filter = argument.GetArgument<Contract.Runable>("FILTER");
             catalogue = new Help.Catalogue(Control.Items, text, filter);
             Control.Dock = System.Windows.Forms.DockStyle.Fill;
+            Control.Text = argument.GetArgument<string>("text");
         }
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
             argument.SetArgument("textbook", new Help.Parameter.Text("卖萌的阿尔西斯"));
             argument.SetArgument("filter", null, Help.Parameter.ArgumentType.Option);
+            argument.OverrideArgument("text", "未明位面", Help.Parameter.ArgumentType.Option);
         }
         protected Help.Catalogue catalogue = null;
         public override void Bind()

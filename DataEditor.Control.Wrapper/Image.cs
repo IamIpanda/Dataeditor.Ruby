@@ -38,6 +38,8 @@ namespace DataEditor.Control.Wrapper
         {
             base.Bind();
             Control.FullBackgroundDraw = true;
+            Control.Scale = false;
+            Control.ImageAlignCenter = true;
             Control.Bitmap = new Bitmap(1,1);
             Control.DoubleClick += Control_DoubleClick;
             Split = new SplitManager();
@@ -76,26 +78,28 @@ namespace DataEditor.Control.Wrapper
         }
         protected void Invalidate()
         {
-            var file_name = Value["name"] as FuzzyData.FuzzyString;
-            var file_index = Value["index"] as FuzzyData.FuzzyFixnum;
-            var file_hue = Value["hue"] as FuzzyData.FuzzyFixnum;
+            var file_name = value["name"] as FuzzyData.FuzzyString;
+            var file_index = value["index"] as FuzzyData.FuzzyFixnum;
+            var file_hue = value["hue"] as FuzzyData.FuzzyFixnum;
             string path = argument.GetArgument<string>("PATH");
             if (file_name == null) return;
             string string_file_name = System.IO.Path.Combine(path, file_name.Text);
             string file = "";
             Help.Path.Instance.SearchFile(string_file_name, out file, "project", "rtp");
             if (file == "") return;
+            string pure_file_name = System.IO.Path.GetFileName(string_file_name);
             Bitmap bitmap = new Bitmap(file);
-            Help.Parameter.Split show = Split.SearchSplit(ref string_file_name);
-            Help.Parameter.Split image = Show.SearchSplit(ref string_file_name);
+            Help.Parameter.Split show = Show.SearchSplit(ref pure_file_name);
+            Help.Parameter.Split split = Split.SearchSplit(ref pure_file_name);
             var src_rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
             if (file_index != null)
             {
                 int index = Convert.ToInt32(file_index.Value);
-                var first_clip = image[index, bitmap.Width, bitmap.Height];
-                src_rect = image[-1, -1, first_clip.Width, first_clip.Height];
+                var first_clip = split[index, bitmap.Width, bitmap.Height];
+                src_rect = split[-1, -1, first_clip.Width, first_clip.Height];
                 src_rect.Offset(first_clip.X, first_clip.Y);
             }
+            src_rect = show[0, 0, bitmap.Width, bitmap.Height];
             // TODO : Finish Bitmap Hue Change
             if (file_hue != null) { }
             Control.Bitmap = bitmap;

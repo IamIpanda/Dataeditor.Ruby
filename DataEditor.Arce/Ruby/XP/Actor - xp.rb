@@ -2,25 +2,72 @@
 # Arce Script: actor - xp.rb
 # describe the user interface of actor
 
-puts "SAFE"
 require "Ruby/XP/File - xp.rb"
 
 Builder.Add(:tab , { :text => "角色" }) do
 	list = Builder.Add(:list, {:textbook => Help.Get_Default_Text, :text => "角色"}) do
-		Builder.Add(:text , {:actual => :name , :text => "名称" })
-			choice = Filechoice.new("class")
-		Builder.Add(:choose , {:actual => :class_id , :text => "职业" , :choice => { nil => choice } })
-			Builder.Order
-		Builder.Add(:int , {:actual => :start_level , :text => "初始等级"})
-		Builder.Add(:int , {:actual => :final_level , :text => "最终等级"})
-			Builder.Next
-			Builder.Order
-		Builder.Add(:exp , {:actual => {:base => :exp_basis, :inflation => :exp_inflation} , :text => "EXP 曲线"})
-		Builder.Add(:image , {:actual => {:name => :character_name, :hue => :character_hue } , :text => "角色脸谱" ,:show => Help::XP_IMAGE_SHOW, :split => Help::XP_IMAGE_SPLIT } )
-		Builder.Add(:image , {:actual => {:name => :battler_name, :hue => :battler_hue } , :text => "战斗图", :show => Help::XP_IMAGE_SPLIT, :split => Help::XP_IMAGE_SPLIT })
-			Builder.Order
-			Builder.Next
-		Builder.Add(:group, :text => "初期装备") do 
+		Builder.Add(:group, {:text => "", :dock => 5}) do
+				Builder.Order
+			Builder.Add(:text , {:actual => :name , :text => "名称" })
+				Builder.Next
+				choice = Filechoice.new("class")
+			Builder.Add(:choose , {:actual => :class_id , :text => "职业" , :choice => { nil => choice } })
+				Builder.Next
+			Builder.Add(:int , {:actual => :initial_level , :text => "初始等级"})
+			Builder.Add(:int , {:actual => :final_level , :text => "最终等级"})
+				Builder.Next
+			Builder.Add(:exp , {:actual => {:base => :exp_basis, :inflation => :exp_inflation} , :text => "EXP 曲线"})
+				Builder.Next
+			Builder.Add(:image , {:actual => {:name => :character_name, :hue => :character_hue } , 
+				:text => "角色脸谱" , :path => "Graphics/Characters", :show => Help::XP_IMAGE_SHOW, :split => Help::XP_IMAGE_SPLIT } )
+				Builder.Next
+			Builder.Add(:image , {:actual => {:name => :battler_name, :hue => :battler_hue } ,
+			 	:text => "战斗图", :path => "Graphics/Battlers", :show => Help::XP_IMAGE_SPLIT, :split => Help::XP_IMAGE_SPLIT })
+				Builder.OrderAndNext
+			Builder.Add(:actor_parameters, :actual => :parameters) do
+				Builder.Order
+				Builder.Add(:actor , {:index => 0 , :text => "MaxHP" ,:color => Color.new(255,0,0).to_c , :max_number => 9999 })
+				Builder.Add(:actor , {:index => 1 , :text => "MaxSP" ,:color => Color.new(0,255,0).to_c , :max_number => 9999 })
+					Builder.Next
+				Builder.Add(:actor , {:index => 2 , :text => "力量" ,:color => Color.new(0,0,255).to_c , :max_number => 999 })
+				Builder.Add(:actor , {:index => 3 , :text => "速度" ,:color => Color.new(255,255,0).to_c , :max_number => 999 })
+					Builder.Next
+				Builder.Add(:actor , {:index => 4 , :text => "灵巧" ,:color => Color.new(255,0,255).to_c , :max_number => 999 })
+				Builder.Add(:actor , {:index => 5 , :text => "敏捷" ,:color => Color.new(0,255,255).to_c , :max_number => 999 })
+			end
+				Builder.Next
+			Builder.Add(:group, :text => "初期装备") do 
+				Builder.Order
+				Builder.Add(:check , {:actual => :weapon_fix , :text => "武器固定"})
+				Builder.Add(:lazy_choose , {:actual => :weapon_id , :label => 0, :textbook => Help.Get_Default_Text , :choice => { 0 => "（无）" } , 
+					:source => Proc.new do |target, parent|
+						Data["weapon"][Data["class"][parent["@class_id"]]["@weapon_set"]]
+					end })
+					Builder.Next
+				Builder.Add(:check , {:actual => :armor1_fix , :text => "盾固定"})
+				Builder.Add(:lazy_choose , {:actual => :armor1_id ,  :label => 0, :textbook => Help.Get_Default_Text , :choice => { 0 => "（无）" }, 
+					:source => Proc.new do |target, parent|
+						Data["armor"][Data["class"][parent["@class_id"]]["@armor_set"]].select {|target| target["@kind"].Value == 0}
+					end })
+					Builder.Next
+				Builder.Add(:check , {:actual => :armor2_fix , :text => "头部固定"})
+				Builder.Add(:lazy_choose , {:actual => :armor2_id ,  :label => 0, :textbook => Help.Get_Default_Text , :choice => { 0 => "（无）" }, 
+					:source => Proc.new do |target, parent|
+						Data["armor"][Data["class"][parent["@class_id"]]["@armor_set"]].select {|target| target["@kind"].Value == 1}
+					end })
+					Builder.Next
+				Builder.Add(:check , {:actual => :armor3_fix , :text => "防具固定"})
+				Builder.Add(:lazy_choose , {:actual => :armor3_id ,  :label => 0, :textbook => Help.Get_Default_Text , :choice => { 0 => "（无）" }, 
+					:source => Proc.new do |target, parent|
+						Data["armor"][Data["class"][parent["@class_id"]]["@armor_set"]].select {|target| target["@kind"].Value == 2}
+					end })
+					Builder.Next
+				Builder.Add(:check , {:actual => :armor4_fix , :text => "饰品固定"})
+				Builder.Add(:lazy_choose , {:actual => :armor4_id ,  :label => 0, :textbook => Help.Get_Default_Text , :choice => { 0 => "（无）" }, 
+					:source => Proc.new do |target, parent|
+						Data["armor"][Data["class"][parent["@class_id"]]["@armor_set"]].select {|target| target["@kind"].Value == 3}
+					end })
+			end
 		end
 	end
 	list.Value = Data["actor"]

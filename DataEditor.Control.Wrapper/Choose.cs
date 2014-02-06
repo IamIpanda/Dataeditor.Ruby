@@ -16,7 +16,7 @@ namespace DataEditor.Control.Wrapper
         List<Help.Parameter.Text> Texts = new List<Help.Parameter.Text>();
         public override void Reset()
         {
-            base.Reset();
+            base.Reset();;
             // 重置所有选项
             Control.Items.Clear();
             Dictionary.Clear();
@@ -65,7 +65,7 @@ namespace DataEditor.Control.Wrapper
                         // 如果是空值，那么把它忽略
                         if (target == null || target == FuzzyData.FuzzyNil.Instance) continue;
                         // 如果指定了过滤器，并且过滤器宣告此值无效，那么忽略之。
-                        if (filter != null && Convert.ToBoolean(filter.call(target)) == false) continue;
+                        if (filter != null && Convert.ToBoolean(filter.call(target, parent)) == false) continue;
                         // 如果指定了ID，那么依次结算
                         if (id_symbol != null)
                         {
@@ -102,8 +102,7 @@ namespace DataEditor.Control.Wrapper
 
         public override void Pull()
         {
-            long value = Dictionary.Reverse[Control.SelectedIndex];
-            int short_value = (int)value;
+            int short_value = Dictionary.Reverse[Convert.ToInt32(value.Value)];
             if (short_value < Control.Items.Count) Control.SelectedIndex = short_value;
             else Help.Log.log("由于值过短，choose 控件抛弃了一个值：" + short_value);
         }

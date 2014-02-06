@@ -39,7 +39,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actor.cs" />
+    <Compile Include="Actor.Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Actor.Editor.Designer.cs">
+      <DependentUpon>Actor.Editor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Button.cs" />
+    <Compile Include="Check.cs" />
     <Compile Include="Choose.cs" />
     <Compile Include="Complex.cs" />
     <Compile Include="Container\Group.cs" />
@@ -57,6 +64,7 @@
       <DependentUpon>Image.Choser.cs</DependentUpon>
     </Compile>
     <Compile Include="Int.cs" />
+    <Compile Include="LazyChoose.cs" />
     <Compile Include="List.cs" />
     <Compile Include="ListBuff.cs" />
     <Compile Include="ListCheck.cs" />
@@ -98,6 +106,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Actor.Editor.resx">
+      <DependentUpon>Actor.Editor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Image.Choser.resx">
       <DependentUpon>Image.Choser.cs</DependentUpon>
     </EmbeddedResource>

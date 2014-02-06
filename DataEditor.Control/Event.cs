@@ -9,7 +9,7 @@ namespace DataEditor.Help
         public static void OnLeave(object sender, EventArgs e)
         {
             // 获取 editor
-            Control.ObjectEditor editor =  sender as Control.ObjectEditor;
+            Control.ObjectEditor editor =  (sender as System.Windows.Forms.Control).Tag as Control.ObjectEditor;
             if (editor == null) return;
             if (!(editor.CheckValue())) return;
             // 储存旧值，以与 Action 交换

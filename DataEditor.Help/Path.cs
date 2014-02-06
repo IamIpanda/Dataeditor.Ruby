@@ -55,8 +55,9 @@ namespace DataEditor.Help
             {
                 string up_shorts = shorts.ToUpper();
                 if (up_shorts == "RTP")
-                    if (RTPManager.SearchFile(file,out answer))
+                    if (RTPManager.SearchFile(file, out answer))
                         return true;
+                    else return false;
                 string path = this[up_shorts];
                 if (path != "")
                     if (SearchFileByFull(file, out answer, path))

@@ -280,10 +280,12 @@
     <ProjectReference Include="..\DataEditor.FuzzyData.Extra\DataEditor.FuzzyData.Extra.csproj">
       <Project>{3332a025-6e2b-4d9f-8a46-9f2350b39750}</Project>
       <Name>DataEditor.FuzzyData.Extra</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\DataEditor.FuzzyData.Serialization.RubyMarshal\DataEditor.FuzzyData.Serialization.RubyMarshal.csproj">
       <Project>{a9c0dc50-cec6-401b-92e3-65787c9bedc9}</Project>
       <Name>DataEditor.FuzzyData.Serialization.RubyMarshal</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\DataEditor.Help\DataEditor.Help.csproj">
       <Project>{aafc4019-7092-4e66-9f1d-8a3ea4ba75a0}</Project>
@@ -297,7 +299,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>COPY ..\..\..\DataEditor.FuzzyData.Serialization.RubyMarshal\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.dll     Program\Serialization\DataEditor.FuzzyData.Serialization.RubyMarshal.dll
-COPY ..\..\..\DataEditor.FuzzyData.Extra\bin\Debug\DataEditor.FuzzyData.Extra.dll          Program\Serialization\UserDefined\RGSSData.dll</PostBuildEvent>
+COPY ..\..\..\DataEditor.FuzzyData.Extra\bin\Debug\DataEditor.FuzzyData.Extra.dll          Program\Serialization\UserDefined\DataEditor.FuzzyData.Extra.dll</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

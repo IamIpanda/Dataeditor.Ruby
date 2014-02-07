@@ -107,9 +107,9 @@ namespace DataEditor.Control.Wrapper
             else Help.Log.log("由于值过短，choose 控件抛弃了一个值：" + short_value);
         }
 
-        public override bool CheckValue()
+        public override bool ValueIsChanged()
         {
-            return false;
+            return value.Value != Dictionary.Verse[Control.SelectedIndex];
         }
         protected void RefreshText(int id = -1)
         {

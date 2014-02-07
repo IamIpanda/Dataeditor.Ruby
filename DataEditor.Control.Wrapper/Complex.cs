@@ -15,7 +15,7 @@ namespace DataEditor.Control.Wrapper
             RefreshText();
         }
 
-        public override bool CheckValue()
+        public override bool ValueIsChanged()
         {
             return false;
         }

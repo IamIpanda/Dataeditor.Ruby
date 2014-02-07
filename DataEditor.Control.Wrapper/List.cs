@@ -7,6 +7,7 @@ namespace DataEditor.Control.Wrapper
 {
     public abstract class ListWrapper<T> : Control.WrapControlEditor<T, Prototype.ProtoCircleTextListBox> where T : FuzzyData.FuzzyObject
     {
+        protected bool NowTaint = false;
         static List<object> DefaultColors = new List<object>()
         {
             Color.DarkRed,
@@ -19,9 +20,9 @@ namespace DataEditor.Control.Wrapper
         protected List<int> Link = new List<int>(); // 正向：从控件中的顺序记录值到实际的值
         protected Help.Catalogue catalogue;
         public override string Flag { get { return "textlist"; } }
-        public override bool CheckValue()
+        public override bool ValueIsChanged()
         {
-            return false;
+            return NowTaint;
         }
 
         public override void Reset()

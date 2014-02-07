@@ -104,6 +104,7 @@ namespace DataEditor.Help
             public Text(Contract.Runable get_string = null)
             {
                 GetString = get_string;
+                if (GetString == null) System.Diagnostics.Debugger.Break();
                 Watch = new List<FuzzyData.FuzzyObject>();
             }
             public Text(Text origin) 

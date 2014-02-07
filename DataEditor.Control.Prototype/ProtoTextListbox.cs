@@ -29,7 +29,7 @@ namespace DataEditor.Control.Prototype
             int y = e.Bounds.Y;
             var rect = new Rectangle(1, y + 1, ItemHeight - 2, ItemHeight - 2);
             System.Windows.Forms.ControlPaint.DrawCheckBox(e.Graphics, rect, System.Windows.Forms.ButtonState.Flat);
-            if (Texts != null && Texts.Count > e.Index && e.Index > 0)
+            if (Texts != null && Texts.Count > e.Index && e.Index >= 0)
             {
                 // 目标字段
                 string target = Texts[e.Index];
@@ -43,6 +43,7 @@ namespace DataEditor.Control.Prototype
     }
     public class ProtoCircleTextListBox : ProtoTextListBox
     {
+        public event EventHandler<ProtoCircleListValueChangeEventArgs> ItemCircled;
         List<string> target_text = new List<string>();
         public List<string> TargetText
         {
@@ -68,12 +69,15 @@ namespace DataEditor.Control.Prototype
             while (Value.Count <= index) Value.Add(-1);
             Value[index] = (Value[index] + 1) % TargetText.Count;
             this.SelectedIndex = index;
+            if (ItemCircled != null) ItemCircled(this, new ProtoCircleListValueChangeEventArgs(index));
             Invalidate();
         }
         protected override void OnDrawItem(System.Windows.Forms.DrawItemEventArgs e)
         {
             if (Value != null && TargetText != null && TargetColor != null)
             {
+                if (e.Index == 0) { 
+                }
                 while (Value.Count <= e.Index) Value.Add(-1);
                 int target_value = target_value = Value[e.Index];
                 if (target_value >= 0)
@@ -87,5 +91,13 @@ namespace DataEditor.Control.Prototype
             base.OnDrawItem(e);
         }
         
+    }
+    public class ProtoCircleListValueChangeEventArgs : EventArgs
+    {
+        public int index { get; set; }
+        public ProtoCircleListValueChangeEventArgs(int index)
+        {
+            this.index = index;
+        }
     }
 }

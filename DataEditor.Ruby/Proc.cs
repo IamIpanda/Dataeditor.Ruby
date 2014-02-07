@@ -8,7 +8,11 @@ namespace DataEditor.Ruby
     public class Proc : Contract.Runable
     {
         protected IronRuby.Builtins.Proc proc;
-        public Proc(IronRuby.Builtins.Proc proc) { this.proc = proc; }
+        public Proc(IronRuby.Builtins.Proc proc)
+        {
+            this.proc = proc;
+            if (proc == null) System.Diagnostics.Debugger.Break();
+        }
         public object call(params object[] arguments)
         {
             try

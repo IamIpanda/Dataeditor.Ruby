@@ -19,7 +19,7 @@ namespace DataEditor.Control.Wrapper
             Control.Value = (decimal)value.Value;
         }
 
-        public override bool CheckValue()
+        public override bool ValueIsChanged()
         {
             return value.Value == (double)Control.Value;
         }

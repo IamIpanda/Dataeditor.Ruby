@@ -10,7 +10,7 @@ namespace DataEditor.Control
         Help.Parameter Argument { get; set; }
         System.Windows.Forms.Label Label { get; set; }
         System.Windows.Forms.Control Binding { get; }
-        bool CheckValue();
+        bool ValueIsChanged();
         /// <summary>
         /// 编辑器的实际值。
         /// 原则上，set 不予使用。

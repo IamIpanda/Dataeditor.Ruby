@@ -57,7 +57,9 @@ namespace DataEditor.Help
         bool IsFix(object value)
         {
             if (Filter == null)
-                return (value != null && value != FuzzyData.FuzzyNil.Instance);
+                if (value is FuzzyData.FuzzyString)
+                    return (value as FuzzyData.FuzzyString).Text.Length != 0;
+                else return (value != null && value != FuzzyData.FuzzyNil.Instance);
             else return Convert.ToBoolean(Filter.call(value));
         }
     }

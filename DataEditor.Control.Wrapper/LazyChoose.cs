@@ -28,7 +28,7 @@ namespace DataEditor.Control.Wrapper
             Help.Log.log("无法查找此值（j）：" + j.ToString());
         }
 
-        public override bool CheckValue()
+        public override bool ValueIsChanged()
         {
             if (parent == null) return false;
             int i = Control.SelectedIndex;

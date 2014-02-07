@@ -38,7 +38,7 @@ namespace DataEditor.Help
         {
             List<object> answer = new List<object>();
             foreach (var item in array)
-                answer.Add(item);
+                answer.Add(RubyCheckValue(parameter, item));
             return answer;
         }
         public static Parameter RubyStructToParameter(this DataEditor.Help.Parameter parameter, IronRuby.Builtins.RubyStruct target)

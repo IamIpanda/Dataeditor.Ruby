@@ -1,4 +1,4 @@
-#encoding:utf-8
+# This File is in coding: utf-8
 # Arce Script: actor - xp.rb
 # describe the user interface of actor
 

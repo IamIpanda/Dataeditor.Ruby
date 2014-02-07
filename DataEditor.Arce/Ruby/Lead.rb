@@ -65,6 +65,7 @@ class Lead
 			Builder.In(Window["Main"])
 			Builder.In(Builder.Add(:tabs))
 			require "Ruby/XP/Actor - xp.rb"
+			require "Ruby/XP/Class - xp.rb"
 		end
 		def open_rmvx_project(path)
 			Path["project"] = path

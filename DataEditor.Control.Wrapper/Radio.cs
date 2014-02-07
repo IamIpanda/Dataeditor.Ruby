@@ -50,7 +50,7 @@ namespace DataEditor.Control.Wrapper
             else Control.Radio.Checked = false;
         }
 
-        public override bool CheckValue()
+        public override bool ValueIsChanged()
         {
             return false;
         }

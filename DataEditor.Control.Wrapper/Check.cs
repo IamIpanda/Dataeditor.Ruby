@@ -17,7 +17,7 @@ namespace DataEditor.Control.Wrapper
             Control.Checked = value.Value;
         }
 
-        public override bool CheckValue()
+        public override bool ValueIsChanged()
         {
             return Control.Checked == value.Value;
         }

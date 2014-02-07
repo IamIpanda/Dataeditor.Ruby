@@ -6,7 +6,8 @@ namespace DataEditor.Control
 {
     public abstract class WrapBaseWindow : WrapBaseContainer
     {
-        public override bool CheckValue() { return false; }
+        public override bool ValueIsChanged() { return false; }
+        abstract public System.Windows.Forms.DialogResult Show();
     }
     public class WrapBaseWindow<T> : WrapBaseWindow where T : System.Windows.Forms.Form, new()
     {
@@ -18,7 +19,7 @@ namespace DataEditor.Control
         }
         public override void Bind() { Binding = Window; }
         public override string Flag { get { return typeof(T).Name; } }
-        public System.Windows.Forms.DialogResult Show() { return Window.ShowDialog(); }
+        public override System.Windows.Forms.DialogResult Show() { return Window.ShowDialog(); }
         public override void SetSize(System.Drawing.Size size) { Window.ClientSize = size; }
 
     }

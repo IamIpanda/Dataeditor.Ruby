@@ -22,14 +22,15 @@ namespace DataEditor.Control.Wrapper
         }
 
         // FIXME : 设置污染标记
-        public override bool CheckValue()
+        public override bool ValueIsChanged()
         {
             return false;
         }
         public override void Reset()
         {
-            SetColumns(argument.GetArgument<IEnumerable<object>>("COLUMNS"));
+            SetColumns(argument.GetArgument<List<object>>("COLUMNS"));
             List<object> texts = argument.GetArgument<List<object>>("CATALOGUE");
+            SetCatalogue(texts);
             // FIXME : 处理 NEW 节点以提供给 MODEL
             base.Reset();
         }
@@ -37,9 +38,12 @@ namespace DataEditor.Control.Wrapper
         {
             base.SetDefaultArgument();
             argument.SetArgument("window", null);
-            argument.SetArgument("column", new string[0]);
-            argument.SetArgument("catalogue",new List<object>());
+            argument.SetArgument("columns", new string[0]);
+            argument.SetArgument("catalogue", new List<object>());
             argument.SetArgument("new", null, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("window_type", 0, Help.Parameter.ArgumentType.Option);
+            argument.OverrideArgument("width", 500, Help.Parameter.ArgumentType.Option);
+            argument.OverrideArgument("height", 250, Help.Parameter.ArgumentType.Option);
         }
         public override void Bind()
         {
@@ -93,7 +97,11 @@ namespace DataEditor.Control.Wrapper
             if (Control.SelectedIndices.Count == 0) return;
             var window_proc = argument.GetArgument<Contract.Runable>("WINDOW");
             if (window_proc == null) return;
-            var window = new Control.Window.WindowWithOK.WrapWindowWithOK<Control.Window.WindowWithOK>();
+            var window_type = argument.GetArgument<int>("window_type");
+            DataEditor.Control.WrapBaseWindow window;
+            if (window_type == 0 )
+                window = new Control.Window.WindowWithOK.WrapWindowWithOK<Control.Window.WindowWithOK>() ;
+                else window = new Control.Window.WindowWithRightOK.WrapWindowWithRightOK<Control.Window.WindowWithRightOK>();
             var value = SelectedValue;
             window_proc.call(window, value);
             if (window.Show() == DialogResult.OK)
@@ -142,6 +150,7 @@ namespace DataEditor.Control.Wrapper
                                 Help.Monitor.Watch(t, TextChanged, t.Watch.ToArray());
                         }
                         j++;
+                        Items.Add(new ListViewItem(ans));
                     }
             }
             void TextChanged(object sender, EventArgs e)

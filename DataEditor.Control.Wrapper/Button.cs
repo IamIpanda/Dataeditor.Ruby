@@ -11,7 +11,7 @@ namespace DataEditor.Control.Wrapper
         List<object> parameter = new List<object>();
         public override void Push() { }
         public override void Pull() { }
-        public override bool CheckValue() { return false; }
+        public override bool ValueIsChanged() { return false; }
         public override FuzzyData.FuzzyObject Parent { set { } }
         public override void Bind()
         {

@@ -53,7 +53,7 @@ namespace DataEditor.Control.Wrapper
             Invalidate();
         }
 
-        public override bool CheckValue()
+        public override bool ValueIsChanged()
         {
             return false;
         }

@@ -19,9 +19,9 @@ namespace DataEditor.Control.Wrapper
             Control.Value = value.Value;
         }
 
-        public override bool CheckValue()
+        public override bool ValueIsChanged()
         {
-            return value.Value == Control.Value;
+            return value.Value != Control.Value;
         }
         protected override void SetDefaultArgument()
         {

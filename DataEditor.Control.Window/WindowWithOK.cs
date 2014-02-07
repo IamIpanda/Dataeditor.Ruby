@@ -30,6 +30,7 @@ namespace DataEditor.Control.Window
         {
             public override System.Windows.Forms.Control.ControlCollection Controls
             { get { return this.Window.pnMain.Controls; } }
+            public override int end_y { get { return 30; } }
         }
     }
 }

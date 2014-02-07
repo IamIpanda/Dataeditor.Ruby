@@ -13,8 +13,8 @@ namespace DataEditor.Control
         abstract public void Push();
         abstract public void Pull();
         abstract public void Bind();
-        abstract public bool CheckValue();
         public bool EnableData { get; set; }
+        abstract public bool ValueIsChanged();
         public virtual string Flag { get { return this.GetType().Name; } }
         public virtual DataContainer Container { get; set; }
         public virtual System.Windows.Forms.Label Label { get; set; }

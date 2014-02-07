@@ -10,7 +10,7 @@ namespace DataEditor.Control
         public virtual int end_y { get { return 0; } }
         public virtual int start_x { get { return 0; } }
         public virtual int start_y { get { return 0; } }
-        public override bool CheckValue() { return false; }  // 此代码应当无法触发 
+        public override bool ValueIsChanged() { return false; }  // 此代码应当无法触发 
         public virtual System.Windows.Forms.Control.ControlCollection Controls { get { return Binding.Controls; } }
         public virtual void SetSize(System.Drawing.Size size) { if (Binding != null) Binding.ClientSize = size; }
         public virtual bool CanAdd(System.Windows.Forms.Control control) { return !(control is System.Windows.Forms.TabPage); }
@@ -18,8 +18,9 @@ namespace DataEditor.Control
         {
             foreach (System.Windows.Forms.Control control in Controls)
                 if (control.Tag != null && control.Tag is ObjectEditor)
-                    (control.Tag as ObjectEditor).Parent = Value;
+                    (control.Tag as ObjectEditor).Parent = GetBaseValue();
         }
+        protected virtual FuzzyData.FuzzyObject GetBaseValue() { return value; }
         public override void Push() { /* 弃用 */ }
         public override void Reset()
         {

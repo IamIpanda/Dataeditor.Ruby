@@ -46,6 +46,11 @@ namespace DataEditor.Control.Wrapper.Container
             argument.OverrideArgument("text", "未明位面", Help.Parameter.ArgumentType.Option);
         }
         protected Help.Catalogue catalogue = null;
+
+        protected override FuzzyData.FuzzyObject GetBaseValue()
+        {
+            return Value;
+        }
         public override void Bind()
         {
             base.Bind();

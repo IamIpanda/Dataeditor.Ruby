@@ -66,7 +66,7 @@ namespace DataEditor.Control.Wrapper
             Control.Value = target;
             Control.Invalidate();
         }
-        public override bool CheckValue()
+        public override bool ValueIsChanged()
         {
             return false;
         }

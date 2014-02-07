@@ -11,7 +11,7 @@ namespace DataEditor.Help
             // 获取 editor
             Control.ObjectEditor editor =  (sender as System.Windows.Forms.Control).Tag as Control.ObjectEditor;
             if (editor == null) return;
-            if (!(editor.CheckValue())) return;
+            if (!(editor.ValueIsChanged())) return;
             // 储存旧值，以与 Action 交换
             var old = editor.Value.Clone() as FuzzyData.FuzzyObject;
             // 将控件值上传

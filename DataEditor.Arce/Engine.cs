@@ -15,6 +15,8 @@ namespace DataEditor.Arce
             engine = new RubyEngine();
             Help.Collector.AddAssembly(typeof(DataEditor.Control.Window.EditorWindow).Assembly);
             Help.Collector.AddAssembly(typeof(DataEditor.Control.Wrapper.Text).Assembly);
+            Help.Collector.AddAssembly(typeof(DataEditor.Control.Event.EventCommand).Assembly);
+            engine.LoadAssembly(typeof(DataEditor.Control.Event.EventCommand).Assembly);
             // 测试用代码
             //engine.Execute(@"$LOAD_PATH.push(""X:/VS Projects/DataEditor.Ruby/DataEditor.Titan/bin/Debug"")");
             Engine.engine.Execute(@"require ""Ruby/main.rb""");
@@ -23,7 +25,13 @@ namespace DataEditor.Arce
         {
             var proc = (IronRuby.Builtins.Proc) engine.Execute(@"Lead.Open_project");
             IronRuby.Builtins.MutableString str = IronRuby.Builtins.MutableString.Create(Path, IronRuby.Builtins.RubyEncoding.UTF8);
-            proc.Call(str);
+            try
+            {
+                proc.Call(str);
+            }
+            catch (Exception ex)
+            { 
+            }
             (Help.Window.Instance["Main"] as WrapTitan).Window.Show();
             
         }

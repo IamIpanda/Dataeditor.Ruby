@@ -26,6 +26,8 @@ namespace DataEditor.FuzzyData
                 if (com[key] != consistence[key]) return false;
             return true;
         }
+        public Dictionary<string,FuzzyObject>.KeyCollection AllKeys { get { return this.consistence.Keys; } }
+        public Dictionary<string, FuzzyObject>.ValueCollection AllValues { get { return this.consistence.Values; } }
     }
     public class FuzzySymbolComplex : FuzzySymbol
     {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataEditor.Control.Wrapper
 {
-    public class LazyChoose : WrapControlEditor<FuzzyData.FuzzyFixnum, System.Windows.Forms.ComboBox>
+    public class LazyChoose : WrapControlEditor<FuzzyData.FuzzyFixnum, Prototype.ProtoComboBox>
     {
         public override string Flag { get { return "lazy_choose"; } }
         Help.LinkTable<int, int> stats = new Help.LinkTable<int, int>();

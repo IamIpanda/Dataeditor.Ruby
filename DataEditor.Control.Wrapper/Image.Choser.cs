@@ -66,7 +66,8 @@ namespace DataEditor.Control.Wrapper
     public partial class Image_Choser : Form
     {
         public FuzzyData.FuzzyComplex Value { get; set; }
-        public string Path { get; set; }
+        string _path;
+        public string Path { get { return _path; } set { _path = value; InitializeRTP(); } }
         public Image.SplitManager Split { get; set; }
         public new Image.SplitManager Show { get; set; }
         public Image_Choser()
@@ -91,13 +92,17 @@ namespace DataEditor.Control.Wrapper
             set
             {
                 if (fileList.Items.Count == 0) return;
-                foreach (object ob in fileList.Items)
-                    if (ob.ToString() == value)
-                    { fileList.SelectedItem = ob; break; }
+                var list = fileList.Files;
+                for(int i = 0; i < list.Count; i++)
+                {
+                    var file = list[i];
+                    if (file != null && file.Name.StartsWith(value + "."))
+                        fileList.SelectedIndex = i;
+                }
             }
         }
 
-        protected void InitializeRTP()
+        public void InitializeRTP()
         {
             RTPChoser.Items.Clear();
             RTPChoser.Items.Add("全部");
@@ -121,20 +126,6 @@ namespace DataEditor.Control.Wrapper
         {
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Close();
-        }
-
-        private void Image_Choser_Shown(object sender, EventArgs e)
-        {
-            InitializeRTP();
-            /*
-            if (value != null)
-            {
-                if (value.ImageName != null)
-                    this.FileName = value.ImageName.Text;
-                if (value.ImageIndex != null)
-                    MainImage.Index = (int)value.ImageIndex.Value;
-            }
-             * */
         }
 
         private void RTPChoser_SelectedIndexChanged(object sender, EventArgs e)

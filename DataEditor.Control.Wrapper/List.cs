@@ -27,7 +27,6 @@ namespace DataEditor.Control.Wrapper
 
         public override void Reset()
         {
-            base.Reset();
             var file = argument.GetArgument<FuzzyData.FuzzyArray>("DATA");
             Help.Parameter.Text text = argument.GetArgument<Help.Parameter.Text>("TEXTBOOK");
             if (text != null) catalogue = new Help.Catalogue(Control.Items, text);
@@ -46,6 +45,12 @@ namespace DataEditor.Control.Wrapper
             foreach (var color in colors)
                 if (color is Color)
                     Control.TargetColor.Add((Color)color);
+            OriginReset();
+        }
+
+        protected void OriginReset()
+        {
+            base.Reset();
         }
 
         protected override void SetDefaultArgument()
@@ -54,9 +59,9 @@ namespace DataEditor.Control.Wrapper
             argument.SetArgument("textbook", new List<object>());
             argument.SetArgument("value", new List<object>());
             argument.SetArgument("data", new FuzzyData.FuzzyArray());
+            argument.SetArgument("choices", new string[0], Help.Parameter.ArgumentType.Option);
             argument.SetArgument("colors", DefaultColors, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("default", 0, Help.Parameter.ArgumentType.Option);
-            argument.SetArgument("show", null, Help.Parameter.ArgumentType.HardlyEver);
         }
     }
 }

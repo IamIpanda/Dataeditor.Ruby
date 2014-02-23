@@ -104,6 +104,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Ruby\Event.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Ruby\Help.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -227,6 +230,12 @@
     <None Include="Ruby\XP\Enemy - xp.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Ruby\XP\Event - xp - 2.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\Event - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Ruby\XP\File - xp.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -260,6 +269,10 @@
     <ProjectReference Include="..\..\DataEditor\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
       <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
       <Name>DataEditor.FuzzyData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Control.Event\DataEditor.Control.Event.csproj">
+      <Project>{233070a6-124e-454f-800b-bca40f03856b}</Project>
+      <Name>DataEditor.Control.Event</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataEditor.Control.Prototype\DataEditor.Control.Prototype.csproj">
       <Project>{02449edb-b4b5-47e6-ad29-7cc1c8b0bf09}</Project>

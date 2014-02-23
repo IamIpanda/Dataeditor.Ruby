@@ -25,24 +25,25 @@ namespace DataEditor.Control.Prototype
 
         protected override void OnDrawItem(DrawItemEventArgs e)
         {
-            if (e.Index < 0)
-                return;
-            if (Items.Count == 0 || e.Index >= Items.Count)
-                return;
-            if (Items.Count == 0 && Focused)
+            if (e.Index >= 0)
             {
-                DrawFocusRectangle(e.Graphics, e.Bounds);
-                return;
+                if (Items.Count == 0 || e.Index >= Items.Count)
+                    return;
+                if (Items.Count == 0 && Focused)
+                {
+                    DrawFocusRectangle(e.Graphics, e.Bounds);
+                    return;
+                }
+                // 对背景进行描绘
+                Brush BackBrush = GetFocused(e.State) ? GetFocusBrush(e.Bounds) : GetBackColor(e);
+                e.Graphics.FillRectangle(BackBrush, e.Bounds);
+                if (GetFocused(e.State))
+                    DrawFocusRectangle(e.Graphics, e.Bounds);
+                // 对前台文字进行描绘
+                Brush ForeBrush = GetForeColor(e);
+                e.Graphics.DrawString(Items[e.Index].ToString(), Font, ForeBrush,
+                    new Rectangle(e.Bounds.X + RightShift, e.Bounds.Y, e.Bounds.Width - RightShift, e.Bounds.Height));
             }
-            // 对背景进行描绘
-            Brush BackBrush = GetFocused(e.State) ? GetFocusBrush(e.Bounds) : GetBackColor(e);
-            e.Graphics.FillRectangle(BackBrush, e.Bounds);
-            if (GetFocused(e.State))
-                DrawFocusRectangle(e.Graphics, e.Bounds);
-            // 对前台文字进行描绘
-            Brush ForeBrush = GetForeColor(e);
-            e.Graphics.DrawString(Items[e.Index].ToString(), Font, ForeBrush,
-                new Rectangle(e.Bounds.X + RightShift, e.Bounds.Y, e.Bounds.Width - RightShift, e.Bounds.Height));
             // 补齐余项
             if (e.Index == Items.Count - 1)
             {
@@ -73,7 +74,7 @@ namespace DataEditor.Control.Prototype
             index %= ProtoListControlHelp.DefaultBackColors.Count;
             return new SolidBrush(CheckEnabled(ProtoListControlHelp.DefaultBackColors[index]));
         }
-        protected Brush GetForeColor(DrawItemEventArgs e)
+        protected virtual Brush GetForeColor(DrawItemEventArgs e)
         {
             DrawItemState state = e.State;
             if (GetFocused(state))

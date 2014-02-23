@@ -11,7 +11,7 @@ namespace DataEditor.Ruby
         public Proc(IronRuby.Builtins.Proc proc)
         {
             this.proc = proc;
-            if (proc == null) System.Diagnostics.Debugger.Break();
+            if (proc == null) Help.Log.log("程序正在尝试初始化一个 proc 为空的过程件。");
         }
         public object call(params object[] arguments)
         {

@@ -20,6 +20,7 @@ namespace DataEditor.Ruby
             LoadAssembly(typeof(Control.ObjectEditor).Assembly);
             LoadAssembly(typeof(System.Windows.Forms.Form).Assembly);
             LoadAssembly(typeof(System.Drawing.Color).Assembly);
+            LoadAssembly(typeof(System.Text.Encoding).Assembly);
         }
         public object this[string key]
         {

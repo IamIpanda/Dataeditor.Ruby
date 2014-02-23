@@ -1,18 +1,20 @@
+# This file is in coding: utf-8
 # Arce Sctipt : Weapon - xp.rb
 # Describe the user Interface for Weapon
 
-require "File - xp.rb"
+require "Ruby/XP/File - xp.rb"
 Builder.Add(:tab , { :text => "武器" }) do
-		list = Builder.Add(:list, {:textbook => Help.Get_Default_Text}) do
+	list = Builder.Add(:list, {:textbook => Help.Get_Default_Text ,:text => "武器"}) do
+			Builder.Order
 		Builder.Add(:text , {:actual => :name , :text => "名称" })
-		Builder.Add(:icon , {:actual => :icon_name, :text => "图标"})
+		Builder.Add(:image , {:actual => {:name => :icon_name } , :label => 2, 
+			 	:text => "图标", :path => "Graphics/Icons", :show => Help::XP_IMAGE_SPLIT, :split => Help::XP_IMAGE_SPLIT })
 			Builder.Next
 		Builder.Add(:text , {:actual => :description , :text => "说明"})
 			Builder.Next
-		Builder.Add
 			choice = Filechoice.new("animation")
-		Builder.Add(:choose , {:actual => :animation1_id , :text => "使用方的动画" , :choose => { 0 => "（无）" , nil => choice }})	
-		Builder.Add(:choose , {:actual => :animation2_id , :text => "对象方的动画" , :choose => { 0 => "（无）" , nil => choice }})
+		Builder.Add(:choose , {:actual => :animation1_id , :text => "使用方的动画" , :choice => { 0 => "（无）" , nil => choice }})	
+		Builder.Add(:choose , {:actual => :animation2_id , :text => "对象方的动画" , :choice => { 0 => "（无）" , nil => choice }})
 			Builder.Next
 		Builder.Add(:int, {:actual => :price , :text => "价格"})
 		Builder.Add(:int, {:actual => :atk , :text => "攻击力"})
@@ -23,12 +25,13 @@ Builder.Add(:tab , { :text => "武器" }) do
 		Builder.Add(:int, {:actual => :dex_plus, :text => "灵巧+"})
 		Builder.Add(:int, {:actual => :agi_plus, :text => "速度+"})
 		Builder.Add(:int, {:actual => :int_plus, :text => "魔力+"})
-			Builder.Order
-			Builder.Next
-			Builder.Order
-		Builder.Add(:checklist , {:actual => :element_set , :text => "属性", :link => Filechoice.new("system.property")})
-		Builder.Add(:bufflist , {:actual => {"+" => plus_state_set, "-" => minus_state_set, "" => nil}})
+			Builder.OrderAndNext
+			text = Text.new { |*args| args[0].Text }
+		Builder.Add(:checklist , {:actual => :element_set , :text => "属性", :data => Data["system"]["@elements"] , :textbook => text })
+	  Builder.Add(:bufflist , {:actual => {"+" => :plus_state_set, "-" => :minus_state_set}, :text => "状态变化", :height => 200, 
+		 :data => Data["state"], :textbook => Help.Get_Default_Text, :default => ""})
 	end
+	list.Value = Data["weapon"]
 end
 
 =begin

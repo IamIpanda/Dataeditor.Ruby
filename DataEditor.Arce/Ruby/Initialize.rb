@@ -29,6 +29,10 @@ class <<Text
 		ans = origin_new(DataEditor::Ruby::Proc.new(block))
 		return ans
 	end
+	def ret(text)
+		ans = origin_new(text.encode)
+		return ans	
+	end
 end
 # 全局方法 puts 修正
 # 改为一个 MessageBox
@@ -38,4 +42,9 @@ end
 class Split
 	COUNT = DataEditor::Help::Parameter::Split::SplitType.Count
 	VALUE = DataEditor::Help::Parameter::Split::SplitType.Value
+end
+class String
+	def encode
+		return self.ToString(System::Text::Encoding.UTF8)
+	end
 end

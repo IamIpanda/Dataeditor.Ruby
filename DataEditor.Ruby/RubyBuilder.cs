@@ -148,6 +148,10 @@ namespace DataEditor.Ruby
             else
                 builder.mode = builder.mode == ControlOrder.Row ? ControlOrder.Column : ControlOrder.Row;
         }
+        public static System.Windows.Forms.Label Text(IronRuby.Builtins.MutableString text, int extra_w = 0, int extra_h = 0)
+        {
+            return Text(text.ToString(System.Text.Encoding.UTF8), extra_w, extra_h);
+        }
         public static System.Windows.Forms.Label Text(string text = "", int extra_w = 0, int extra_h = 0)
         {
             var builder = Builders.Peek();

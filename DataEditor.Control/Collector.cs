@@ -28,7 +28,8 @@ namespace DataEditor.Help
             {
                 foreach ( Type t in ass.GetExportedTypes() )
                 {
-                    // Log.log("正在扫描类型：" + t.ToString());
+                    // if (t.ToString().EndsWith("Member")) System.Diagnostics.Debugger.Break();
+                    Log.log("正在扫描类型：" + t.ToString());
                     if (!t.IsClass || t.IsAbstract || t.IsGenericType) continue;
                     foreach ( Type Inter in t.GetInterfaces() )
                         if ( Inter == basetype )

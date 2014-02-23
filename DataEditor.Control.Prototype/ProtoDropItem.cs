@@ -17,7 +17,7 @@ namespace DataEditor.Control.Prototype
         public override string Text
         {
             get { return protoSelectable1.Text; }
-            set { protoSelectable1.Text = value; Invalidate(); }
+            set { protoSelectable1.Text = value; protoSelectable1.Invalidate(); }
         }
         public ProtoDropItem ()
         {

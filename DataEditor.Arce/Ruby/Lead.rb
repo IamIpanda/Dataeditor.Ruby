@@ -66,6 +66,15 @@ class Lead
 			Builder.In(Builder.Add(:tabs))
 			require "Ruby/XP/Actor - xp.rb"
 			require "Ruby/XP/Class - xp.rb"
+			require "Ruby/XP/Skill - xp.rb"
+			require "Ruby/XP/Item - xp.rb"
+			require "Ruby/XP/Weapon - xp.rb"
+			require "Ruby/XP/Armor - xp.rb"
+			require "Ruby/XP/Enemy - xp.rb"
+			require "Ruby/XP/Troop - xp.rb"
+			require "Ruby/XP/State - xp.rb"
+			require "Ruby/XP/CommonEvent - xp.rb"
+			require "Ruby/XP/System - xp.rb"
 		end
 		def open_rmvx_project(path)
 			Path["project"] = path

@@ -13,6 +13,7 @@ namespace DataEditor.Control.Window
         public WindowWithRightOK()
         {
             InitializeComponent();
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
         }
 
         private void btOK_Click(object sender, EventArgs e)

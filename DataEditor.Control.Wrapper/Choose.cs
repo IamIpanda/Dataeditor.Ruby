@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataEditor.Control.Wrapper
 {
-    public class Choose : WrapControlEditor<FuzzyData.FuzzyFixnum,System.Windows.Forms.ComboBox>
+    public class Choose : WrapControlEditor<FuzzyData.FuzzyFixnum,Prototype.ProtoComboBox>
     {
         public override void Bind()
         {

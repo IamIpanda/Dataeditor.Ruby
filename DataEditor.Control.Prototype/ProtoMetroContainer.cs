@@ -63,5 +63,9 @@ namespace DataEditor.Control.Prototype
             panel1.BackColor = BackColor;
         }
         public System.Windows.Forms.Control.ControlCollection PanelCollection { get { return panel1.Controls; } }
+        public ProtoMetroContainer()
+        {
+            InitializeComponent();
+        }
     }
 }

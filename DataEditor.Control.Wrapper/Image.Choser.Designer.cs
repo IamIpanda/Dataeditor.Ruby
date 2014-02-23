@@ -107,6 +107,7 @@
             this.fileList.DisappearRectLosingFocus = false;
             this.fileList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fileList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.fileList.Extands = ((System.Collections.Generic.List<string>)(resources.GetObject("fileList.Extands")));
             this.fileList.FormattingEnabled = true;
             this.fileList.Location = new System.Drawing.Point(3, 91);
             this.fileList.Name = "fileList";
@@ -215,7 +216,6 @@
             this.MinimizeBox = false;
             this.Name = "Image_Choser";
             this.Text = "选取图片";
-            this.Shown += new System.EventHandler(this.Image_Choser_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);

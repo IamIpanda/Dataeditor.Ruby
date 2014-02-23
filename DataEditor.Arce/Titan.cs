@@ -21,13 +21,11 @@ namespace DataEditor.Arce
         {
             Help.Collector.AddAssembly(typeof(DataEditor.Control.Window.EditorWindow).Assembly);
             Help.Collector.AddAssembly(typeof(DataEditor.Control.Wrapper.Text).Assembly);
-
-            var engine = new Ruby.RubyEngine();
-            engine.ExecuteFile("Ruby/main.rb");
         }
 
         private void Titan_FormClosed(object sender, FormClosedEventArgs e)
         {
+            Help.Log.Flush();
             (Help.Window.Instance["lead"] as WrapLead).Window.Close();
         }
     }

@@ -13,6 +13,7 @@ namespace DataEditor.Control.Window
         public WindowWithOK()
         {
             InitializeComponent();
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
         }
 
         private void btOK_Click(object sender, EventArgs e)
@@ -28,9 +29,33 @@ namespace DataEditor.Control.Window
         }
         public class WrapWindowWithOK<T> : WrapBaseWindow<T> where T :WindowWithOK,new()
         {
+            public FuzzyData.FuzzyObject origin;
             public override System.Windows.Forms.Control.ControlCollection Controls
             { get { return this.Window.pnMain.Controls; } }
             public override int end_y { get { return 30; } }
+            public override int end_x { get { return 20; } }
+            public override FuzzyData.FuzzyObject Value
+            {
+                get { return origin; }
+                set
+                {
+                    origin = value.Clone() as FuzzyData.FuzzyObject;
+                    base.Value = value;
+                }
+            }
+            public override void Bind()
+            {
+                base.Bind();
+                Window.FormClosing += Window_FormClosing;
+            }
+            void Window_FormClosing(object sender, FormClosingEventArgs e)
+            {
+                var form = sender as System.Windows.Forms.Form;
+                if (form == null) return;
+                FuzzyData.FuzzyObject temp;
+                if (form.DialogResult == DialogResult.Cancel)
+                    temp = base.Value & origin;
+            }
         }
     }
 }

@@ -120,6 +120,7 @@ namespace DataEditor.Help
             public virtual string ToString(params object[] argument)
             {
                 object value = GetString.call(argument);
+                if (value == null) return "-- Text 中发生了错误 --";
                 return value.ToString();
             }
             public object Clone() { return new Text(this); }

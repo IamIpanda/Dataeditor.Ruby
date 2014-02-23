@@ -1,15 +1,18 @@
+# This file is in coding: utf-8
 # Arce Script : Item - xp.rb
 # Describe the user interface for Item
 
-require "XP/File - xp.rb"
+require "Ruby/XP/File - xp.rb"
 Builder.Add(:tab , {  :text => "物品" }) do
-		list = Builder.Add(:list, {:textbook => Help.Get_Default_Text}) do
+	list = Builder.Add(:list, {:textbook => Help.Get_Default_Text ,:text => "物品"}) do
+			Builder.Order
 		Builder.Add(:text , {:actual => :name , :text => "名称" })
-		Builder.Add(:icon , {:actual => :icon_name, :text => "图标"})
+		Builder.Add(:image , {:actual => {:name => :icon_name } , :label => 1, 
+			 	:text => "图标", :path => "Graphics/Icons", :show => Help::XP_IMAGE_SPLIT, :split => Help::XP_IMAGE_SPLIT })
 			Builder.Next
 		Builder.Add(:text , {:actual => :description , :text => "说明"})
 			Builder.Next
-		Builder.Add(:choose , {:actual => :scope , :text => "效果范围" , :chooses = {
+		Builder.Add(:choose , {:actual => :scope , :text => "效果范围" , :choice => {
 			0 => "无",
 			1 => "敌方单体",
 			2 => "地方全体",
@@ -19,7 +22,7 @@ Builder.Add(:tab , {  :text => "物品" }) do
 			6 => "己方全体（HP 0）",
 			7 => "使用者"
 			}})
-		Builder.Add(:choose , {:actual => :occasion , :text => "可能使用时" , choose = {
+		Builder.Add(:choose , {:actual => :occasion , :text => "可能使用时" , :choice => {
 			0 => "平时",
 			1 => "战斗中",
 			2 => "菜单中",
@@ -27,15 +30,15 @@ Builder.Add(:tab , {  :text => "物品" }) do
 			}})
 			Builder.Next
 			choice = Filechoice.new("animation")
-		Builder.Add(:choose , {:actual => :animation1_id , :text => "使用方的动画" , :choose = { 0 => "（无）" ,nil => choice }})	
-		Builder.Add(:choose , {:actual => :animation2_id , :text => "对象方的动画" , :choose = { 0 => "（无）" ,nil => choice }})
+		Builder.Add(:choose , {:actual => :animation1_id , :text => "使用方的动画" , :choice => { 0 => "（无）" ,nil => choice }})	
+		Builder.Add(:choose , {:actual => :animation2_id , :text => "对象方的动画" , :choice => { 0 => "（无）" ,nil => choice }})
 			Builder.Next
 		Builder.Add(:audio , {:actual => :menu_se , :text => "菜单画面时使用的SE" , :type => :SE })	
-		Builder.Add(:choose , {:actual => :common_event_id , :text => "公共事件" , :choose = {  0 => "（无）" ,nil => Filechoice.new("commonEvent") }})
+		Builder.Add(:choose , {:actual => :common_event_id , :text => "公共事件" , :choice => {  0 => "（无）" ,nil => Filechoice.new("commonEvent") }})
 			Builder.Next
 		Builder.Add(:int , {:actual => :price , :text => "价格"})
 		Builder.Add(:bool_choose , {:actual => :consumable , :text => "消耗"})
-		Builder.Add(:choose , {:actual => :parameter_type , :text => "能力值", choices = {
+		Builder.Add(:choose , {:actual => :parameter_type , :text => "能力值", :choice => {
 			0 => "无",
 			1 => "MaxHP",
 			2 => "MaxSP",
@@ -55,11 +58,13 @@ Builder.Add(:tab , {  :text => "物品" }) do
 		Builder.Add(:int, {:actual => :pdef_f, :text => "物理防御 F"})
 		Builder.Add(:int, {:actual => :mdef_f, :text => "魔法防御 F"})
 		Builder.Add(:int, {:actual => :variance, :text => "分散度"})
-			Builder.Order
-			Builder.Next
-			Builder.Order
-		Builder.Add(:checklist , {:actual => :element_set , :data => Data["system"]["@properties"]})
-		# Builder.Add(:textlist , {:actual => {"+" => }})
+			Builder.OrderAndNext
+			text = Text.new { |*args| args[0].Text }
+		Builder.Add(:checklist , {:actual => :element_set ,:text => "属性", :data => Data["system"]["@elements"] , :textbook => text})
+	  Builder.Add(:bufflist , {:actual => {"+" => :plus_state_set, "-" => :minus_state_set},:text => "状态变化", :height => 200, 
+		 :data => Data["state"], :textbook => Help.Get_Default_Text, :default => ""})
+	end		
+	list.Value = Data["item"]
 end
 
 =begin

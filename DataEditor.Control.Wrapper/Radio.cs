@@ -7,7 +7,7 @@ namespace DataEditor.Control.Wrapper
     public class Radio : Control.WrapControlValueContainer<FuzzyData.FuzzyFixnum, Prototype.ProtoRadioContainer>
     {
         public override string Flag { get { return "radio"; } }
-        // ======= STATIC Parts =======
+        // ======= STATIC Parts ====f===
         static Dictionary<string, List<Radio>> Radios = new Dictionary<string, List<Radio>>();
         static void AddRadio(string group, Radio self)
         {
@@ -46,8 +46,23 @@ namespace DataEditor.Control.Wrapper
         public override void Pull()
         {
             base.Pull();
-            if (value.Value == radio_key) Control.Radio.Checked = true;
+            if (value != null && value.Value == radio_key) Control.Radio.Checked = true;
             else Control.Radio.Checked = false;
+        }
+        public override FuzzyData.FuzzyObject Parent
+        {
+            get { return base.Parent; }
+            set
+            {
+                base.Parent = value;
+                var ison = argument.GetArgument<Contract.Runable>("ison");
+                if (ison != null)
+                {
+                    bool on = (bool)ison.call(value, parent, radio_key);
+                    if (on) Control.Radio.Checked = true;
+                    base.Pull();
+                }
+            }
         }
 
         public override bool ValueIsChanged()
@@ -58,6 +73,15 @@ namespace DataEditor.Control.Wrapper
         {
             base.Bind();
             Control.Radio.CheckedChanged += OnRadiosChanged;
+            Control.Radio.CheckedChanged += Radio_CheckedChanged;
+        }
+
+        void Radio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Control.Radio.Checked) return;
+            var chosen = argument.GetArgument<Contract.Runable>("deny");
+            if (chosen != null)
+                chosen.call(value, parent, radio_key);
         }
         public override void Reset()
         {
@@ -71,8 +95,11 @@ namespace DataEditor.Control.Wrapper
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
-            argument.SetArgument("key", -1);
+            argument.OverrideArgument("actual", null, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("key", -1,Help.Parameter.ArgumentType.Option);
             argument.SetArgument("group", "ungrouped", Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("ison", null, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("deny", null, Help.Parameter.ArgumentType.Option);
         }
     }
 }

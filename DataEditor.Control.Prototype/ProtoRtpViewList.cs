@@ -12,10 +12,11 @@ namespace DataEditor.Control.Prototype
     public partial class ProtoRtpViewList : ProtoColoredListBox
     {
         static public List<string> FileExtands = new List<string>() { ".jpg", ".jpeg", ".png", ".bmp" };
+        public List<string> Extands { get; set; }
         public List<FileSystemInfo> Files = new List<FileSystemInfo>();
         public ProtoRtpViewList()
         {
-
+            Extands = FileExtands;
         }
         protected Color ChangeColorForDirectory(Color Origin)
         {
@@ -24,10 +25,7 @@ namespace DataEditor.Control.Prototype
         protected bool CheckFile(FileInfo info)
         {
             string Extand = info.Extension;
-            foreach (string ex in FileExtands)
-                if (Extand == ex)
-                    return true;
-            return false;
+            return Extands.Contains(Extand);
         }
         public void AddDirectory(DirectoryInfo dir, System.Drawing.Color color,string name = "")
         {

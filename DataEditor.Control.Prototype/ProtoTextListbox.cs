@@ -52,12 +52,14 @@ namespace DataEditor.Control.Prototype
         }
         public List<int> Value { get; set; }
         public List<Color> TargetColor { get; set; }
+        public int DefaultValue { get; set; }
 
         public ProtoCircleTextListBox()
         {
             this.MouseClick += ProtoCircleTextListBox_MouseClick;
             TargetColor = new List<Color>();
             Value = new List<int>();
+            DefaultValue = -1;
         }
 
         void ProtoCircleTextListBox_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -78,7 +80,7 @@ namespace DataEditor.Control.Prototype
             {
                 if (e.Index == 0) { 
                 }
-                while (Value.Count <= e.Index) Value.Add(-1);
+                while (Value.Count <= e.Index) Value.Add(DefaultValue);
                 int target_value = target_value = Value[e.Index];
                 if (target_value >= 0)
                 {

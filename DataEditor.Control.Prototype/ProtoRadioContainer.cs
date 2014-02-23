@@ -34,8 +34,7 @@ namespace DataEditor.Control.Prototype
 
         protected void ResetRadio()
         {
-            radioButton1.Location = new Point(
-                (panel2.Width - radioButton1.Width) / 2,
+            radioButton1.Location = new Point(0, 
                 (panel2.Height - radioButton1.Height) / 2);
         }
 

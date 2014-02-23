@@ -75,7 +75,7 @@ namespace DataEditor.Control
         protected virtual FuzzyData.FuzzyObject GetValueFromChild(FuzzyData.FuzzyObject parent, FuzzyData.FuzzySymbol symbol)
         {
             if (symbol == null || symbol.Name == "") return parent;
-            if (parent == null ) return null;
+            if (parent == null) return null;
             if (symbol is FuzzyData.FuzzySymbolComplex)
             {
                 var sym = symbol as FuzzyData.FuzzySymbolComplex;
@@ -84,13 +84,18 @@ namespace DataEditor.Control
                     complex.consistence.Add(key, GetValueFromChild(parent, sym.Extra[key]));
                 return complex;
             }
-            else
+            else if (parent is FuzzyData.FuzzyArray)
             {
-                object temp = null;
-                parent.InstanceVariables.TryGetValue(symbol, out temp);
-                if (temp == null) Help.Log.log("在 " + Flag + " 中未找到所宣告的下述值：" + key);
-                return temp as FuzzyData.FuzzyObject;
+                var array = parent as FuzzyData.FuzzyArray;
+                int i = -1;
+                if (int.TryParse(symbol.Name, out i))
+                    if (i < array.Count && i > 0) return array[i] as FuzzyData.FuzzyObject;
+                    else Help.Log.log("在" + Flag + "中数组超界：" + i.ToString());
             }
+            object temp = null;
+            parent.InstanceVariables.TryGetValue(symbol, out temp);
+            if (temp == null) Help.Log.log("在 " + Flag + " 中未找到所宣告的下述值：" + symbol.Name);
+            return temp as FuzzyData.FuzzyObject;
         }
         protected virtual void SetDefaultArgument()
         {

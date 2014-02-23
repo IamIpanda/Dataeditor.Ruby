@@ -30,6 +30,7 @@ namespace DataEditor.Control.Wrapper
         {
             base.Reset();
             Control.Text = argument.GetArgument<string>("text");
+            Control.Size = Control.PreferredSize;
         }
     }
 }

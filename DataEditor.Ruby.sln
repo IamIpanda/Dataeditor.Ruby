@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Control.Prototyp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Arce", "DataEditor.Arce\DataEditor.Arce.csproj", "{F5FD5556-E0F3-4E5E-9640-274E37980412}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Control.Event", "DataEditor.Control.Event\DataEditor.Control.Event.csproj", "{233070A6-124E-454F-800B-BCA40F03856B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{F5FD5556-E0F3-4E5E-9640-274E37980412}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5FD5556-E0F3-4E5E-9640-274E37980412}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5FD5556-E0F3-4E5E-9640-274E37980412}.Release|Any CPU.Build.0 = Release|Any CPU
+		{233070A6-124E-454F-800B-BCA40F03856B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{233070A6-124E-454F-800B-BCA40F03856B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{233070A6-124E-454F-800B-BCA40F03856B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{233070A6-124E-454F-800B-BCA40F03856B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

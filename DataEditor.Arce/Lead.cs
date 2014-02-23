@@ -79,6 +79,7 @@ namespace DataEditor.Arce
         }
         void RunOption()
         {
+            DataEditor.Control.Wrapper.TroopMember t = new Control.Wrapper.TroopMember();
             Engine.OpenOption();
         }
         void RunExit()

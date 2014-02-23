@@ -95,7 +95,7 @@ namespace DataEditor.Control.Wrapper
         void Control_DoubleClick(object sender, EventArgs e)
         {
             if (Control.SelectedIndices.Count == 0) return;
-            var window_proc = argument.GetArgument<Contract.Runable>("WINDOW");
+            var window_proc = argument.GetArgument<Contract.Runable>("window");
             if (window_proc == null) return;
             var window_type = argument.GetArgument<int>("window_type");
             DataEditor.Control.WrapBaseWindow window;

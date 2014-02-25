@@ -107,6 +107,9 @@
     <None Include="Ruby\Event.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Ruby\Fuzzy.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Ruby\Help.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -228,9 +231,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Ruby\XP\Enemy - xp.rb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Ruby\XP\Event - xp - 2.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Ruby\XP\Event - xp.rb">

@@ -32,9 +32,18 @@ namespace DataEditor.Control.Event
         {
             return Text;
         }
+        protected System.Drawing.Color color = System.Drawing.Color.Black;
         public System.Drawing.Color Color
         {
-            set { foreach (var command in Lists) command.Color = value; }
+            get { return color; }
+            set { color = value; foreach (var command in Lists) command.Color = value; }
+        }
+        public System.Drawing.Color SetColor(int value)
+        {
+            var color = System.Drawing.Color.FromArgb(value);
+            color = System.Drawing.Color.FromArgb(255, color);
+            this.Color = color;
+            return color;
         }
     }
 }

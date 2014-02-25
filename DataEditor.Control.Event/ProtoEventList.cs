@@ -13,6 +13,7 @@ namespace DataEditor.Control.Prototype
         public GetEventItemColorDelegate GetEventItemColor { get; set; }
         protected override System.Drawing.Brush GetForeColor(System.Windows.Forms.DrawItemEventArgs e)
         {
+            if (GetEventItemColor == null) return base.GetForeColor(e);
             DrawItemState state = e.State;
             if (GetFocused(state))
                 return new SolidBrush(CheckEnabled(ProtoListControlHelp.DefaultForeColorOnFocus));

@@ -81,5 +81,12 @@ namespace DataEditor.Help
             if (ser == null) Log.log("序列化器申请被拒绝：" + key);
             return ser;
         }
+        static public object TryGetValue(string data, string key)
+        {
+            Contract.Serialization ser = TryGetSerialization(key);
+            if (ser == null) return null;
+            var stream = new System.IO.MemoryStream(System.Text.Encoding.Default.GetBytes(data));
+            return ser.Load(stream);
+        }
     }
 }

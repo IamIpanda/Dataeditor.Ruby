@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.protoListBox1 = new DataEditor.Control.Prototype.ProtoListBox();
+            this.protoListBox1 = new DataEditor.Control.Prototype.ProtoEventList();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.protoListBox2 = new DataEditor.Control.Prototype.ProtoListBox();
+            this.protoListBox2 = new DataEditor.Control.Prototype.ProtoEventList();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -116,9 +116,9 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private Prototype.ProtoListBox protoListBox1;
+        private Prototype.ProtoEventList protoListBox1;
         private System.Windows.Forms.TextBox textBox1;
-        private Prototype.ProtoListBox protoListBox2;
+        private Prototype.ProtoEventList protoListBox2;
 
 
     }

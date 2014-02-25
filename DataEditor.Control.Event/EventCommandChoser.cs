@@ -20,6 +20,10 @@ namespace DataEditor.Control.Event
         {
             InitializeComponent();
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            protoListBox1.GetEventItemColor = GroupGetColor;
+            protoListBox2.GetEventItemColor = CommandGetColor;
+            protoListBox1.Invalidate();
+            protoListBox2.Invalidate();
         }
 
         public int Code { get; set; }
@@ -32,7 +36,8 @@ namespace DataEditor.Control.Event
             var group = protoListBox1.SelectedItem as CommandGroup;
             if (group == null) return;
             foreach (var command in group.Lists)
-                protoListBox2.Items.Add(command);
+                if (command.Follow < 0)
+                    protoListBox2.Items.Add(command);
         }
         private void protoListBox2_DoubleClick(object sender, EventArgs e)
         {
@@ -91,6 +96,19 @@ namespace DataEditor.Control.Event
         {
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Close();
+        }
+
+        Color GroupGetColor(int index)
+        {
+            if (index < 0) return protoListBox2.ForeColor;
+            return (protoListBox1.Items[index] as CommandGroup).Color;
+        }
+        Color CommandGetColor(int index)
+        {
+            if (index < 0) return protoListBox2.ForeColor;
+            var command = protoListBox2.Items[index] as EventCommand;
+            if (command == null) return protoListBox2.ForeColor;
+            return command.Color;
         }
     }
 }

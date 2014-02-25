@@ -78,10 +78,21 @@ namespace DataEditor.Control.Wrapper
 
         void Radio_CheckedChanged(object sender, EventArgs e)
         {
-            if (Control.Radio.Checked) return;
-            var chosen = argument.GetArgument<Contract.Runable>("deny");
-            if (chosen != null)
-                chosen.call(value, parent, radio_key);
+            if (Control.Radio.Checked)
+            {
+                if (Control.Enabled && Control.Focused)
+                {
+                    var chosen = argument.GetArgument<Contract.Runable>("accept");
+                    if (chosen != null)
+                        chosen.call(value, parent, radio_key);
+                }
+            }
+            else
+            {
+                var chosen = argument.GetArgument<Contract.Runable>("deny");
+                if (chosen != null)
+                    chosen.call(value, parent, radio_key);
+            }
         }
         public override void Reset()
         {
@@ -100,6 +111,7 @@ namespace DataEditor.Control.Wrapper
             argument.SetArgument("group", "ungrouped", Help.Parameter.ArgumentType.Option);
             argument.SetArgument("ison", null, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("deny", null, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("accept", null, Help.Parameter.ArgumentType.Option);
         }
     }
 }

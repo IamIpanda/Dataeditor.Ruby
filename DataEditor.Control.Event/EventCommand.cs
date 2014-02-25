@@ -7,7 +7,7 @@ namespace DataEditor.Control.Event
 {
     public class EventCommand
     {
-        public const string FocusSign = "★ ";
+        public const string FocusSign = "★";
         public int Code = -1, UpIndent = 0, DownIndent = 0, Follow = -1;
         public string Command = "Untitled", Name = "未知指令", Parameters = "";
         public Help.Parameter.Text Text = null;

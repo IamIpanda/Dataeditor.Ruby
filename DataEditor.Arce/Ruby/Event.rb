@@ -42,22 +42,33 @@ class Event_Help
 	class <<self
 		def switch(id)
 			text = Data["system"]["@switches"][id].Text
-			return sprintf("%03d:%s",id,text)
+			if text == "" || text == nil
+				return sprintf("[%04d]", id)
+			else
+				return sprintf("[%04d:%s]",id,text)
+			end
 		end
-		def switches(type, int1, int2)
-			switches = Data["system"]["switches"]
-			if (type == 0)
+		def switches(int1, int2)
+			switches = Data["system"]["@switches"]
+			if (int1 == int2)
 				return Event_Help.switch(int1)
 			else
-				return sprintf("%03d..%03d",int1,int2)
+				return sprintf("[%04d..%04d]",int1,int2)
 			end
 		end
 		def variable(id)
-			text = Data["system"]["@variables"][id].Text.to_s
-			if text == ""
+			text = Data["system"]["@variables"][id].Text
+			if text == "" || text == nil
 				return sprintf("[%04d]", id)
 			else
 				return sprintf("[%04d:%s]",id,text).encode
+			end
+		end
+		def variables(int1, int2)
+			if (int1 == int2)
+				return Event_Help.variable(int1)
+			else
+				return sprintf("[%04d..%04d]",int1,int2)
 			end
 		end
 		def pos(type, int1, int2, int3)
@@ -77,6 +88,10 @@ class Event_Help
 		def direction(int)
 			return["就这样","","下","","左","","右","","上"][int].encode
 		end
+		def press(int)
+			return["","","下","","左","","右","","上","","","A","B","C","X","Y","Z","L","R"][int].encode
+		end
+
 		def tone(tone)
 			return "(#{tone.red}, #{tone.green}, #{tone.blue}, #{tone.gray})"
 		end
@@ -90,6 +105,7 @@ class Event_Help
 			return type == 0 ? ints.join(", ") : ("变量".encode + ints.collect{|i| sqrintf("[%04d]",i)}.join("") )
 		end
 		def value(id, data)
+			return "（无）".encode if id == 0
 			"[#{data[id]["@name"].Text}]"
 		end
 		def text(id, data)
@@ -103,6 +119,41 @@ class Event_Help
 		end
 		def allow_or_ban(int)
 			return (int == 0 ? "禁止" : "允许").encode
+		end
+		def actor(id)
+			if (id == 0) 
+				return "全体同伴".encode
+			else
+				return value(id, Data["actor"])
+			end
+		end
+		def enemy(id)
+			if (id < 0) 
+				return "全体队伍".encode
+			else
+				return "[#{id+1}.]"
+			end
+		end
+		def shop(int1,int2)
+			case int1
+			when 0
+				return value(int2,Data["item"])
+			when 1
+				return value(int2,Data["weapon"])
+			when 2
+				return value(int2,Data["armor"])
+			end
+		end
+		def compare(int)
+			return [" == ", " >= ", " <= ", " > ", " < ", " != "][int]
+		end
+		def switch_state(int)
+			return int == 0 ? "ON" : "OFF"
+		end
+		def event(int)
+			return "角色".encode if int == -1
+			return "本事件".encode if int == 0
+			return "#{int} 号事件" 
 		end
 	end # Untitle Class
 end

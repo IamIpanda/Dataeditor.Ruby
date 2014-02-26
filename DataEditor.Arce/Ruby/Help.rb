@@ -41,7 +41,7 @@ class Help
 		""  => Split.new(Split::COUNT,3,Split::COUNT,4,1,0),
 		"!" => Split.new(Split::COUNT,1,Split::COUNT,4,0,0)		
 	}
-
+	FACE_SPLIT = { "" => Split.new(Split::COUNT, 4, Split::COUNT, 2) }
 	def self.stop
 	  System::Diagnostics::Debugger.Break
 	end

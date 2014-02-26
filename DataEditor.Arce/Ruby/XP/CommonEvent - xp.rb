@@ -16,3 +16,4 @@ Builder.Add(:tab , { :text => "公共事件" }) do
 	end
 	list.Value = Data["commonevent"]
 end
+

@@ -66,7 +66,7 @@ namespace DataEditor.Control.Wrapper
             var source = argument.GetArgument<Contract.Runable>("source");
             var symbol = argument.GetArgument<FuzzyData.FuzzySymbol>("id");
             var textbook = argument.GetArgument<Help.Parameter.Text>("textbook");
-            var list = (IEnumerable<object>)source.call(value, parent);
+            var list = (IEnumerable<object>)source.call(value, parent, this);
             // i 表示用户看到的 ID j 表示对应的值
             i = stats.RawVerse.Count - 1; int j = -1;
             // 获取的值

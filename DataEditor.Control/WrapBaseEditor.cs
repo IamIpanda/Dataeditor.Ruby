@@ -84,12 +84,13 @@ namespace DataEditor.Control
                     complex.consistence.Add(key, GetValueFromChild(parent, sym.Extra[key]));
                 return complex;
             }
-            else if (parent is FuzzyData.FuzzyArray)
+            else if (parent is FuzzyData.FuzzyArray && symbol.Name.StartsWith("@INDEX"))
             {
                 var array = parent as FuzzyData.FuzzyArray;
+                var index = symbol.Name.Substring(6);
                 int i = -1;
-                if (int.TryParse(symbol.Name, out i))
-                    if (i < array.Count && i > 0) return array[i] as FuzzyData.FuzzyObject;
+                if (int.TryParse(index, out i))
+                    if (i < array.Count && i >= 0) return array[i] as FuzzyData.FuzzyObject;
                     else Help.Log.log("在" + Flag + "中数组超界：" + i.ToString());
             }
             object temp = null;

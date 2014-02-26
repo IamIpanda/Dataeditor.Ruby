@@ -1,13 +1,154 @@
-# Actor - va.rb
+# This file is in coding: utf-8
+# Arce Script : Actor - va.rb
 # Descrobe the Actor page in RPG Maker VA
 
-Path.RequestPath("project","请选择工程文件夹")
-Builder.Add(:list , { :text => "角色" ,:textbook => Help.Get_Default_Text}) do 
-	Builder.Order
-	Builder.Add(:text , {:actual => :name , :text => "角色" })
-	Builder.Add(:choose , {
-		:actual => :classes , 
-		:text => "职业" ,
-		:choices => { nil => Filechoice.new("class") }
-		})
+require "Ruby/VA/File - va.rb"
+puts "!"
+Builder.Add(:tab , {:text => "角色" }) do
+	list = Builder.Add(:list , { :text => "角色" ,:textbook => Help.Get_Default_Text}) do 
+		Builder.Add(:metro, {:text => "基本设置" }) do
+				Builder.Order
+			Builder.Add(:text , {:actual => :name , :text => "角色" })
+			Builder.Add(:text , {:actual => :nickname , :text => "称号" })
+				Builder.Next
+			Builder.Add(:choose , {
+				:actual => :class_id , 
+				:text => "职业" ,
+				:choice => { nil => Filechoice.new("class") }
+				})
+			Builder.Add(:int , {:actual => :initial_level , :text => "初始等级"})
+			Builder.Add(:int , {:actual => :max_level , :text => "最终等级"})
+				Builder.Next
+			Builder.Add(:text , {:actual => :description , :text => "说明" })
+		end
+		Builder.Add(:metro , { :text => "图像" }) do			
+				Builder.Order
+			Builder.Add(:image , {
+				:actual => {
+				:name => :character_name, 
+				:index => :character_index } , 
+				:text => "",
+				:path => "Graphics/Characters",
+				:show => Help::VX_IMAGE_SHOW,
+				:split => Help::VX_IMAGE_SPLIT 
+				})
+			Builder.Add(:image , {
+				:actual => {
+				:name => :face_name, 
+				:index => :face_index } , 
+				:text => "",
+				:path => "Graphics/Faces",
+				:show => Help::XP_IMAGE_SPLIT,
+				:split => Help::FACE_SPLIT 
+				})
+		end
+		Builder.Add(:metro, :text => "初期装备", :actual => :equips) do 
+			Builder.Add(:lazy_choose , {
+				:actual => :INDEX0 ,
+				:label => 2,
+				:textbook => Help.Get_Default_Text ,
+				:choice => { 0 => "（无）" } , 
+				:text => "武器", 
+				:source => Proc.new do |target, parent, control|
+					classes = Data["class"][control.Container.Container.Value["@class_id"]]
+					type = []
+					classes["@features"].each {|feature| type.push(feature["@data_id"]) if feature["@code"].Value == 51 }
+					Data["weapon"].select {|weapon| type.include?(weapon["@wtype_id"]) }
+			end })			
+			Builder.Add(:lazy_choose , {
+				:actual => :INDEX1,  
+				:label => 2, 
+				:textbook => Help.Get_Default_Text , 
+				:choice => { 0 => "（无）" }, 
+				:text => "副手",
+				:source => Proc.new do |target, parent, control|
+					classes = Data["class"][control.Container.Container.Value["@class_id"]]
+					features = classes["@features"]
+					double = 0
+					features.each { |feature| double = feature["@data_id"] if feature["@code"].Value == 55 }
+					if double == 0
+						type = []
+						features.each {|feature| type.push(feature["@data_id"]) if feature["@code"].Value == 52 }
+						Data["armor"].select {|armor| type.include?(armor["@atype_id"]) &&  armor["@etype_id"].Value == 1 }
+					else
+						type = []
+						features.each {|feature| type.push(feature["@data_id"]) if feature["@code"].Value == 51 }
+						Data["weapon"].select {|weapon| type.include?(weapon["@wtype_id"]) }
+					end
+			end })
+			Builder.Add(:lazy_choose , {
+				:actual => :INDEX2,  
+				:label => 2, 
+				:textbook => Help.Get_Default_Text , 
+				:choice => { 0 => "（无）" }, 
+				:text => "头盔",
+				:source => Proc.new do |target, parent, control|
+					classes = Data["class"][control.Container.Container.Value["@class_id"]]
+					type = []
+					classes["@features"].each {|feature| type.push(feature["@data_id"]) if feature["@code"].Value == 52 }
+					Data["armor"].select {|armor| type.include?(armor["@atype_id"]) &&  armor["@etype_id"].Value == 2 }
+			end })
+			Builder.Add(:lazy_choose , {
+				:actual => :INDEX3,  
+				:label => 2, 
+				:textbook => Help.Get_Default_Text , 
+				:choice => { 0 => "（无）" }, 
+				:text => "铠甲",
+				:source => Proc.new do |target, parent, control|
+					classes = Data["class"][control.Container.Container.Value["@class_id"]]
+					type = []
+					classes["@features"].each {|feature| type.push(feature["@data_id"]) if feature["@code"].Value == 52 }
+					Data["armor"].select {|armor| type.include?(armor["@atype_id"]) &&  armor["@etype_id"].Value == 3 }
+			end })
+			Builder.Add(:lazy_choose , {
+				:actual => :INDEX4,  
+				:label => 2, 
+				:textbook => Help.Get_Default_Text , 
+				:choice => { 0 => "（无）" }, 
+				:text => "饰品",
+				:source => Proc.new do |target, parent, control|
+					classes = Data["class"][control.Container.Container.Value["@class_id"]]
+					type = []
+					classes["@features"].each {|feature| type.push(feature["@data_id"]) if feature["@code"].Value == 52 }
+					Data["armor"].select {|armor| type.include?(armor["@atype_id"]) &&  armor["@etype_id"].Value == 4 }
+			end })
+		end
+	end
+	list.Value = Data["actor"]
 end
+
+=begin
+属性
+nickname 
+二つ名。
+
+class_id 
+職業 ID。
+
+initial_level 
+初期レベル。
+
+max_level 
+最高レベル。
+
+character_name 
+歩行グラフィックのファイル名。
+
+character_index 
+歩行グラフィックのインデックス (0..7) 。
+
+face_name 
+顔グラフィックのファイル名。
+
+face_index 
+顔グラフィックのインデックス (0..7) 。
+
+equips 
+初期装備。以下を添字とする、武器 ID または防具 ID の配列です。
+
+0 : 武器 
+1 : 盾 
+2 : 頭 
+3 : 身体 
+4 : 装飾品 
+=end

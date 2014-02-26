@@ -78,11 +78,35 @@ class Lead
 		end
 		def open_rmvx_project(path)
 			Path["project"] = path
-			require "Ruby/VX/File - vx.rb"
+			require "Ruby/VX/Actor - vx.rb"
+			require "Ruby/VX/Class - vx.rb"
+			require "Ruby/VX/Skill - vx.rb"
+			require "Ruby/VX/Item - vx.rb"
+			require "Ruby/VX/Weapon - vx.rb"
+			require "Ruby/VX/Armor - vx.rb"
+			require "Ruby/VX/Enemy - vx.rb"
+			require "Ruby/VX/Troop - vx.rb"
+			require "Ruby/VX/State - vx.rb"
+			require "Ruby/VX/CommonEvent - vx.rb"
+			require "Ruby/VX/System - vx.rb"
 		end
 		def open_rmva_project(path)
 			Path["project"] = path
 			require "Ruby/VA/File - va.rb"
+			# Start Main Window and Login
+			Builder.In(Window["Main"])
+			Builder.In(Builder.Add(:tabs))
+			require "Ruby/VA/Actor - va.rb"
+			require "Ruby/VA/Class - va.rb"
+			require "Ruby/VA/Skill - va.rb"
+			require "Ruby/VA/Item - va.rb"
+			require "Ruby/VA/Weapon - va.rb"
+			require "Ruby/VA/Armor - va.rb"
+			require "Ruby/VA/Enemy - va.rb"
+			require "Ruby/VA/Troop - va.rb"
+			require "Ruby/VA/State - va.rb"
+			require "Ruby/VA/CommonEvent - va.rb"
+			require "Ruby/VA/System - va.rb"
 		end
 		# Promise land
 		def Open_project

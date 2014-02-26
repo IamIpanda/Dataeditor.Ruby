@@ -40,31 +40,31 @@ Builder.Add(:tab , { :text => "角色" }) do
 				Builder.Order
 				Builder.Add(:check , {:actual => :weapon_fix , :text => "武器固定"})
 				Builder.Add(:lazy_choose , {:actual => :weapon_id , :label => 0, :textbook => Help.Get_Default_Text , :choice => { 0 => "（无）" } , 
-					:source => Proc.new do |target, parent|
+					:source => Proc.new do |target, parent, control|
 						Data["weapon"][Data["class"][parent["@class_id"]]["@weapon_set"]]
 					end })
 					Builder.Next
 				Builder.Add(:check , {:actual => :armor1_fix , :text => "盾固定"})
 				Builder.Add(:lazy_choose , {:actual => :armor1_id ,  :label => 0, :textbook => Help.Get_Default_Text , :choice => { 0 => "（无）" }, 
-					:source => Proc.new do |target, parent|
+					:source => Proc.new do |target, parent, control|
 						Data["armor"][Data["class"][parent["@class_id"]]["@armor_set"]].select {|target| target["@kind"].Value == 0}
 					end })
 					Builder.Next
 				Builder.Add(:check , {:actual => :armor2_fix , :text => "头部固定"})
 				Builder.Add(:lazy_choose , {:actual => :armor2_id ,  :label => 0, :textbook => Help.Get_Default_Text , :choice => { 0 => "（无）" }, 
-					:source => Proc.new do |target, parent|
+					:source => Proc.new do |target, parent, control|
 						Data["armor"][Data["class"][parent["@class_id"]]["@armor_set"]].select {|target| target["@kind"].Value == 1}
 					end })
 					Builder.Next
 				Builder.Add(:check , {:actual => :armor3_fix , :text => "防具固定"})
 				Builder.Add(:lazy_choose , {:actual => :armor3_id ,  :label => 0, :textbook => Help.Get_Default_Text , :choice => { 0 => "（无）" }, 
-					:source => Proc.new do |target, parent|
+					:source => Proc.new do |target, parent, control|
 						Data["armor"][Data["class"][parent["@class_id"]]["@armor_set"]].select {|target| target["@kind"].Value == 2}
 					end })
 					Builder.Next
 				Builder.Add(:check , {:actual => :armor4_fix , :text => "饰品固定"})
 				Builder.Add(:lazy_choose , {:actual => :armor4_id ,  :label => 0, :textbook => Help.Get_Default_Text , :choice => { 0 => "（无）" }, 
-					:source => Proc.new do |target, parent|
+					:source => Proc.new do |target, parent, control|
 						Data["armor"][Data["class"][parent["@class_id"]]["@armor_set"]].select {|target| target["@kind"].Value == 3}
 					end })
 			end

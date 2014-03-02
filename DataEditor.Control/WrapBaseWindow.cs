@@ -18,7 +18,7 @@ namespace DataEditor.Control
             set { window = value; }
         }
         public override void Bind() { Binding = Window; }
-        public override string Flag { get { return typeof(T).Name; } }
+        //public override string Flag { get { return typeof(T).Name; } }
         public override System.Windows.Forms.DialogResult Show() { return Window.ShowDialog(); }
         public override void SetSize(System.Drawing.Size size) { Window.ClientSize = size; }
 

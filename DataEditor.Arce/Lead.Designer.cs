@@ -47,7 +47,7 @@
             // 
             // OFD
             // 
-            this.OFD.FileName = "openFileDialog1";
+            this.OFD.FileName = "Game.rvproj2";
             // 
             // Lead
             // 

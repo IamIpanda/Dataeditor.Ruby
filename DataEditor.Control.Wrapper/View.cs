@@ -28,7 +28,7 @@ namespace DataEditor.Control.Wrapper
         }
         public override void Reset()
         {
-            SetColumns(argument.GetArgument<List<object>>("COLUMNS"));
+            SetColumns(argument.GetArgument<List<object>>("COLUMNS"), argument.GetArgument<List<object>>("COLUMN_WIDTH"));
             List<object> texts = argument.GetArgument<List<object>>("CATALOGUE");
             SetCatalogue(texts);
             // FIXME : 处理 NEW 节点以提供给 MODEL
@@ -42,6 +42,7 @@ namespace DataEditor.Control.Wrapper
             argument.SetArgument("catalogue", new List<object>());
             argument.SetArgument("new", null, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("window_type", 0, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("column_width", null, Help.Parameter.ArgumentType.Option);
             argument.OverrideArgument("width", 500, Help.Parameter.ArgumentType.Option);
             argument.OverrideArgument("height", 250, Help.Parameter.ArgumentType.Option);
         }
@@ -62,14 +63,14 @@ namespace DataEditor.Control.Wrapper
             }
         }
 
-        protected void SetColumns(IEnumerable<object> value)
+        protected void SetColumns(IEnumerable<object> value,IEnumerable<object> list)
         {
             if (value == null) return;
-            Control.Columns.Clear();
             foreach (object target in value)
+            {
                 Control.Columns.Add(target.ToString());
+            }
         }
-        
         protected void SetCatalogue(List<object> value)
         {
             if (value == null) return;
@@ -80,7 +81,7 @@ namespace DataEditor.Control.Wrapper
         }
         protected void SetModel()
         {
-
+            model = argument.GetArgument<FuzzyData.FuzzyObject>("new");
         }
          
 

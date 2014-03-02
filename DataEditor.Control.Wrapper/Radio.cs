@@ -7,7 +7,7 @@ namespace DataEditor.Control.Wrapper
     public class Radio : Control.WrapControlValueContainer<FuzzyData.FuzzyFixnum, Prototype.ProtoRadioContainer>
     {
         public override string Flag { get { return "radio"; } }
-        // ======= STATIC Parts ====f===
+        // ======= STATIC Parts =======
         static Dictionary<string, List<Radio>> Radios = new Dictionary<string, List<Radio>>();
         static void AddRadio(string group, Radio self)
         {
@@ -45,9 +45,10 @@ namespace DataEditor.Control.Wrapper
         }
         public override void Pull()
         {
-            base.Pull();
-            if (value != null && value.Value == radio_key) Control.Radio.Checked = true;
+            if (value != null && value.Value == radio_key)
+                Control.Radio.Checked = true; 
             else Control.Radio.Checked = false;
+            base.Pull();
         }
         public override FuzzyData.FuzzyObject Parent
         {
@@ -74,6 +75,12 @@ namespace DataEditor.Control.Wrapper
             base.Bind();
             Control.Radio.CheckedChanged += OnRadiosChanged;
             Control.Radio.CheckedChanged += Radio_CheckedChanged;
+            Control.Disposed += Control_Disposed;
+        }
+
+        void Control_Disposed(object sender, EventArgs e)
+        {
+            Radios[Control.Radio.Tag.ToString()].Remove(this);
         }
 
         void Radio_CheckedChanged(object sender, EventArgs e)

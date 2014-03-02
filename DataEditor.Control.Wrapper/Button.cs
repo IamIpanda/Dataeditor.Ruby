@@ -31,6 +31,7 @@ namespace DataEditor.Control.Wrapper
             argument.OverrideArgument("label", 0, Help.Parameter.ArgumentType.HardlyEver);
             argument.SetArgument("parameter", new List<object>(), Help.Parameter.ArgumentType.Option);
             argument.SetArgument("run", null, Help.Parameter.ArgumentType.Must);
+            argument.OverrideArgument("actual", null);
         }
 
         void Control_Click(object sender, EventArgs e)

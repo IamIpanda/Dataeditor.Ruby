@@ -96,10 +96,11 @@ namespace DataEditor.Control.Wrapper
             {
                 int index = Convert.ToInt32(file_index.Value);
                 var first_clip = split[index, bitmap.Width, bitmap.Height];
-                src_rect = split[-1, -1, first_clip.Width, first_clip.Height];
-                src_rect.Offset(first_clip.X, first_clip.Y);
+                src_rect = first_clip;
             }
-            src_rect = show[0, 0, bitmap.Width, bitmap.Height];
+            var show_src_rect = show[-1, -1, src_rect.Width, src_rect.Height];
+            src_rect.Size = show_src_rect.Size;
+            src_rect.Offset(show_src_rect.Location);
             // TODO : Finish Bitmap Hue Change
             if (file_hue != null) { }
             Control.Bitmap = bitmap;

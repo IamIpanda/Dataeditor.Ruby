@@ -40,15 +40,21 @@ namespace DataEditor.Control.Wrapper
                     Control.Items.Add(text);
                 }
                 // 是复项的场合
-                else 
+                else
                 {
                     // 转换成选项格式
                     Help.Parameter file_choice = choices[ob] as Help.Parameter;
                     if (file_choice == null) continue;
-                    //  从选项中获取目标文件的短名
-                    string key = file_choice.GetArgument<string>("DATA");
-                    // 将文件数据读取
-                    FuzzyData.FuzzyArray targets = Help.Data.Instance[key] as FuzzyData.FuzzyArray;
+                    FuzzyData.FuzzyArray targets;
+                    // 尝试直接获取值
+                    targets = file_choice.GetArgument<FuzzyData.FuzzyArray>("DATA");
+                    if (targets == null)
+                    {
+                        //  从选项中获取目标文件的短名
+                        string key = file_choice.GetArgument<string>("DATA");
+                        // 将文件数据读取
+                        targets = Help.Data.Instance[key] as FuzzyData.FuzzyArray;
+                    }
                     if (targets == null) continue;
                     // 获取指定的Text文档
                     Help.Parameter.Text text = file_choice.GetArgument<Help.Parameter.Text>("TEXT");
@@ -58,10 +64,22 @@ namespace DataEditor.Control.Wrapper
                     // 获取指定的ID值
                     string id_symbol = file_choice.GetArgument<string>("ID");
                     FuzzyData.FuzzySymbol id_fuzzy_symbol = FuzzyData.FuzzySymbol.GetSymbol("@" + id_symbol);
-
-                    // 开始遍历
+                    // 对于 FuzzyString 组，需先滤掉所有开头的空字符串
+                    //（对于一般的字符串组来说，滤掉的是 0）
+                    foreach (var target in targets)
+                    {
+                        var str = target as FuzzyData.FuzzyString;
+                        if (str == null) break;
+                        if (str.Text.Length > 0) break;
+                        j++;
+                    }
+                    int w = j;
                     foreach (FuzzyData.FuzzyObject target in targets)
                     {
+                        // 过滤器的过滤值
+                        if (w >= 0) { w--; continue; }
+                        // 计数器前进
+                        j++;
                         // 如果是空值，那么把它忽略
                         if (target == null || target == FuzzyData.FuzzyNil.Instance) continue;
                         // 如果指定了过滤器，并且过滤器宣告此值无效，那么忽略之。
@@ -75,15 +93,15 @@ namespace DataEditor.Control.Wrapper
                             if (j_fix == null) continue;
                             j = Convert.ToInt32(j_fix.Value);
                             i++;
-                            // TODO: Monitor the Text.
                         }
                         // 如果没有指定 ID，那么依次向后放置作为结算。
                         else { i++; j++; }
                         // 最后，把它们加进目标表中。
                         Dictionary.Add(i, j);
-                        Texts.Add(text);
+                        Texts.Add(text); i++;
                         // 参数约定为：目标来源、观察表、i、j。
                         Control.Items.Add(text.ToString(target, text.Watch, i, j));
+                        // TODO: Monitor the Text.
                     }
                 }
             }

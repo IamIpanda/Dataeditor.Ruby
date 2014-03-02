@@ -16,5 +16,9 @@ namespace DataEditor.Control.Wrapper.Container
         {
             return control is System.Windows.Forms.TabPage;
         }
+        public override void SetSize(System.Drawing.Size size)
+        {
+            base.SetSize(new System.Drawing.Size(size.Width, size.Height + 25));
+        }
     }
 }

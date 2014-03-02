@@ -22,7 +22,6 @@ Builder.Add(:tab , { :text => "职业" }) do
 				:choices => ["A","B","C","D","E","F"], :value => [1,2,3,4,5,6,7], :default => 3, :data => Data["state"]})
 		end
 			window = Proc.new do |window, value|
-				puts window,value
 					Builder.In(window)
 				Builder.Add(:int , {:actual => :level , :text => "等级"})
 				Builder.Add(:choose , {:actual => :skill_id , :text => "学会的特技" , :choice => { nil => Filechoice.new("skill") }})

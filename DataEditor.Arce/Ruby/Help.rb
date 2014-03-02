@@ -42,6 +42,7 @@ class Help
 		"!" => Split.new(Split::COUNT,1,Split::COUNT,4,0,0)		
 	}
 	FACE_SPLIT = { "" => Split.new(Split::COUNT, 4, Split::COUNT, 2) }
+	ICON_SPLIT = Split.new(Split::VALUE, 24, Split::VALUE, 24 )
 	def self.stop
 	  System::Diagnostics::Debugger.Break
 	end
@@ -115,6 +116,15 @@ Filechoice = Struct.new(:data,:id,:filter,:text,:watch) do
 		self.id = id
 		self.filter = filter
 		self.text = Help.Get_Default_Text
+		self.watch = []
+	end
+end
+# Fileselect
+Fileselect = Struct.new(:data,:filter,:text,:watch) do
+	def initialize(data,&filter)
+		self.data = data
+		self.filter = filter
+		self.text = Text.new { |value| value[0].Text }
 		self.watch = []
 	end
 end

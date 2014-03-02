@@ -3,7 +3,8 @@
 # Descrobe the Actor page in RPG Maker VA
 
 require "Ruby/VA/File - va.rb"
-puts "!"
+require "Ruby/VA/Feature - va.rb"
+
 Builder.Add(:tab , {:text => "角色" }) do
 	list = Builder.Add(:list , { :text => "角色" ,:textbook => Help.Get_Default_Text}) do 
 		Builder.Add(:metro, {:text => "基本设置" }) do
@@ -16,12 +17,12 @@ Builder.Add(:tab , {:text => "角色" }) do
 				:text => "职业" ,
 				:choice => { nil => Filechoice.new("class") }
 				})
-			Builder.Add(:int , {:actual => :initial_level , :text => "初始等级"})
-			Builder.Add(:int , {:actual => :max_level , :text => "最终等级"})
+			Builder.Add(:int , {:actual => :initial_level , :text => "初始等级", :width => 26})
+			Builder.Add(:int , {:actual => :max_level , :text => "最终等级", :width => 26})
 				Builder.Next
 			Builder.Add(:text , {:actual => :description , :text => "说明" })
 		end
-		Builder.Add(:metro , { :text => "图像" }) do			
+		Builder.Add(:metro , { :text => "图像" }) do	
 				Builder.Order
 			Builder.Add(:image , {
 				:actual => {
@@ -50,10 +51,7 @@ Builder.Add(:tab , {:text => "角色" }) do
 				:choice => { 0 => "（无）" } , 
 				:text => "武器", 
 				:source => Proc.new do |target, parent, control|
-					classes = Data["class"][control.Container.Container.Value["@class_id"]]
-					type = []
-					classes["@features"].each {|feature| type.push(feature["@data_id"]) if feature["@code"].Value == 51 }
-					Data["weapon"].select {|weapon| type.include?(weapon["@wtype_id"]) }
+					VA_Help.search_weapon(control)
 			end })			
 			Builder.Add(:lazy_choose , {
 				:actual => :INDEX1,  
@@ -62,18 +60,10 @@ Builder.Add(:tab , {:text => "角色" }) do
 				:choice => { 0 => "（无）" }, 
 				:text => "副手",
 				:source => Proc.new do |target, parent, control|
-					classes = Data["class"][control.Container.Container.Value["@class_id"]]
-					features = classes["@features"]
-					double = 0
-					features.each { |feature| double = feature["@data_id"] if feature["@code"].Value == 55 }
-					if double == 0
-						type = []
-						features.each {|feature| type.push(feature["@data_id"]) if feature["@code"].Value == 52 }
-						Data["armor"].select {|armor| type.include?(armor["@atype_id"]) &&  armor["@etype_id"].Value == 1 }
+					if (VA_Help.isDouble(control))
+						VA_Help.search_weapon(control)
 					else
-						type = []
-						features.each {|feature| type.push(feature["@data_id"]) if feature["@code"].Value == 51 }
-						Data["weapon"].select {|weapon| type.include?(weapon["@wtype_id"]) }
+						VA_Help.search_armor(control, 1)
 					end
 			end })
 			Builder.Add(:lazy_choose , {
@@ -83,10 +73,7 @@ Builder.Add(:tab , {:text => "角色" }) do
 				:choice => { 0 => "（无）" }, 
 				:text => "头盔",
 				:source => Proc.new do |target, parent, control|
-					classes = Data["class"][control.Container.Container.Value["@class_id"]]
-					type = []
-					classes["@features"].each {|feature| type.push(feature["@data_id"]) if feature["@code"].Value == 52 }
-					Data["armor"].select {|armor| type.include?(armor["@atype_id"]) &&  armor["@etype_id"].Value == 2 }
+					VA_Help.search_armor(control, 2)
 			end })
 			Builder.Add(:lazy_choose , {
 				:actual => :INDEX3,  
@@ -95,10 +82,7 @@ Builder.Add(:tab , {:text => "角色" }) do
 				:choice => { 0 => "（无）" }, 
 				:text => "铠甲",
 				:source => Proc.new do |target, parent, control|
-					classes = Data["class"][control.Container.Container.Value["@class_id"]]
-					type = []
-					classes["@features"].each {|feature| type.push(feature["@data_id"]) if feature["@code"].Value == 52 }
-					Data["armor"].select {|armor| type.include?(armor["@atype_id"]) &&  armor["@etype_id"].Value == 3 }
+					VA_Help.search_armor(control, 3)
 			end })
 			Builder.Add(:lazy_choose , {
 				:actual => :INDEX4,  
@@ -107,14 +91,69 @@ Builder.Add(:tab , {:text => "角色" }) do
 				:choice => { 0 => "（无）" }, 
 				:text => "饰品",
 				:source => Proc.new do |target, parent, control|
-					classes = Data["class"][control.Container.Container.Value["@class_id"]]
-					type = []
-					classes["@features"].each {|feature| type.push(feature["@data_id"]) if feature["@code"].Value == 52 }
-					Data["armor"].select {|armor| type.include?(armor["@atype_id"]) &&  armor["@etype_id"].Value == 4 }
+					VA_Help.search_armor(control, 4)
 			end })
+		end
+			Builder.Next
+		Builder.Add(:metro , { :text => "特性" }) do
+			VA_Help::Feature.build_feature
+		end
+		Builder.Add(:metro, { :text => "备注" }) do
+			Builder.Add(:text , {:actual => :note , :label => 0, :height => 400, :width => 600 })
 		end
 	end
 	list.Value = Data["actor"]
+end
+
+class VA_Help
+	class << self
+		def search_weapon(control)
+			actor_class = Data["class"][control.Container.Container.Value["@class_id"]]
+			actor_features = control.Container.Container.Value["@features"]
+			class_features = actor_class["@features"]
+			type = []
+			banish = false
+			actor_features.each do |feature| 
+				type.push(feature["@data_id"]) if feature["@code"].Value == 51 
+				banish = true if feature["@code"].Value == 54 && feature["@data_id"] == 0
+			end
+			class_features.each do |feature| 
+				type.push(feature["@data_id"]) if feature["@code"].Value == 51 
+				banish = true if feature["@code"].Value == 54 && feature["@data_id"] == 0
+			end
+			return [] if banish
+			return Data["weapon"].select {|weapon| type.include?(weapon["@wtype_id"]) }
+		end
+		def search_armor(control, id)
+			actor_class = Data["class"][control.Container.Container.Value["@class_id"]]
+			actor_features = control.Container.Container.Value["@features"]
+			class_features = actor_class["@features"]
+			type = []
+			banish = false
+			actor_features.each do |feature| 
+				type.push(feature["@data_id"]) if feature["@code"].Value == 52
+				banish = true if feature["@code"].Value == 54 && feature["@data_id"] == id
+			end
+			class_features.each do |feature| 
+				type.push(feature["@data_id"]) if feature["@code"].Value == 52
+				banish = true if feature["@code"].Value == 54 && feature["@data_id"] == id
+			end
+			return [] if banish
+			return Data["armor"].select {|weapon| type.include?(weapon["@atype_id"]) && weapon["@etype_id"].Value == id }
+		end
+		def isDouble(control)
+			actor_class = Data["class"][control.Container.Container.Value["@class_id"]]
+			actor_features = control.Container.Container.Value["@features"]
+			class_features = actor_class["@features"]
+			for feature in class_features
+				return true if feature["@code"].Value == 55
+			end
+			for feature in actor_features
+				return true if feature["@code"].Value == 55
+			end
+			false
+		end
+	end
 end
 
 =begin

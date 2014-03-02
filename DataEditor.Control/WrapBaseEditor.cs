@@ -65,7 +65,7 @@ namespace DataEditor.Control
                 TValue ans = ConvertToValue(origin);
                 if (ans == null) return;
                 this.value = ans;
-                Pull();
+                if (Binding.Enabled) Pull();
             }
         }
         protected FuzzyData.FuzzyObject GetValueFromChild(FuzzyData.FuzzyObject parent)

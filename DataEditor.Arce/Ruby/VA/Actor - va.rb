@@ -1,6 +1,6 @@
 # This file is in coding: utf-8
 # Arce Script : Actor - va.rb
-# Descrobe the Actor page in RPG Maker VA
+# Descrobe the Actor page in RPG Maker VX Ace
 
 require "Ruby/VA/File - va.rb"
 require "Ruby/VA/Feature - va.rb"

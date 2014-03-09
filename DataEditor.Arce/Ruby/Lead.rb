@@ -107,6 +107,7 @@ class Lead
 			require "Ruby/VA/State - va.rb"
 			require "Ruby/VA/CommonEvent - va.rb"
 			require "Ruby/VA/System - va.rb"
+			require "Ruby/VA/Term - va.rb"
 		end
 		# Promise land
 		def Open_project

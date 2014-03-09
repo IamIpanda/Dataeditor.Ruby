@@ -7,7 +7,8 @@ namespace DataEditor.Control.Wrapper
 {
     public class Image : WrapControlEditor<FuzzyData.FuzzyComplex,Prototype.ProtoImageBackgroundDisplayer>
     {
-
+        string version = "RPGVXACE";
+        bool NowTaint = false;
         public class SplitManager
         {
             public Dictionary<string, Help.Parameter.Split> Main { get; set; }
@@ -46,21 +47,16 @@ namespace DataEditor.Control.Wrapper
             Show = new SplitManager();
         }
 
-        public override void Push() { /* 已弃用 */ }
+        public override void Push() { NowTaint = true; }
 
-        public override void Pull()
-        {
-            Invalidate();
-        }
+        public override void Pull() { Invalidate(); }
 
-        public override bool ValueIsChanged()
-        {
-            return false;
-        }
+        public override bool ValueIsChanged() { return NowTaint; }
         public override void Reset()
         {
             var splits = argument.GetArgument<Dictionary<object, object>>("SPLIT");
             var shows = argument.GetArgument<Dictionary<object, object>>("SHOW");
+            version = argument.GetArgument<string>("version");
             foreach (var pair in splits)
                 if (pair.Value is Help.Parameter.Split)
                     Split.Main.Add(pair.Key.ToString(), pair.Value as Help.Parameter.Split);
@@ -75,6 +71,7 @@ namespace DataEditor.Control.Wrapper
             argument.SetArgument("path", "Graphics/");
             argument.SetArgument("split", new Dictionary<object, object>());
             argument.SetArgument("show", new Dictionary<object, object>());
+            argument.SetArgument("version", "", Help.Parameter.ArgumentType.Option);
         }
         protected void Invalidate()
         {
@@ -85,7 +82,7 @@ namespace DataEditor.Control.Wrapper
             if (file_name == null) return;
             string string_file_name = System.IO.Path.Combine(path, file_name.Text);
             string file = "";
-            Help.Path.Instance.SearchFile(string_file_name, out file, "project", "rtp");
+            Help.Path.Instance.SearchFile(string_file_name, out file, "project", version, "rtp");
             if (file == "") return;
             string pure_file_name = System.IO.Path.GetFileName(string_file_name);
             Bitmap bitmap = new Bitmap(file);
@@ -113,7 +110,13 @@ namespace DataEditor.Control.Wrapper
             choser.Split = Split;
             choser.Show = Show;
             choser.Path = argument.GetArgument<string>("PATH");
-            choser.ShowDialog();
+            choser.RtpName = version;
+            choser.Value = value;
+            if (choser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Invalidate();
+                NowTaint = true;
+            }
         }
     }
 }

@@ -114,6 +114,5 @@ namespace DataEditor.Control
     {
         protected TControl Control = new TControl();
         public override void Bind() { Binding = Control; }
-
     }
 }

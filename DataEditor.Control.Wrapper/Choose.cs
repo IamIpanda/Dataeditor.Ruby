@@ -92,13 +92,12 @@ namespace DataEditor.Control.Wrapper
                             // 没有指定的 ID 项就直接跳过
                             if (j_fix == null) continue;
                             j = Convert.ToInt32(j_fix.Value);
-                            i++;
                         }
                         // 如果没有指定 ID，那么依次向后放置作为结算。
-                        else { i++; j++; }
+                        else j++;
                         // 最后，把它们加进目标表中。
-                        Dictionary.Add(i, j);
-                        Texts.Add(text); i++;
+                        Dictionary.Add(++i, j);
+                        Texts.Add(text);
                         // 参数约定为：目标来源、观察表、i、j。
                         Control.Items.Add(text.ToString(target, text.Watch, i, j));
                         // TODO: Monitor the Text.

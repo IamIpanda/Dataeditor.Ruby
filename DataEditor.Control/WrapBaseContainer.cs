@@ -13,7 +13,10 @@ namespace DataEditor.Control
         public override bool ValueIsChanged() { return false; }  // 此代码应当无法触发 
         public virtual System.Windows.Forms.Control.ControlCollection Controls { get { return Binding.Controls; } }
         public virtual void SetSize(System.Drawing.Size size) { if (Binding != null) Binding.ClientSize = size; }
-        public virtual bool CanAdd(System.Windows.Forms.Control control) { return !(control is System.Windows.Forms.TabPage); }
+        public virtual bool CanAdd(System.Windows.Forms.Control control) 
+        {
+            return !(control is System.Windows.Forms.TabPage || control is System.Windows.Forms.Form); 
+        }
         public override void Pull()
         {
             foreach (System.Windows.Forms.Control control in Controls)

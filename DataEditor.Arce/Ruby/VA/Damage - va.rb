@@ -6,6 +6,7 @@ require "Ruby/Fuzzy.rb"
 
 class VA_Help
 	class Damage
+		@@fuz = [0, 0, 0, false].to_fuzzy
 		def self.build_damage
 			Builder.Add(:metro , {:actual => :damage , :text => "伤害" }) do
 					Builder.Order
@@ -28,9 +29,8 @@ class VA_Help
 					Builder.Next
 				Builder.Add(:int, {:actual => :variance, :text => "离散度"})
 				Builder.Add(:bool_choose, {:actual => :critical, :text => "允许必杀"})
-				proc = Proc.new do |*args|
-					window = nil # FORM IT
-					fuz = [0,0,0,false].to_fuzzy
+				proc = Proc.new do |control, args|
+					window = Builder.Add(:dialog)
 					Builder.In(window)
 						Builder.Order
 						Builder.Add(:int , {:actual => :INDEX0 , :text => "基础伤害" })
@@ -39,9 +39,19 @@ class VA_Help
 						Builder.Next
 						Builder.Add(:check, {:actual => :INDEX3, :text => "忽略目标的防御力" })
 					Builder.Out
-					window.Value = fuz
-					args[0].Binding.Text = "" # WRITE IT
-					args[0].Pull
+					window.Value = @@fuz
+					if(window.ShowAndTell)
+						texts = []
+						data0 = @@fuz[0].Value
+						data1 = @@fuz[1].Value
+						data2 = @@fuz[2].Value
+						ignore = @@fuz[3].Value
+						texts.push data0
+						texts.push "a.atk * " + (data1 * 0.4).to_s + (ignore ? "" : " - b.def * " + (data1 * 0.2).to_s) if data1 > 0
+						texts.push "a.mat * " + (data1 * 0.4).to_s + (ignore ? "" : " - b.mde * " + (data1 * 0.2).to_s) if data2  > 0
+						args[0].Binding.Text = texts.join(" + ")
+						args[0].Push
+					end
 				end
 				Builder.Add(:button, { :text => "简易设置...", :parameter => [target], :run => proc })
 			end

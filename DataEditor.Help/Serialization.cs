@@ -88,5 +88,13 @@ namespace DataEditor.Help
             var stream = new System.IO.MemoryStream(System.Text.Encoding.Default.GetBytes(data));
             return ser.Load(stream);
         }
+        static public object TrySetValue(object data, string key)
+        {
+            Contract.Serialization ser = TryGetSerialization(key);
+            if (ser == null) return null;
+            var stream = new System.IO.MemoryStream();
+            ser.Dump(stream, data);
+            return System.Text.Encoding.Default.GetString(stream.ToArray());
+        }
     }
 }

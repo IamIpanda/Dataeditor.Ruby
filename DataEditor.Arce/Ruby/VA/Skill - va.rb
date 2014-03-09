@@ -15,6 +15,7 @@ Builder.Add(:tab, { :text => "技能" }) do
 				:actual => :icon_index,
 				:image => "Graphics/System/Iconset",
 				:text => "图标",
+				:version => "RPGVXAce",
 				:split => Help::ICON_SPLIT
 			})
 				Builder.Next
@@ -72,13 +73,36 @@ Builder.Add(:tab, { :text => "技能" }) do
 		Builder.Add(:metro, {:text => "使用者的信息" }) do
 				Builder.Order
 			Builder.Text("（使用者名称）")
-			Builder.Add(:text , {:actual => :message1 , :label => 0 })
+			box = Builder.Add(:text , {:actual => :message1 , :label => 0 })
 				Builder.Next
-			box = Builder.Add(:text , {:actual => :message2 , :label => 0})
+			Builder.Add(:text , {:actual => :message2 , :label => 0})
 				Builder.Next
+			proc = Proc.new do |control, args|
+				box = args[0]
+				text = args[1]
+				box.Binding.Text = text + control.Parent["@name"].Text + "!"
+				box.Push
+			end
+			Builder.Add(:button , { :text => "“吟唱了~”", :parameter => [box, "吟唱了"], :run => proc })
+			Builder.Add(:button , { :text => "“施放了~”", :parameter => [box, "施放了"], :run => proc })
+			Builder.Add(:button , { :text => "“使用了~”", :parameter => [box, "使用了"], :run => proc })
 		end
 		Builder.Add(:metro, {:text => "武器类型" }) do
-			
+			Builder.Order
+			Builder.Add(:choose , {
+				:actual => :required_wtype_id1, 
+				:text => "武器类型 1",
+				:choice => {
+					0 => "无",
+					nil => Fileselect.new(Data["system"]["@weapon_types"])
+			}})
+			Builder.Add(:choose , {
+				:actual => :required_wtype_id2, 
+				:text => "武器类型 2",
+				:choice => {
+					0 => "无",
+					nil => Fileselect.new(Data["system"]["@weapon_types"])
+			}})
 		end
 			Builder.Next
 		VA_Help::Damage.build_damage

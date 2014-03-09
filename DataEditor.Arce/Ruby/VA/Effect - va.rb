@@ -61,7 +61,15 @@ class VA_Help
 				value2 = arg["@value2"].Value
 				case code
 				when 11, 12
-					"#{(value1 * 100).to_i} % + #{(value2 * 100).to_i}"
+					first = (value1 * 100).to_i
+					second = value2.to_i
+					if first == 0
+						"#{second}"
+					elsif second == 0
+						"#{first} %"
+					else
+						"#{first} % + #{second}"
+					end
 				when 13
 					# What the fuck the programmer is thinking when they write this ?
 					"#{value1.to_i} %"
@@ -146,12 +154,12 @@ class VA_Help
 				window.Value = target
 			end
 			Builder.Add(:view, {
-				:actual => :effects,
+				 :actual => :effects,
 				 :label => 0,
-				  :columns => columns, 
-				  :catalogue =>texts, 
-				:window => window, 
-				:new => RPG::UsableItem::Effect.new.to_fuzzy 
+				 :columns => columns, 
+				 :catalogue =>texts, 
+				 :window => window, 
+				 :new => RPG::UsableItem::Effect.new.to_fuzzy 
 				})
 		end
 		def self.int1(text = " % ")

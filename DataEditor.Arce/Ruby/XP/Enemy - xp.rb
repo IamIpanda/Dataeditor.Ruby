@@ -56,7 +56,6 @@ Builder.Add(:tab , { :text => "敌人" }) do
 					str
 				end
 				window = Proc.new do |window, target|
-					puts target
 						Builder.In(window)
 						ison = Proc.new do |value, parent, key|
 							parent["@item_id"].Value == 0 && parent["@weapon_id"].Value == 0 && parent["@armor_id"].Value == 0

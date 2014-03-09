@@ -33,13 +33,15 @@ namespace DataEditor.Control.Wrapper
             base.SetDefaultArgument();
             argument.SetArgument("split", null);
             argument.SetArgument("image", "");
+            argument.SetArgument("version", "RPGVXAce", Help.Parameter.ArgumentType.Option);
         }
         public override void Reset()
         {
             split = argument.GetArgument<Help.Parameter.Split>("split");
             var image_path = argument.GetArgument<string>("image");
+            var version = argument.GetArgument<string>("version");
             var full_path = "";
-            Help.Path.Instance.SearchFile(image_path, out full_path, "rtp", "project");
+            Help.Path.Instance.SearchFile(image_path, out full_path, "project", version, "rtp");
             if (full_path == "") { EnableData = false; return; }
             full = new Bitmap(full_path);
             base.Reset();
@@ -50,6 +52,20 @@ namespace DataEditor.Control.Wrapper
             Control.Scale = false;
             Control.FullBackgroundDraw = true;
             Control.ImageAlignCenter = true;
+            Control.DoubleClick += Control_DoubleClick;
+        }
+
+        void Control_DoubleClick(object sender, EventArgs e)
+        {
+            if (full == null || split == null) return;
+            var window = new Icon_Choser();
+            window.set(full, split);
+            window.Value = Convert.ToInt32(value.Value);
+            if (window.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                value.Value = window.Value;
+                NowTaint = true;
+            }
         }
     }
 }

@@ -65,9 +65,22 @@ namespace DataEditor.Control.Wrapper
 
     public partial class Image_Choser : Form
     {
-        public FuzzyData.FuzzyComplex Value { get; set; }
+        FuzzyData.FuzzyComplex _value;
+        public FuzzyData.FuzzyComplex Value
+        {
+            get { return _value; }
+            set 
+            {
+                _value = value;
+                var file_name = value["name"] as FuzzyData.FuzzyString;
+                var file_index = value["index"] as FuzzyData.FuzzyFixnum;
+                if (file_name != null) this.FileName = file_name.Text;
+                if (file_index != null) this.MainImage.Index = Convert.ToInt32(file_index.Value);
+            }
+        }
         string _path;
         public string Path { get { return _path; } set { _path = value; InitializeRTP(); } }
+        public string RtpName { set { SetRtp(value); } }
         public Image.SplitManager Split { get; set; }
         public new Image.SplitManager Show { get; set; }
         public Image_Choser()
@@ -91,6 +104,7 @@ namespace DataEditor.Control.Wrapper
             }
             set
             {
+                if (RTPChoser.SelectedIndex < 0) RTPChoser.SelectedIndex = 0;
                 if (fileList.Items.Count == 0) return;
                 var list = fileList.Files;
                 for(int i = 0; i < list.Count; i++)
@@ -108,15 +122,14 @@ namespace DataEditor.Control.Wrapper
             RTPChoser.Items.Add("全部");
             foreach (Rtp rtp in Help.Path.RTPManager.RtpList)
                 RTPChoser.Items.Add(rtp);
-            RTPChoser.SelectedIndex = 0;
         }
 
         private void btOK_Click(object sender, EventArgs e)
         {
             if (Value != null)
             {
-                 if (Value["FILE"] != null) (Value["FILE"] as FuzzyData.FuzzyString).Text = FileName;
-                 if (Value["INDEX"] != null) (Value["INDEX"] as FuzzyData.FuzzyFixnum).Value = MainImage.Index;
+                 if (Value["name"] != null) (Value["name"] as FuzzyData.FuzzyString).Text = FileName;
+                 if (Value["index"] != null) (Value["index"] as FuzzyData.FuzzyFixnum).Value = MainImage.Index;
             }
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
@@ -191,6 +204,19 @@ namespace DataEditor.Control.Wrapper
                 btIndex.Text = FileName;
             else
                 btIndex.Text = FileName + " ( " + (MainImage.Index + 1) + " / " + bs + " ) ";
+        }
+        public void SetRtp(string name)
+        {
+            if (name == "") return;
+            name = name.ToUpper();
+            int count = 1;
+            foreach (Rtp rtp in Help.Path.RTPManager.RtpList)
+                if (rtp.Name.ToUpper() == name)
+                {
+                    RTPChoser.SelectedIndex = count;
+                    break;
+                }
+                else count++;
         }
 
         private void MainImage_SelectedIndexChanged(object sender, EventArgs e)

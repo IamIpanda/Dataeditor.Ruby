@@ -67,6 +67,12 @@
     <Compile Include="Container\Tabs.cs" />
     <Compile Include="Experience.cs" />
     <Compile Include="Float.cs" />
+    <Compile Include="Icon.Choser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Icon.Choser.Designer.cs">
+      <DependentUpon>Icon.Choser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Image.cs" />
     <Compile Include="Image.Choser.cs">
       <SubType>Form</SubType>
@@ -125,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Audio.Choser.resx">
       <DependentUpon>Audio.Choser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icon.Choser.resx">
+      <DependentUpon>Icon.Choser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Image.Choser.resx">
       <DependentUpon>Image.Choser.cs</DependentUpon>

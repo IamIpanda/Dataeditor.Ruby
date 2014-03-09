@@ -57,5 +57,9 @@ namespace DataEditor.Control.Window
                     temp = base.Value & origin;
             }
         }
+        public class ApplicationRightWindow : WrapWindowWithRightOK<WindowWithRightOK>
+        {
+            public override string Flag { get { return "dialog_r"; } }
+        }
     }
 }

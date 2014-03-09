@@ -12,7 +12,6 @@ namespace DataEditor.Control.Wrapper
         public override void Push() { }
         public override void Pull() { }
         public override bool ValueIsChanged() { return false; }
-        public override FuzzyData.FuzzyObject Parent { set { } }
         public override void Bind()
         {
             base.Bind();
@@ -36,7 +35,7 @@ namespace DataEditor.Control.Wrapper
 
         void Control_Click(object sender, EventArgs e)
         {
-            if (target != null) target.call(parameter);
+            if (target != null) target.call(this, parameter);
         }
     }
 }

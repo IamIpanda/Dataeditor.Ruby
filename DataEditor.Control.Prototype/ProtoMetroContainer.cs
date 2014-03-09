@@ -45,6 +45,7 @@ namespace DataEditor.Control.Prototype
             this.ResumeLayout(false);
 
         }
+        public event EventHandler TextChanged;
         public override string Text
         {
             get
@@ -55,6 +56,10 @@ namespace DataEditor.Control.Prototype
             {
                 lbText.Text = value;
                 if (lbText.Text == "") lbText.Height = 0; else lbText.Height = 12;
+                if (TextChanged != null) TextChanged(this, new EventArgs());
+                if (lbText.Text == "")
+                    if (Parent != null) this.BackColor = Parent.BackColor; else { }
+                else this.BackColor = DefaultBackColor;
             }
         }
 
@@ -66,6 +71,12 @@ namespace DataEditor.Control.Prototype
         public ProtoMetroContainer()
         {
             InitializeComponent();
+        }
+        static System.Drawing.Color DefaultBackColor;
+        static ProtoMetroContainer()
+        {
+            DefaultBackColor = System.Drawing.Color.FromArgb(190, 210, 231);
+            Help.Option.SetOption(typeof(ProtoMetroContainer),DefaultBackColor);
         }
     }
 }

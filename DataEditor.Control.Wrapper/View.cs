@@ -66,9 +66,17 @@ namespace DataEditor.Control.Wrapper
         protected void SetColumns(IEnumerable<object> value,IEnumerable<object> list)
         {
             if (value == null) return;
-            foreach (object target in value)
+            if (list == null)
+                foreach (object target in value)
+                    Control.Columns.Add(target.ToString(),120);
+            else
             {
-                Control.Columns.Add(target.ToString());
+                List<int> width = new List<int>();
+                foreach (object i in list)
+                    if (i is int) width.Add(Convert.ToInt32(i));
+                int count = 0;
+                foreach (object target in value)
+                    Control.Columns.Add(target.ToString(), width[count++]);
             }
         }
         protected void SetCatalogue(List<object> value)

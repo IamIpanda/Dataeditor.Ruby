@@ -11,3 +11,10 @@ class Object
 		Serialization.TryGetValue(str, "[m]")
 	end
 end
+
+class DataEditor::FuzzyData::FuzzyObject
+	def to_ruby
+		str = Serialization.TrySetValue(self, "[m]")
+		return Marshal.load(str)
+	end
+end

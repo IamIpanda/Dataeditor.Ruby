@@ -14,6 +14,7 @@ Builder.Add(:tab , {  :text => "武器" }) do
 				:actual => :icon_index,
 				:image => "Graphics/System/Iconset",
 				:text => "图标",
+				:version => "RPGVXAce",
 				:split => Help::ICON_SPLIT
 			})
 				Builder.Next

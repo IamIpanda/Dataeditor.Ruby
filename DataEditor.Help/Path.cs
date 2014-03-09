@@ -22,9 +22,10 @@ namespace DataEditor.Help
             get 
             {
                 name = name.ToUpper();
-                string answer = ""; 
-                paths.TryGetValue(name, out answer); 
-                return answer; 
+                string answer = "";
+                if (paths.TryGetValue(name, out answer))
+                    return answer;
+                return "";
             }
             set 
             {
@@ -62,6 +63,10 @@ namespace DataEditor.Help
                 if (path != "")
                     if (SearchFileByFull(file, out answer, path))
                         return true;
+                foreach (var rtp in RTPManager.RtpList)
+                    if (rtp.Name.ToUpper() == up_shorts)
+                        if (rtp.SearchFile(file, out answer))
+                            return true;
             }
             answer = ""; return false;
         }

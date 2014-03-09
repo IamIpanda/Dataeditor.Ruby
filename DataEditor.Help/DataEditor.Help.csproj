@@ -45,6 +45,7 @@
     <Compile Include="Complex.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="Encoding.cs" />
+    <Compile Include="Palette.cs" />
     <Compile Include="Return.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Option.cs" />
@@ -61,9 +62,6 @@
     </Compile>
     <Compile Include="Serialization.cs" />
     <Compile Include="Taint.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Settings.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">

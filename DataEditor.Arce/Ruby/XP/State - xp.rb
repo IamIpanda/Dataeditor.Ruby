@@ -1,4 +1,4 @@
-#encoding:UTF-8
+# This file is in coding: utf-8
 # Arce Script : State = xp.rb
 # Describe the user interface for Item
 

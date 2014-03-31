@@ -14,8 +14,8 @@ namespace DataEditor.Control.Prototype
         protected List<int> PreviousData = null;
         protected Color? PreviousColor;
 
-        protected static int MaxRecordCount = 50;
-        protected static string HintString = "  在此输入或选择公式以生成...";
+        protected static int MaxRecordCount = 20;
+        protected static string HintString = "在此输入或选择公式以生成...";
 
         public ProtoIntegerMixEditor()
         {
@@ -48,7 +48,7 @@ namespace DataEditor.Control.Prototype
         public List<int> Value
         {
             get { return protoIntegerEditor1.Value; }
-            set { protoIntegerEditor1.Value = value; }
+            set { protoIntegerEditor1.Value = value; numericUpDown1.Value = value.Count; }
         }
         public Color Color
         {
@@ -178,6 +178,17 @@ namespace DataEditor.Control.Prototype
         {
             protoComboBox1.Text = "";
             protoComboBox1.ForeColor = Color.Black;
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            int origin = protoIntegerEditor1.Value.Count;
+            int target = Convert.ToInt32(numericUpDown1.Value);
+            if (origin > target) protoIntegerEditor1.Value.RemoveRange(target, origin - target);
+            if (origin < target)
+                for (int i = 0; i < target - origin; i++)
+                    protoIntegerEditor1.Value.Add(0);
+            protoIntegerEditor1.Invalidate();
         }
     }
 }

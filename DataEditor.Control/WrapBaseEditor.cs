@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataEditor.Control
 {
-    public abstract class WrapBaseEditor<TValue> : ObjectEditor where TValue : FuzzyData.FuzzyObject
+    public abstract class WrapBaseEditor<TValue> : ObjectEditor,Contract.TaintableEditor where TValue : FuzzyData.FuzzyObject
     {
         protected TValue value;
         protected FuzzyData.FuzzyObject parent;
@@ -106,6 +106,10 @@ namespace DataEditor.Control
             argument.SetArgument("label", 1, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("text", "Untitled", Help.Parameter.ArgumentType.Option);
             argument.SetArgument("actual", null, Help.Parameter.ArgumentType.Must);
+        }
+        public void Putt()
+        {
+
         }
     }
     public abstract class WrapControlEditor<TValue, TControl> : WrapBaseEditor<TValue>

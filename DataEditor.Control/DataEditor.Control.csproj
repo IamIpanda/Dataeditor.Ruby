@@ -48,6 +48,7 @@
     <Compile Include="Monitor.cs" />
     <Compile Include="ObjectEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Taint.cs" />
     <Compile Include="Window.cs" />
     <Compile Include="WrapBaseContainer.cs" />
     <Compile Include="WrapBaseEditor.cs" />

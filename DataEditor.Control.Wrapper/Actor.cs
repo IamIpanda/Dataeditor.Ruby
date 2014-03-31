@@ -53,6 +53,7 @@ namespace DataEditor.Control.Wrapper
         public override void Push() 
         {
             List<int> target = Control.Value;
+            value.resize(target.Count);
             for (int i = 0; i < target.Count; i++)
                 value[id, i] = Convert.ToInt16(target[i]);
             Control.Invalidate();

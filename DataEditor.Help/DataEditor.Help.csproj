@@ -61,7 +61,6 @@
       <DependentUpon>SelectWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Serialization.cs" />
-    <Compile Include="Taint.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">

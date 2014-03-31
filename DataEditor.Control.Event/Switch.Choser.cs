@@ -17,6 +17,7 @@ namespace DataEditor.Control.Wrapper.Event
 
         private void btOK_Click(object sender, EventArgs e)
         {
+            _value.Value = Index;
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
         }
@@ -26,16 +27,17 @@ namespace DataEditor.Control.Wrapper.Event
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Close();
         }
-        FuzzyData.FuzzyArray _value;
-        FuzzyData.FuzzyArray origin;
-        public FuzzyData.FuzzyArray Value
+        FuzzyData.FuzzyFixnum _value;
+        FuzzyData.FuzzyFixnum origin;
+        public FuzzyData.FuzzyArray Switches { get; set; }
+        public FuzzyData.FuzzyFixnum Value
         {
             get { return _value; }
-            set { _value = value.Clone() as FuzzyData.FuzzyArray; origin = value; Pull(); }
+            set { _value = value.Clone() as FuzzyData.FuzzyFixnum; origin = value; Pull(); }
         }
         void Pull()
         {
-            int count = (_value.Count - 1) / 10 + 1;
+            int count = (Switches.Count - 1) / 10 + 1;
             protoListBox1.Items.Clear();
             for (int i = 0; i < count; i++)
                 protoListBox1.Items.Add(GetNumStr(i));
@@ -44,9 +46,26 @@ namespace DataEditor.Control.Wrapper.Event
         {
             return string.Format("[{0:d3}..{0:d3}]", index * 10 + 1, index * 10 + 10);
         }
+        public int Index
+        {
+            get { return protoListBox1.SelectedIndex * 10 + protoLinedPaper1.SelectedIndex; }
+        }
+
+        private void protoListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PullAnother();
+        }
+
         void PullAnother()
         {
             int index = protoListBox1.SelectedIndex;
+            List<object> target = new FuzzyData.FuzzyArray();
+            if (index == protoListBox1.Items.Count - 1)
+                target.AddRange(Switches.GetRange(index * 10 + 1, Switches.Count % 10));
+            else
+                target.AddRange(Switches.GetRange(index * 10 + 1, 10));
+            var text = target.ConvertAll<string>(a => a.ToString());
+            protoLinedPaper1.Value = text;
         }
     }
 }

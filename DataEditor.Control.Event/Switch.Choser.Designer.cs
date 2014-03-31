@@ -65,6 +65,7 @@
             this.protoListBox1.Name = "protoListBox1";
             this.protoListBox1.Size = new System.Drawing.Size(122, 356);
             this.protoListBox1.TabIndex = 0;
+            this.protoListBox1.SelectedIndexChanged += new System.EventHandler(this.protoListBox1_SelectedIndexChanged);
             // 
             // protoLinedPaper1
             // 
@@ -72,6 +73,7 @@
             this.protoLinedPaper1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.protoLinedPaper1.Location = new System.Drawing.Point(131, 3);
             this.protoLinedPaper1.Name = "protoLinedPaper1";
+            this.protoLinedPaper1.SelectedIndex = -1;
             this.protoLinedPaper1.Size = new System.Drawing.Size(154, 356);
             this.protoLinedPaper1.TabIndex = 1;
             this.protoLinedPaper1.textbook = null;

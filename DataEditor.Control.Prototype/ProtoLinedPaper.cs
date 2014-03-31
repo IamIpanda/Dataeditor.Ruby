@@ -110,5 +110,10 @@ namespace DataEditor.Control.Prototype
             textBox1.Visible = false;
             listBox1.Enabled = true;
         }
+        public int SelectedIndex
+        {
+            get { return listBox1.SelectedIndex; }
+            set { listBox1.SelectedIndex = value; }
+        }
     }
 }

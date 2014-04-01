@@ -23,6 +23,7 @@ namespace DataEditor.Arce
         }
         static public void OpenProject(string Path)
         {
+            /*
             var proc = (IronRuby.Builtins.Proc) engine.Execute(@"Lead.Open_project");
             IronRuby.Builtins.MutableString str = IronRuby.Builtins.MutableString.Create(Path, IronRuby.Builtins.RubyEncoding.UTF8);
             try
@@ -31,7 +32,9 @@ namespace DataEditor.Arce
             }
             catch (Exception ex)
             { 
-            }
+            }*/
+            Help.Path.Instance["project"] = System.IO.Path.GetDirectoryName(Path);
+            Engine.engine.ExecuteFile("Ruby/fux.rb");
             (Help.Window.Instance["Main"] as WrapTitan).Window.Show();
             
         }

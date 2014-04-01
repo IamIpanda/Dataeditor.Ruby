@@ -50,5 +50,9 @@ namespace DataEditor.Control.Prototype
             if (SelectedIndexChanged != null)
                 SelectedIndexChanged(this, new EventArgs());
         }
+        public int DeltaWidth
+        {
+            get { return this.Width - panel1.Width; }
+        }
     }
 }

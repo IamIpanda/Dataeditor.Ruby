@@ -406,6 +406,10 @@ namespace DataEditor.FuzzyData.Serialization.RubyMarshal
                     WriteSymbol(fobj.ClassName);
                     factor.dump(m_stream, fobj, null);
                 }
+                else
+                {
+
+                }
                 if (obj is IRubyUserdefinedMarshalDumpObject)
                 {
                     this.m_objects.Add(obj, this.m_objects.Count);

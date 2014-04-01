@@ -41,15 +41,18 @@ namespace DataEditor.Arce
             switch (i)
             {
                 case 0: RunOpenProject(); break;
+                case 1: RunExit(); break;
+                    /*
                 case 1: RunOpenFile(); break;
                 case 2: RunExecuteFile(); break;
                 case 3: RunOption(); break;
                 case 4: RunExit(); break;
+                     */
             }
         }
         void RunOpenProject()
         {
-            OFD.Filter = "所有文件|*.*|RMXP 工程文件|*.rxproj|RMVX 工程文件|*.rvproj|RMVA 工程文件|*.rvproj2";
+            OFD.Filter = "所有文件|*.*|RMXP 工程文件|*.rxproj";//|RMVX 工程文件|*.rvproj|RMVA 工程文件|*.rvproj2";
             if (OFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string Path = OFD.FileName;
@@ -85,6 +88,10 @@ namespace DataEditor.Arce
         void RunExit()
         {
             Engine.Exit();
+        }
+
+        private void Lead_Load(object sender, EventArgs e)
+        {
         }
     }
     public class WrapLead : DataEditor.Control.WrapBaseWindow<Lead> { }

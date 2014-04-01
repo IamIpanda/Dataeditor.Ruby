@@ -107,6 +107,9 @@
     <None Include="Ruby\Event.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Ruby\fux.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Ruby\Fuzzy.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

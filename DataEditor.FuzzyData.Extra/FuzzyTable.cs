@@ -49,7 +49,11 @@ namespace DataEditor.FuzzyData
         public void resize(int x_size, int y_size, int z_size)
         {
             short[, ,] new_value = new short[x_size, y_size, z_size];
-            value.CopyTo(new_value, 0);
+            for (int i = 0; i < x_size; i++)
+                for (int j = 0; j < y_size; j++)
+                    for (int k = 0; k < z_size; k++)
+                        new_value[i, j, k] = SafeGetValue(i, j, k);
+            // value.CopyTo(new_value, 0);
             value = new_value;
             this.x_size = x_size;
             this.y_size = y_size;
@@ -65,6 +69,12 @@ namespace DataEditor.FuzzyData
         {
             resize(x_size, 1, 1);
             this.dimension = 1;
+        }
+        protected short SafeGetValue(int x, int y, int z)
+        {
+            if (x < x_size && y < y_size && z < z_size)
+                return value[x, y, z];
+            return 0;
         }
         protected short GetValue(int x, int y, int z)
         {

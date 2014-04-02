@@ -52,7 +52,7 @@ namespace DataEditor.Arce
         }
         void RunOpenProject()
         {
-            OFD.Filter = "所有文件|*.*|RMXP 工程文件|*.rxproj";//|RMVX 工程文件|*.rvproj|RMVA 工程文件|*.rvproj2";
+            OFD.Filter = "RMXP 工程文件|*.rxproj|所有文件|*.*";//|RMVX 工程文件|*.rvproj|RMVA 工程文件|*.rvproj2";
             if (OFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string Path = OFD.FileName;

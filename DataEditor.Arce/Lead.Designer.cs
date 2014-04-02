@@ -44,7 +44,7 @@
             // 
             // OFD
             // 
-            this.OFD.FileName = "Game.rvproj2";
+            this.OFD.FileName = "Game.rxproj";
             // 
             // Lead
             // 

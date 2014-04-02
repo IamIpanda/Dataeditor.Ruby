@@ -399,16 +399,18 @@ namespace DataEditor.FuzzyData.Serialization.RubyMarshal
                 FuzzyObject fobj = obj as FuzzyObject;
                 bool hasiv = false;
                 if (fobj != null)
-                    hasiv = (obj as FuzzyObject).InstanceVariables.Count > 0 || fobj.Encoding != null;
+                    hasiv = 
+                        ((obj is FuzzyString || obj is FuzzyArray || obj is FuzzyHash) && 
+                        (obj as FuzzyObject).InstanceVariables.Count > 0) || 
+                        (RubyMarshal.Options.StringStyle == RubyMarshal.Options.StringStyleType.Style192 && fobj.Encoding != null);
                 var factor = Serialization.Factory<byte[]>.Factor(fobj.GetType());
                 if (factor != null)
                 {
+                    this.m_objects.Add(obj, this.m_objects.Count);
+                    this.m_writer.Write(RubyMarshal.Types.UserDefined);
                     WriteSymbol(fobj.ClassName);
                     factor.dump(m_stream, fobj, null);
-                }
-                else
-                {
-
+                    return;
                 }
                 if (obj is IRubyUserdefinedMarshalDumpObject)
                 {
@@ -436,7 +438,6 @@ namespace DataEditor.FuzzyData.Serialization.RubyMarshal
                 }
                 
                 this.m_objects.Add(obj, this.m_objects.Count);
-
 
                 if (hasiv)
                     WriteByte(RubyMarshal.Types.InstanceVariable);

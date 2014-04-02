@@ -44,7 +44,11 @@ namespace DataEditor.FuzzyData.Serialization.RubyMarshal
             public const byte InstanceVariable = (byte)'I';
             public const byte Link = (byte)'@';
         }
-
+        public static class Options
+        {
+            public enum StringStyleType { Style184, Style192 };
+            public static StringStyleType StringStyle = StringStyleType.Style184;
+        }
         public static object Load(Stream input)
         {
             RubyMarshalReader reader = new RubyMarshalReader(input);

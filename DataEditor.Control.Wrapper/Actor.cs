@@ -36,6 +36,12 @@ namespace DataEditor.Control.Wrapper.Container
                     if (control.Tag is Wrapper.Actor)
                         (control.Tag as Wrapper.Actor).Push();
             }
+            else
+            {
+                foreach (System.Windows.Forms.Control control in Binding.Controls)
+                    if (control.Tag is Wrapper.Actor)
+                        (control.Tag as Wrapper.Actor).Pull();
+            }
         }
     }
 }

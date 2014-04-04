@@ -56,3 +56,10 @@ W:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\obj\Debug\DataEditor.Ruby.Propert
 W:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\obj\Debug\DataEditor.Ruby.csproj.GenerateResource.Cache
 W:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\obj\Debug\DataEditor.Ruby.dll
 W:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\obj\Debug\DataEditor.Ruby.pdb
+W:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\IronRuby.dll
+W:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\IronRuby.Libraries.dll
+W:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\IronRuby.Libraries.YAML.dll
+W:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\Microsoft.CSharp.dll
+W:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\Microsoft.Dynamic.dll
+W:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\Microsoft.Scripting.Debugging.dll
+W:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\Microsoft.Scripting.dll

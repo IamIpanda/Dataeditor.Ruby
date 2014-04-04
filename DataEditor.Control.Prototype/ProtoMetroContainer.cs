@@ -45,7 +45,7 @@ namespace DataEditor.Control.Prototype
             this.ResumeLayout(false);
 
         }
-        public event EventHandler TextChanged;
+        public new event EventHandler TextChanged;
         public override string Text
         {
             get
@@ -72,7 +72,7 @@ namespace DataEditor.Control.Prototype
         {
             InitializeComponent();
         }
-        static System.Drawing.Color DefaultBackColor;
+        static new System.Drawing.Color DefaultBackColor;
         static ProtoMetroContainer()
         {
             DefaultBackColor = System.Drawing.Color.FromArgb(190, 210, 231);

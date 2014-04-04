@@ -82,7 +82,7 @@ namespace DataEditor.Control.Prototype
                 MainPictureBox.Invalidate();
             }
         }
-        protected void OnFullValueChanged(object sender, EventArgs e)
+        public void OnFullValueChanged(object sender, EventArgs e)
         {
             if (Bound == null)
                 return;

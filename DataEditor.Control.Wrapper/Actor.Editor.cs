@@ -46,5 +46,6 @@ namespace DataEditor.Control.Wrapper
             return tabControl1.TabPages.Count - 1;
         }
         public int SelectedIndex { set { tabControl1.SelectedIndex = value; } }
+
     }
 }

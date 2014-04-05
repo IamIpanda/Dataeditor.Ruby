@@ -41,18 +41,15 @@ namespace DataEditor.Arce
             switch (i)
             {
                 case 0: RunOpenProject(); break;
-                case 1: RunExit(); break;
-                    /*
                 case 1: RunOpenFile(); break;
                 case 2: RunExecuteFile(); break;
                 case 3: RunOption(); break;
                 case 4: RunExit(); break;
-                     */
             }
         }
         void RunOpenProject()
         {
-            OFD.Filter = "RMXP 工程文件|*.rxproj|所有文件|*.*";//|RMVX 工程文件|*.rvproj|RMVA 工程文件|*.rvproj2";
+            OFD.Filter = "RMXP 工程文件|*.rxproj|RMVX 工程文件|*.rvproj|RMVA 工程文件|*.rvproj2|所有文件|*.*";
             if (OFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string Path = OFD.FileName;

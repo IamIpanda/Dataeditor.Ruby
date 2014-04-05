@@ -7,7 +7,7 @@ namespace DataEditor.Help
     public class Calculator
     {
         static List<char> Operators = new List<char>() { '+', '-', '*', '/', '%', '^', '(', ')' };
-        static List<string> Functions = new List<string>() { "sin", "cos", "ln", "lg", "exp", "sqrt", "trun" };
+        static List<string> Functions = new List<string>() { "abs", "sin", "cos", "ln", "lg", "exp", "sqrt", "trun" };
         public enum NodeType
         {
             Num,
@@ -121,6 +121,8 @@ namespace DataEditor.Help
                 else return Math.Sqrt(x);
             else if (f == "trun")
                 return Math.Truncate(x);
+            else if (f == "abs")
+                return Math.Abs(x);
             else
                 return 0;
         }

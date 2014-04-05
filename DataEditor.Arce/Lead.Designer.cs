@@ -39,6 +39,9 @@
             // 
             this.protoListBox1.Items.AddRange(new object[] {
             "打开工程",
+            "打开文件",
+            "执行文件",
+            "选项",
             "退出"});
             this.protoListBox1.Size = new System.Drawing.Size(158, 160);
             // 

@@ -13,8 +13,11 @@ namespace DataEditor.Help
         static public Collector Instance { get; set; }
         static Collector()
         {
-            DirectoryInfo directory = new DirectoryInfo("Program/Control/Wrapper");
-            if (!directory.Exists) directory.Create();
+            String sDir = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
+            string Dir = System.IO.Path.Combine(sDir, "Program/Control/Wrapper");
+            DirectoryInfo directory = new DirectoryInfo(Dir);
+            Log.log("正在从下列目录加载控件：" + Dir);
+            if (!(directory.Exists)) { directory.Create(); directory = new DirectoryInfo(Dir); }
             List<Assembly> la = Help.Reflect.GetDirectory(directory);
 
             foreach (Assembly ass in la)

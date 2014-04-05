@@ -28,6 +28,23 @@ namespace DataEditor.Arce
             Help.Log.Flush();
             (Help.Window.Instance["lead"] as WrapLead).Window.Close();
         }
+
+        private void Titan_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("您是否要保存您的数据？", "Fux 的节操", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
+            {
+                string target = System.IO.Path.Combine(DataEditor.Help.Path.Instance["project"], "Data/Actors.rxdata");
+                var stream = new System.IO.FileStream(target, System.IO.FileMode.Create);
+                FuzzyData.Serialization.RubyMarshal.RubyMarshal.Dump(stream, Help.Data.Instance["actor"]);
+                stream.Close();
+            }
+        }
     }
-    public class WrapTitan : DataEditor.Control.Window.EditorWindow.WrapEditorWindow<Titan> { }
+    public class WrapTitan : DataEditor.Control.Window.EditorWindow.WrapEditorWindow<Titan> 
+    {
+        public override void SetSize(Size size)
+        {
+            base.SetSize(new Size(size.Width + 15, size.Height + 40));
+        }
+    }
 }

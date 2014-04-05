@@ -39,6 +39,7 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -50,7 +51,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
             this.splitContainer1.Size = new System.Drawing.Size(841, 519);
-            this.splitContainer1.SplitterDistance = 173;
+            this.splitContainer1.SplitterDistance = 181;
             this.splitContainer1.TabIndex = 0;
             // 
             // protoLeftListBox1
@@ -59,10 +60,9 @@
             this.protoLeftListBox1.Location = new System.Drawing.Point(0, 0);
             this.protoLeftListBox1.Name = "protoLeftListBox1";
             this.protoLeftListBox1.SelectedIndex = -1;
-            this.protoLeftListBox1.Size = new System.Drawing.Size(173, 519);
+            this.protoLeftListBox1.Size = new System.Drawing.Size(181, 519);
             this.protoLeftListBox1.TabIndex = 0;
             this.protoLeftListBox1.LeftBoxSelectedIndexChanged += new System.EventHandler(this.protoLeftListBox1_LeftBoxSelectedIndexChanged);
-            //this.protoLeftListBox1.IndexOperated += new System.EventHandler<DataEditor.Help.FileChangeEventArgs>(this.protoLeftListBox1_IndexOperated);
             // 
             // panel1
             // 
@@ -71,14 +71,14 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(30);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(664, 519);
+            this.panel1.Size = new System.Drawing.Size(656, 519);
             this.panel1.TabIndex = 0;
             // 
             // ProtoFullListBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            base.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.splitContainer1);
             this.Name = "ProtoFullListBox";
             this.Size = new System.Drawing.Size(841, 519);
             this.splitContainer1.Panel1.ResumeLayout(false);

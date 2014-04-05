@@ -23,8 +23,11 @@ namespace DataEditor.Help
         }
         public static List<Assembly> GetDirectory(DirectoryInfo info)
         {
-            if(!info.Exists)
-                throw new ArgumentException("Directory Not Exists : " + info.FullName);
+            if (!info.Exists)
+            {
+                info.Create();
+                Log.log("目录不存在：" + info.FullName + "，已创建之");
+            }
             FileInfo[] files = info.GetFiles("*.dll");
             List<Assembly> ass = new List<Assembly>();
             foreach (FileInfo file in files)

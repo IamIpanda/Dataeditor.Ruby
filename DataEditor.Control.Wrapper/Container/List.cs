@@ -63,6 +63,10 @@ namespace DataEditor.Control.Wrapper.Container
                 return Control.InnerControls;
             }
         }
+        public override void SetSize(System.Drawing.Size size)
+        {
+            base.SetSize(new System.Drawing.Size(Control.DeltaWidth + size.Width, size.Height));
+        }
 
         void Control_SelectedIndexChanged(object sender, EventArgs e)
         {

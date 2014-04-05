@@ -33,21 +33,18 @@
             // 
             // label1
             // 
-            this.label1.Text = "欢迎使用 Arce\r\n您想要做什么？";
+            this.label1.Text = "欢迎使用 Fux 的节操\r\n您想要做什么？";
             // 
             // protoListBox1
             // 
             this.protoListBox1.Items.AddRange(new object[] {
             "打开工程",
-            "打开文件",
-            "执行文件",
-            "设置",
             "退出"});
             this.protoListBox1.Size = new System.Drawing.Size(158, 160);
             // 
             // OFD
             // 
-            this.OFD.FileName = "Game.rvproj2";
+            this.OFD.FileName = "Game.rxproj";
             // 
             // Lead
             // 
@@ -56,6 +53,7 @@
             this.ClientSize = new System.Drawing.Size(158, 203);
             this.Name = "Lead";
             this.Text = "引导窗口";
+            this.Load += new System.EventHandler(this.Lead_Load);
             this.ResumeLayout(false);
 
         }

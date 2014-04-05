@@ -36,6 +36,12 @@ namespace DataEditor.Control.Wrapper.Container
                     if (control.Tag is Wrapper.Actor)
                         (control.Tag as Wrapper.Actor).Push();
             }
+            else
+            {
+                foreach (System.Windows.Forms.Control control in Binding.Controls)
+                    if (control.Tag is Wrapper.Actor)
+                        (control.Tag as Wrapper.Actor).Pull();
+            }
         }
     }
 }
@@ -53,7 +59,7 @@ namespace DataEditor.Control.Wrapper
         public override void Push() 
         {
             List<int> target = Control.Value;
-            value.resize(target.Count);
+            value.resize(value.xsize, target.Count);
             for (int i = 0; i < target.Count; i++)
                 value[id, i] = Convert.ToInt16(target[i]);
             Control.Invalidate();

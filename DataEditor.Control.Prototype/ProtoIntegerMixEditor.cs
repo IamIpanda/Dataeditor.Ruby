@@ -53,7 +53,7 @@ namespace DataEditor.Control.Prototype
         public Color Color
         {
             get { return protoIntegerEditor1.DataColor; }
-            set 
+            set
             {
                 protoIntegerEditor1.DataColor = value;
                 protoIntegerEditor1.Invalidate();
@@ -103,7 +103,7 @@ namespace DataEditor.Control.Prototype
                 protoIntegerEditor1.Value = li;
                 protoIntegerEditor1.Invalidate();
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
@@ -133,7 +133,7 @@ namespace DataEditor.Control.Prototype
             if (PreviousColor != null)
                 protoIntegerEditor1.DataColor = PreviousColor ?? Color.Gray;
             protoIntegerEditor1.Invalidate();
-            if(protoComboBox1.Text != "" && protoComboBox1.Text != HintString)
+            if (protoComboBox1.Text != "" && protoComboBox1.Text != HintString)
                 if (!(SavedStrings.Contains(protoComboBox1.Text)))
                 {
                     SavedStrings.Add(protoComboBox1.Text);
@@ -182,13 +182,18 @@ namespace DataEditor.Control.Prototype
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
+            ChangeLength(Convert.ToInt32(numericUpDown1.Value));
+            protoIntegerEditor1.Invalidate();
+            protoIntegerText1.OnFullValueChanged(this, new EventArgs());
+        }
+        public void ChangeLength(int length)
+        {
             int origin = protoIntegerEditor1.Value.Count;
-            int target = Convert.ToInt32(numericUpDown1.Value);
+            int target = length;
             if (origin > target) protoIntegerEditor1.Value.RemoveRange(target, origin - target);
             if (origin < target)
                 for (int i = 0; i < target - origin; i++)
                     protoIntegerEditor1.Value.Add(0);
-            protoIntegerEditor1.Invalidate();
         }
     }
 }

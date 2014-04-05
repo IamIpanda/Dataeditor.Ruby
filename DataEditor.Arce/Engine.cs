@@ -34,9 +34,11 @@ namespace DataEditor.Arce
             { 
             }*/
             Help.Path.Instance["project"] = System.IO.Path.GetDirectoryName(Path);
-            Engine.engine.ExecuteFile("Ruby/fux.rb");
+            string sDir = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
+            string Dir = System.IO.Path.Combine(sDir, "Ruby/fux.rb");
+            if (!(System.IO.File.Exists(Dir))) { System.Windows.Forms.MessageBox.Show("FUX 我不做人了！"); Application.Exit(); }
+            Engine.engine.ExecuteFile(Dir);
             (Help.Window.Instance["Main"] as WrapTitan).Window.Show();
-            
         }
         static public void OpenFile(string Path)
         {

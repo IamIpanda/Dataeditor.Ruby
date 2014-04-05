@@ -49,6 +49,7 @@ namespace DataEditor.Ruby
         {
             try
             {
+                Help.Log.log("正在通过 Ruby 引擎执行文件 : " + path);
                 return engine.ExecuteFile(path);
             }
             catch ( Exception ex )

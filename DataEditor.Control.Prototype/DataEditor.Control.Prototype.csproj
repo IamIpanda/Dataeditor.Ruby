@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProtoMapList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoMapList.Designer.cs">
+      <DependentUpon>ProtoMapList.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProtoLinedPaperDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,6 +203,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ProtoMapList.resx">
+      <DependentUpon>ProtoMapList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProtoDropItem.resx">
       <DependentUpon>ProtoDropItem.cs</DependentUpon>
     </EmbeddedResource>

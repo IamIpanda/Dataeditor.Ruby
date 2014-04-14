@@ -56,6 +56,7 @@ namespace DataEditor.Control.Prototype
                 }
                 else
                 {
+                    if (e.Control) ShowAll();
                     textBox1.Visible = false;
                     listBox1.Enabled = true;
                     listBox1.Focus();
@@ -114,6 +115,38 @@ namespace DataEditor.Control.Prototype
         {
             get { return listBox1.SelectedIndex; }
             set { listBox1.SelectedIndex = value; }
+        }
+
+        private void textBox1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ShowAll();
+        }
+
+        protected void ShowAll()
+        {
+            var index = listBox1.SelectedIndex;
+            var selectedText = 0;
+            var dialog = new ProtoLinedPaperDialog();
+            var text = new StringBuilder();
+            string chosen;
+            for (int i = 0; i < Value.Count; i++ )
+            {
+                chosen = Value[i];
+                text.AppendLine(chosen);
+                if (i < index)
+                    selectedText += chosen.Length + 1;
+            }
+            text.Remove(text.Length - 1, 1);
+            //FIXME: selectedText is WRONG
+            //if (index > 0)
+              //  dialog.SetFocus(selectedText, Value[index].Length);
+            dialog.Value = text.ToString();
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                Value.Clear();
+                Value.AddRange(dialog.Value.Split('\n'));
+                Pull();
+            }
         }
     }
 }

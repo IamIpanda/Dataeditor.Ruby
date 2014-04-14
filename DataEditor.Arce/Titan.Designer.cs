@@ -32,13 +32,14 @@
             // 
             // pnMain
             // 
-            this.pnMain.Size = new System.Drawing.Size(640, 347);
+            this.pnMain.Size = new System.Drawing.Size(1134, 681);
+            this.pnMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnMain_Paint);
             // 
             // Titan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 393);
+            this.ClientSize = new System.Drawing.Size(1134, 727);
             this.Name = "Titan";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Titan_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Titan_FormClosed);

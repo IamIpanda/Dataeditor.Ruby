@@ -83,7 +83,7 @@ namespace DataEditor.Control.Prototype
             if (this.txtRow.Lines.Length > 0)
             {
                 System.Drawing.SizeF s = this.txtRow.CreateGraphics().MeasureString(this.txtRow.Lines[this.txtRow.Lines.Length - 1], this.txtRow.Font);
-                this.txtRow.Width = (int)s.Width;
+                this.txtRow.Width = (int)s.Width + 6;
             }
         }
 
@@ -168,6 +168,9 @@ namespace DataEditor.Control.Prototype
         public static extern int SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
 
         #endregion        
+
+        public void SetFocus(int start, int length)
+        { txtContent.Select(start, length); }
     }
     partial class zzyTextBox : System.Windows.Forms.TextBox
     {

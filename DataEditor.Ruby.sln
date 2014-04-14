@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Arce", "DataEdit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Control.Event", "DataEditor.Control.Event\DataEditor.Control.Event.csproj", "{233070A6-124E-454F-800B-BCA40F03856B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataEditor.Control.ShapeShifter", "DataEditor.Control.ShapeShifter\DataEditor.Control.ShapeShifter.csproj", "{A902B7F5-5CD4-44F5-AC0D-E7E3BA663D10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{233070A6-124E-454F-800B-BCA40F03856B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{233070A6-124E-454F-800B-BCA40F03856B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{233070A6-124E-454F-800B-BCA40F03856B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A902B7F5-5CD4-44F5-AC0D-E7E3BA663D10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A902B7F5-5CD4-44F5-AC0D-E7E3BA663D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A902B7F5-5CD4-44F5-AC0D-E7E3BA663D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A902B7F5-5CD4-44F5-AC0D-E7E3BA663D10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,6 +28,7 @@ namespace DataEditor.Control.Wrapper
                 if (num != null)
                     Control.SetItemChecked(catalogue.Link.Verse[(int)num.Value], true);
             }
+
         }
 
         public override bool ValueIsChanged()
@@ -68,5 +69,6 @@ namespace DataEditor.Control.Wrapper
         {
             NowTaint = true;
         }
+
     }
 }

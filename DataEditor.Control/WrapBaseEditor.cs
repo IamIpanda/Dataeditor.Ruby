@@ -15,6 +15,7 @@ namespace DataEditor.Control
         abstract public void Bind();
         public bool EnableData { get; set; }
         abstract public bool ValueIsChanged();
+        public virtual void Putt() { Help.Taint.DefaultPutt(this); }
         public virtual string Flag { get { return this.GetType().Name; } }
         public virtual DataContainer Container { get; set; }
         public virtual System.Windows.Forms.Label Label { get; set; }
@@ -66,6 +67,7 @@ namespace DataEditor.Control
                 if (ans == null) return;
                 this.value = ans;
                 if (Binding.Enabled) Pull();
+                Putt();
             }
         }
         protected FuzzyData.FuzzyObject GetValueFromChild(FuzzyData.FuzzyObject parent)
@@ -107,11 +109,9 @@ namespace DataEditor.Control
             argument.SetArgument("text", "Untitled", Help.Parameter.ArgumentType.Option);
             argument.SetArgument("actual", null, Help.Parameter.ArgumentType.Must);
         }
-        public void Putt()
-        {
-
-        }
     }
+
+
     public abstract class WrapControlEditor<TValue, TControl> : WrapBaseEditor<TValue>
         where TValue : FuzzyData.FuzzyObject
         where TControl : System.Windows.Forms.Control, new()

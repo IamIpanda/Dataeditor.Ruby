@@ -47,14 +47,14 @@ namespace DataEditor.Control.Prototype
         }
         protected virtual void DrawData(PaintEventArgs e)
         {
-            float zoomx = (this.ClientSize.Width - 2F) / Value.Count;
+            float zoomx = (this.ClientSize.Width - 2F) / (Value.Count - 1);
             float zoomy = (this.ClientSize.Height - 2F) / MaxNumber;
             for (int i = 0; i < Value.Count; i++)
                 DrawSingleData(e.Graphics,GetBrush(),value[i], i, zoomx, zoomy);
         }
         protected virtual void DrawSingleData(Graphics graphics, Brush brush, int value, int index, float zoomx, float zoomy)
         {
-            float x = zoomx * index + 1;
+            float x = zoomx * index - 1;
             float h = zoomy * value + 1;
             float y = this.ClientSize.Height - h - 1;
             float w = zoomx;

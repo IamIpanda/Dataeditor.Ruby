@@ -31,6 +31,7 @@ namespace DataEditor.Arce
 
         private void Titan_FormClosing(object sender, FormClosingEventArgs e)
         {
+            /*
             if (MessageBox.Show("您是否要保存您的数据？", "Fux 的节操", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
             {
                 string target = System.IO.Path.Combine(DataEditor.Help.Path.Instance["project"], "Data/Actors.rxdata");
@@ -38,6 +39,12 @@ namespace DataEditor.Arce
                 FuzzyData.Serialization.RubyMarshal.RubyMarshal.Dump(stream, Help.Data.Instance["actor"]);
                 stream.Close();
             }
+             * */
+        }
+
+        private void pnMain_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
     public class WrapTitan : DataEditor.Control.Window.EditorWindow.WrapEditorWindow<Titan> 

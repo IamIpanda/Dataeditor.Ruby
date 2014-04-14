@@ -76,5 +76,18 @@ namespace DataEditor.Control.Wrapper.Container
         public override int start_y { get { return 3; } }
         public override int end_x { get { return 3; } }
         public override int end_y { get { return 3; } }
+        public override void Putt()
+        {
+            var index = Control.SelectedIndex;
+            var obj = Value;
+            var state = Help.Taint.Instance[obj];
+            if (state == Contract.TaintState.UnTainted) return;
+            var color = Help.Taint.DefaultColor(state);
+            var target = Control.ForeColors;
+            if (target.ContainsKey(index))
+                target[index] = color;
+            else target.Add(index, color);
+        }
+        
     }
 }

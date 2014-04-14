@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace DataEditor.Control.Wrapper
 {
-    public class ListText : ListWrapper<FuzzyData.FuzzyTable>
+    public class ListText : ListWrapper<FuzzyData.FuzzyTable>, Contract.TaintableList
     {
         public override void Push()
         {
@@ -27,10 +27,11 @@ namespace DataEditor.Control.Wrapper
             base.Bind();
             Control.ItemCircled += Control_ItemCircled;
         }
-
         void Control_ItemCircled(object sender, Prototype.ProtoCircleListValueChangeEventArgs e)
         {
             NowTaint = true;
+            TaintSingle(e.index);
         }
+        
     }
 }

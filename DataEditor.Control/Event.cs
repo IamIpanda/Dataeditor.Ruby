@@ -21,7 +21,7 @@ namespace DataEditor.Help
             Help.Action.Instance.Do(old, now);
             // 与 Taint 标记
             // 进一步考虑中
-            Help.Taint.Instance[now] = Contract.TaintState.Tainted;
+            Help.Taint.Instance.SetTaint(editor);
             // 与 Monitor 触发
             Help.Monitor.Trigger(editor);
         }

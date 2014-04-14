@@ -38,6 +38,7 @@ namespace DataEditor.Help
             {
                 System.IO.FileStream stream = new System.IO.FileStream(full_path, System.IO.FileMode.Create);
                 ser.Serialize(stream, target);
+                stream.Close();
             }
             catch (Exception ex) { Log.log(ex.ToString());} 
         }

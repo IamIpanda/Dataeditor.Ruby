@@ -17,6 +17,7 @@ Data["tileset"] = "Data/Tilesets.rxdata"
 Data["commonevent"] = "Data/CommonEvents.rxdata"
 Data["system"] = "Data/System.rxdata"
 Data["mapinfo"] = "Data/MapInfos.rxdata"
+Data["map"] = "Data/Map*.rxdata"
 
 =begin
     $data_actors        = load_data("Data/Actors.rxdata")

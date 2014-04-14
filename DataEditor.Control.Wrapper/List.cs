@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace DataEditor.Control.Wrapper
 {
-    public abstract class ListWrapper<T> : Control.WrapControlEditor<T, Prototype.ProtoCircleTextListBox> where T : FuzzyData.FuzzyObject
+    public abstract class ListWrapper<T> : Control.WrapControlList<T, Prototype.ProtoCircleTextListBox> where T : FuzzyData.FuzzyObject
     {
         protected bool NowTaint = false;
         static List<object> DefaultColors = new List<object>()
@@ -62,6 +62,16 @@ namespace DataEditor.Control.Wrapper
             argument.SetArgument("choices", new string[0], Help.Parameter.ArgumentType.Option);
             argument.SetArgument("colors", DefaultColors, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("default", 0, Help.Parameter.ArgumentType.Option);
+        }
+
+
+        protected override void SetDictionary()
+        {
+            this.TargetDictionary = Control.ForeColors;
+        }
+        protected override int GetCount()
+        {
+            return Control.Items.Count;
         }
     }
 }

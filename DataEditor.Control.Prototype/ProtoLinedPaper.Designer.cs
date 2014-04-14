@@ -44,6 +44,7 @@
             this.textBox1.Visible = false;
             this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
             this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave);
+            this.textBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBox1_MouseDoubleClick);
             // 
             // panel1
             // 

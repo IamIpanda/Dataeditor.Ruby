@@ -52,6 +52,7 @@
     <Compile Include="Window.cs" />
     <Compile Include="WrapBaseContainer.cs" />
     <Compile Include="WrapBaseEditor.cs" />
+    <Compile Include="WrapBaseList.cs" />
     <Compile Include="WrapBaseValueContainer.cs" />
     <Compile Include="WrapBaseWindow.cs" />
   </ItemGroup>

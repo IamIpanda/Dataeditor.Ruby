@@ -12,7 +12,6 @@ namespace DataEditor.Control
         public virtual int start_y { get { return 0; } }
         public override bool ValueIsChanged() { return false; }  // 此代码应当无法触发 
         public virtual System.Windows.Forms.Control.ControlCollection Controls { get { return Binding.Controls; } }
-        public virtual void SetSize(System.Drawing.Size size) { if (Binding != null) Binding.ClientSize = size; }
         public virtual bool CanAdd(System.Windows.Forms.Control control) 
         {
             return !(control is System.Windows.Forms.TabPage || control is System.Windows.Forms.Form); 
@@ -38,6 +37,27 @@ namespace DataEditor.Control
             argument.OverrideArgument("label", 0, Help.Parameter.ArgumentType.HardlyEver);
             argument.OverrideArgument("actual", null, Help.Parameter.ArgumentType.Option);
         }
+        public override void Putt()
+        {
+            // TODO
+            /*
+            var state = Help.Taint.Instance[this.value];
+            if (state != Contract.TaintState.UnTainted)
+                Binding.ForeColor = Help.Taint.DefaultColor(state); */
+        }
+        public virtual void SetSize(System.Drawing.Size size) 
+        {
+            if (Binding == null) return;
+            if (Binding.Dock == System.Windows.Forms.DockStyle.Fill && Container != null)
+            {
+                int width_increment = Container.Binding.Size.Width - Binding.Size.Width;
+                int height_increment = Container.Binding.Size.Height - Binding.Size.Height;
+                Container.SetSize(new System.Drawing.Size(size.Width + width_increment, size.Height + height_increment));
+            }
+            else
+                Binding.ClientSize = size;
+        }
+        
     }
     public abstract class WrapControlContainer<TControl> : WrapBaseContainer
         where TControl : System.Windows.Forms.Control, new()

@@ -65,7 +65,7 @@ namespace DataEditor.Help
             now[12] = Color.FromArgb(255, 0, 0, 0);
             now[13] = Color.FromArgb(255, 0, 0, 0);
             now[16] = Color.FromArgb(255, 255, 0, 0);
-            now[17] = Color.FromArgb(255, 0, 255, 0);
+            now[17] = Color.FromArgb(255, 255, 165, 0);
             now[18] = Color.FromArgb(255, 0, 0, 255);
             now[19] = Color.FromArgb(255, 255, 255, 0);
             now[20] = Color.FromArgb(255, 0, 255, 255);

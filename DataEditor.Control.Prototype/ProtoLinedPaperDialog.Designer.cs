@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btCancel = new System.Windows.Forms.Button();
             this.protoLinedTextbox1 = new DataEditor.Control.Prototype.ProtoLinedTextbox();
             this.btOK = new System.Windows.Forms.Button();
-            this.btCancel = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +53,18 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(441, 572);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // btCancel
+            // 
+            this.btCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btCancel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btCancel.Location = new System.Drawing.Point(352, 547);
+            this.btCancel.Name = "btCancel";
+            this.btCancel.Size = new System.Drawing.Size(86, 22);
+            this.btCancel.TabIndex = 3;
+            this.btCancel.Text = "取消";
+            this.btCancel.UseVisualStyleBackColor = true;
+            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
+            // 
             // protoLinedTextbox1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.protoLinedTextbox1, 3);
@@ -73,29 +85,20 @@
             this.btOK.UseVisualStyleBackColor = true;
             this.btOK.Click += new System.EventHandler(this.btOK_Click);
             // 
-            // btCancel
-            // 
-            this.btCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btCancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btCancel.Location = new System.Drawing.Point(352, 547);
-            this.btCancel.Name = "btCancel";
-            this.btCancel.Size = new System.Drawing.Size(86, 22);
-            this.btCancel.TabIndex = 3;
-            this.btCancel.Text = "取消";
-            this.btCancel.UseVisualStyleBackColor = true;
-            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
-            // 
             // ProtoLinedPaperDialog
             // 
-            this.AcceptButton = this.btOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btCancel;
             this.ClientSize = new System.Drawing.Size(441, 572);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ProtoLinedPaperDialog";
+            this.ShowInTaskbar = false;
             this.Text = "一并更改";
+            this.Shown += new System.EventHandler(this.ProtoLinedPaperDialog_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

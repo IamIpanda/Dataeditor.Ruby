@@ -28,10 +28,26 @@ namespace DataEditor.Help
                     Datas.Add(name, value);
             }
         }
+        public FuzzyObject this[int index]
+        { 
+            get
+            {
+                if (MapComponent.Maps.ContainsKey(index))
+                    return MapComponent.Maps[index];
+                else
+                    return null;
+            }
+        }
+        public Dictionary<int, FuzzyObject> Map { get { return MapComponent.Maps; } }
         public string this[string name, string serialize = ""]
         {
             set
             {
+                if (name.ToLower() == "map")
+                {
+                    MapComponent.Initialize(value, serialize);
+                    return;
+                }
                 string ans;
                 string[] files = Path.Instance.SearchFiles(value, "project", "rtp");
                 if (files.Length == 0)
@@ -54,6 +70,48 @@ namespace DataEditor.Help
                 else ans = files[0];
                 object content = Serialization.LoadFile(ans, serialize);
                 Datas.Add(name, content as FuzzyObject);
+            }
+        }
+        internal static class MapComponent
+        {
+            static public Dictionary<int, FuzzyData.FuzzyObject> Maps = new Dictionary<int,FuzzyObject>();
+            static public void Initialize(string Path,string Name, string Serialize = "")
+            {
+                Maps.Clear();
+                string From = DataEditor.Help.Path.Instance["project"];
+                string FullPath = System.IO.Path.Combine(From, Path);
+                if (System.IO.Directory.Exists(FullPath))
+                {
+                    string partName;
+                    int index;
+                    foreach (var file in System.IO.Directory.GetFiles(FullPath, Name))
+                    {
+                        partName = System.IO.Path.GetFileName(file);
+                        index = SearchNumber(partName);
+                        object content = Serialization.LoadFile(file, Serialize);
+                        Maps[index] = content as FuzzyObject;
+                    }
+                }
+                else Log.log("找不到地图初始化路径：" + FullPath);
+            }
+            static public void Initialize(string Path, string Serialize = "")
+            {
+                string pathPart = System.IO.Path.GetDirectoryName(Path);
+                string namePart = System.IO.Path.GetFileName(Path);
+                Initialize(pathPart, namePart, Serialize);
+            }
+            static public int SearchNumber(string name)
+            {
+                int ans = -1;
+                foreach(char c in name)
+                {
+                    if (c > '0' && c < '9')
+                        if (ans < 0) ans = c - '0';
+                        else ans = ans * 10 + c - '0';
+                    else if (ans >= 0)
+                        return ans;
+                }
+                return ans;
             }
         }
     }

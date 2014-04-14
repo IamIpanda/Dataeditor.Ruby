@@ -60,6 +60,7 @@ namespace DataEditor.Control.Wrapper
                 volume.Value = window.Volume;
                 pitch.Value = window.Freq;
                 name.Text = window.FileName;
+                NowTaint = true;
                 Pull();
             }
         }

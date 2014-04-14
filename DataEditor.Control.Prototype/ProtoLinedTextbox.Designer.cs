@@ -53,7 +53,7 @@
             this.txtRow.ReadOnly = true;
             this.txtRow.Size = new System.Drawing.Size(26, 255);
             this.txtRow.TabIndex = 8;
-            this.txtRow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtRow.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtRow.WordWrap = false;
             this.txtRow.SizeChanged += new System.EventHandler(this.txtRow_SizeChanged);
             this.txtRow.TextChanged += new System.EventHandler(this.txtRow_TextChanged);

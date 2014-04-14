@@ -11,6 +11,16 @@ namespace DataEditor.Control.Wrapper.Container
         {
             base.Bind();
             Control.Dock = System.Windows.Forms.DockStyle.Fill;
+            Control.SelectedIndexChanged += Control_SelectedIndexChanged;
+        }
+
+        void Control_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var tabpage = Control.SelectedTab;
+            var tab = tabpage.Tag as Tab;
+            if (tab == null) return;
+            var size = tab.RememberSize;
+            SetSize(size);
         }
         public override bool CanAdd(System.Windows.Forms.Control control)
         {
@@ -20,5 +30,6 @@ namespace DataEditor.Control.Wrapper.Container
         {
             base.SetSize(new System.Drawing.Size(size.Width, size.Height + 25));
         }
+       
     }
 }

@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DataEditor.Control.Prototype</RootNamespace>
     <AssemblyName>DataEditor.Control.Prototype</AssemblyName>
-    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -41,20 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProtoMapList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ProtoMapList.Designer.cs">
-      <DependentUpon>ProtoMapList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ProtoLinedPaperDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProtoLinedPaperDialog.Designer.cs">
-      <DependentUpon>ProtoLinedPaperDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProtoAutoSizeTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProtoCheckContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoCheckContainer.Designer.cs">
+      <DependentUpon>ProtoCheckContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProtoColoredListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProtoComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ProtoDropItem.cs">
@@ -63,6 +63,7 @@
     <Compile Include="ProtoDropItem.Designer.cs">
       <DependentUpon>ProtoDropItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProtoFrameControl.cs" />
     <Compile Include="ProtoFullListBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -73,11 +74,20 @@
     <Compile Include="ProtoImageDisplayer.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ProtoImageIndexDisplayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ProtoIndexTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ProtoIndexTextBox.Designer.cs">
       <DependentUpon>ProtoIndexTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProtoIntegerDisplayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoIntegerEditor.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ProtoIntegerMixEditor.cs">
       <SubType>UserControl</SubType>
@@ -91,16 +101,6 @@
     <Compile Include="ProtoIntegerText.Designer.cs">
       <DependentUpon>ProtoIntegerText.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProtoComboBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ProtoFrameControl.cs" />
-    <Compile Include="ProtoIntegerDisplayer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ProtoIntegerEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="ProtoLeftListBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -112,6 +112,12 @@
     </Compile>
     <Compile Include="ProtoLinedPaper.Designer.cs">
       <DependentUpon>ProtoLinedPaper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProtoLinedPaperDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProtoLinedPaperDialog.Designer.cs">
+      <DependentUpon>ProtoLinedPaperDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="ProtoLinedTextbox.cs">
       <SubType>UserControl</SubType>
@@ -126,17 +132,20 @@
     <Compile Include="ProtoListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ProtoColoredListBox.cs">
-      <SubType>Component</SubType>
+    <Compile Include="ProtoMapList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoMapList.Designer.cs">
+      <DependentUpon>ProtoMapList.cs</DependentUpon>
     </Compile>
     <Compile Include="ProtoMetroContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ProtoCheckContainer.cs">
+    <Compile Include="ProtoRadioContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ProtoCheckContainer.Designer.cs">
-      <DependentUpon>ProtoCheckContainer.cs</DependentUpon>
+    <Compile Include="ProtoRadioContainer.Designer.cs">
+      <DependentUpon>ProtoRadioContainer.cs</DependentUpon>
     </Compile>
     <Compile Include="ProtoRtpViewList.cs">
       <SubType>Component</SubType>
@@ -162,15 +171,6 @@
     <Compile Include="ProtoTitleBox.Designer.cs">
       <DependentUpon>ProtoTitleBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProtoRadioContainer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ProtoRadioContainer.Designer.cs">
-      <DependentUpon>ProtoRadioContainer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ProtoImageIndexDisplayer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="ProtoTroopBitmap.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -185,26 +185,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataEditor.Ruby\DataEditor.Control\DataEditor.Control.csproj">
-      <Project>{ae8bbeb5-cb95-4ad0-b7c3-f7c03ff5b352}</Project>
-      <Name>DataEditor.Control</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DataEditor.Ruby\DataEditor.Help\DataEditor.Help.csproj">
-      <Project>{aafc4019-7092-4e66-9f1d-8a3ea4ba75a0}</Project>
-      <Name>DataEditor.Help</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">
-      <Project>{d7dfc2b5-bb85-4037-b052-c4f1e3c1bde0}</Project>
-      <Name>DataEditor.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DataEditor\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
-      <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
-      <Name>DataEditor.FuzzyData</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ProtoMapList.resx">
-      <DependentUpon>ProtoMapList.cs</DependentUpon>
+    <EmbeddedResource Include="ProtoCheckContainer.resx">
+      <DependentUpon>ProtoCheckContainer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoDropItem.resx">
       <DependentUpon>ProtoDropItem.cs</DependentUpon>
@@ -215,20 +197,23 @@
     <EmbeddedResource Include="ProtoImageDisplayer.resx">
       <DependentUpon>ProtoImageDisplayer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ProtoImageIndexDisplayer.resx">
+      <DependentUpon>ProtoImageIndexDisplayer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProtoIndexTextBox.resx">
       <DependentUpon>ProtoIndexTextBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProtoIntegerMixEditor.resx">
-      <DependentUpon>ProtoIntegerMixEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProtoIntegerText.resx">
-      <DependentUpon>ProtoIntegerText.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoIntegerDisplayer.resx">
       <DependentUpon>ProtoIntegerDisplayer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoIntegerEditor.resx">
       <DependentUpon>ProtoIntegerEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoIntegerMixEditor.resx">
+      <DependentUpon>ProtoIntegerMixEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoIntegerText.resx">
+      <DependentUpon>ProtoIntegerText.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoLeftListBox.resx">
       <DependentUpon>ProtoLeftListBox.cs</DependentUpon>
@@ -242,11 +227,14 @@
     <EmbeddedResource Include="ProtoLinedTextbox.resx">
       <DependentUpon>ProtoLinedTextbox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ProtoMapList.resx">
+      <DependentUpon>ProtoMapList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProtoMetroContainer.resx">
       <DependentUpon>ProtoMetroContainer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProtoCheckContainer.resx">
-      <DependentUpon>ProtoCheckContainer.cs</DependentUpon>
+    <EmbeddedResource Include="ProtoRadioContainer.resx">
+      <DependentUpon>ProtoRadioContainer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoScrollIntBar.resx">
       <DependentUpon>ProtoScrollIntBar.cs</DependentUpon>
@@ -257,18 +245,30 @@
     <EmbeddedResource Include="ProtoTitleBox.resx">
       <DependentUpon>ProtoTitleBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProtoRadioContainer.resx">
-      <DependentUpon>ProtoRadioContainer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProtoImageIndexDisplayer.resx">
-      <DependentUpon>ProtoImageIndexDisplayer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ProtoTroopBitmap.resx">
       <DependentUpon>ProtoTroopBitmap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoTroopMember.resx">
       <DependentUpon>ProtoTroopMember.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">
+      <Project>{d7dfc2b5-bb85-4037-b052-c4f1e3c1bde0}</Project>
+      <Name>DataEditor.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataEditor\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
+      <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
+      <Name>DataEditor.FuzzyData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Control\DataEditor.Control.csproj">
+      <Project>{ae8bbeb5-cb95-4ad0-b7c3-f7c03ff5b352}</Project>
+      <Name>DataEditor.Control</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Help\DataEditor.Help.csproj">
+      <Project>{aafc4019-7092-4e66-9f1d-8a3ea4ba75a0}</Project>
+      <Name>DataEditor.Help</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

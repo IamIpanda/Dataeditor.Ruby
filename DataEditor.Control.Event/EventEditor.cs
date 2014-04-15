@@ -14,6 +14,18 @@ namespace DataEditor.Control.Event
         public EventEditor()
         {
             InitializeComponent();
+            this.protoMapList1.SelectedValueChanged += protoMapList1_SelectedValueChanged;
+            this.protoEventPaper1.SelectedValueChanged += protoEventPaper1_SelectedValueChanged;
+        }
+
+        void protoEventPaper1_SelectedValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        void protoMapList1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            protoEventPaper1.Map = protoMapList1.SelectedValue;
         }
     }
 }

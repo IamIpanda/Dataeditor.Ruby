@@ -37,6 +37,7 @@ namespace DataEditor.Control.Prototype
         }
         public void OnSetMap()
         {
+            if (map == null) return;
             protoListBox1.Items.Clear();
             event_hash = map[EventsSymbol] as FuzzyData.FuzzyHash;
             if (event_hash == null) return;
@@ -61,6 +62,12 @@ namespace DataEditor.Control.Prototype
                 int key = Links[index];
                 return event_hash[key] as FuzzyData.FuzzyObject;
             } 
+        }
+        public event EventHandler SelectedValueChanged;
+
+        private void protoListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SelectedValueChanged != null) SelectedValueChanged(this, e);
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DataEditor.Control.Event
+namespace DataEditor.Control.Prototype
 {
     public partial class ProtoMapList : UserControl
     {
@@ -18,6 +18,7 @@ namespace DataEditor.Control.Event
             InitializeComponent();
             NameSymbol = FuzzyData.FuzzySymbol.GetSymbol("@name");
             Links = new Dictionary<int,int>();
+            this.SetStyle(ControlStyles.ContainerControl, true);
         }
         private void MapList_Load(object sender, EventArgs e)
         {
@@ -45,6 +46,12 @@ namespace DataEditor.Control.Event
                 int key = Links[index];
                 return Help.Data.Instance[key];
             }
+        }
+
+        public event EventHandler SelectedValueChanged;
+        private void protoListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SelectedValueChanged != null) SelectedValueChanged(this, e);
         }
     }
 }

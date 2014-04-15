@@ -50,11 +50,14 @@
     <Compile Include="EventEditor.Designer.cs">
       <DependentUpon>EventEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="MapList.cs">
+    <Compile Include="ProtoMapList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MapList.Designer.cs">
-      <DependentUpon>MapList.cs</DependentUpon>
+    <Compile Include="ProtoMapList.Designer.cs">
+      <DependentUpon>ProtoMapList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProtoEventList.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ProtoEventPaper.cs">
       <SubType>UserControl</SubType>
@@ -118,8 +121,8 @@
     <EmbeddedResource Include="EventEditor.resx">
       <DependentUpon>EventEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MapList.resx">
-      <DependentUpon>MapList.cs</DependentUpon>
+    <EmbeddedResource Include="ProtoMapList.resx">
+      <DependentUpon>ProtoMapList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoEventPaper.resx">
       <DependentUpon>ProtoEventPaper.cs</DependentUpon>

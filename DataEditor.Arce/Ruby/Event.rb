@@ -157,3 +157,54 @@ class Event_Help
 		end
 	end # Untitle Class
 end
+
+
+class Builder
+	class << self
+		def get_symbol(index)
+			return "INDEX" + index.to_sym
+		end
+	  	def Pop(sym, index)
+	    	case sym
+	    	when :count_or_variable
+	    		Builder.Add(:group, {:text => "操作数"}) do
+	    			Builder.Add(:radio, {:actual => get_symbol(index), :text => "常量", :key => 0, :group => "group_cov"}) do
+	    				Builder.Add(:int, {:actual => get_symbol(index + 1)})
+	    			end
+	    			Builder.Add(:radio, {:actual => get_symbol(index), :text => "变量", :key => 1, :group => "group_cov"}) do
+	    				Builder.Add(:variable, {:actual => get_symbol(index + 1)})
+	    			end
+	    		end
+	    	when :group_switch_2
+	    		Builder.Add(:group, {:text => "开关"}) do
+	    			# ISON
+	    			Builder.Add(:radio, {:actual => get_symbol(index), :text => "单独", :key => 0, :group => "group_switch_2"}) do
+	    				Builder.Add(:variable, {:actual => get_symbol(index + 1)})
+	    			end
+	    			Builder.Add(:radio, {:actual => get_symbol(index), :text => "统一" ,:key => 1, :group => "group_switch_2"}) do
+	    				Builder.Order
+	    				Builder.Add(:int, {:actual => get_symbol(index + 1)})
+	    				Builder.Text(" ~ ")
+	    				Builder.Add(:int, {:actual => get_symbol(index + 2)})
+	    			end
+	    		end
+	    	when :group_vairble_2
+	    		# FUCK IT
+	    	when :operate
+	    		Builder.Add(:group, {:text => "操作"}) do
+	    			Builder.Add(:single_radio, {:actual => get_symbol(index), :text => "增加", :key => 0, :group => "group_operate_1"})
+	    			Builder.Add(:single_radio, {:actual => get_symbol(index), :text => "减少", :key => 1, :group => "group_operate_1"})
+	    		end
+	    	when :operate_number
+	    		Builder.Add(:group, {:text => "操作数"}) do
+	    			Builder.Add(:radio, {:actual => get_symbol(index), :text => "常量"}) do
+	    				Builder.Add(:int, {:actual => get_symbol(index + 1)})
+	    			end
+	    			Builder.Add(:radio, {:actual => get_symbol(index), :text => "变量"}) do
+	    				Builder.Add(:variable, {:actual => get_symbol(index + 1)})
+	    			end
+	    		end
+	    	end
+	    end
+	end
+end

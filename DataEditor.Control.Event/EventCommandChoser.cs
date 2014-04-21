@@ -52,6 +52,7 @@ namespace DataEditor.Control.Event
                 if (Code == command.Code) { parameter = command.GetParameter(); with = null; }
                 else { parameter = Value; with = With; }
                 command.Window.call(window, parameter, with);
+                window.Value = command.GetParameter();
                 if (window.Show() == System.Windows.Forms.DialogResult.OK)
                 {
                     this.Code = command.Code;
@@ -109,6 +110,11 @@ namespace DataEditor.Control.Event
             var command = protoListBox2.Items[index] as EventCommand;
             if (command == null) return protoListBox2.ForeColor;
             return command.Color;
+        }
+
+        private void protoListBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

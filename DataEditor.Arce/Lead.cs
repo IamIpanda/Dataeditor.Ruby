@@ -54,6 +54,7 @@ namespace DataEditor.Arce
             {
                 string Path = OFD.FileName;
                 Engine.OpenProject(Path);
+                new DataEditor.Control.ShapeShifter.ShapeShifter().Show();
                 this.Hide();
             }
         }

@@ -14,6 +14,19 @@ namespace DataEditor.Control.Prototype
         {
             InitializeComponent();
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
+            protoLinedTextbox1.TextChanged += protoLinedTextbox1_TextChanged;
+        }
+
+        void protoLinedTextbox1_TextChanged(object sender, EventArgs e)
+        {
+            var size = protoLinedTextbox1.PreferredSize;
+            int width = size.Width;
+            if (width < MinWidth) width = MinWidth;
+            if (width > MaxWidth) width = MaxWidth;
+            int height = size.Height;
+            if (height < MinHeight) height = MinHeight;
+            if (height > MaxHeight) height = MaxHeight;
+            this.SetClientSizeCore(width, height);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -21,11 +34,15 @@ namespace DataEditor.Control.Prototype
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Close();
         }
-
-        private void protoAutoSizeTextBox1_Resize(object sender, EventArgs e)
+        public override string Text
         {
-            this.ClientSize = protoAutoSizeTextBox1.Size;
-            btCancel.Location = new Point(protoAutoSizeTextBox1.Width - btCancel.Width, protoAutoSizeTextBox1.Height - btCancel.Height);   
+            get { return protoLinedTextbox1.Text; }
+            set { protoLinedTextbox1.Text = value; }
         }
+        public const int MinHeight = 250;
+        public const int MaxHeight = 600;
+        public const int MinWidth = 400;
+        public const int MaxWidth = 800;
+
     }
 }

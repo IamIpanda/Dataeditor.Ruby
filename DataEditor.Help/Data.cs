@@ -39,6 +39,7 @@ namespace DataEditor.Help
             }
         }
         public Dictionary<int, FuzzyObject> Map { get { return MapComponent.Maps; } }
+        public Dictionary<string, FuzzyObject>.KeyCollection Names { get { return Datas.Keys; } }
         public string this[string name, string serialize = ""]
         {
             set

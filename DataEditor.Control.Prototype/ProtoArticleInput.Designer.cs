@@ -28,19 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.protoAutoSizeTextBox1 = new DataEditor.Control.Prototype.ProtoAutoSizeTextBox();
             this.btCancel = new System.Windows.Forms.Button();
+            this.protoLinedTextbox1 = new DataEditor.Control.Prototype.ProtoLinedTextbox();
             this.SuspendLayout();
-            // 
-            // protoAutoSizeTextBox1
-            // 
-            this.protoAutoSizeTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.protoAutoSizeTextBox1.Location = new System.Drawing.Point(0, 0);
-            this.protoAutoSizeTextBox1.Multiline = true;
-            this.protoAutoSizeTextBox1.Name = "protoAutoSizeTextBox1";
-            this.protoAutoSizeTextBox1.Size = new System.Drawing.Size(435, 242);
-            this.protoAutoSizeTextBox1.TabIndex = 0;
-            this.protoAutoSizeTextBox1.Resize += new System.EventHandler(this.protoAutoSizeTextBox1_Resize);
             // 
             // btCancel
             // 
@@ -52,7 +42,14 @@
             this.btCancel.Text = "取消";
             this.btCancel.UseVisualStyleBackColor = true;
             this.btCancel.Click += new System.EventHandler(this.button1_Click);
-            this.btCancel.Resize += new System.EventHandler(this.btCancel_Resize);
+            // 
+            // protoLinedTextbox1
+            // 
+            this.protoLinedTextbox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.protoLinedTextbox1.Location = new System.Drawing.Point(0, 0);
+            this.protoLinedTextbox1.Name = "protoLinedTextbox1";
+            this.protoLinedTextbox1.Size = new System.Drawing.Size(435, 242);
+            this.protoLinedTextbox1.TabIndex = 2;
             // 
             // ProtoArticleInput
             // 
@@ -61,7 +58,7 @@
             this.CancelButton = this.btCancel;
             this.ClientSize = new System.Drawing.Size(435, 242);
             this.Controls.Add(this.btCancel);
-            this.Controls.Add(this.protoAutoSizeTextBox1);
+            this.Controls.Add(this.protoLinedTextbox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -70,13 +67,12 @@
             this.ShowInTaskbar = false;
             this.Text = "输入文章";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private ProtoAutoSizeTextBox protoAutoSizeTextBox1;
         private System.Windows.Forms.Button btCancel;
+        private ProtoLinedTextbox protoLinedTextbox1;
     }
 }

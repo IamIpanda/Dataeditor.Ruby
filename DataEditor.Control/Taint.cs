@@ -156,7 +156,7 @@ namespace DataEditor.Help
                     base[index] = value; 
                 }
             }
-            public int Count { get { return base.Count; } }
+            public new int Count { get { return base.Count; } }
             #endregion
         }
     }

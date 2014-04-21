@@ -9,7 +9,7 @@ namespace DataEditor.Control.Wrapper
         public override string Flag { get { return "radio"; } }
         // ======= STATIC Parts =======
         static Dictionary<string, List<Radio>> Radios = new Dictionary<string, List<Radio>>();
-        static void AddRadio(string group, Radio self)
+        static public void AddRadio(string group, Radio self)
         {
             if (!(Radios.ContainsKey(group))) Radios.Add(group, new List<Radio>());
             Radios[group].Add(self);
@@ -120,5 +120,72 @@ namespace DataEditor.Control.Wrapper
             argument.SetArgument("deny", null, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("accept", null, Help.Parameter.ArgumentType.Option);
         }
+    }
+    public class SingleRadio : Control.WrapControlEditor<FuzzyData.FuzzyFixnum, System.Windows.Forms.RadioButton>
+    {
+        // ======= STATIC Parts =======
+        static Dictionary<string, List<SingleRadio>> Radios
+            = new Dictionary<string, List<SingleRadio>>();
+        static public void AddRadio(string group, SingleRadio self)
+        {
+            if (!(Radios.ContainsKey(group))) Radios.Add(group, new List<SingleRadio>());
+            Radios[group].Add(self);
+        }
+        static void OnRadiosChanged(object sender, EventArgs e)
+        {
+            var son_radio = sender as System.Windows.Forms.RadioButton;
+            if (son_radio == null || son_radio.Tag == null || !son_radio.Checked) return;
+            string key = (son_radio.Tag as SingleRadio).group_key;
+            List<SingleRadio> target_list;
+            if (!Radios.TryGetValue(key, out target_list)) return;
+            foreach (var radio in target_list)
+                if (radio.Control != son_radio)
+                    radio.Control.Checked = false;
+        }
+        // ========================
+        int radio_key = -1;
+        string group_key = "";
+        public override string Flag { get { return "single_radio"; } }
+
+
+        public override void Push()
+        {
+            if (Control.Checked) value.Value = radio_key;
+        }
+
+        public override void Pull()
+        {
+            if (value.Value == radio_key) Control.Checked = true;
+            else Control.Checked = false;
+        }
+
+        public override bool ValueIsChanged()
+        {
+            return false;
+        }
+        public override void Reset()
+        {
+            string group = argument.GetArgument<string>("GROUP");
+            AddRadio(group, this);
+            group_key = group;
+            radio_key = argument.GetArgument<int>("KEY");
+            Control.Text = argument.GetArgument<string>("TEXT");
+        }
+        protected override void SetDefaultArgument()
+        {
+            base.SetDefaultArgument();
+            argument.SetArgument("group", "ungrouped", Help.Parameter.ArgumentType.Option);
+        }
+        public override void Bind()
+        {
+            base.Bind();
+            Control.Disposed += Control_Disposed;
+        }
+
+        void Control_Disposed(object sender, EventArgs e)
+        {
+            Radios[group_key].Remove(this);
+        }
+
     }
 }

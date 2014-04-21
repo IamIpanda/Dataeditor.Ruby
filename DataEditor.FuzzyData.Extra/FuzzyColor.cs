@@ -43,5 +43,19 @@ namespace DataEditor.FuzzyData
         public int blue  { get { return b; } set { b = value; GetColor(); } }
         public int alpha { get { return a; } set { a = value; GetColor(); } }
         public Color Value { get { return value; } set { this.value = value; GetParam(); } }
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("{");
+            sb.Append(red);
+            sb.Append(", ");
+            sb.Append(green);
+            sb.Append(", ");
+            sb.Append(blue);
+            sb.Append(", ");
+            sb.Append(alpha);
+            sb.Append("}");
+            return sb.ToString();
+        }
     }
 }

@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent ()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Titan));
             this.SuspendLayout();
+            // 
+            // pnMain
+            // 
+            this.pnMain.Size = new System.Drawing.Size(769, 407);
             // 
             // Titan
             // 
@@ -40,12 +43,13 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
-                 
+
         }
 
         #endregion
 
-        
+
+
 
 
 

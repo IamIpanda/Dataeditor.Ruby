@@ -35,6 +35,7 @@ namespace DataEditor.Control.Prototype
             //调用顺序不可变
             SetScrollBar();
             ShowRow();
+            if (TextChanged != null) TextChanged(this, e);
         }
 
         //鼠标滚动
@@ -171,6 +172,7 @@ namespace DataEditor.Control.Prototype
 
         public void SetFocus(int start, int length)
         { txtContent.Select(start, length); }
+        public new event EventHandler TextChanged;
     }
     partial class zzyTextBox : System.Windows.Forms.TextBox
     {

@@ -46,6 +46,7 @@ namespace DataEditor.Arce
         {
 
         }
+
     }
     public class WrapTitan : DataEditor.Control.Window.EditorWindow.WrapEditorWindow<Titan> 
     {

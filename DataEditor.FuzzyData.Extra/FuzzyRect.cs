@@ -42,5 +42,19 @@ namespace DataEditor.FuzzyData
         public int width  { get { return w; } set { w = value; GetRect(); } }
         public int height { get { return h; } set { h = value; GetRect(); } }
         public Rectangle Value { get { return value; } set { this.value = value; GetParam(); } }
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("{");
+            sb.Append(x);
+            sb.Append(", ");
+            sb.Append(y);
+            sb.Append(", ");
+            sb.Append(width);
+            sb.Append(", ");
+            sb.Append(height);
+            sb.Append("}");
+            return sb.ToString();
+        }
     }
 }

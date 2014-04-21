@@ -6,6 +6,7 @@
 require "ruby/Event.rb"
 require "ruby/Fuzzy.rb"
 
+
 $commands_xp = {}
 $commands_xp[0] = Command.new(0, -1, "TAB", "空指令", Text.ret(""))
 #=================================================================
@@ -18,8 +19,7 @@ target_text = Text.new do |parameters, *followings|
   parameters[0].Text
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
+  window = Builder.Add(:text_dialog , {:actual => INDEX0, :text => "显示文章"})
   window
 end
 target_with = Proc.new do |command|
@@ -43,6 +43,21 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Order
+    Builder.Add(:metro, {:actual => :INDEX0 }) do
+      Builder.Add(:text, {:actual => :INDEX0, :text => "选择项 1"})
+      Builder.Add(:text, {:actual => :INDEX1, :text => "选择项 2"})
+      Builder.Add(:text, {:actual => :INDEX2, :text => "选择项 3"})
+      Builder.Add(:text, {:actual => :INDEX3, :text => "选择项 4"})
+    end
+    Builder.Add(:group, {:text => "取消的场合"}) do
+      Builder.Add(:single_radio, {:actual => :INDEX1, :text => "无", :key => 1, :group => "window_code_102"})
+      Builder.Add(:single_radio, {:actual => :INDEX1, :text => "选择项 1", :key => 2, :group => "window_code_102"})
+      Builder.Add(:single_radio, {:actual => :INDEX1, :text => "选择项 2", :key => 3, :group => "window_code_102"})
+      Builder.Add(:single_radio, {:actual => :INDEX1, :text => "选择项 3", :key => 4, :group => "window_code_102"})
+      Builder.Add(:single_radio, {:actual => :INDEX1, :text => "选择项 4", :key => 5, :group => "window_code_102"})
+      Builder.Add(:single_radio, {:actual => :INDEX1, :text => "分歧", :key => 6, :group => "window_code_102"})
+    end
   Builder.Out
   window
 end
@@ -62,6 +77,8 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:variable , {:actual => :INDEX0 , :text => "接受数值的变量" })
+    Builder.Add(:int , {:actual => :INDEX1 , :text => "位数" })
   Builder.Out
   window
 end
@@ -82,6 +99,16 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Order
+    Builder.Add(:group, {:text => "显示位置"}) do
+      Builder.Add(:radio, {:actual => :INDEX0, :text => "上", :key => 0, :group => "window_code_104_1"})
+      Builder.Add(:radio, {:actual => :INDEX0, :text => "中", :key => 0, :group => "window_code_104_1"})
+      Builder.Add(:radio, {:actual => :INDEX0, :text => "下", :key => 0, :group => "window_code_104_1"})
+    end
+    Builder.Add(:group, {:text => "窗口显示"}) do
+      Builder.Add(:radio, {:actual => :INDEX1, :text => "显示", :key => 0, :group => "window_code_104_2"})
+      Builder.Add(:radio, {:actual => :INDEX1, :text => "不显示", :key => 0, :group => "window_code_104_2"})
+    end
   Builder.Out
   window
 end
@@ -98,6 +125,7 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:variable , {:actual => :INDEX0 , :text => "接受按键编号的变量"})
   Builder.Out
   window
 end
@@ -114,6 +142,7 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:int , {:actual => :INDEX0 , :text => "时间"})
   Builder.Out
   window
 end
@@ -206,6 +235,11 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:tabs) do
+      Builder.Add(:tab , {:text => "1"}) do
+        Builder.Add(:radio , {:actual => :INDEX0 , :text => "开关"})
+      end
+    end
   Builder.Out
   window
 end
@@ -258,6 +292,7 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:choose , {:actual => :INDEX0 , :text => "公共事件", :choice => { nil => Filechoice.new("commonevent") } })
   Builder.Out
   window
 end
@@ -274,6 +309,7 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:text , {:actual => :INDEX0 , :text => "标签名" })
   Builder.Out
   window
 end
@@ -290,6 +326,7 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:text , {:actual => :INDEX0 , :text => "标签名" })
   Builder.Out
   window
 end
@@ -306,6 +343,11 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Pop(:group_switch_2, 0)
+    Builder.Add(:group, {:text => "操作"}) do
+      Builder.Add(:single_radio, {:actual => :INDEX1, :text => "ON", :key => 0, :group => "window_code_121"})
+      Builder.Add(:single_radio, {:actual => :INDEX1, :text => "OFF", :key => 0, :group => "window_code_121"})
+    end
   Builder.Out
   window
 end
@@ -383,6 +425,7 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    
   Builder.Out
   window
 end

@@ -319,6 +319,10 @@
       <Project>{02449edb-b4b5-47e6-ad29-7cc1c8b0bf09}</Project>
       <Name>DataEditor.Control.Prototype</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataEditor.Control.ShapeShifter\DataEditor.Control.ShapeShifter.csproj">
+      <Project>{a902b7f5-5cd4-44f5-ac0d-e7e3ba663d10}</Project>
+      <Name>DataEditor.Control.ShapeShifter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataEditor.Control.Window\DataEditor.Control.Window.csproj">
       <Project>{9d0f2890-feb9-4a0b-ad23-db7752edde30}</Project>
       <Name>DataEditor.Control.Window</Name>

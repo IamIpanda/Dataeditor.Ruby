@@ -148,5 +148,10 @@ namespace DataEditor.Control.Prototype
                 Pull();
             }
         }
+
+        private void panel1_SizeChanged(object sender, EventArgs e)
+        {
+            this.listBox1.Size = panel1.ClientSize;
+        }
     }
 }

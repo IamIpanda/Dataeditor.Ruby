@@ -7,7 +7,7 @@ namespace DataEditor.Control.Wrapper.Event
     public class Switch : Control.WrapControlEditor<FuzzyData.FuzzyFixnum, Prototype.ProtoDropItem>
     {
         protected FuzzyData.FuzzyArray data;
-        protected Help.Parameter.Text text;
+        protected String Title = "开关";
         protected bool NowTaint;
         public override string Flag { get { return "switch"; } }
         public override void Push()
@@ -16,10 +16,10 @@ namespace DataEditor.Control.Wrapper.Event
         }
         public override void Pull()
         {
+            if (value.Value <= 0) value.Value = 1;
             int index = Convert.ToInt32(value.Value);
-            Control.Text = text.ToString(data[index]);
+            Control.Text = string.Format("{0:d3}: ", index) + data[index].ToString();
         }
-
         public override bool ValueIsChanged()
         {
             return NowTaint;
@@ -28,13 +28,11 @@ namespace DataEditor.Control.Wrapper.Event
         {
             base.SetDefaultArgument();
             argument.SetArgument("data", null);
-            argument.OverrideArgument("text", null);
         }
         public override void Reset()
         {
             base.Reset();
             data = argument.GetArgument<FuzzyData.FuzzyArray>("data");
-            text = argument.GetArgument<Help.Parameter.Text>("text");
         }
         public override void Bind()
         {
@@ -47,8 +45,12 @@ namespace DataEditor.Control.Wrapper.Event
             var window = new SwitchChoser();
             window.Switches = data;
             window.Value = value;
+            window.Text = Title;
             if (window.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
                 NowTaint = true;
+                Pull();
+            }
         }
 
     }

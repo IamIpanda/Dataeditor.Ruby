@@ -30,15 +30,14 @@ namespace DataEditor.Control.ShapeShifter
                         while (true)
                             arr.Add(ser.Load(stream));
                     }
-                    catch(Exception ex) {
-                    }
+                    catch { }
                     window.Value = arr;
                     Application.Run(window);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("程序遇到了一个错误。程序即将退出。", "Fux 的节操没有了");
+                MessageBox.Show("程序遇到了一个错误。程序即将退出。" + ex.ToString(), "消息");
             }
         }
     }

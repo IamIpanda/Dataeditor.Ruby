@@ -56,6 +56,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(153, 209);
             this.panel1.TabIndex = 3;
+            this.panel1.SizeChanged += new System.EventHandler(this.panel1_SizeChanged);
             // 
             // listBox1
             // 

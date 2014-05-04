@@ -19,8 +19,7 @@ target_text = Text.new do |parameters, *followings|
   parameters[0].Text
 end
 target_window = Proc.new do |window, commands|
-  window = Builder.Add(:text_dialog , {:actual => INDEX0, :text => "显示文章"})
-  window
+  window = Builder.Add(:dialog_text, {:actual => :INDEX0 })
 end
 target_with = Proc.new do |command|
   
@@ -77,7 +76,7 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
-    Builder.Add(:variable , {:actual => :INDEX0 , :text => "接受数值的变量" })
+    Builder.Add(:variable , {:actual => :INDEX0 , :text => "接受数值的变量", :data => Data["system"]["@variables"] })
     Builder.Add(:int , {:actual => :INDEX1 , :text => "位数" })
   Builder.Out
   window
@@ -125,7 +124,7 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
-    Builder.Add(:variable , {:actual => :INDEX0 , :text => "接受按键编号的变量"})
+    Builder.Add(:variable , {:actual => :INDEX0 , :text => "接受按键编号的变量", :data => Data["system"]["@variables"]})
   Builder.Out
   window
 end
@@ -445,6 +444,8 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Pop(:operate, 0)
+    Builder.Pop(:variable_or_value, 1)
   Builder.Out
   window
 end
@@ -467,6 +468,9 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:choose, {:actual => :INDEX0, :text => "物品", :choice => { nil => Filechoice.new(Data["item"]) } })
+    Builder.Pop(:operate, 1)
+    Builder.Pop(:variable_or_value, 2)
   Builder.Out
   window
 end
@@ -489,6 +493,9 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:choose, {:actual => :INDEX0, :text => "武器", :choice => { nil => Filechoice.new(Data["weapon"])}})
+    Builder.Pop(:operate, 1)
+    Builder.Pop(:variable_or_value, 2)
   Builder.Out
   window
 end
@@ -511,6 +518,9 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:choose, {:actual => :INDEX0, :text => "防具", :choice => { nil => Filechoice.new(Data["armor"])}})
+    Builder.Pop(:operate, 1)
+    Builder.Pop(:variable_or_value, 2)
   Builder.Out
   window
 end
@@ -531,9 +541,11 @@ target_text = Text.new do |parameters, *followings|
   (init == 0 ? ", 初始化" : "").encode
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Add(:choose, {:actual => :INDEX0, :text => "角色", :choice => { nil => Filechoice.new("actor")}})
+    Builder.Pop(:operate, 1)
+    Builder.Add(:int_check, {:actual => :INDEX2, :text => "初始化"})
+  end
 end
 $commands_xp[129] = Command.new(129, -1, "ACTOR", "替换队员", target_text, "iii", target_window, nil, 0, 0)
 
@@ -595,9 +607,9 @@ target_text = Text.new do |parameters, *followings|
    Event_Help.allow_or_ban(parameters[0].Value)
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Pop(:permission, 0)
+  end
 end
 $commands_xp[134] = Command.new(134, -1, "SAVEENABLED", "更改禁止存档", target_text, "i", target_window, nil, 0, 0)
 
@@ -611,9 +623,9 @@ target_text = Text.new do |parameters, *followings|
    Event_Help.allow_or_ban(parameters[0].Value)
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Pop(:permission, 0)
+  end
 end
 $commands_xp[135] = Command.new(135, -1, "MENUENABLED", "更改禁止菜单", target_text, "i", target_window, nil, 0, 0)
 
@@ -627,9 +639,9 @@ target_text = Text.new do |parameters, *followings|
    Event_Help.allow_or_ban(parameters[0].Value)
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Pop(:permission, 0)
+  end
 end
 $commands_xp[136] = Command.new(136, -1, "ENEMYENABLED", "更改禁止遇敌", target_text, "i", target_window, nil, 0, 0)
 
@@ -678,9 +690,12 @@ target_text = Text.new do |parameters, *followings|
   "#{Event_Help.direction(parameters[0].Value)}, #{parameters[1].Value}, #{parameters[2].Value}"
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Order
+    Builder.Pop(:force_direction, 0)
+    Builder.Add(:int, {:actual => :INDEX1, :text => "距离"})
+    Builder.Pop(:speed, 2)
+  end
 end
 $commands_xp[203] = Command.new(203, -1, "SCROLL", "画面卷动", target_text, "iii", target_window, nil, 0, 0)
 
@@ -721,6 +736,11 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Order
+    Builder.Add(:tone, {:actual => :VALUE0, :label => 0})
+    Builder.Next
+    Builder.Add(:int, {:actual => :VALUE1, :text => "时间", :label => 2})
+    Builder.Text("帧")
   Builder.Out
   window
 end
@@ -732,13 +752,14 @@ $commands_xp[205] = Command.new(205, -1, "FOGSET", "更改雾色调", target_tex
 #-----------------------------------------------------------------
 # Parameter : [99, 98]
 #=================================================================
-target_text = Text.new do |parameters, *followings| 
-  "#{parameters[0].Value}, @#{parameters[1].Value}"
+target_text = Text.new do |parameters, *followings|
+  "#{parameters[0].Value}, #{parameters[1].Value}"
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Add(:int, {:actual => :INDEX0, :text => "不透明度"})
+    Builder.Add(:int, {:actual => :INDEX1, :text => "时间"})
+  end
 end
 $commands_xp[206] = Command.new(206, -1, "FOGTRANSPARENT", "更改雾的不透明度", target_text, "ii", target_window, nil, 0, 0)
 
@@ -769,6 +790,10 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:group, {:text => "透明状态"}) do
+      Builder.Add(:single_radio, {:actual => :INDEX0, :text => "透明", :key => 0, :group => "window_code_208" })
+      Builder.Add(:single_radio, {:actual => :INDEX0, :text => "普通", :key => 1, :group => "window_code_208" })
+    end
   Builder.Out
   window
 end
@@ -819,6 +844,11 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Order
+    Builder.Add(:tone, {:actual => :VALUE0, :label => 0})
+    Builder.Next
+    Builder.Add(:int, {:actual => :VALUE1, :text => "时间", :label => 2})
+    Builder.Text("帧")
   Builder.Out
   window
 end
@@ -835,6 +865,11 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Order
+    Builder.Add(:color, {:actual => :VALUE0, :label => 0})
+    Builder.Next
+    Builder.Add(:int, {:actual => :VALUE1, :text => "时间", :label => 2})
+    Builder.Text("帧")
   Builder.Out
   window
 end
@@ -851,6 +886,9 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:scrollint, {:actual => :INDEX0, :text => "强度", :label => 2, :maxvalue => 9})
+    Builder.Add(:scrollint, {:actual => :INDEX1, :text => "速度", :label => 2, :maxvalue => 9})
+    Builder.Add(:int, {:actual => :INDEX2, :text => "时间"})
   Builder.Out
   window
 end
@@ -870,6 +908,33 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Order
+    Builder.Add(:int, {:actual => :INDEX0, :text => "编号"})
+    Builder.Add(:image , {:actual => {:name => :INDEX1 } ,
+        :text => "图片图形", :path => "Graphics/Pictures", :show => Help::XP_IMAGE_SPLIT, :split => Help::XP_IMAGE_SPLIT })
+    Builder.Next
+    Builder.Add(:group, {:text => "显示位置"}) do
+      Builder.Add(:group, {:text => "原点"}) do
+        Builder.Order
+        Builder.Add(:single_radio, {:actual => :INDEX2, :text => "左上", :key => 0, :group => "window_code_231" })
+        Builder.Add(:single_radio, {:actual => :INDEX2, :text => "中心", :key => 1, :group => "window_code_231" })
+      end
+      Builder.Add(:radio, {:actual => :INDEX3, :text => "直接指定", :key => 0, :group => "window_code_231#2"}) do
+        Builder.Add(:int, {:actual => :INDEX4, :text => "X: ", :label => 2})
+        Builder.Add(:int, {:actual => :INDEX5, :text => "Y: ", :label => 2})
+      end
+      Builder.Add(:radio, {:actual => :INDEX3, :text => "使用变量指定", :key => 1, :group => "window_code_231#2"}) do
+        Builder.Add(:variable, {:actual => :INDEX4, :text => "X: ", :label => 2, :data => Data["system"]["@variables"]})
+        Builder.Add(:variable, {:actual => :INDEX5, :text => "Y: ", :label => 2, :data => Data["system"]["@variables"]})
+      end
+    end
+    Builder.Next
+    Builder.Add(:group, {:text => "放大率"}) do
+      Builder.Add(:int, {:actual => :INDEX6, :text => "X", :label => 2})
+      Builder.Add(:int, {:actual => :INDEX7, :text => "Y", :label => 2})
+    end
+    Builder.Add(:int, {:actual => :INDEX8, :text => "不透明度"})
+    Builder.Add(:choose, {:actual => :INDEX9, :text => "合成方式",:choice => {0 => "普通", 1 => "加法", 2 => "减法"}})
   Builder.Out
   window
 end
@@ -888,7 +953,34 @@ target_text = Text.new do |parameters, *followings|
    "#{parameters[0].Value}, @#{parameters[1].Value}, #{pos}, (#{parameters[6].Value}\%, #{parameters[7].Value}\%), #{parameters[8].Value}, #{mix} "
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
+  Builder.In(window)    
+  Builder.Order
+    Builder.Add(:int, {:actual => :INDEX0, :text => "编号"})
+    Builder.Add(:int, {:actual => :INDEX1, :text => "时间"})
+    Builder.Text("帧")
+    Builder.Next
+    Builder.Add(:group, {:text => "显示位置"}) do
+      Builder.Add(:group, {:text => "原点"}) do
+        Builder.Order
+        Builder.Add(:single_radio, {:actual => :INDEX2, :text => "左上", :key => 0, :group => "window_code_231" })
+        Builder.Add(:single_radio, {:actual => :INDEX2, :text => "中心", :key => 1, :group => "window_code_231" })
+      end
+      Builder.Add(:radio, {:actual => :INDEX3, :text => "直接指定", :key => 0, :group => "window_code_231#2"}) do
+        Builder.Add(:int, {:actual => :INDEX4, :text => "X: ", :label => 2})
+        Builder.Add(:int, {:actual => :INDEX5, :text => "Y: ", :label => 2})
+      end
+      Builder.Add(:radio, {:actual => :INDEX3, :text => "使用变量指定", :key => 1, :group => "window_code_231#2"}) do
+        Builder.Add(:variable, {:actual => :INDEX4, :text => "X: ", :label => 2, :data => Data["system"]["@variables"]})
+        Builder.Add(:variable, {:actual => :INDEX5, :text => "Y: ", :label => 2, :data => Data["system"]["@variables"]})
+      end
+    end
+    Builder.Next
+    Builder.Add(:group, {:text => "放大率"}) do
+      Builder.Add(:int, {:actual => :INDEX6, :text => "X", :label => 2})
+      Builder.Add(:int, {:actual => :INDEX7, :text => "Y", :label => 2})
+    end
+    Builder.Add(:int, {:actual => :INDEX8, :text => "不透明度"})
+    Builder.Add(:choose, {:actual => :INDEX9, :text => "合成方式",:choice => {0 => "普通", 1 => "加法", 2 => "减法"}})
   Builder.Out
   window
 end
@@ -904,9 +996,10 @@ target_text = Text.new do |parameters, *followings|
   "#{parameters[0].Value}, #{parameters[1].Value}"
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Add(:int, {:actual => :INDEX0, :text => "编号"})
+    Builder.Add(:int, {:actual => :INDEX1, :text => "旋转速度"})
+  end
 end
 $commands_xp[233] = Command.new(233, -1, "233", "旋转图片", target_text, "ii", target_window, nil, 0, 0)
 
@@ -921,6 +1014,13 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Order
+    Builder.Add(:int, {:actual => :VALUE0, :text => "编号"})
+    Builder.Next
+    Builder.Add(:tone, {:actual => :VALUE0, :label => 0})
+    Builder.Next
+    Builder.Add(:int, {:actual => :VALUE1, :text => "时间", :label => 2})
+    Builder.Text("帧")
   Builder.Out
   window
 end
@@ -936,9 +1036,9 @@ target_text = Text.new do |parameters, *followings|
   parameters[0].Value.to_s
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Add(:int, {:actual => :INDEX0, :text => "编号"})
+  end
 end
 $commands_xp[235] = Command.new(235, -1, "DISAPPEARPIC", "图片消失", target_text, "i", target_window, nil, 0, 0)
 
@@ -954,6 +1054,15 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:group, { :text => "天候"}) do
+      Builder.Order
+      Builder.Add(:single_radio, {:actual => :INDEX0, :text => "无", :key => 0, :group => "window_code_236"})
+      Builder.Add(:single_radio, {:actual => :INDEX0, :text => "风", :key => 1, :group => "window_code_236"})
+      Builder.Add(:single_radio, {:actual => :INDEX0, :text => "雨", :key => 2, :group => "window_code_236"})
+      Builder.Add(:single_radio, {:actual => :INDEX0, :text => "雪", :key => 3, :group => "window_code_236"})
+    end
+    Builder.Add(:scrollint, {:actual => :INDEX1, :text => "强度", :label => 2, :maxvalue => 9})
+    Builder.Add(:int, {:actual => :INDEX2, :text => "时间", :label => 2})
   Builder.Out
   window
 end
@@ -985,9 +1094,11 @@ target_text = Text.new do |parameters, *followings|
   "#{parameters[0].Value}" + " 秒".encode
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Order
+    Builder.Add(:int, {:actual => :VALUE0, :text => "时间" })
+    Builder.Text("秒")
+  end
 end
 $commands_xp[242] = Command.new(242, -1, "FADEBGM", "BGM 的淡入淡出", target_text, "i", target_window, nil, 0, 0)
 
@@ -1017,9 +1128,11 @@ target_text = Text.new do |parameters, *followings|
   parameters[0].Value.to_s + " 秒".encode
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Order
+    Builder.Add(:int, {:actual => :VALUE0, :text => "时间" })
+    Builder.Text("秒")
+  end
 end
 $commands_xp[246] = Command.new(246, -1, "FADEBGS", "BGS 的淡入淡出", target_text, "i", target_window, nil, 0, 0)
 
@@ -1093,9 +1206,11 @@ target_text = Text.new do |parameters, *followings|
   Event_Help.value(parameters[0].Value, Data["troop"])
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Add(:choose, {:actual => :INDEX0, :text => "敌队伍", :choice => { nil => Filechoice.new("troop") }})
+    Builder.Add(:check, {:actual => :INDEX1, :text => "可以逃跑" })
+    Builder.Add(:check, {:actual => :INDEX2, :text => "失败的话继续"})
+  end
 end
 $commands_xp[301] = Command.new(301, -1, "BATTLE", "战斗处理", target_text, "ibb", target_window, nil, 0, 0)
 
@@ -1125,9 +1240,10 @@ target_text = Text.new do |parameters, *followings|
   Event_Help.value(parameters[0].Value, Data["actor"]) + ", " + parameters[1].Value.to_s + " 文字".encode
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Add(:choose, {:actual => :INDEX0, :text => "角色", :choice => { nil => Filechoice.new("actor") }})
+    Builder.Add(:int, {:actual => :INDEX1, :text => "最大文字数"})
+  end
 end
 $commands_xp[303] = Command.new(303, -1, "INPUTNAME", "名称输入处理", target_text, "ii", target_window, nil, 0, 0)
 
@@ -1145,6 +1261,10 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Pop(:actor, 0)
+    Builder.Pop(:operate, 1)
+    Builder.Pop(:variable_or_value, 2)
+    Builder.Add(:check, {:actual => :INDEX4, :text => "允许死亡"})
   Builder.Out
   window
 end
@@ -1164,6 +1284,9 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Pop(:actor, 0)
+    Builder.Pop(:operate, 1)
+    Builder.Pop(:variable_or_value, 2)
   Builder.Out
   window
 end
@@ -1183,6 +1306,9 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Pop(:actor, 0)
+    Builder.Pop(:operate, 1)
+    Builder.Add(:choose, {:actual => :INDEX2, :text => "状态", :choice => { nil => Filechoice.new("state") }})
   Builder.Out
   window
 end
@@ -1199,9 +1325,9 @@ target_text = Text.new do |parameters, *followings|
   Event_Help.actor(parameters[0].Value)
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Pop(:actor, 0)
+  end
 end
 $commands_xp[314] = Command.new(314, -1, "RECOVERPLAYER", "完全回复", target_text, "i", target_window, nil, 0, 0)
 
@@ -1216,6 +1342,13 @@ target_text = Text.new do |parameters, *followings|
   part1 = Event_Help.add_or_sub(parameters[1].Value)
   part2 = Event_Help.variable_or_value(parameters[2].Value, parameters[3].Value)
   part0 + ", " + part1 + part2
+end
+target_window = Proc.new do |window, commands|
+  Builder.In(window)
+    Builder.Pop(:actor, 0)
+    Builder.Pop(:operate, 1)
+    Builder.Pop(:variable_or_value, 2)
+  Builder.Pop
 end
 $commands_xp[315] = Command.new(315, -1, "SETCOMPANIES", "增减同伴", target_text, "iiii", nil, nil, 0, 0)
 #=================================================================
@@ -1232,6 +1365,9 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Pop(:actor, 0)
+    Builder.Pop(:operate, 1)
+    Builder.Pop(:variable_or_value, 2)
   Builder.Out
   window
 end
@@ -1252,6 +1388,17 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Pop(:actor, 0)
+    Builder.Add(:choose, {:actual => :INDEX1, :text => "能力值", :choice => {
+      0 => "MaxHP",
+      1 => "MaxSP",
+      2 => "力量",
+      3 => "灵巧",
+      4 => "速度",
+      5 => "魔力"
+      }})
+    Builder.Pop(:operate, 2)
+    Builder.Pop(:variable_or_value, 3)
   Builder.Out
   window
 end
@@ -1271,6 +1418,13 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:choose, {:actual => :INDEX0, :text => "角色", :choice => { nil => Filechoice.new("actor") }})
+    Builder.Add(:group, {:text => "操作"}) do
+      Builder.Order
+      Builder.Add(:single_radio, {:actual => :INDEX1, :text => "领悟", :key => 0, :group => "window_code_318" })
+      Builder.Add(:single_radio, {:actual => :INDEX1, :text => "遗忘", :key => 1, :group => "window_code_318" })
+    end
+    Builder.Add(:choose, {:actual => :INDEX0, :text => "特技", :choice => { nil => Filechoice.new("skill") }})
   Builder.Out
   window
 end
@@ -1291,6 +1445,7 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+
   Builder.Out
   window
 end
@@ -1307,9 +1462,10 @@ target_text = Text.new do |parameters, *followings|
   "#{part0}, \'#{parameters[1].Text}\'"
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Add(:choose, {:actual => :INDEX0, :text => "角色", :choice => { nil => Filechoice.new("actor") }})
+    Builder.Add(:text, {:actual => :INDEX1, :text => "姓名"})
+  end
 end
 $commands_xp[320] = Command.new(320, -1, "SETACTORNAME", "更改角色姓名", target_text, "is", target_window, nil, 0, 0)
 
@@ -1323,9 +1479,10 @@ target_text = Text.new do |parameters, *followings|
   "#{Event_Help.actor(parameters[0].Value)}, #{Event_Help.value(parameters[1].Value, Data["class"])}"
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Add(:choose, {:actual => :INDEX0, :text => "角色", :choice => { nil => Filechoice.new("actor") }})
+    Builder.Add(:choose, {:actual => :INDEX1, :text => "职业", :choice => { nil => Filechoice.new("class") }})
+  end
 end
 $commands_xp[321] = Command.new(321, -1, "SETACTORCLASS", "更改角色职业", target_text, "ii", target_window, nil, 0, 0)
 
@@ -1359,6 +1516,10 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Pop(:enemy, 0)
+    Builder.Pop(:operate, 1)
+    Builder.Pop(:variable_or_value, 2)
+    Builder.Add(:check, {:actual => :INDEX4, :text => "允许死亡"})  
   Builder.Out
   window
 end
@@ -1378,6 +1539,9 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Pop(:enemy, 0)
+    Builder.Pop(:operate, 1)
+    Builder.Pop(:variable_or_value, 2)
   Builder.Out
   window
 end
@@ -1397,6 +1561,9 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Pop(:enemy, 0)
+    Builder.Pop(:operate, 1)
+    Builder.Add(:choose, {:actual => :INDEX2, :text => "状态", :choice => { nil => Filechoice.new("state") }})
   Builder.Out
   window
 end
@@ -1412,9 +1579,9 @@ target_text = Text.new do |parameters, *followings|
   Event_Help.enemy(parameters[0].Value)
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Pop(:enemy, 0)
+  end
 end
 $commands_xp[334] = Command.new(334, -1, "RECOVERENEMY", "敌人全体回复", target_text, "i", target_window, nil, 0, 0)
 
@@ -1428,9 +1595,9 @@ target_text = Text.new do |parameters, *followings|
   Event_Help.enemy(parameters[0].Value)
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Pop(:no_troop_enemy, 0)
+  end
 end
 $commands_xp[335] = Command.new(335, -1, "SHOWENEMY", "出现敌人", target_text, "i", target_window, nil, 0, 0)
 
@@ -1444,9 +1611,10 @@ target_text = Text.new do |parameters, *followings|
   Event_Help.enemy(parameters[0].Value) + ", " + Event_Help.value(parameters[1].Value,Data["enemy"])
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Pop(:no_troop_enemy, 0)
+    Builder.Add(:choose, {:actual => :INDEX1, :text => "变身", :choice => { nil => Filechoice.new("enemy") }})
+  end
 end
 $commands_xp[336] = Command.new(336, -1, "CHANGEENEMY", "敌人变身", target_text, "ii", target_window, nil, 0, 0)
 
@@ -1461,6 +1629,15 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:group, {:text => "目标"}) do
+      Builder.Add(:radio, {:actual => :INDEX0, :text => "敌人", :key => 0, :group => "window_code_337"}) do
+        Builder.Pop(:enemy, 1)
+      end
+      Builder.Add(:radio, {:actual => :INDEX0, :text => "角色", :key => 1, :group => "window_code_337"}) do
+        Builder.Pop(:unknown_actor, 1)
+      end
+      Builder.Add(:choose, {:actual => :INDEX2, :text => "动画", :choice => { nil => Filechoice.new("animation") }})
+    end
   Builder.Out
   window
 end
@@ -1476,7 +1653,16 @@ target_text = Text.new do |parameters, *followings|
   ""
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
+  Builder.In(window)      
+    Builder.Add(:group, {:text => "目标"}) do
+      Builder.Add(:radio, {:actual => :INDEX0, :text => "敌人", :key => 0, :group => "window_code_337"}) do
+        Builder.Pop(:enemy, 1)
+      end
+      Builder.Add(:radio, {:actual => :INDEX0, :text => "角色", :key => 1, :group => "window_code_337"}) do
+        Builder.Pop(:unknown_actor, 1)
+      end
+    end
+    Builder.Pop(:variable_or_value, 2)
   Builder.Out
   window
 end
@@ -1493,6 +1679,38 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Add(:group, {:text => "目标"}) do
+      Builder.Add(:radio, {:actual => :INDEX0, :text => "敌人", :key => 0, :group => "window_code_337"}) do
+        Builder.Pop(:no_troop_enemy, 1)
+      end
+      Builder.Add(:radio, {:actual => :INDEX0, :text => "角色", :key => 1, :group => "window_code_337"}) do
+        Builder.Pop(:unknown_no_troop_actor, 1)
+      end
+    end
+    Builder.Add(:group, {:text => "行为"}) do
+      Builder.Add(:radio, {:actual => :INDEX2, :text => "基本", :key => 0, :group => "window_code_337#2"}) do
+        Builder.Add(:choose, {:actual => :INDEX3, :label => 0, :choice => { 0 => "攻击", 1 => "防御", 2 => "逃跑", 3 => "什么也不做" }})
+      end
+      Builder.Add(:radio, {:actual => :INDEX2, :text => "特技", :key => 1, :group => "window_code_337#2"}) do
+        Builder.Add(:choose, {:actual => :INDEX3, :label => 0, :choice => { nil => Filechoice.new("skill") }})
+      end
+      Builder.Add(:choose, {:actual => :INDEX4, :text => "行为对象", :label => 2, :choice => {
+        -2 => "最后的目标",
+        -1 => "随机",
+        0 => "Index 1",
+        1 => "Index 2",
+        2 => "Index 3",
+        3 => "Index 4",
+        4 => "Index 5",
+        5 => "Index 6",
+        6 => "Index 7",
+        7 => "Index 8"
+        }})
+    end
+    Builder.Add(:group, {:text => "顺序"}) do
+      Builder.Add(:single_radio, {:actual => :INDEX5, :text => "按照平时的执行顺序执行", :key => 0, :group => "window_code_337#3"})
+      Builder.Add(:single_radio, {:actual => :INDEX5, :text => "立即执行", :key => 1, :group => "window_code_337#3"})
+    end
   Builder.Out
   window
 end
@@ -1553,9 +1771,7 @@ target_text = Text.new do |parameters, *followings|
    parameters[0].Text
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_text, {:actual => :INDEX0})
 end
 target_with = Proc.new do |command|
 

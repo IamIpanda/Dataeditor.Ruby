@@ -49,9 +49,11 @@ namespace DataEditor.Control.Event
             {
                 FuzzyData.FuzzyArray parameter;
                 List<FuzzyData.FuzzyObject> with;
-                if (Code == command.Code) { parameter = command.GetParameter(); with = null; }
+                if (Code != command.Code) { parameter = command.GetParameter(); with = null; }
                 else { parameter = Value; with = With; }
-                command.Window.call(window, parameter, with);
+                window = command.Window.call(window, parameter, with) as WrapBaseWindow;
+                if (window == null) return;
+                window.Binding.Text = command.Name;
                 window.Value = command.GetParameter();
                 if (window.Show() == System.Windows.Forms.DialogResult.OK)
                 {

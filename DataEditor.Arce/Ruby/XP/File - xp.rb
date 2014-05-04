@@ -19,6 +19,9 @@ Data["system"] = "Data/System.rxdata"
 Data["mapinfo"] = "Data/MapInfos.rxdata"
 Data["map"] = "Data/Map*.rxdata"
 
+Data["focus_troop"] = Data["troop"][1];
+Data["focus_map"] = Data["map"][0];
+
 =begin
     $data_actors        = load_data("Data/Actors.rxdata")
     $data_classes       = load_data("Data/Classes.rxdata")

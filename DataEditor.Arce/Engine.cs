@@ -16,9 +16,9 @@ namespace DataEditor.Arce
             Help.Collector.AddAssembly(typeof(DataEditor.Control.Window.EditorWindow).Assembly);
             Help.Collector.AddAssembly(typeof(DataEditor.Control.Wrapper.Text).Assembly);
             Help.Collector.AddAssembly(typeof(DataEditor.Control.Event.EventCommand).Assembly);
+            Help.Collector.AddAssembly(typeof(DataEditor.Control.ShapeShifter.ShapeShifter).Assembly);
             engine.LoadAssembly(typeof(DataEditor.Control.Event.EventCommand).Assembly);
-            // 测试用代码
-            //engine.Execute(@"$LOAD_PATH.push(""X:/VS Projects/DataEditor.Ruby/DataEditor.Titan/bin/Debug"")");
+            engine.LoadAssembly(typeof(DataEditor.Control.Window.EditorWindow).Assembly);
             Engine.engine.Execute(@"require ""Ruby/main.rb""");
         }
         static public void OpenProject(string Path)

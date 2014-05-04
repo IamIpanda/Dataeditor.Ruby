@@ -117,6 +117,11 @@ namespace DataEditor.Help
                 GetString = new Help.Return(default_value);
                 Watch = new List<FuzzyData.FuzzyObject>();
             }
+            public Text(Call.Callable method)
+            {
+                GetString = new Help.Call(method);
+                Watch = new List<FuzzyData.FuzzyObject>();
+            }
             public virtual string ToString(params object[] argument)
             {
                 object value = GetString.call(argument);

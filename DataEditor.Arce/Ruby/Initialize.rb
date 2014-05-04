@@ -47,7 +47,8 @@ class String
 	end
 end
 
-
+# Array 修正。
+# 这部分修正是为了在LazyChoose部分更加美观
 class DataEditor::FuzzyData::FuzzyArray
 	alias __get_value []
 	def each(&block)

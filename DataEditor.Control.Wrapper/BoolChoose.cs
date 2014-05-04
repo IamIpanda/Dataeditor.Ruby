@@ -45,4 +45,35 @@ namespace DataEditor.Control.Wrapper
             Control.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
         }
     }
+    public class IntCheck : WrapControlEditor<FuzzyData.FuzzyFixnum, System.Windows.Forms.CheckBox>
+    {
+        public override string Flag { get { return "int_check"; } }
+        public int yes = 1, no = 0;
+        public override void Push()
+        {
+            value.Value = Control.Checked ? yes : no;
+        }
+
+        public override void Pull()
+        {
+            Control.Checked = (value.Value == yes);
+        }
+
+        public override bool ValueIsChanged()
+        {
+            return Control.Checked ? (value.Value == yes) : (value.Value == no);
+        }
+        public override void Reset()
+        {
+            Control.Text = argument.GetArgument<string>("text");
+            base.Reset();
+        }
+        protected override void SetDefaultArgument()
+        {
+            base.SetDefaultArgument();
+            argument.SetArgument("yes", 1, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("no", 0, Help.Parameter.ArgumentType.Option);
+            argument.OverrideArgument("label", 0);
+        }
+    }
 }

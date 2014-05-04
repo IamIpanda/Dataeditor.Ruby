@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.protoShapeShifterValue1 = new DataEditor.Control.Prototype.ProtoShapeShifterValue();
             this.protoShapeShifterList1 = new DataEditor.Control.Prototype.ProtoShapeShifterList();
+            this.protoShapeShifterValue1 = new DataEditor.Control.Prototype.ProtoShapeShifterValue();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -53,6 +53,15 @@
             this.splitContainer1.SplitterDistance = 325;
             this.splitContainer1.TabIndex = 1;
             // 
+            // protoShapeShifterList1
+            // 
+            this.protoShapeShifterList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.protoShapeShifterList1.Location = new System.Drawing.Point(0, 0);
+            this.protoShapeShifterList1.Name = "protoShapeShifterList1";
+            this.protoShapeShifterList1.Size = new System.Drawing.Size(325, 548);
+            this.protoShapeShifterList1.TabIndex = 0;
+            this.protoShapeShifterList1.ValueChanged += new System.EventHandler(this.protoShapeShifterList1_ValueChanged);
+            // 
             // protoShapeShifterValue1
             // 
             this.protoShapeShifterValue1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -68,15 +77,6 @@
             this.protoShapeShifterValue1.Value = null;
             this.protoShapeShifterValue1.View = System.Windows.Forms.View.Details;
             // 
-            // protoShapeShifterList1
-            // 
-            this.protoShapeShifterList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.protoShapeShifterList1.Location = new System.Drawing.Point(0, 0);
-            this.protoShapeShifterList1.Name = "protoShapeShifterList1";
-            this.protoShapeShifterList1.Size = new System.Drawing.Size(325, 548);
-            this.protoShapeShifterList1.TabIndex = 0;
-            this.protoShapeShifterList1.ValueChanged += new System.EventHandler(this.protoShapeShifterList1_ValueChanged);
-            // 
             // ObjectChecker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -84,7 +84,7 @@
             this.ClientSize = new System.Drawing.Size(980, 548);
             this.Controls.Add(this.splitContainer1);
             this.Name = "ObjectChecker";
-            this.Text = "Fux 的节操浏览器";
+            this.Text = "Ans";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);

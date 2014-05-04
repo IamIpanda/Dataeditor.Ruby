@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WrapColor.cs" />
     <Compile Include="CommandGroup.cs" />
     <Compile Include="EventCommand.cs" />
     <Compile Include="Event.cs" />
@@ -72,13 +73,22 @@
     <Compile Include="ProtoEventPaper.Designer.cs">
       <DependentUpon>ProtoEventPaper.cs</DependentUpon>
     </Compile>
-    <Compile Include="Switch.Choser.cs">
+    <Compile Include="ProtoTone.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoTone.Designer.cs">
+      <DependentUpon>ProtoTone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WrapSwitch.Choser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Switch.Choser.Designer.cs">
-      <DependentUpon>Switch.Choser.cs</DependentUpon>
+    <Compile Include="WrapSwitch.Choser.Designer.cs">
+      <DependentUpon>WrapSwitch.Choser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Switch.cs" />
+    <Compile Include="WrapSwitch.cs" />
+    <Compile Include="WrapTextWindow.cs" />
+    <Compile Include="WrapTone.cs" />
+    <Compile Include="WrapVariable.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">
@@ -127,8 +137,11 @@
     <EmbeddedResource Include="ProtoEventPaper.resx">
       <DependentUpon>ProtoEventPaper.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Switch.Choser.resx">
-      <DependentUpon>Switch.Choser.cs</DependentUpon>
+    <EmbeddedResource Include="ProtoTone.resx">
+      <DependentUpon>ProtoTone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WrapSwitch.Choser.resx">
+      <DependentUpon>WrapSwitch.Choser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

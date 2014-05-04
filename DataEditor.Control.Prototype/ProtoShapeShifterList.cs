@@ -107,12 +107,14 @@ namespace DataEditor.Control.Prototype
             foreach (var name in Help.Data.Instance.Names)
             {
                 var node = RealizeObject(Help.Data.Instance[name], name);
-                this.Nodes.Add(node);
+                if (node != null)
+                    this.Nodes.Add(node);
             }
             foreach(var key in Help.Data.Instance.Map.Keys)
             {
                 var node = RealizeObject(Help.Data.Instance[key], "map[" + key.ToString() + "]");
-                this.Nodes.Add(node);
+                if (node != null)
+                    this.Nodes.Add(node);
             }
         }
         protected override void OnContainerChanged() { }

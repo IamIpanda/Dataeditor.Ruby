@@ -24,3 +24,16 @@ W:\VS Projects\DataEditor.Ruby\DataEditor.Help\obj\Debug\DataEditor.Control.Wind
 W:\VS Projects\DataEditor.Ruby\DataEditor.Help\obj\Debug\DataEditor.Help.csproj.GenerateResource.Cache
 W:\VS Projects\DataEditor.Ruby\DataEditor.Help\obj\Debug\DataEditor.Help.dll
 W:\VS Projects\DataEditor.Ruby\DataEditor.Help\obj\Debug\DataEditor.Help.pdb
+V:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.Help.dll
+V:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.Help.pdb
+V:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.Contract.dll
+V:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.FuzzyData.dll
+V:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.dll
+V:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.Contract.pdb
+V:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.pdb
+V:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.FuzzyData.pdb
+V:\VS Projects\DataEditor.Ruby\DataEditor.Help\obj\Debug\DataEditor.Help.csprojResolveAssemblyReference.cache
+V:\VS Projects\DataEditor.Ruby\DataEditor.Help\obj\Debug\DataEditor.Control.Window.SelectWindow.resources
+V:\VS Projects\DataEditor.Ruby\DataEditor.Help\obj\Debug\DataEditor.Help.csproj.GenerateResource.Cache
+V:\VS Projects\DataEditor.Ruby\DataEditor.Help\obj\Debug\DataEditor.Help.dll
+V:\VS Projects\DataEditor.Ruby\DataEditor.Help\obj\Debug\DataEditor.Help.pdb

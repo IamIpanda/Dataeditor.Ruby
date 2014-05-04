@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application.cs" />
+    <Compile Include="WrapAnyWindow.cs" />
     <Compile Include="ChoiceWindow.cs">
       <SubType>Form</SubType>
     </Compile>

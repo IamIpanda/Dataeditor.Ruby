@@ -63,7 +63,9 @@ namespace DataEditor.Control.Wrapper
                     Contract.Runable filter = file_choice.GetArgument<Contract.Runable>("FILTER");
                     // 获取指定的ID值
                     string id_symbol = file_choice.GetArgument<string>("ID");
-                    FuzzyData.FuzzySymbol id_fuzzy_symbol = FuzzyData.FuzzySymbol.GetSymbol("@" + id_symbol);
+                    FuzzyData.FuzzySymbol id_fuzzy_symbol = null;
+                    if (id_symbol != null && id_symbol != "")
+                        id_fuzzy_symbol = FuzzyData.FuzzySymbol.GetSymbol("@" + id_symbol);
                     // 对于 FuzzyString 组，需先滤掉所有开头的空字符串
                     //（对于一般的字符串组来说，滤掉的是 0）
                     foreach (var target in targets)
@@ -85,7 +87,7 @@ namespace DataEditor.Control.Wrapper
                         // 如果指定了过滤器，并且过滤器宣告此值无效，那么忽略之。
                         if (filter != null && Convert.ToBoolean(filter.call(target, parent)) == false) continue;
                         // 如果指定了ID，那么依次结算
-                        if (id_symbol != null)
+                        if (id_symbol != null && id_symbol != "")
                         {
                             // 搜索 ID
                             FuzzyData.FuzzyFixnum j_fix = target[id_fuzzy_symbol] as FuzzyData.FuzzyFixnum;
@@ -121,7 +123,12 @@ namespace DataEditor.Control.Wrapper
         {
             int short_value = Dictionary.Reverse[Convert.ToInt32(value.Value)];
             if (short_value < Control.Items.Count) Control.SelectedIndex = short_value;
-            else Help.Log.log("由于值过短，choose 控件抛弃了一个值：" + short_value);
+            else
+            {
+                Help.Log.log("由于值过短，choose 控件抛弃了一个值：" + short_value);
+                if (Control.Items.Count > 0) Control.SelectedIndex = 0; // 没有Push。
+                else Control.Enabled = false;
+            }
         }
 
         public override bool ValueIsChanged()

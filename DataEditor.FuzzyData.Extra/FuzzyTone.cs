@@ -7,7 +7,7 @@ using DataEditor.FuzzyData.Serialization;
 
 namespace DataEditor.FuzzyData
 {
-    public class FuzzyTone
+    public class FuzzyTone : FuzzyObject
     {
         public int red { get; set; }
         public int green { get; set; }

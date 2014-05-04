@@ -175,6 +175,7 @@ namespace DataEditor.Control.Wrapper
         {
             base.SetDefaultArgument();
             argument.SetArgument("group", "ungrouped", Help.Parameter.ArgumentType.Option);
+            argument.OverrideArgument("label", 0, Help.Parameter.ArgumentType.Option);
         }
         public override void Bind()
         {

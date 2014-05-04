@@ -117,6 +117,15 @@ namespace DataEditor.Control
         where TControl : System.Windows.Forms.Control, new()
     {
         protected TControl Control = new TControl();
-        public override void Bind() { Binding = Control; }
+        public override void Bind() 
+        { 
+            Binding = Control;
+            Control.EnabledChanged += Control_EnabledChanged;
+        }
+
+        void Control_EnabledChanged(object sender, EventArgs e)
+        {
+            if (Control.Enabled) Pull();
+        }
     }
 }

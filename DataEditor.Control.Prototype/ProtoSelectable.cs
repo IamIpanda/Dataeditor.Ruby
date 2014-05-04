@@ -50,8 +50,8 @@ namespace DataEditor.Control.Prototype
             }
             else
             {
-                e.Graphics.FillRectangle(new SolidBrush(Color.White), e.ClipRectangle);
-                e.Graphics.DrawString(Text, Font, new SolidBrush(this.ForeColor), e.ClipRectangle, Format);
+                e.Graphics.FillRectangle(new SolidBrush(ProtoListControlHelp.CheckEnabled(Color.White, Enabled)), e.ClipRectangle);
+                if(this.Enabled) e.Graphics.DrawString(Text, Font, new SolidBrush(this.ForeColor), e.ClipRectangle, Format);
             }
         }
     }

@@ -15,6 +15,12 @@ namespace DataEditor.Help
         {
             get
             {
+                if (name.ToLower() == "map")
+                {
+                    FuzzyArray arr = new FuzzyArray();
+                    foreach (var map in Map.Values) arr.Add(map);
+                    return arr;
+                }
                 if (Datas.ContainsKey(name))
                     return Datas[name];
                 else

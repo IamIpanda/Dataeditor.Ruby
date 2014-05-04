@@ -162,7 +162,7 @@ end
 class Builder
 	class << self
 		def get_symbol(index)
-			return "INDEX" + index.to_sym
+			return ("INDEX" + index.to_s).to_sym
 		end
 	  	def Pop(sym, index)
 	    	case sym
@@ -177,21 +177,30 @@ class Builder
 	    		end
 	    	when :group_switch_2
 	    		Builder.Add(:group, {:text => "开关"}) do
-	    			# ISON
-	    			Builder.Add(:radio, {:actual => get_symbol(index), :text => "单独", :key => 0, :group => "group_switch_2"}) do
-	    				Builder.Add(:variable, {:actual => get_symbol(index + 1)})
+	    			isSingle = Proc.new do |value, parent, key|
+						value[index].Value == value[index + 1].Value
+					end
+					accept = Proc.new do |value, parent, key|
+						value[index + 1].Value = value[index].Value
+					end
+	    			Builder.Add(:radio, {:actual => get_symbol(index), :text => "单独", :group => "group_switch_2", :ison => isSingle, :accept => accept}) do
+	    				Builder.Add(:switch, {:actual => get_symbol(index + 1), :data => Data["system"]["@switches"], :label => 0})
 	    			end
-	    			Builder.Add(:radio, {:actual => get_symbol(index), :text => "统一" ,:key => 1, :group => "group_switch_2"}) do
+	    			isRange = Proc.new do |value, parent, key|
+						value[index].Value != value[index + 1].Value
+					end
+	    			Builder.Add(:radio, {:actual => get_symbol(index), :text => "统一" ,:group => "group_switch_2", :ison => isRange}) do
 	    				Builder.Order
-	    				Builder.Add(:int, {:actual => get_symbol(index + 1)})
+	    				Builder.Add(:int, {:actual => get_symbol(index), :label => 0})
 	    				Builder.Text(" ~ ")
-	    				Builder.Add(:int, {:actual => get_symbol(index + 2)})
+	    				Builder.Add(:int, {:actual => get_symbol(index + 1), :label => 0})
 	    			end
 	    		end
 	    	when :group_vairble_2
 	    		# FUCK IT
 	    	when :operate
 	    		Builder.Add(:group, {:text => "操作"}) do
+	    			Builder.Order
 	    			Builder.Add(:single_radio, {:actual => get_symbol(index), :text => "增加", :key => 0, :group => "group_operate_1"})
 	    			Builder.Add(:single_radio, {:actual => get_symbol(index), :text => "减少", :key => 1, :group => "group_operate_1"})
 	    		end
@@ -204,6 +213,81 @@ class Builder
 	    				Builder.Add(:variable, {:actual => get_symbol(index + 1)})
 	    			end
 	    		end
+	    	when :direction
+	    		Builder.Add(:choose, {:actual => get_symbol(index), :text => "方向", :choice => {
+	    			0 => "就这样",
+	    			2 => "下",
+	    			4 => "左",
+	    			6 => "右",
+	    			7 => "上"
+	    			}})
+	    	when :force_direction
+	    		Builder.Add(:choose, {:actual => get_symbol(index), :text => "方向", :choice => {
+	    			2 => "下",
+	    			4 => "左",
+	    			6 => "右",
+	    			7 => "上"	    			
+	    			}})
+	    	when :speed
+	    		Builder.Add(:choose, {:actual => get_symbol(index), :text => "速度", :choice => {
+	    			1 => "1:Slowest",
+	    			2 => "2:Slower",
+	    			3 => "3:Slow",
+	    			4 => "4:Fast",
+	    			5 => "5:Faster",
+	    			6 => "6:Fastest"
+	    			}})
+	    	when :variable_or_value
+	    		Builder.Add(:group, {:text => "操作数"}) do
+	    			Builder.Add(:radio, {:actual => get_symbol(index), :text => "常量", :key => 0, :group => "group_vov_2"}) do
+	    				Builder.Add(:int, {:actual => get_symbol(index + 1), :label => 0})
+	    			end
+	    			Builder.Add(:radio, {:actual => get_symbol(index), :text => "变量", :key => 1, :group => "group_vov_2"}) do
+	    				Builder.Add(:variable, {:actual => get_symbol(index + 1), :data => Data["system"]["@variables"], :label => 0})
+	    			end
+	    		end
+	    	when :permission
+	    		Builder.Add(:group, {:text => "操作"}) do
+	    			Builder.Order
+	    			Builder.Add(:single_radio, {:actual => get_symbol(index), :text => "禁止", :key => 0, :group => "group_permission_1" })
+	    			Builder.Add(:single_radio, {:actual => get_symbol(index), :text => "允许", :key => 1, :group => "group_permission_1" })
+	    		end
+	    	when :actor
+	    		Builder.Add(:choose, {:actual => get_symbol(index), :text => "角色", :choice => {
+	    			0 => "全体同伴",
+	    			nil => Filechoice.new("actor")
+	    			}})
+	    	when :unknown_actor
+	    		Builder.Add(:choose, {:actual => get_symbol(index), :label => 0, :choice => {
+	    			0 => "全体同伴",
+	    			1 => "1 人",
+	    			1 => "2 人",
+	    			1 => "3 人",
+	    			1 => "4 人"
+	    			}})
+	    	when :unknown_no_troop_actor
+	    		Builder.Add(:choose, {:actual => get_symbol(index), :label => 0, :choice => {
+	    			1 => "1 人",
+	    			1 => "2 人",
+	    			1 => "3 人",
+	    			1 => "4 人"
+	    			}})
+	    	when :enemy
+	    		text = Text.new do |*args|
+	    			args[2].to_s + "." + Data["enemy"][args[0]["@enemy_id"].Value.to_s.to_i]["@name"].ToString()
+	    		end
+	    		file_choice = Filechoice.new(Data["focus_troop"]["@members"])
+	    		file_choice.id = ""
+	    		file_choice.text = text
+	    		Builder.Add(:choose, {:actual => get_symbol(index), :text => "敌人", :choice => { -1 => "全体队伍", nil => file_choice }})
+	    	when :no_troop_enemy
+	    		text = Text.new do |*args|
+	    			args[2].to_s + "." + Data["enemy"][args[0]["@enemy_id"].Value.to_s.to_i]["@name"].ToString()
+	    		end
+	    		file_choice = Filechoice.new(Data["focus_troop"]["@members"])
+	    		file_choice.id = ""
+	    		file_choice.text = text
+	    		Builder.Add(:choose, {:actual => get_symbol(index), :label => 0, :choice => { nil => file_choice }})
 	    	end
 	    end
 	end

@@ -78,6 +78,7 @@
             this.protoLinedPaper1.TabIndex = 1;
             this.protoLinedPaper1.textbook = null;
             this.protoLinedPaper1.Value = null;
+            this.protoLinedPaper1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.protoLinedPaper1_MouseDoubleClick);
             // 
             // btOK
             // 

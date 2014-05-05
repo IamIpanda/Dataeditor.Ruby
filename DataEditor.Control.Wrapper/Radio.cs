@@ -165,6 +165,7 @@ namespace DataEditor.Control.Wrapper
         }
         public override void Reset()
         {
+            base.Reset();
             string group = argument.GetArgument<string>("GROUP");
             AddRadio(group, this);
             group_key = group;
@@ -174,6 +175,7 @@ namespace DataEditor.Control.Wrapper
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
+            argument.SetArgument("key", 0, Help.Parameter.ArgumentType.Must);
             argument.SetArgument("group", "ungrouped", Help.Parameter.ArgumentType.Option);
             argument.OverrideArgument("label", 0, Help.Parameter.ArgumentType.Option);
         }
@@ -187,6 +189,16 @@ namespace DataEditor.Control.Wrapper
         {
             Radios[group_key].Remove(this);
         }
-
+        public override FuzzyData.FuzzyObject Parent
+        {
+            get
+            {
+                return base.Parent;
+            }
+            set
+            {
+                base.Parent = value;
+            }
+        }
     }
 }

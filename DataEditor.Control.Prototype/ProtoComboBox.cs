@@ -26,8 +26,9 @@ namespace DataEditor.Control.Prototype
             e.Graphics.FillRectangle(GetBackBrush(e), e.Bounds);
             if (GetFocused(e))
                 ProtoListControlHelp.DrawFocusRectangle(e.Graphics, e.Bounds);
-            // 描绘文字
-            e.Graphics.DrawString(Items[e.Index].ToString(), Font, GetForeBrush(e), e.Bounds);
+            if (this.Enabled)
+                // 描绘文字
+                e.Graphics.DrawString(Items[e.Index].ToString(), Font, GetForeBrush(e), e.Bounds);
         }
         protected bool GetFocused(DrawItemEventArgs e)
         {

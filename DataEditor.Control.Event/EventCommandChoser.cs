@@ -26,9 +26,12 @@ namespace DataEditor.Control.Event
             protoListBox2.Invalidate();
         }
 
-        public int Code { get; set; }
-        public FuzzyData.FuzzyArray Value { get; set; }
-        public List<FuzzyData.FuzzyObject> With { get; set; }
+        protected int code = 0;
+        public int Code { get { return code; } }
+        protected FuzzyData.FuzzyArray value;
+        public FuzzyData.FuzzyArray Value { get { return value; } }
+        protected List<FuzzyData.FuzzyObject> with;
+        public List<FuzzyData.FuzzyObject> With { get { return with; } }
         private void protoListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (protoListBox1.SelectedIndex < 0) return;
@@ -43,30 +46,22 @@ namespace DataEditor.Control.Event
         {
             var command = protoListBox2.SelectedItem as EventCommand;
             if (command == null) return;
-            DataEditor.Control.WrapBaseWindow window;
-            window = new DataEditor.Control.Window.WindowWithOK.WrapWindowWithOK<DataEditor.Control.Window.WindowWithOK>();
             if (command.Window != null)
             {
-                FuzzyData.FuzzyArray parameter;
-                List<FuzzyData.FuzzyObject> with;
-                if (Code != command.Code) { parameter = command.GetParameter(); with = null; }
-                else { parameter = Value; with = With; }
-                window = command.Window.call(window, parameter, with) as WrapBaseWindow;
+                var window = command.ApplicateWindow();
                 if (window == null) return;
-                window.Binding.Text = command.Name;
-                window.Value = command.GetParameter();
                 if (window.Show() == System.Windows.Forms.DialogResult.OK)
                 {
-                    this.Code = command.Code;
-                    IEnumerable<object> withobj = command.With.call(parameter) as IEnumerable<object>;
+                    this.code = command.Code;
+                    IEnumerable<object> withobj = command.With.call(window.Value) as IEnumerable<object>;
                     if (withobj != null)
                     {
-                        this.With = new List<FuzzyData.FuzzyObject>();
+                        this.with = new List<FuzzyData.FuzzyObject>();
                         foreach (var obj in withobj)
                             if (obj is FuzzyData.FuzzyObject)
                                 this.With.Add(obj as FuzzyData.FuzzyObject);
                     }
-                    this.Value = parameter;
+                    this.value = window.Value as FuzzyData.FuzzyArray;
                     this.DialogResult = System.Windows.Forms.DialogResult.OK;
                     this.Close();
                 }

@@ -290,10 +290,9 @@ target_text = Text.new do |parameters, *followings|
   Event_Help.value(parameters[0].Value, Data["commonevent"])
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
+  window = Builder.Add(:dialog_r)
     Builder.Add(:choose , {:actual => :INDEX0 , :text => "公共事件", :choice => { nil => Filechoice.new("commonevent") } })
-  Builder.Out
-  window
+  end
 end
 $commands_xp[117] = Command.new(117, -1, "COMMONEVENT", "公共事件", target_text, "i", target_window, nil, 0, 0)
 
@@ -307,10 +306,9 @@ target_text = Text.new do |parameters, *followings|
   "[#{parameters[0].Text}]"
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
+  window = Builder.Add(:dialog_r)
     Builder.Add(:text , {:actual => :INDEX0 , :text => "标签名" })
-  Builder.Out
-  window
+  end
 end
 $commands_xp[118] = Command.new(118, -1, "LABEL", "标签", target_text, "s", target_window, nil, 0, 0)
 
@@ -324,10 +322,9 @@ target_text = Text.new do |parameters, *followings|
   "[#{parameters[0].Text}]"
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
+  window = Builder.Add(:dialog_r)
     Builder.Add(:text , {:actual => :INDEX0 , :text => "标签名" })
-  Builder.Out
-  window
+  end
 end
 $commands_xp[119] = Command.new(119, -1, "JMP", "跳转标签", target_text, "s", target_window, nil, 0, 0)
 
@@ -444,6 +441,7 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    
     Builder.Pop(:operate, 0)
     Builder.Pop(:variable_or_value, 1)
   Builder.Out
@@ -541,7 +539,7 @@ target_text = Text.new do |parameters, *followings|
   (init == 0 ? ", 初始化" : "").encode
 end
 target_window = Proc.new do |window, commands|
-  window = Builder.Add(:dialog_r) do
+  window = Builder.Add(:dialog) do
     Builder.Add(:choose, {:actual => :INDEX0, :text => "角色", :choice => { nil => Filechoice.new("actor")}})
     Builder.Pop(:operate, 1)
     Builder.Add(:int_check, {:actual => :INDEX2, :text => "初始化"})
@@ -1350,7 +1348,7 @@ target_window = Proc.new do |window, commands|
     Builder.Pop(:variable_or_value, 2)
   Builder.Pop
 end
-$commands_xp[315] = Command.new(315, -1, "SETCOMPANIES", "增减同伴", target_text, "iiii", nil, nil, 0, 0)
+$commands_xp[315] = Command.new(315, -1, "SETCOMPANIES", "增减同伴", target_text, "iiii", target_window, nil, 0, 0)
 #=================================================================
 # Code 316
 # 增减等级
@@ -1424,7 +1422,7 @@ target_window = Proc.new do |window, commands|
       Builder.Add(:single_radio, {:actual => :INDEX1, :text => "领悟", :key => 0, :group => "window_code_318" })
       Builder.Add(:single_radio, {:actual => :INDEX1, :text => "遗忘", :key => 1, :group => "window_code_318" })
     end
-    Builder.Add(:choose, {:actual => :INDEX0, :text => "特技", :choice => { nil => Filechoice.new("skill") }})
+    Builder.Add(:choose, {:actual => :INDEX2, :text => "特技", :choice => { nil => Filechoice.new("skill") }})
   Builder.Out
   window
 end
@@ -1636,8 +1634,8 @@ target_window = Proc.new do |window, commands|
       Builder.Add(:radio, {:actual => :INDEX0, :text => "角色", :key => 1, :group => "window_code_337"}) do
         Builder.Pop(:unknown_actor, 1)
       end
-      Builder.Add(:choose, {:actual => :INDEX2, :text => "动画", :choice => { nil => Filechoice.new("animation") }})
-    end
+    end  
+    Builder.Add(:choose, {:actual => :INDEX2, :text => "动画", :choice => { nil => Filechoice.new("animation") }})
   Builder.Out
   window
 end

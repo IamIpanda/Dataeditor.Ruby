@@ -60,36 +60,28 @@ namespace DataEditor.Control.Wrapper
             base.Bind();
             Control.Enter += Control_Enter;
             Control.Leave += Control_Leave;
-            Control.GetEventItemColor = this.ItemColor;
             Control.DoubleClick += Control_DoubleClick;
+            Control.KeyUp += Control_KeyUp;
+            Control.PreviewKeyDown += Control_PreviewKeyDown;
+            Control.GetEventItemColor = this.ItemColor;
+            Control.ItemEnabled = this.ItemSelectable;
         }
+
+        void Control_PreviewKeyDown(object sender, System.Windows.Forms.PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == System.Windows.Forms.Keys.Space) e.IsInputKey = false;
+        }
+
+        void Control_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyData == System.Windows.Forms.Keys.I) Change();
+            else if (e.KeyData == System.Windows.Forms.Keys.Enter) Add();
+        }
+
 
         void Control_DoubleClick(object sender, EventArgs e)
         {
-            if (Control.SelectedIndex < 0) return;
-            int index = Control.SelectedIndex;
-            var target = value[index] as FuzzyData.FuzzyObject;
-            var target_parameters = GetParameter(target);
-            var command = GetModel(target);
-            int Special_Text_Index = -1;
-            if (command.Parameters.Contains("t")) Special_Text_Index = command.Parameters.IndexOf("t");
-            if (command == null || command.Follow > 0) return;
-            var with = new List<FuzzyData.FuzzyObject>();
-            while (++index < Control.Items.Count)
-            {
-                var obj = value[index] as FuzzyData.FuzzyObject;
-                var Model = GetModel(obj);
-                if (Model.Follow != command.Code) break;
-                with.Add(value[index] as FuzzyData.FuzzyObject);
-                if (Model.Parameters == "f" && Special_Text_Index >= 0)
-                    (target_parameters[Special_Text_Index] as FuzzyData.FuzzyString).Text += "\n" + (GetParameter(obj)[0] as FuzzyData.FuzzyString).Text;
-            }
-            choser.Value = target_parameters;
-            choser.With = with;
-            if (choser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            { 
-
-            }
+            Add();
         }
 
         void Control_Leave(object sender, EventArgs e)
@@ -190,6 +182,55 @@ namespace DataEditor.Control.Wrapper
             if (index < 0) return default(System.Drawing.Color);
             var command = GetModel(value[index] as FuzzyData.FuzzyObject);
             return command.Color;
+        }
+        bool ItemSelectable(int index)
+        {
+            if (index < 0) return false;
+            var command = GetModel(value[index] as FuzzyData.FuzzyObject);
+            return command.Follow < 0;
+        }
+
+        public void Add()
+        {
+            if (choser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                // Add in;
+            }
+        }
+        public void Change()
+        {
+            // 获取 Index
+            if (Control.SelectedIndex < 0) return;
+            int index = Control.SelectedIndex;
+            // 获取对象
+            var target = value[index] as FuzzyData.FuzzyObject;
+            var target_parameters = GetParameter(target);
+            var command = GetModel(target);
+            // 处理 t 型变量
+            
+            int Special_Text_Index = -1;
+            if (command.Parameters.Contains("t")) Special_Text_Index = command.Parameters.IndexOf("t");
+            if (command == null || command.Follow > 0) return;
+            var with = new List<FuzzyData.FuzzyObject>();
+            while (++index < Control.Items.Count)
+            {
+                var obj = value[index] as FuzzyData.FuzzyObject;
+                var Model = GetModel(obj);
+                if (Model.Follow != command.Code) break;
+                with.Add(value[index] as FuzzyData.FuzzyObject);
+                if (Model.Parameters == "f" && Special_Text_Index >= 0)
+                    (target_parameters[Special_Text_Index] as FuzzyData.FuzzyString).Text += "\n" + (GetParameter(obj)[0] as FuzzyData.FuzzyString).Text;
+            }
+            // 申请窗口
+            var window = command.ApplicateWindow(target_parameters);
+            if (window == null) return;
+            if (window.Show() == System.Windows.Forms.DialogResult.OK)
+            {
+
+            }
+        }
+        public void Erase()
+        { 
         }
     }
 }

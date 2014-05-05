@@ -35,7 +35,7 @@ namespace DataEditor.Control.Prototype
                     return;
                 }
                 // 对背景进行描绘
-                Brush BackBrush = GetFocused(e.State) ? GetFocusBrush(e.Bounds) : GetBackColor(e);
+                Brush BackBrush = GetFocused(e.State) ?  GetFocusBrush(e) : GetBackColor(e);
                 e.Graphics.FillRectangle(BackBrush, e.Bounds);
                 if (GetFocused(e.State))
                     DrawFocusRectangle(e.Graphics, e.Bounds);
@@ -64,7 +64,7 @@ namespace DataEditor.Control.Prototype
                 return (state & DrawItemState.Focus) != 0;
             return (state & DrawItemState.Selected) != 0;
         }
-        protected Brush GetBackColor(DrawItemEventArgs e)
+        protected virtual Brush GetBackColor(DrawItemEventArgs e)
         {
             int index = e.Index;
             Color color = default(Color);
@@ -86,9 +86,9 @@ namespace DataEditor.Control.Prototype
                 return new SolidBrush(CheckEnabled(color));
             else return new SolidBrush(CheckEnabled(ForeColor));
         }
-        protected Brush GetFocusBrush(Rectangle? rect = null)
+        protected virtual Brush GetFocusBrush(DrawItemEventArgs e)
         {
-            return ProtoListControlHelp.GetFocusBrush(rect, BackColor);
+            return ProtoListControlHelp.GetFocusBrush(e.Bounds, BackColor);
         }
         protected void DrawFocusRectangle(Graphics graphics, Rectangle rect)
         {

@@ -125,7 +125,7 @@ namespace DataEditor.Control
 
         void Control_EnabledChanged(object sender, EventArgs e)
         {
-            if (Control.Enabled) Pull();
+            if (Control.Enabled && key != null && value != null) Pull();
         }
     }
 }

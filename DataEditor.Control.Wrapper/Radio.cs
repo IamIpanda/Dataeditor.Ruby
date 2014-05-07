@@ -24,7 +24,8 @@ namespace DataEditor.Control.Wrapper
             if (!Radios.TryGetValue(key, out target_list)) return;
             foreach (var radio in target_list)
                 if (radio.Control.Radio != son_radio)
-                    radio.Control.Radio.Checked = false;
+                    radio.TurnOffRadio();
+           
         }
         // ========================
 
@@ -87,15 +88,24 @@ namespace DataEditor.Control.Wrapper
         {
             if (Control.Radio.Checked)
             {
-                if (Control.Enabled && Control.Focused)
+                if (Control.Enabled && Control.Radio.Focused)
                 {
                     var chosen = argument.GetArgument<Contract.Runable>("accept");
                     if (chosen != null)
                         chosen.call(value, parent, radio_key);
                 }
             }
-            else
+        }
+        /// <summary>
+        /// 设置为 Unchecked。
+        /// 由于不能确定前态，CheckedChanged被抛弃了。
+        /// Deny 在此处触发。
+        /// </summary>
+        void TurnOffRadio()
+        {
+            if (Control.Radio.Checked)
             {
+                Control.Radio.Checked = false;
                 var chosen = argument.GetArgument<Contract.Runable>("deny");
                 if (chosen != null)
                     chosen.call(value, parent, radio_key);
@@ -188,17 +198,6 @@ namespace DataEditor.Control.Wrapper
         void Control_Disposed(object sender, EventArgs e)
         {
             Radios[group_key].Remove(this);
-        }
-        public override FuzzyData.FuzzyObject Parent
-        {
-            get
-            {
-                return base.Parent;
-            }
-            set
-            {
-                base.Parent = value;
-            }
         }
     }
 }

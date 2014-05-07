@@ -24,6 +24,7 @@ class DataEditor::Control::Event::EventCommand
 		self.Text = text
 		self.Window = DataEditor::Ruby::Proc.new(window) if window != nil
 		self.With = DataEditor::Ruby::Proc.new(with) if with != nil
+		self.CheckUniform
 		Log.log("添加了指令：[#{code}:#{name}]".encode)
 	end
 	class <<self
@@ -196,8 +197,27 @@ class Builder
 	    				Builder.Add(:int, {:actual => get_symbol(index + 1), :label => 0})
 	    			end
 	    		end
-	    	when :group_vairble_2
-	    		# FUCK IT
+	    	when :group_variable_2
+	    		Builder.Add(:group, {:text => "变量"}) do
+	    			isSingle = Proc.new do |value, parent, key|
+						value[index].Value == value[index + 1].Value
+					end
+					accept = Proc.new do |value, parent, key|
+						value[index + 1].Value = value[index].Value
+					end
+	    			Builder.Add(:radio, {:actual => get_symbol(index), :text => "单独", :group => "group_switch_2", :ison => isSingle, :accept => accept}) do
+	    				Builder.Add(:switch, {:actual => get_symbol(index + 1), :data => Data["system"]["@variables"], :label => 0})
+	    			end
+	    			isRange = Proc.new do |value, parent, key|
+						value[index].Value != value[index + 1].Value
+					end
+	    			Builder.Add(:radio, {:actual => get_symbol(index), :text => "统一" ,:group => "group_switch_2", :ison => isRange}) do
+	    				Builder.Order
+	    				Builder.Add(:int, {:actual => get_symbol(index), :label => 0})
+	    				Builder.Text(" ~ ")
+	    				Builder.Add(:int, {:actual => get_symbol(index + 1), :label => 0})
+	    			end
+	    		end
 	    	when :operate
 	    		Builder.Add(:group, {:text => "操作"}) do
 	    			Builder.Order

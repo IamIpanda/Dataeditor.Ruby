@@ -15,7 +15,7 @@ namespace DataEditor.Control.Event
         // 内部新模板
         protected FuzzyData.FuzzyObject model = null;
         // 内部锁定位
-        protected int user_location;
+        protected Stack<int> user_locates = new Stack<int>();
         /// <summary>
         /// 弹出一个窗口，编辑数据。
         /// 若为 null，指令将被直接压入
@@ -35,9 +35,13 @@ namespace DataEditor.Control.Event
         public EventCommand() { }
         protected FuzzyData.FuzzyArray GetParameter()
         {
+            return GetArrray(Parameters);
+        }
+        protected FuzzyData.FuzzyArray GetArrray(string str, bool check_u = false)
+        {
             FuzzyData.FuzzyArray ans = new FuzzyData.FuzzyArray();
             int i = 0;
-            foreach (char t in Parameters)
+            foreach (char t in str)
             {
                 switch (t)
                 {
@@ -48,11 +52,33 @@ namespace DataEditor.Control.Event
                     case 'd': // audio
                     case 'c': ans.Add(new FuzzyData.FuzzyColor(0, 0, 0)); break; // color
                     case 'o': ans.Add(new FuzzyData.FuzzyTone()); break; // tone
-                    case 'u': ans.Add(null); user_location = i; break; // user define
+                    case 'u': ans.Add(null); if (check_u) user_locates.Push(i + user_locates.Peek()); break;
+                        // user define
                 }
                 i++;
             }
             return ans;
+        }
+        public void ReUniform(FuzzyData.FuzzyArray arr, string str)
+        {
+            int user_location = user_locates.Peek();
+            arr.RemoveRange(user_location, arr.Length - user_location);
+            arr.AddRange(GetArrray(str, true));
+        }
+        public void ResetUniform()
+        {
+            while (user_locates.Count > 1) user_locates.Pop();
+        }
+        public void PopUniform()
+        {
+            if (user_locates.Count > 1)
+                user_locates.Pop();
+            else Help.Log.log("事件的计算中，出现了一个过度的 Pop");
+        }
+        public void CheckUniform()
+        {
+            int pos = Parameters.LastIndexOf('u');
+            if (pos > 0) user_locates.Push(pos);
         }
         public FuzzyData.FuzzyArray Model
         {
@@ -62,16 +88,6 @@ namespace DataEditor.Control.Event
                 else return model.Clone() as FuzzyData.FuzzyArray;
             }
             set { model = value; }
-        }
-        public void UserDefine(FuzzyData.FuzzyArray parameters, params FuzzyData.FuzzyObject[] objects)
-        {
-            parameters.RemoveRange(user_location, parameters.Count - user_location);
-            parameters.AddRange(objects);
-        }
-        public void UserDefine(FuzzyData.FuzzyArray parameters, FuzzyData.FuzzyArray objects)
-        {
-            parameters.RemoveRange(user_location, parameters.Count - user_location);
-            parameters.AddRange(objects);
         }
         public WrapBaseWindow ApplicateWindow(FuzzyData.FuzzyArray paras = null)
         {

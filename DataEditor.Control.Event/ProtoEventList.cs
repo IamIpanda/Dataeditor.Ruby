@@ -13,11 +13,12 @@ namespace DataEditor.Control.Prototype
         public delegate bool EnableItem(int index);
         public GetEventItemColorDelegate GetEventItemColor { get; set; }
         public EnableItem ItemEnabled { get; set; }
+        public EnableItem ItemSelected { get; set; }
         protected override System.Drawing.Brush GetForeColor(System.Windows.Forms.DrawItemEventArgs e)
         {
             if (GetEventItemColor == null) return base.GetForeColor(e);
             DrawItemState state = e.State;
-            if (GetFocused(state) && (ItemEnabled == null || (ItemEnabled(e.Index))))
+            if ((GetFocused(state) && (ItemEnabled == null || (ItemEnabled(e.Index)))) || (ItemSelected != null && ItemSelected(e.Index)))
                 return new SolidBrush(CheckEnabled(ProtoListControlHelp.DefaultForeColorOnFocus));
             return new System.Drawing.SolidBrush(GetEventItemColor(e.Index));
         }
@@ -26,6 +27,12 @@ namespace DataEditor.Control.Prototype
             if (ItemEnabled == null) return base.GetFocusBrush(e);
             if (ItemEnabled(e.Index))
                 return base.GetFocusBrush(e);
+            else return base.GetBackColor(e);
+        }
+        protected override Brush GetBackColor(DrawItemEventArgs e)
+        {
+            if (ItemSelected == null) return base.GetBackColor(e);
+            if (ItemSelected(e.Index)) return base.GetFocusBrush(e);
             else return base.GetBackColor(e);
         }
         public ProtoEventList()

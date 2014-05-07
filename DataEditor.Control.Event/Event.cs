@@ -63,10 +63,45 @@ namespace DataEditor.Control.Wrapper
             Control.DoubleClick += Control_DoubleClick;
             Control.KeyUp += Control_KeyUp;
             Control.PreviewKeyDown += Control_PreviewKeyDown;
+            Control.SelectedIndexChanged += Control_SelectedIndexChanged;
             Control.GetEventItemColor = this.ItemColor;
             Control.ItemEnabled = this.ItemSelectable;
+            Control.ItemSelected = this.ItemFocused;
         }
 
+        int next = -1;
+        void Control_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            next = -1;
+            // 不存在，不检查
+            if (Control.SelectedIndex < 0) { Control.Invalidate(); return; }
+            if (Control.SelectedIndex == Control.Items.Count - 1) { Control.Invalidate(); return; }
+            var target = value[Control.SelectedIndex] as FuzzyData.FuzzyObject;
+            // 抓取信息
+            int indent = GetIndent(target);
+            var model = GetModel(target);
+            // 子节点，不检查
+            if (model.Follow > 0) { Control.Invalidate(); return; }
+            int code = model.Code;
+            next = Control.SelectedIndex;
+            // 始动条件
+            var fellow = value[next + 1] as FuzzyData.FuzzyObject;
+            int sub_indent = GetIndent(fellow);
+            if (sub_indent > indent || GetModel(fellow).Follow == code)
+            {
+                next++;
+                while (next < value.Count)
+                {
+                    fellow = value[next + 1] as FuzzyData.FuzzyObject;
+                    sub_indent = GetIndent(fellow);
+                    if (sub_indent <= indent && GetModel(fellow).Follow != code) break;
+                    next++;
+                }
+            }
+            Control.Invalidate();
+        }
+
+        
         void Control_PreviewKeyDown(object sender, System.Windows.Forms.PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == System.Windows.Forms.Keys.Space) e.IsInputKey = false;
@@ -77,8 +112,6 @@ namespace DataEditor.Control.Wrapper
             if (e.KeyData == System.Windows.Forms.Keys.I) Change();
             else if (e.KeyData == System.Windows.Forms.Keys.Enter) Add();
         }
-
-
         void Control_DoubleClick(object sender, EventArgs e)
         {
             Add();
@@ -138,7 +171,9 @@ namespace DataEditor.Control.Wrapper
                 int indent = GetIndent(command);
                 string appendix = "";
                 for (int i = 0; i < indent; i++) appendix += " ";
+                appendix = String.Format("[{0}]", indent);
                 if (model.Follow < 0) appendix += EventCommand.FocusSign;
+                else appendix += "[" + model.Follow.ToString() + "]";
                 return appendix + str;
             }
         }
@@ -177,6 +212,7 @@ namespace DataEditor.Control.Wrapper
             if (commands.TryGetValue(code, out ans) == false) return null;
             return ans;
         }
+        // 
         System.Drawing.Color ItemColor(int index)
         {
             if (index < 0) return default(System.Drawing.Color);
@@ -188,6 +224,10 @@ namespace DataEditor.Control.Wrapper
             if (index < 0) return false;
             var command = GetModel(value[index] as FuzzyData.FuzzyObject);
             return command.Follow < 0;
+        }
+        bool ItemFocused(int index)
+        {
+            return index > Control.SelectedIndex && index <= next;
         }
 
         public void Add()

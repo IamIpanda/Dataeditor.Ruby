@@ -216,7 +216,7 @@ target_text = Text.new do |parameters, *followings|
   when 6
     action = Event_Help.event(parameters[1].Value) + " 为  朝向 ".encode + Event_Help.direction(parameters[2].Value) 
   when 7
-    "金钱 #{parameters[1].Value} 以上".encode
+    "金钱 #{parameters[1].Value} ".encode + (parameters[2].Value == 0 ? "以上" : "以下").encode
   when 8
     item = Event_Help.value(parameters[1].Value, Data["item"])
     "持有 ".encode + item 
@@ -232,17 +232,136 @@ target_text = Text.new do |parameters, *followings|
     "脚本 ".encode + parameters[1].Text
   end
 end
-target_window = Proc.new do |window, commands|
+target_window = Proc.new do |window, commands| 
+  $commands_xp[111].ResetUniform
   Builder.In(window)
     Builder.Add(:tabs) do
-      Builder.Add(:tab , {:text => "1"}) do
-        Builder.Add(:radio , {:actual => :INDEX0 , :text => "开关"})
+      Builder.Add(:tab , { :text => "1" }) do
+        accept_0 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "ii") }
+        Builder.Add(:radio, {:actual => :INDEX0, :text => "开关", :key => 0, :group => "window_code_111", :accept => accept_0}) do
+          Builder.Order
+          Builder.Add(:switch, {:actual => :INDEX1, :label => 0, :data => Data["system"]["@switches"]})
+          Builder.Text("值")
+          Builder.Add(:choose, {:actual => :INDEX2, :label => 0, :choice => { 0 => "ON", 1 => "OFF"}})
+        end
+        accept_1 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "iii") }
+        Builder.Add(:radio, {:actual => :INDEX0, :text => "变量", :key => 1, :group => "window_code_111", :accept => accept_1}) do
+          Builder.Order
+          Builder.Add(:variable, {:actual => :INDEX1, :label => 0, :data => Data["system"]["@variables"]})
+          Builder.Text("值")
+          Builder.Next
+          Builder.Add(:radio, {:actual => :INDEX2, :text => "常量", :key => 0, :group => "window_code_111#2"}) do
+            Builder.Add(:int, {:actual => :INDEX3, :label => 0})
+          end
+          Builder.Next
+          Builder.Add(:radio, {:actual => :INDEX2, :text => "变量", :key => 1, :group => "window_code_111#2"}) do
+            Builder.Add(:variable, {:actual => :INDEX3, :data => Data["system"]["@variables"], :label => 0})
+          end
+        end
+        accept_2 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "") }
+        Builder.Add(:radio, {:actual => :INDEX0, :text => "独立开关", :key => 2, :group => "window_code_111", :accept => accept_2}) do
+          
+        end
+        accept_3 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "") }
+        Builder.Add(:radio, {:actual => :INDEX0, :text => "计时器", :key => 3, :group => "window_code_111", :accept => accept_3}) do
+          
+        end
       end
+      Builder.Add(:tab , { :text => "2" }) do
+        accept_4 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "iu") }
+        deny_4 = Proc.new{ |value, parent, radio_key| $commands_xp[111].PopUniform }
+        Builder.Add(:radio, {:actual => :INDEX0, :text => "角色", :key => 4, :group => "window_code_111", :accept => accept_4, :deny => deny_4}) do
+          Builder.Add(:choose, {:actual => :INDEX1, :label => 0, :choice => { nil => Filechoice.new("actor") }})
+          accept_40 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "") }
+          accept_41 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "s") }
+          accept_42 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "i") }
+          Builder.Add(:radio, {:actual => :INDEX2, :text => "在同伴中", :key => 0, :group => "window_code_111#3", :accept => accept_40})
+          Builder.Add(:radio, {:actual => :INDEX2, :text => "姓名", :key => 1, :group => "window_code_111#3", :accept => accept_41}) do
+            Builder.Add(:text, {:actual => :INDEX3, :label => 0})
+          end
+          Builder.Add(:radio, {:actual => :INDEX2, :text => "特技", :key => 2, :group => "window_code_111#3", :accept => accept_42}) do
+            
+          end
+          Builder.Add(:radio, {:actual => :INDEX2, :text => "武器", :key => 3, :group => "window_code_111#3", :accept => accept_42}) do
+            
+          end
+          Builder.Add(:radio, {:actual => :INDEX2, :text => "防具", :key => 4, :group => "window_code_111#3", :accept => accept_42}) do
+            
+          end
+          Builder.Add(:radio, {:actual => :INDEX2, :text => "状态", :key => 0, :group => "window_code_111#3", :accept => accept_42}) do
+            
+          end
+        end
+      end
+      Builder.Add(:tab , { :text => "3" }) do
+        accept_5 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "ii") }
+        Builder.Add(:radio, {:actual => :INDEX0, :text => "敌人", :key => 5, :group => "window_code_111", :accept => accept_5}) do
+          Builder.Pop(:no_troop_enemy, 1)
+          Builder.Add(:radio, {:actual => :INDEX2, :text => "出现", :key => 0, :group => "window_code_111#4"})
+          Builder.Add(:radio, {:actual => :INDEX2, :text => "拥有状态", :key => 1, :group => "window_code_111#4"}) do
+            Builder.Add(:choose, {:actual => :INDEX3, :label => 0, :choice => { nil => Filechoice.new("state") }})
+          end
+        end
+        accept_6 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "") }
+        Builder.Add(:radio, {:actual => :INDEX0, :text => "角色", :key => 6, :group => "window_code_111", :accept => accept_6}) do
+          
+        end
+      end
+      Builder.Add(:tab , { :text => "4" }) do
+        accept_7 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "ii") }
+        Builder.Add(:radio, {:actual => :INDEX0, :text => "金钱", :key => 7, :group => "window_code_111", :accept => accept_7}) do
+          Builder.Order
+          Builder.Add(:int, {:actual => :INDEX1, :label => 0 })
+          Builder.Add(:choose, {:actual => :INDEX2, :label => 0, :choice => { 0 => "以上", 1 => "以下" }})
+        end
+        accept_8 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "i") }
+        Builder.Add(:radio, {:actual => :INDEX0, :text => "物品", :key => 8, :group => "window_code_111", :accept => accept_8}) do
+          Builder.Order
+          Builder.Add(:choose, {:actual => :INDEX1, :label => 0, :choice => { nil => Filechoice.new("item") }})
+          Builder.Text("携带时")
+        end
+        accept_9 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "i") }
+        Builder.Add(:radio, {:actual => :INDEX0, :text => "武器", :key => 9, :group => "window_code_111", :accept => accept_9}) do
+          Builder.Order
+          Builder.Add(:choose, {:actual => :INDEX1, :label => 0, :choice => { nil => Filechoice.new("item") }})
+          Builder.Text("携带时")
+        end
+        accept_10 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "i") }
+        Builder.Add(:radio, {:actual => :INDEX0, :text => "防具", :key => 10, :group => "window_code_111", :accept => accept_10}) do
+          Builder.Order
+          Builder.Add(:choose, {:actual => :INDEX1, :label => 0, :choice => { nil => Filechoice.new("item") }})
+          Builder.Text("携带时")
+        end
+        accept_11 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "i") }
+        Builder.Add(:radio, {:actual => :INDEX0, :text => "按钮", :key => 11, :group => "window_code_111", :accept => accept_11}) do
+          Builder.Order
+          Builder.Add(:choose, {:actual => :INDEX1, :label => 0, :choice => {
+            2 => "下",
+            4 => "左",
+            6 => "右",
+            8 => "上",
+            11 => "A",
+            12 => "B",
+            13 => "C",
+            14 => "X",
+            15 => "Y",
+            16 => "Z",
+            17 => "L",
+            18 => "R"
+            }})
+          Builder.Text("被按下时")
+        end
+        accept_12 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "s") }
+        Builder.Add(:radio, {:actual => :INDEX0, :text => "脚本", :key => 12, :group => "window_code_111", :accept => accept_12}) do
+          Builder.Add(:text, {:actual => :INDEX1, :label => 0})
+        end
+      end
+
     end
-  Builder.Out
+  #Builder.Out
   window
 end
-$commands_xp[111] = Command.new(111, -1, "IF", "条件分歧", target_text, "", target_window, nil, 0, 0)
+$commands_xp[111] = Command.new(111, -1, "IF", "条件分歧", target_text, "iu", target_window, nil, 0, 0)
 
 #=================================================================
 # Code 112
@@ -290,7 +409,7 @@ target_text = Text.new do |parameters, *followings|
   Event_Help.value(parameters[0].Value, Data["commonevent"])
 end
 target_window = Proc.new do |window, commands|
-  window = Builder.Add(:dialog_r)
+  window = Builder.Add(:dialog_r) do
     Builder.Add(:choose , {:actual => :INDEX0 , :text => "公共事件", :choice => { nil => Filechoice.new("commonevent") } })
   end
 end
@@ -306,7 +425,7 @@ target_text = Text.new do |parameters, *followings|
   "[#{parameters[0].Text}]"
 end
 target_window = Proc.new do |window, commands|
-  window = Builder.Add(:dialog_r)
+  window = Builder.Add(:dialog_r) do
     Builder.Add(:text , {:actual => :INDEX0 , :text => "标签名" })
   end
 end
@@ -322,7 +441,7 @@ target_text = Text.new do |parameters, *followings|
   "[#{parameters[0].Text}]"
 end
 target_window = Proc.new do |window, commands|
-  window = Builder.Add(:dialog_r)
+  window = Builder.Add(:dialog_r) do
     Builder.Add(:text , {:actual => :INDEX0 , :text => "标签名" })
   end
 end
@@ -381,10 +500,106 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
+    Builder.Pop(:group_variable_2, 0)
+      Builder.Add(:group, {:text => "操作"}) do
+        Builder.Order
+        Builder.Add(:single_radio, {:actual => :INDEX2, :text => "代入", :key => 0, :group => "window_code_122"})
+        Builder.Add(:single_radio, {:actual => :INDEX2, :text => "加法", :key => 1, :group => "window_code_122"})
+        Builder.Add(:single_radio, {:actual => :INDEX2, :text => "减法", :key => 2, :group => "window_code_122"})
+        Builder.Add(:single_radio, {:actual => :INDEX2, :text => "乘法", :key => 3, :group => "window_code_122"})
+        Builder.Add(:single_radio, {:actual => :INDEX2, :text => "除法", :key => 4, :group => "window_code_122"})
+        Builder.Add(:single_radio, {:actual => :INDEX2, :text => "剩余", :key => 5, :group => "window_code_122"})
+      end
+      Builder.Add(:group, {:text => "操作数"}) do
+        accept_1 = Proc.new { |value, parent, radio_key | $commands_xp[122].ReUniform(parent, "i") }
+        accept_2 = Proc.new { |value, parent, radio_key | $commands_xp[122].ReUniform(parent, "ii") }
+        Builder.Add(:radio, {:actual => :INDEX3, :text => "常量", :key => 0, :group => "window_code_122#2", :accept => accept_1}) do
+          Builder.Add(:int, {:actual => :INDEX4, :label => 0})
+        end
+        Builder.Add(:radio, {:actual => :INDEX3, :text => "变量", :key => 1, :group => "window_code_122#2", :accept => accept_1}) do
+          Builder.Add(:variable, {:actual => :INDEX4, :label => 0, :data => Data["system"]["@variables"]})
+        end
+        Builder.Add(:radio, {:actual => :INDEX3, :text => "随机数", :key => 2, :group => "window_code_122#2", :accept => accept_2}) do
+          Builder.Order
+          Builder.Add(:int, {:actual => :INDEX4, :label => 0})
+          Builder.Text("~")
+          Builder.Add(:int, {:actual => :INDEX5, :label => 0})
+        end
+        Builder.Add(:radio, {:actual => :INDEX3, :text => "物品", :key => 3, :group => "window_code_122#2", :accept => accept_1}) do
+          Builder.Order
+          Builder.Add(:choose, {:actual => :INDEX4, :label => 0, :choice => { nil => Filechoice.new("item")}})
+          Builder.Text("的所持")
+        end
+        Builder.Add(:radio, {:actual => :INDEX3, :text => "角色", :key => 4, :group => "window_code_122#2", :accept => accept_2}) do
+          Builder.Order
+          Builder.Add(:choose, {:actual => :INDEX4, :label => 0, :choice => { nil => Filechoice.new("actor")}})
+          Builder.Text("的")
+          Builder.Add(:choose, {:actual => :INDEX5, :label => 0, :choice => {
+            0 => "等级",
+            1 => "EXP",
+            2 => "HP",
+            3 => "SP",
+            4 => "MaxHP",
+            5 => "MaxSP",
+            6 => "力量",
+            7 => "灵巧",
+            8 => "速度",
+            9 => "魔力",
+            10 => "攻击",
+            11 => "物理防御",
+            12 => "魔法防御",
+            13 => "回避修正"
+            }})
+        end
+        Builder.Add(:radio, {:actual => :INDEX3, :text => "敌人", :key => 5, :group => "window_code_122#2", :accept => accept_2}) do
+          Builder.Order
+          Builder.Pop(:no_troop_enemy, 4)
+          Builder.Text("的")
+          Builder.Add(:choose, {:actual => :INDEX5, :label => 0, :choice => {
+            0 => "等级",
+            1 => "EXP",
+            2 => "HP",
+            3 => "SP",
+            4 => "MaxHP",
+            5 => "MaxSP",
+            6 => "力量",
+            7 => "灵巧",
+            8 => "速度",
+            9 => "魔力",
+            10 => "攻击",
+            11 => "物理防御",
+            12 => "魔法防御",
+            13 => "回避修正"
+            }})
+        end
+        Builder.Add(:radio, {:actual => :INDEX3, :text => "角色", :key => 6, :group => "window_code_122#2", :accept => accept_2}) do
+          Builder.Order
+          Builder.Text("的")
+          Builder.Add(:choose, {:actual => :INDEX5, :label => 0, :choice => {
+            0 => "X 坐标",
+            1 => "Y 坐标",
+            2 => "朝向",
+            3 => "画面 X 坐标",
+            4 => "画面 Y 坐标",
+            5 => "地形标志"
+            }})
+        end
+        Builder.Add(:radio, {:actual => :INDEX3, :text => "其他", :key => 7, :group => "window_code_122#2", :accept => accept_1}) do
+          Builder.Add(:choose, {:actual => :INDEX4, :label => 0, :choice => {
+            0 => "地图 ID",
+            1 => "同伴人数",
+            2 => "金钱",
+            3 => "步数",
+            4 => "游戏时间",
+            5 => "计时器",
+            6 => "存档次数"
+            }})
+        end
+      end
   Builder.Out
   window
 end
-$commands_xp[122] = Command.new(122, -1, "VARIABLE", "变量操作", target_text, "iiii", target_window, nil, 0, 0)
+$commands_xp[122] = Command.new(122, -1, "VARIABLE", "变量操作", target_text, "iiiiu", target_window, nil, 0, 0)
 
 #=================================================================
 # Code 123
@@ -1823,21 +2038,21 @@ $commands_xp[408] = Command.new(408, 108, "_REM", "继续注释", target_text, "
 # Parameter : []
 #=================================================================
 target_text = Text.ret("除此以外的场合")
-$commands_xp[411] = Command.new(411, 112, "ELSE", "除此以外的场合", target_text, "")
+$commands_xp[411] = Command.new(411, 111, "ELSE", "除此以外的场合", target_text, "")
 #=================================================================
 # Code 412
 #-----------------------------------------------------------------
 # Parameter : []
 #=================================================================
 target_text = Text.ret("分歧结束")
-$commands_xp[412] = Command.new(412, 112, "ENDIF", "分歧结束", target_text, "")
+$commands_xp[412] = Command.new(412, 111, "ENDIF", "分歧结束", target_text, "")
 #=================================================================
 # Code 413
 #-----------------------------------------------------------------
 # Parameter : []
 #=================================================================
 target_text = Text.ret("以上反复")
-$commands_xp[413] = Command.new(413, 113, "ENDLOOP", "以上反复", target_text, "")
+$commands_xp[413] = Command.new(413, 112, "ENDLOOP", "以上反复", target_text, "")
 #=================================================================
 # Code 601
 #-----------------------------------------------------------------

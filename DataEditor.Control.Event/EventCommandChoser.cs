@@ -20,8 +20,6 @@ namespace DataEditor.Control.Event
         {
             InitializeComponent();
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            protoListBox1.GetEventItemColor = GroupGetColor;
-            protoListBox2.GetEventItemColor = CommandGetColor;
             protoListBox1.Invalidate();
             protoListBox2.Invalidate();
         }

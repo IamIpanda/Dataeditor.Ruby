@@ -302,12 +302,22 @@ class Builder
 	    		Builder.Add(:choose, {:actual => get_symbol(index), :text => "敌人", :choice => { -1 => "全体队伍", nil => file_choice }})
 	    	when :no_troop_enemy
 	    		text = Text.new do |*args|
-	    			args[2].to_s + "." + Data["enemy"][args[0]["@enemy_id"].Value.to_s.to_i]["@name"].ToString()
+	    			args[3].to_s + "." + Data["enemy"][args[0]["@enemy_id"].Value.to_s.to_i]["@name"].ToString()
 	    		end
 	    		file_choice = Filechoice.new(Data["focus_troop"]["@members"])
 	    		file_choice.id = ""
 	    		file_choice.text = text
 	    		Builder.Add(:choose, {:actual => get_symbol(index), :label => 0, :choice => { nil => file_choice }})
+	    	when :event
+	    		text = Text.new do |*args|
+	    			sprintf("%03d", args[3]) + ":" + Data["focus_map"]["@events"][args[0]]["@name"].ToString()
+	    		end
+	    		data = DataEditor::FuzzyData::FuzzyArray.new
+	    		Data["focus_map"]["@events"].Keys.each {|num| data.Add(num)}
+	    		file_choice = Filechoice.new(data)
+	    		file_choice.id = ""
+	    		file_choice.text = text;
+	    		Builder.Add(:choose, {:actual => get_symbol(index), :label => 0, :choice => { -1 => "角色", 0 => "本事件", nil => file_choice}})
 	    	end
 	    end
 	end

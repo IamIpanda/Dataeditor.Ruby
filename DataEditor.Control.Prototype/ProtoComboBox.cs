@@ -36,13 +36,14 @@ namespace DataEditor.Control.Prototype
         }
         protected Brush GetBackBrush(DrawItemEventArgs e)
         {
-            if(!(this.DroppedDown || Focused))
-                return new SolidBrush(this.BackColor);
+            if (!(this.DroppedDown || Focused))
+                if (!Enabled) return new SolidBrush(e.BackColor);
+                else return new SolidBrush(this.BackColor);
             if (GetFocused(e))
                 return ProtoListControlHelp.GetFocusBrush(e.Bounds, BackColor);
             int index = e.Index % ProtoListControlHelp.DefaultFocusColors.Count;
             Color c = ProtoListControlHelp.DefaultBackColors[index];
-            return new SolidBrush(ProtoListControlHelp.CheckEnabled(c, Enabled));
+            return new SolidBrush(c);
         }
         protected Brush GetForeBrush(DrawItemEventArgs e)
         {

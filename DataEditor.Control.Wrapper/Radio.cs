@@ -76,7 +76,13 @@ namespace DataEditor.Control.Wrapper
             base.Bind();
             Control.Radio.CheckedChanged += OnRadiosChanged;
             Control.Radio.CheckedChanged += Radio_CheckedChanged;
+            Control.EnabledChanged += Control_EnabledChanged;
             Control.Disposed += Control_Disposed;
+        }
+
+        void Control_EnabledChanged(object sender, EventArgs e)
+        {
+            if (Control.Enabled == false) Control.Radio.Checked = false;
         }
 
         void Control_Disposed(object sender, EventArgs e)
@@ -93,6 +99,7 @@ namespace DataEditor.Control.Wrapper
                     var chosen = argument.GetArgument<Contract.Runable>("accept");
                     if (chosen != null)
                         chosen.call(value, parent, radio_key);
+                    base.Pull();
                 }
             }
         }

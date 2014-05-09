@@ -63,7 +63,6 @@
             this.protoListBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.protoListBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.protoListBox1.FormattingEnabled = true;
-            this.protoListBox1.GetEventItemColor = null;
             this.protoListBox1.Location = new System.Drawing.Point(0, 0);
             this.protoListBox1.Margin = new System.Windows.Forms.Padding(0);
             this.protoListBox1.Name = "protoListBox1";
@@ -87,7 +86,6 @@
             this.protoListBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.protoListBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.protoListBox2.FormattingEnabled = true;
-            this.protoListBox2.GetEventItemColor = null;
             this.protoListBox2.Location = new System.Drawing.Point(0, 0);
             this.protoListBox2.Margin = new System.Windows.Forms.Padding(0);
             this.protoListBox2.Name = "protoListBox2";

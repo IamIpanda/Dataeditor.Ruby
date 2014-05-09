@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProtoFuckingTimer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProtoFuckingTimer.Designer.cs">
+      <DependentUpon>ProtoFuckingTimer.cs</DependentUpon>
+    </Compile>
     <Compile Include="WrapColor.cs" />
     <Compile Include="CommandGroup.cs" />
     <Compile Include="EventCommand.cs" />
@@ -79,6 +85,7 @@
     <Compile Include="ProtoTone.Designer.cs">
       <DependentUpon>ProtoTone.cs</DependentUpon>
     </Compile>
+    <Compile Include="WrapFuckingTimer.cs" />
     <Compile Include="WrapSwitch.Choser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EventEditor.resx">
       <DependentUpon>EventEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoFuckingTimer.resx">
+      <DependentUpon>ProtoFuckingTimer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoMapList.resx">
       <DependentUpon>ProtoMapList.cs</DependentUpon>

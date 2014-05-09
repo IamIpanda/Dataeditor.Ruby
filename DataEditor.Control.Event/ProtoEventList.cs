@@ -9,35 +9,53 @@ namespace DataEditor.Control.Prototype
 {
     public class ProtoEventList : Prototype.ProtoListBox
     {
-        public delegate Color GetEventItemColorDelegate(int index);
-        public delegate bool EnableItem(int index);
-        public GetEventItemColorDelegate GetEventItemColor { get; set; }
-        public EnableItem ItemEnabled { get; set; }
-        public EnableItem ItemSelected { get; set; }
+        static public int SignSpace = 15;
+        static public Brush ForeBrush = new SolidBrush(Color.Black);
         protected override System.Drawing.Brush GetForeColor(System.Windows.Forms.DrawItemEventArgs e)
         {
-            if (GetEventItemColor == null) return base.GetForeColor(e);
             DrawItemState state = e.State;
-            if ((GetFocused(state) && (ItemEnabled == null || (ItemEnabled(e.Index)))) || (ItemSelected != null && ItemSelected(e.Index)))
+            if ((GetFocused(state) && !UsingNull) || UsingFocus)
                 return new SolidBrush(CheckEnabled(ProtoListControlHelp.DefaultForeColorOnFocus));
-            return new System.Drawing.SolidBrush(GetEventItemColor(e.Index));
+            return new SolidBrush(ItemColor);
         }
         protected override Brush GetFocusBrush(DrawItemEventArgs e)
         {
-            if (ItemEnabled == null) return base.GetFocusBrush(e);
-            if (ItemEnabled(e.Index))
-                return base.GetFocusBrush(e);
+            if (!UsingNull) return base.GetFocusBrush(e);
             else return base.GetBackColor(e);
         }
         protected override Brush GetBackColor(DrawItemEventArgs e)
         {
-            if (ItemSelected == null) return base.GetBackColor(e);
-            if (ItemSelected(e.Index)) return base.GetFocusBrush(e);
+            if (UsingFocus) return base.GetFocusBrush(e);
             else return base.GetBackColor(e);
+        }
+        protected override void OnDrawItem(DrawItemEventArgs e)
+        {
+            UsingFocus = false;
+            UsingNull = false;
+            Indent = 0;
+            AddOnString = "";
+            ItemColor = Color.Black;
+            if (e.Index >= 0 && ItemGoingDraw != null) ItemGoingDraw(e.Index);
+            RightShift = (UsingNull ? (int)
+                (e.Graphics.MeasureString(AddOnString, this.Font).Width) : 0)
+                + Indent * 10 + SignSpace;
+            base.OnDrawItem(e);
+            if (!UsingNull)
+            {
+                Point pos = new Point(e.Bounds.Location.X + Indent * 10, e.Bounds.Location.Y);
+                e.Graphics.DrawString(Event.EventCommand.FocusSign, this.Font, ForeBrush, pos);
+            }
         }
         public ProtoEventList()
         {
 
         }
+        public delegate void EventWithIndex(int index);
+        public EventWithIndex ItemGoingDraw;
+        public bool UsingFocus = false;
+        public bool UsingNull = false;
+        public int Indent = 0;
+        public string AddOnString = "";
+        public Color ItemColor = Color.Black;
     }
 }

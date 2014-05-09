@@ -64,9 +64,7 @@ namespace DataEditor.Control.Wrapper
             Control.KeyUp += Control_KeyUp;
             Control.PreviewKeyDown += Control_PreviewKeyDown;
             Control.SelectedIndexChanged += Control_SelectedIndexChanged;
-            Control.GetEventItemColor = this.ItemColor;
-            Control.ItemEnabled = this.ItemSelectable;
-            Control.ItemSelected = this.ItemFocused;
+            Control.ItemGoingDraw = this.ItemGoingDraw;
         }
 
         int next = -1;
@@ -168,13 +166,7 @@ namespace DataEditor.Control.Wrapper
             {
                 var str =  model.Text == null ? "" : model.Text.ToString(parameters);
                 str = (code > 0 && model.Follow < 0 ? model.Name : "") + (str.Length == 0 ? "" : " : ")  + str;
-                int indent = GetIndent(command);
-                string appendix = "";
-                for (int i = 0; i < indent; i++) appendix += " ";
-                appendix = String.Format("[{0}]", indent);
-                if (model.Follow < 0) appendix += EventCommand.FocusSign;
-                else appendix += "[" + model.Follow.ToString() + "]";
-                return appendix + str;
+                return str;
             }
         }
         FuzzyData.FuzzyObject GetZero(int indent = 0)
@@ -212,22 +204,21 @@ namespace DataEditor.Control.Wrapper
             if (commands.TryGetValue(code, out ans) == false) return null;
             return ans;
         }
-        // 
-        System.Drawing.Color ItemColor(int index)
+        void ItemGoingDraw(int index)
         {
-            if (index < 0) return default(System.Drawing.Color);
-            var command = GetModel(value[index] as FuzzyData.FuzzyObject);
-            return command.Color;
-        }
-        bool ItemSelectable(int index)
-        {
-            if (index < 0) return false;
-            var command = GetModel(value[index] as FuzzyData.FuzzyObject);
-            return command.Follow < 0;
-        }
-        bool ItemFocused(int index)
-        {
-            return index > Control.SelectedIndex && index <= next;
+            if (Control.SelectedIndex < 0) return;
+            var value = this.value[index] as FuzzyData.FuzzyObject;
+            var command = GetModel(value);
+            Control.UsingFocus = Control.SelectedIndex >= 0 && index > Control.SelectedIndex && index <= next;
+            Control.UsingNull = command.Follow >= 0;
+            Control.Indent = GetIndent(value);
+            Control.ItemColor = command.Color;
+            if (Control.UsingNull)
+            {
+                var parent = commands[command.Follow];
+                if (command.UpIndent == 0 && command.DownIndent == 0)
+                     Control.AddOnString = commands[command.Follow].Name;
+            }
         }
 
         public void Add()
@@ -247,7 +238,6 @@ namespace DataEditor.Control.Wrapper
             var target_parameters = GetParameter(target);
             var command = GetModel(target);
             // 处理 t 型变量
-            
             int Special_Text_Index = -1;
             if (command.Parameters.Contains("t")) Special_Text_Index = command.Parameters.IndexOf("t");
             if (command == null || command.Follow > 0) return;

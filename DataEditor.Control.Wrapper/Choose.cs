@@ -79,9 +79,9 @@ namespace DataEditor.Control.Wrapper
                     foreach (FuzzyData.FuzzyObject target in targets)
                     {
                         // 过滤器的过滤值
-                        if (w >= 0) { w--; continue; }
+                        if (w > 0) { w--; continue; }
                         // 计数器前进
-                        j++;
+                        // j++;
                         // 如果是空值，那么把它忽略
                         if (target == null || target == FuzzyData.FuzzyNil.Instance) continue;
                         // 如果指定了过滤器，并且过滤器宣告此值无效，那么忽略之。

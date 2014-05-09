@@ -244,7 +244,7 @@ target_window = Proc.new do |window, commands|
           Builder.Text("值")
           Builder.Add(:choose, {:actual => :INDEX2, :label => 0, :choice => { 0 => "ON", 1 => "OFF"}})
         end
-        accept_1 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "iii") }
+        accept_1 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "iiii") }
         Builder.Add(:radio, {:actual => :INDEX0, :text => "变量", :key => 1, :group => "window_code_111", :accept => accept_1}) do
           Builder.Order
           Builder.Add(:variable, {:actual => :INDEX1, :label => 0, :data => Data["system"]["@variables"]})
@@ -257,14 +257,25 @@ target_window = Proc.new do |window, commands|
           Builder.Add(:radio, {:actual => :INDEX2, :text => "变量", :key => 1, :group => "window_code_111#2"}) do
             Builder.Add(:variable, {:actual => :INDEX3, :data => Data["system"]["@variables"], :label => 0})
           end
+          Builder.Next
+          Builder.Add(:choose, {:actual => :INDEX4, :label => 0, :choice => {
+            0 => "相等",
+            1 => "以上",
+            2 => "以下",
+            3 => "超过",
+            4 => "未满",
+            5 => "以外"
+            }})
         end
         accept_2 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "") }
         Builder.Add(:radio, {:actual => :INDEX0, :text => "独立开关", :key => 2, :group => "window_code_111", :accept => accept_2}) do
           
         end
-        accept_3 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "") }
+        accept_3 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "ii") }
         Builder.Add(:radio, {:actual => :INDEX0, :text => "计时器", :key => 3, :group => "window_code_111", :accept => accept_3}) do
-          
+          Builder.Order
+          Builder.Add(:timer, {:actual => :INDEX1, :label => 0})
+          Builder.Add(:choose, {:actual => :INDEX2, :label => 0, :choice => { 0 => "以上", 1 => "以下" }})
         end
       end
       Builder.Add(:tab , { :text => "2" }) do
@@ -275,21 +286,29 @@ target_window = Proc.new do |window, commands|
           accept_40 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "") }
           accept_41 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "s") }
           accept_42 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "i") }
-          Builder.Add(:radio, {:actual => :INDEX2, :text => "在同伴中", :key => 0, :group => "window_code_111#3", :accept => accept_40})
-          Builder.Add(:radio, {:actual => :INDEX2, :text => "姓名", :key => 1, :group => "window_code_111#3", :accept => accept_41}) do
-            Builder.Add(:text, {:actual => :INDEX3, :label => 0})
+          Builder.Add(:radio, {:actual => :INDEX1, :text => "在同伴中", :key => 0, :group => "window_code_111#3", :accept => accept_40})
+          Builder.Add(:radio, {:actual => :INDEX1, :text => "姓名", :key => 1, :group => "window_code_111#3", :accept => accept_41}) do
+            Builder.Add(:text, {:actual => :INDEX2, :label => 0})
           end
-          Builder.Add(:radio, {:actual => :INDEX2, :text => "特技", :key => 2, :group => "window_code_111#3", :accept => accept_42}) do
-            
+          Builder.Add(:radio, {:actual => :INDEX1, :text => "特技", :key => 2, :group => "window_code_111#3", :accept => accept_42}) do
+            Builder.Order
+            Builder.Add(:choose, {:actual => :INDEX2, :label => 0, :choice => { nil => Filechoice.new("skill") }})
+            Builder.Text("已经学会")
           end
-          Builder.Add(:radio, {:actual => :INDEX2, :text => "武器", :key => 3, :group => "window_code_111#3", :accept => accept_42}) do
-            
+          Builder.Add(:radio, {:actual => :INDEX1, :text => "武器", :key => 3, :group => "window_code_111#3", :accept => accept_42}) do
+            Builder.Order
+            Builder.Add(:choose, {:actual => :INDEX2, :label => 0, :choice => { nil => Filechoice.new("weapon") }})
+            Builder.Text("装备中")
           end
-          Builder.Add(:radio, {:actual => :INDEX2, :text => "防具", :key => 4, :group => "window_code_111#3", :accept => accept_42}) do
-            
+          Builder.Add(:radio, {:actual => :INDEX1, :text => "防具", :key => 4, :group => "window_code_111#3", :accept => accept_42}) do
+            Builder.Order
+            Builder.Add(:choose, {:actual => :INDEX2, :label => 0, :choice => { nil => Filechoice.new("armor") }})
+            Builder.Text("装备中")
           end
-          Builder.Add(:radio, {:actual => :INDEX2, :text => "状态", :key => 0, :group => "window_code_111#3", :accept => accept_42}) do
-            
+          Builder.Add(:radio, {:actual => :INDEX1, :text => "状态", :key => 5, :group => "window_code_111#3", :accept => accept_42}) do
+            Builder.Order
+            Builder.Add(:choose, {:actual => :INDEX2, :label => 0, :choice => { nil => Filechoice.new("state") }})
+            Builder.Text("与其相同")
           end
         end
       end
@@ -297,14 +316,18 @@ target_window = Proc.new do |window, commands|
         accept_5 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "ii") }
         Builder.Add(:radio, {:actual => :INDEX0, :text => "敌人", :key => 5, :group => "window_code_111", :accept => accept_5}) do
           Builder.Pop(:no_troop_enemy, 1)
-          Builder.Add(:radio, {:actual => :INDEX2, :text => "出现", :key => 0, :group => "window_code_111#4"})
-          Builder.Add(:radio, {:actual => :INDEX2, :text => "拥有状态", :key => 1, :group => "window_code_111#4"}) do
-            Builder.Add(:choose, {:actual => :INDEX3, :label => 0, :choice => { nil => Filechoice.new("state") }})
+          Builder.Add(:radio, {:actual => :INDEX1, :text => "出现", :key => 0, :group => "window_code_111#4"})
+          Builder.Add(:radio, {:actual => :INDEX1, :text => "拥有状态", :key => 1, :group => "window_code_111#4"}) do
+            Builder.Add(:choose, {:actual => :INDEX2, :label => 0, :choice => { nil => Filechoice.new("state") }})
           end
         end
-        accept_6 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "") }
+        accept_6 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "ii") }
         Builder.Add(:radio, {:actual => :INDEX0, :text => "角色", :key => 6, :group => "window_code_111", :accept => accept_6}) do
-          
+          Builder.Order
+          Builder.Pop(:event, 0)
+          Builder.Text("面向")
+          Builder.Next
+          Builder.Add(:choose, {:actual => :INDEX1, :label => 0, :choice => { 2 => "下", 4 => "左", 6 => "右", 8 => "上" }})
         end
       end
       Builder.Add(:tab , { :text => "4" }) do
@@ -323,13 +346,13 @@ target_window = Proc.new do |window, commands|
         accept_9 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "i") }
         Builder.Add(:radio, {:actual => :INDEX0, :text => "武器", :key => 9, :group => "window_code_111", :accept => accept_9}) do
           Builder.Order
-          Builder.Add(:choose, {:actual => :INDEX1, :label => 0, :choice => { nil => Filechoice.new("item") }})
+          Builder.Add(:choose, {:actual => :INDEX1, :label => 0, :choice => { nil => Filechoice.new("weapon") }})
           Builder.Text("携带时")
         end
         accept_10 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "i") }
         Builder.Add(:radio, {:actual => :INDEX0, :text => "防具", :key => 10, :group => "window_code_111", :accept => accept_10}) do
           Builder.Order
-          Builder.Add(:choose, {:actual => :INDEX1, :label => 0, :choice => { nil => Filechoice.new("item") }})
+          Builder.Add(:choose, {:actual => :INDEX1, :label => 0, :choice => { nil => Filechoice.new("armor") }})
           Builder.Text("携带时")
         end
         accept_11 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "i") }
@@ -358,7 +381,7 @@ target_window = Proc.new do |window, commands|
       end
 
     end
-  #Builder.Out
+  Builder.Out
   window
 end
 $commands_xp[111] = Command.new(111, -1, "IF", "条件分歧", target_text, "iu", target_window, nil, 0, 0)
@@ -1999,7 +2022,7 @@ $commands_xp[355] = Command.new(355, -1, "SHELL", "脚本", target_text, "t", ta
 target_text = Text.new do |parameters, *followings| 
   parameters[0].Text
 end
-$commands_xp[401] = Command.new(401, 101, "_MESSAGE", "继续显示对话", target_text, "f")
+$commands_xp[401] = Command.new(401, 101, "_MESSAGE", "继续显示对话", target_text, "f", nil, nil, 0, 0)
 #=================================================================
 # Code 402
 #-----------------------------------------------------------------
@@ -2008,21 +2031,21 @@ $commands_xp[401] = Command.new(401, 101, "_MESSAGE", "继续显示对话", targ
 target_text = Text.new do |parameters, *followings| 
   "[ " + parameters[1].Text + " ] 的场合".encode
 end
-$commands_xp[402] = Command.new(402, 102, "CHOICE", "选择项", target_text, "is")
+$commands_xp[402] = Command.new(402, 102, "CHOICE", "选择项", target_text, "is", nil, nil, 0, 1)
 #=================================================================
 # Code 403
 #-----------------------------------------------------------------
 # Parameter : []
 #=================================================================
 target_text = Text.ret("取消的场合")
-$commands_xp[403] = Command.new(403, 102, "CANCELCHOICE", "取消的场合", target_text, "")
+$commands_xp[403] = Command.new(403, 102, "CANCELCHOICE", "取消的场合", target_text, "", nil, nil, -1, 1)
 #=================================================================
 # Code 404
 #-----------------------------------------------------------------
 # Parameter : []
 #=================================================================
 target_text = Text.ret("分歧结束")
-$commands_xp[404] = Command.new(404, 102, "ENDCHOOSE", "分歧结束", target_text, "")
+$commands_xp[404] = Command.new(404, 102, "ENDCHOOSE", "分歧结束", target_text, "", nil, nil, -1, 0)
 #=================================================================
 # Code 408
 #-----------------------------------------------------------------
@@ -2031,28 +2054,28 @@ $commands_xp[404] = Command.new(404, 102, "ENDCHOOSE", "分歧结束", target_te
 target_text = Text.new do |parameters, *followings| 
   parameters[0].Text
 end
-$commands_xp[408] = Command.new(408, 108, "_REM", "继续注释", target_text, "s")
+$commands_xp[408] = Command.new(408, 108, "_REM", "继续注释", target_text, "s", nil, nil, 0, 0)
 #=================================================================
 # Code 411
 #-----------------------------------------------------------------
 # Parameter : []
 #=================================================================
 target_text = Text.ret("除此以外的场合")
-$commands_xp[411] = Command.new(411, 111, "ELSE", "除此以外的场合", target_text, "")
+$commands_xp[411] = Command.new(411, 111, "ELSE", "除此以外的场合", target_text, "", nil, nil, -1, 1)
 #=================================================================
 # Code 412
 #-----------------------------------------------------------------
 # Parameter : []
 #=================================================================
 target_text = Text.ret("分歧结束")
-$commands_xp[412] = Command.new(412, 111, "ENDIF", "分歧结束", target_text, "")
+$commands_xp[412] = Command.new(412, 111, "ENDIF", "分歧结束", target_text, "", nil, nil, -1, 0)
 #=================================================================
 # Code 413
 #-----------------------------------------------------------------
 # Parameter : []
 #=================================================================
 target_text = Text.ret("以上反复")
-$commands_xp[413] = Command.new(413, 112, "ENDLOOP", "以上反复", target_text, "")
+$commands_xp[413] = Command.new(413, 112, "ENDLOOP", "以上反复", target_text, "", nil, nil, -1, 0)
 #=================================================================
 # Code 601
 #-----------------------------------------------------------------
@@ -2080,7 +2103,7 @@ $commands_xp[603] = Command.new(603, 301, "ONESCAPE", "逃跑的场合", target_
 # Parameter : []
 #=================================================================
 target_text = Text.ret("分歧结束")
-$commands_xp[604] = Command.new(604, 301, "ENDBATTLE", "分歧结束", target_text, "")
+$commands_xp[604] = Command.new(604, 301, "ENDBATTLE", "分歧结束", target_text, "", nil, nil, -1, 0)
 #=================================================================
 # Code 605
 #-----------------------------------------------------------------
@@ -2098,7 +2121,7 @@ $commands_xp[605] = Command.new(605, 302, "", "商店物品", target_text, "ii")
 target_text = Text.new do |parameters, *followings| 
   parameters[0].Text
 end
-$commands_xp[655] = Command.new(655, 355, "_SHELL", "继续脚本", target_text, "s")
+$commands_xp[655] = Command.new(655, 355, "_SHELL", "继续脚本", target_text, "s", nil, nil, 0, 0)
 
 
 $groups_xp = []

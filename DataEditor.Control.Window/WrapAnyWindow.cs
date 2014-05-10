@@ -11,7 +11,7 @@ namespace DataEditor.Control.Window
         // 把底层的值记录下来
         public override FuzzyData.FuzzyObject Value
         {
-            get {return base.Value; }
+            get { return base.Value; }
             set
             {
                 origin = value.Clone() as FuzzyData.FuzzyObject;
@@ -27,6 +27,7 @@ namespace DataEditor.Control.Window
         }
         protected void FormClosing()
         {
+            Push();
             var form = Window;
             if (form == null) return;
             FuzzyData.FuzzyObject temp;
@@ -45,6 +46,10 @@ namespace DataEditor.Control.Window
         }
         public void BaseSetSize(System.Drawing.Size size) { base.SetSize(size); }
         public override void SetSize(System.Drawing.Size size) { }
-        protected abstract void OnValueChanged();
+        protected virtual void OnValueChanged() { }
+        public override bool ValueIsChanged()
+        {
+            return false;
+        }
     }
 }

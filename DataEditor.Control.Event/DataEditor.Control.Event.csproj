@@ -47,6 +47,7 @@
     <Compile Include="ProtoFuckingTimer.Designer.cs">
       <DependentUpon>ProtoFuckingTimer.cs</DependentUpon>
     </Compile>
+    <Compile Include="WrapSelfSwitch.cs" />
     <Compile Include="WrapColor.cs" />
     <Compile Include="CommandGroup.cs" />
     <Compile Include="EventCommand.cs" />

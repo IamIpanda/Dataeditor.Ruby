@@ -56,15 +56,15 @@ namespace DataEditor.Control.Prototype
             switch (DefaultFocusColors.Count)
             {
                 case 0:
-                    return new SolidBrush(DefaultColor);
+                    return GetBrush(DefaultColor);
                 case 1:
-                    return new SolidBrush(DefaultFocusColors[0]);
+                    return GetBrush(DefaultFocusColors[0]);
                 default:
                     if (rect.HasValue)
                         return new System.Drawing.Drawing2D.LinearGradientBrush
                             (rect.Value, DefaultFocusColors[0], DefaultFocusColors[1], 90F);
                     else
-                        return new SolidBrush(DefaultFocusColors[0]);
+                        return GetBrush(DefaultFocusColors[0]);
             }
         }
         static public Color CheckEnabled(Color c,bool Enabled)
@@ -84,6 +84,15 @@ namespace DataEditor.Control.Prototype
                 DefaultFocusBorderColor, 2, ButtonBorderStyle.Solid,
                 DefaultFocusBorderColor, 2, ButtonBorderStyle.Solid,
                 DefaultFocusBorderColor, 2, ButtonBorderStyle.Solid);
+        }
+        static Dictionary<Color, SolidBrush> brushes = new Dictionary<Color,SolidBrush>();
+        static public SolidBrush GetBrush(Color color)
+        {
+            SolidBrush brush = null;
+            if (brushes.TryGetValue(color, out brush)) return brush;
+            brush = new SolidBrush(color);
+            brushes.Add(color, brush);
+            return brush;
         }
     }
 }

@@ -51,7 +51,7 @@ namespace DataEditor.Control.Prototype
                 while (cy <= this.ClientRectangle.Height)
                 {
                     count = (count + 1) % ProtoListControlHelp.DefaultBackColors.Count;
-                    SolidBrush ExtraBackBrush = new SolidBrush(CheckEnabled(ProtoListControlHelp.DefaultBackColors[count]));
+                    SolidBrush ExtraBackBrush = ProtoListControlHelp.GetBrush(CheckEnabled(ProtoListControlHelp.DefaultBackColors[count]));
                     e.Graphics.FillRectangle(ExtraBackBrush, new Rectangle(e.Bounds.X, cy, e.Bounds.Width, e.Bounds.Height));
                     cy += ItemHeight;
                 }
@@ -70,21 +70,21 @@ namespace DataEditor.Control.Prototype
             Color color = default(Color);
             BackColors.TryGetValue(index, out color);
             if (color != default(Color))
-                return new SolidBrush(CheckEnabled(color));
+                return ProtoListControlHelp.GetBrush(CheckEnabled(color));
             index %= ProtoListControlHelp.DefaultBackColors.Count;
-            return new SolidBrush(CheckEnabled(ProtoListControlHelp.DefaultBackColors[index]));
+            return ProtoListControlHelp.GetBrush(CheckEnabled(ProtoListControlHelp.DefaultBackColors[index]));
         }
         protected virtual Brush GetForeColor(DrawItemEventArgs e)
         {
             DrawItemState state = e.State;
             if (GetFocused(state))
-                return new SolidBrush(CheckEnabled(ProtoListControlHelp.DefaultForeColorOnFocus));
+                return ProtoListControlHelp.GetBrush(CheckEnabled(ProtoListControlHelp.DefaultForeColorOnFocus));
             //Color color = ForeColors[e.Index];
             Color color = default(Color);
             ForeColors.TryGetValue(e.Index, out color);
             if (color != default(Color))
-                return new SolidBrush(CheckEnabled(color));
-            else return new SolidBrush(CheckEnabled(ForeColor));
+                return ProtoListControlHelp.GetBrush(CheckEnabled(color));
+            else return ProtoListControlHelp.GetBrush(CheckEnabled(ForeColor));
         }
         protected virtual Brush GetFocusBrush(DrawItemEventArgs e)
         {

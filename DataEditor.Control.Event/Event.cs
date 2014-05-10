@@ -165,7 +165,8 @@ namespace DataEditor.Control.Wrapper
             else
             {
                 var str =  model.Text == null ? "" : model.Text.ToString(parameters);
-                str = (code > 0 && model.Follow < 0 ? model.Name : "") + (str.Length == 0 ? "" : " : ")  + str;
+                str = (code > 0 && model.Follow < 0 ? model.Name : "") + (str.Length == 0 ? "" : 
+                    (model.UpIndent == 0 && model.DownIndent == 0 ? " : " : ":"))  + str;
                 return str;
             }
         }

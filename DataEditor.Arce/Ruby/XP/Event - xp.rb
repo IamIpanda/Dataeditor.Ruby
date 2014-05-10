@@ -267,9 +267,12 @@ target_window = Proc.new do |window, commands|
             5 => "以外"
             }})
         end
-        accept_2 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "") }
+        accept_2 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "ii") }
         Builder.Add(:radio, {:actual => :INDEX0, :text => "独立开关", :key => 2, :group => "window_code_111", :accept => accept_2}) do
-          
+          Builder.Order
+          Builder.Add(:self_switch, {:actual => :INDEX1, :label => 0})
+          Builder.Text("值")
+          Builder.Add(:choose, {:actual => :INDEX2, :label => 0, :choice => { 0 => "ON", 1 => "OFF" }})
         end
         accept_3 = Proc.new { |value, parent, radio_key| $commands_xp[111].ReUniform(parent, "ii") }
         Builder.Add(:radio, {:actual => :INDEX0, :text => "计时器", :key => 3, :group => "window_code_111", :accept => accept_3}) do
@@ -634,9 +637,14 @@ target_text = Text.new do |parameters, *followings|
   parameters[0].Text + " = " + (parameters[1].Value == 0 ? "ON" : "OFF")
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Add(:self_switch, {:actual => :INDEX0, :text => "独立开关"})
+    Builder.Add(:group, {:text => "操作"}) do
+      Builder.Order
+      Builder.Add(:single_radio, {:actual => :INDEX1, :text => "ON", :key => 0, :group => "window_code_123"})
+      Builder.Add(:single_radio, {:actual => :INDEX1, :text => "OFF", :key => 1, :group => "window_code_123"})
+    end
+  end
 end
 $commands_xp[123] = Command.new(123, -1, "SINGLESWITCH", "独立开关", target_text, "si", target_window, nil, 0, 0)
 
@@ -973,9 +981,9 @@ end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
     Builder.Order
-    Builder.Add(:tone, {:actual => :VALUE0, :label => 0})
+    Builder.Add(:tone, {:actual => :INDEX0, :label => 0})
     Builder.Next
-    Builder.Add(:int, {:actual => :VALUE1, :text => "时间", :label => 2})
+    Builder.Add(:int, {:actual => :INDEX1, :text => "时间", :label => 2})
     Builder.Text("帧")
   Builder.Out
   window
@@ -1081,9 +1089,9 @@ end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
     Builder.Order
-    Builder.Add(:tone, {:actual => :VALUE0, :label => 0})
+    Builder.Add(:tone, {:actual => :INDEX0, :label => 0})
     Builder.Next
-    Builder.Add(:int, {:actual => :VALUE1, :text => "时间", :label => 2})
+    Builder.Add(:int, {:actual => :INDEX1, :text => "时间", :label => 2})
     Builder.Text("帧")
   Builder.Out
   window
@@ -1102,9 +1110,9 @@ end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
     Builder.Order
-    Builder.Add(:color, {:actual => :VALUE0, :label => 0})
+    Builder.Add(:color, {:actual => :INDEX0, :label => 0})
     Builder.Next
-    Builder.Add(:int, {:actual => :VALUE1, :text => "时间", :label => 2})
+    Builder.Add(:int, {:actual => :INDEX1, :text => "时间", :label => 2})
     Builder.Text("帧")
   Builder.Out
   window
@@ -1251,11 +1259,11 @@ end
 target_window = Proc.new do |window, commands|
   Builder.In(window)
     Builder.Order
-    Builder.Add(:int, {:actual => :VALUE0, :text => "编号"})
+    Builder.Add(:int, {:actual => :INDEX0, :text => "编号"})
     Builder.Next
-    Builder.Add(:tone, {:actual => :VALUE0, :label => 0})
+    Builder.Add(:tone, {:actual => :INDEX0, :label => 0})
     Builder.Next
-    Builder.Add(:int, {:actual => :VALUE1, :text => "时间", :label => 2})
+    Builder.Add(:int, {:actual => :INDEX1, :text => "时间", :label => 2})
     Builder.Text("帧")
   Builder.Out
   window
@@ -1332,7 +1340,7 @@ end
 target_window = Proc.new do |window, commands|
   window = Builder.Add(:dialog_r) do
     Builder.Order
-    Builder.Add(:int, {:actual => :VALUE0, :text => "时间" })
+    Builder.Add(:int, {:actual => :INDEX0, :text => "时间" })
     Builder.Text("秒")
   end
 end
@@ -1366,7 +1374,7 @@ end
 target_window = Proc.new do |window, commands|
   window = Builder.Add(:dialog_r) do
     Builder.Order
-    Builder.Add(:int, {:actual => :VALUE0, :text => "时间" })
+    Builder.Add(:int, {:actual => :INDEX0, :text => "时间" })
     Builder.Text("秒")
   end
 end
@@ -1732,9 +1740,11 @@ target_text = Text.new do |parameters, *followings|
   "#{Event_Help.actor(parameters[0].Value)}, #{parameters[1].Text}, #{parameters[2].Value}, #{parameters[3].Text}, #{parameters[4].Value}"
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Add(:choose, {:actual => :INDEX0, :text => "角色", :choice => { nil => Filechoice.new("actor") }})
+    Builder.Add(:oldimage, {:actual => {:name => :INDEX1, :hue => :INDEX2}, :text => "角色脸谱"})
+    Builder.Add(:oldimage, {:actual => {:name => :INDEX3, :hue => :INDEX4}, :text => "战斗图", :path => "battlers"})
+  end
 end
 $commands_xp[322] = Command.new(322, -1, "SETACTORGRAPH", "更改角色图像", target_text, "isisi", target_window, nil, 0, 0)
 

@@ -157,9 +157,9 @@
             // pnMain
             // 
             this.pnMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnMain.Location = new System.Drawing.Point(0, 24);
+            this.pnMain.Location = new System.Drawing.Point(0, 0);
             this.pnMain.Name = "pnMain";
-            this.pnMain.Size = new System.Drawing.Size(696, 425);
+            this.pnMain.Size = new System.Drawing.Size(696, 449);
             this.pnMain.TabIndex = 2;
             // 
             // EditorWindow

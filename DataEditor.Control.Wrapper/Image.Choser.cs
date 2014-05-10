@@ -79,7 +79,15 @@ namespace DataEditor.Control.Wrapper
             }
         }
         string _path;
-        public string Path { get { return _path; } set { _path = value; InitializeRTP(); } }
+        public string Path { get { return _path; } set 
+        {
+            if (!value.StartsWith("Graphics"))
+            {
+                Log.log("进行了一次路径补正：" + value);
+                value = System.IO.Path.Combine("Graphics", value);
+            }
+            _path = value; InitializeRTP(); 
+        } }
         public string RtpName { set { SetRtp(value); } }
         public Image.SplitManager Split { get; set; }
         public new Image.SplitManager Show { get; set; }

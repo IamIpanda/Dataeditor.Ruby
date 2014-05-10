@@ -9,8 +9,9 @@ namespace DataEditor.Control.Prototype
 {
     public class ProtoEventList : Prototype.ProtoListBox
     {
-        static public int SignSpace = 15;
+        static public int SignSpace = 12;
         static public Brush ForeBrush = new SolidBrush(Color.Black);
+        static public Brush ForeBrushOnFocus = new SolidBrush(Color.White);
         protected override System.Drawing.Brush GetForeColor(System.Windows.Forms.DrawItemEventArgs e)
         {
             DrawItemState state = e.State;
@@ -37,13 +38,14 @@ namespace DataEditor.Control.Prototype
             ItemColor = Color.Black;
             if (e.Index >= 0 && ItemGoingDraw != null) ItemGoingDraw(e.Index);
             RightShift = (UsingNull ? (int)
-                (e.Graphics.MeasureString(AddOnString, this.Font).Width) : 0)
+                (e.Graphics.MeasureString(AddOnString, this.Font).Width) : 4)
                 + Indent * 10 + SignSpace;
             base.OnDrawItem(e);
             if (!UsingNull)
             {
                 Point pos = new Point(e.Bounds.Location.X + Indent * 10, e.Bounds.Location.Y);
-                e.Graphics.DrawString(Event.EventCommand.FocusSign, this.Font, ForeBrush, pos);
+                e.Graphics.DrawString(Event.EventCommand.FocusSign, this.Font, 
+                    (base.GetFocused(e.State) || UsingFocus) ? ForeBrushOnFocus : ForeBrush, pos);
             }
         }
         public ProtoEventList()

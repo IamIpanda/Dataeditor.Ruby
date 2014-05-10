@@ -65,4 +65,32 @@ namespace DataEditor.Control.Wrapper
             }
         }
     }
+    public class Audio_Window : Window.WrapAnyWindow<AudioChoser>
+    {
+        public override string Flag { get { return "dialog_audio"; } }
+        protected override void SetDefaultArgument()
+        {
+            base.SetDefaultArgument();
+            argument.SetArgument("type", "SE");
+        }
+        public override void Reset()
+        {
+            base.Reset();
+            string Type = argument.GetArgument<string>("type");
+            Window.Path = "Audio/" + Type;
+        }
+        public override void Pull()
+        {
+            Window.Volume = Convert.ToInt32((value["@volume"] as FuzzyData.FuzzyFixnum).Value);
+            Window.Freq = Convert.ToInt32((value["@pitch"] as FuzzyData.FuzzyFixnum).Value);
+            Window.FileName = (value["@name"] as FuzzyData.FuzzyString).Text;
+            base.Pull();
+        }
+        public override void Push()
+        {
+            (value["@volume"] as FuzzyData.FuzzyFixnum).Value = Window.Volume;
+            (value["@pitch"] as FuzzyData.FuzzyFixnum).Value = Window.Freq;
+            (value["@name"] as FuzzyData.FuzzyString).Text = Window.FileName;
+        }
+    }
 }

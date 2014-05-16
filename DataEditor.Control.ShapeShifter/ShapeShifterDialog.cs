@@ -30,6 +30,9 @@ namespace DataEditor.Control.ShapeShifter
             values.Add("[0, 0, 0, 255]");
             values.Add("1073741824");
             values.Add("Ruby::Nil");
+            values.Add("Ruby::Array");
+            values.Add("Ruby::Hash");
+            values.Add("ClassName");
             this.Shown += ShapeShifterDialog_Shown;
         }
 
@@ -62,6 +65,7 @@ namespace DataEditor.Control.ShapeShifter
             else if (value is FuzzyData.FuzzyRect) comboBox1.SelectedIndex = 6;
             else if (value is FuzzyData.FuzzyTone) comboBox1.SelectedIndex = 7;
             else if (value is FuzzyData.FuzzyNil) comboBox1.SelectedIndex = 9;
+            else comboBox1.SelectedIndex = 12;
             textBox1.Text = value.ToString();
             textBox1.Enabled = !(value is FuzzyData.FuzzyNil);
         }
@@ -99,7 +103,13 @@ namespace DataEditor.Control.ShapeShifter
             else if (comboBox1.SelectedIndex == 7) this.value = Interpreter.GetTone(content);
             else if (comboBox1.SelectedIndex == 8) this.value = new FuzzyData.FuzzyBignumAdapter(content);
             else if (comboBox1.SelectedIndex == 9) this.value = FuzzyData.FuzzyNil.Instance;
-
+            else if (comboBox1.SelectedIndex == 10) this.value = new FuzzyData.FuzzyArray();
+            else if (comboBox1.SelectedIndex == 11) this.value = new FuzzyData.FuzzyHash();
+            else if (comboBox1.SelectedIndex == 12)
+            {
+                this.value = new FuzzyData.FuzzyObject();
+                this.value.ClassName = FuzzyData.FuzzySymbol.GetSymbol(content);
+            }
         }
         public string Key { get { return textBox2.Text; } set { textBox2.Text = value; } }
 
@@ -107,7 +117,7 @@ namespace DataEditor.Control.ShapeShifter
         {
             if (!(comboBox1.Focused)) return;
             textBox1.Text = values[comboBox1.SelectedIndex];
-            if (comboBox1.SelectedIndex == 9) textBox1.Enabled = false;
+            if (comboBox1.SelectedIndex >= 9 && comboBox1.SelectedIndex <= 11) textBox1.Enabled = false;
             else
             {
                 textBox1.Enabled = true;

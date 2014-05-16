@@ -59,7 +59,7 @@ namespace DataEditor.Control.Wrapper
         public override void Bind()
         {
             base.Bind();
-            Control.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            Control.SelectionMode = System.Windows.Forms.SelectionMode.One;
             Control.Enter += Control_Enter;
             Control.Leave += Control_Leave;
             Control.DoubleClick += Control_DoubleClick;

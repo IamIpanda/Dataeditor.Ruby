@@ -49,7 +49,7 @@ namespace DataEditor.Control.Prototype
             else if (loading.Contains(obj)) return RealizeCircle(obj, prefix);
             else if (obj is FuzzyData.FuzzyArray) return RealizeArray(obj as FuzzyData.FuzzyArray, prefix);
             else if (obj is FuzzyData.FuzzyHash) return RealizeHash(obj as FuzzyData.FuzzyHash, prefix);
-            else if (obj.InstanceVariables.Count == 0) return null;
+            else if (obj.GetType() != typeof(FuzzyData.FuzzyObject)) return null;
             var ans = new TreeNode();
             ans.Text = prefix + (prefix == "" ? "" : ":") + "[" + obj.ClassName.Name + "]";
             loading.Push(obj);
@@ -98,6 +98,16 @@ namespace DataEditor.Control.Prototype
             var ans = new TreeNode();
             ans.Text = prefix + (prefix == "" ? "" : ":") + "[circle]";
             return ans;
+        }
+        public void RecycleSelectedNode()
+        {
+            var node = this.SelectedNode;
+            if (node == null) return;
+            var value = node.Tag as FuzzyData.FuzzyObject;
+            var new_node = RealizeObject(value);
+            node.Nodes.Clear();
+            foreach (TreeNode child in new_node.Nodes)
+                node.Nodes.Add(child);
         }
     }
     public class ProtoShapeShifterData : ProtoShapeShifterList

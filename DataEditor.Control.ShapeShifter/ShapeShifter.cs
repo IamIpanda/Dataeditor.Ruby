@@ -24,5 +24,10 @@ namespace DataEditor.Control.ShapeShifter
         {
             protoShapeShifterData1.Load();
         }
+
+        private void protoShapeShifterValue1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            protoShapeShifterData1.RecycleSelectedNode();
+        }
     }
 }

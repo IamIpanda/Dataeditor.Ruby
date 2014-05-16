@@ -17,6 +17,7 @@ namespace DataEditor.Control.Prototype
             get { return _value; }
             set { _value = value; OnValueChanged(); }
         }
+        public event EventHandler SelectedValueChanged;
         public void OnValueChanged()
         {
             this.Items.Clear();
@@ -61,6 +62,7 @@ namespace DataEditor.Control.Prototype
                     if (dialog.ShowDialog() != DialogResult.OK) return;
                     hash.Add(key, dialog.Value);
                     RealizeObject(_value);
+                    if (SelectedValueChanged != null) SelectedValueChanged(this, new EventArgs());
                     return;
                 }
                 else if (_value is FuzzyArray) dialog.Key = "[" + (_value as FuzzyArray).Count.ToString() + "]";
@@ -91,6 +93,7 @@ namespace DataEditor.Control.Prototype
                     }
                 }
                 RealizeObject(_value);
+                if (SelectedValueChanged != null) SelectedValueChanged(this, new EventArgs());
             }
         }
         protected void InsertValue(ShapeShifter.ShapeShifterDialog dialog)
@@ -138,7 +141,7 @@ namespace DataEditor.Control.Prototype
         public void RealizeSmalls(FuzzyObject obj, string index)
         {
             if (obj == null) return;
-            if (obj.InstanceVariables.Count > 0 || obj.GetType() == typeof(FuzzyArray) || obj.GetType() == typeof(FuzzyHash)) return;
+            if (obj.GetType() == typeof(FuzzyObject) || obj.GetType() == typeof(FuzzyArray) || obj.GetType() == typeof(FuzzyHash)) return;
             string type = obj.GetType().Name;
             type = type.Substring(5);
             string value = obj.ToString();

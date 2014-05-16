@@ -71,11 +71,13 @@
             this.protoShapeShifterValue1.MultiSelect = false;
             this.protoShapeShifterValue1.Name = "protoShapeShifterValue1";
             this.protoShapeShifterValue1.OwnerDraw = true;
+            this.protoShapeShifterValue1.ReadOnly = false;
             this.protoShapeShifterValue1.Size = new System.Drawing.Size(563, 457);
             this.protoShapeShifterValue1.TabIndex = 0;
             this.protoShapeShifterValue1.UseCompatibleStateImageBehavior = false;
             this.protoShapeShifterValue1.Value = null;
             this.protoShapeShifterValue1.View = System.Windows.Forms.View.Details;
+            this.protoShapeShifterValue1.SelectedValueChanged += new System.EventHandler(this.protoShapeShifterValue1_SelectedValueChanged);
             // 
             // ShapeShifter
             // 

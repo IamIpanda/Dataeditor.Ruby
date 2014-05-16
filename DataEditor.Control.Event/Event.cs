@@ -13,6 +13,7 @@ namespace DataEditor.Control.Wrapper
         Dictionary<int, DataEditor.Control.Event.EventCommand> commands = new  Dictionary<int,Control.Event.EventCommand>();
         List<Control.Event.CommandGroup> groups = new List<Control.Event.CommandGroup>();
         Control.Event.EventCommandChoser choser;
+        Dictionary<int, int> Ranges = new Dictionary<int, int>();
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
@@ -58,58 +59,29 @@ namespace DataEditor.Control.Wrapper
         public override void Bind()
         {
             base.Bind();
+            Control.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             Control.Enter += Control_Enter;
             Control.Leave += Control_Leave;
             Control.DoubleClick += Control_DoubleClick;
-            Control.KeyUp += Control_KeyUp;
-            Control.PreviewKeyDown += Control_PreviewKeyDown;
+            Control.KeyDown += Control_KeyDown;
             Control.SelectedIndexChanged += Control_SelectedIndexChanged;
             Control.ItemGoingDraw = this.ItemGoingDraw;
         }
 
-        int next = -1;
+        void Control_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyData == System.Windows.Forms.Keys.Up) Prev();
+            else if (e.KeyData == System.Windows.Forms.Keys.Down) Next();
+            else if (e.KeyData == System.Windows.Forms.Keys.Space) Change();
+            else if (e.KeyData == System.Windows.Forms.Keys.Enter) Add();
+            e.SuppressKeyPress = true;
+        }
+
         void Control_SelectedIndexChanged(object sender, EventArgs e)
         {
-            next = -1;
-            // 不存在，不检查
-            if (Control.SelectedIndex < 0) { Control.Invalidate(); return; }
-            if (Control.SelectedIndex == Control.Items.Count - 1) { Control.Invalidate(); return; }
-            var target = value[Control.SelectedIndex] as FuzzyData.FuzzyObject;
-            // 抓取信息
-            int indent = GetIndent(target);
-            var model = GetModel(target);
-            // 子节点，不检查
-            if (model.Follow > 0) { Control.Invalidate(); return; }
-            int code = model.Code;
-            next = Control.SelectedIndex;
-            // 始动条件
-            var fellow = value[next + 1] as FuzzyData.FuzzyObject;
-            int sub_indent = GetIndent(fellow);
-            if (sub_indent > indent || GetModel(fellow).Follow == code)
-            {
-                next++;
-                while (next < value.Count)
-                {
-                    fellow = value[next + 1] as FuzzyData.FuzzyObject;
-                    sub_indent = GetIndent(fellow);
-                    if (sub_indent <= indent && GetModel(fellow).Follow != code) break;
-                    next++;
-                }
-            }
-            Control.Invalidate();
+            Control.Invalidate(false);
         }
 
-        
-        void Control_PreviewKeyDown(object sender, System.Windows.Forms.PreviewKeyDownEventArgs e)
-        {
-            if (e.KeyCode == System.Windows.Forms.Keys.Space) e.IsInputKey = false;
-        }
-
-        void Control_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
-        {
-            if (e.KeyData == System.Windows.Forms.Keys.I) Change();
-            else if (e.KeyData == System.Windows.Forms.Keys.Enter) Add();
-        }
         void Control_DoubleClick(object sender, EventArgs e)
         {
             Add();
@@ -145,6 +117,39 @@ namespace DataEditor.Control.Wrapper
                 if (fobj == null) throw new ArgumentNullException();
                 Control.Items.Add(GetText(fobj));
             }
+            BuildRange();
+        }
+
+        protected void BuildRange()
+        {
+            Ranges.Clear();
+            int index = 0;
+            int end;
+            while (index < value.Size)
+            {
+                end = SearchToEnd(index);
+                if (index != end) Ranges.Add(index, end);
+                index++;
+            }
+        }
+
+        protected int SearchToEnd(int index)
+        {
+            var target = value[index] as FuzzyData.FuzzyObject;
+            int code = GetCode(target);
+            int indent = GetIndent(target);
+            if (code == 0) return index; 
+            FuzzyData.FuzzyObject child;
+            EventCommand childmodel;
+            int childindent;
+            while(index < value.Size - 1)
+            {
+                child = value[++index] as FuzzyData.FuzzyObject;
+                childmodel = GetModel(child);
+                childindent = GetIndent(child);
+                if (childmodel.Follow != code && childindent == indent) break;
+            }
+            return index - 1;
         }
 
         public override bool ValueIsChanged()
@@ -187,10 +192,17 @@ namespace DataEditor.Control.Wrapper
         }
         int GetIndent(FuzzyData.FuzzyObject obj)
         {
-            if (obj == null) return 0;
+            if (obj == null) return -1;
             FuzzyData.FuzzyFixnum fix = obj[sub_indent] as FuzzyData.FuzzyFixnum;
-            if (fix == null) return 0;
+            if (fix == null) return -1;
             return Convert.ToInt32(fix.Value);
+        }
+        void SetIndent(FuzzyData.FuzzyObject obj, int value)
+        {
+            if (obj == null) return;
+            FuzzyData.FuzzyFixnum fix = obj[sub_indent] as FuzzyData.FuzzyFixnum;
+            if (fix == null) return;
+            fix.Value = value;
         }
         FuzzyData.FuzzyArray GetParameter(FuzzyData.FuzzyObject obj)
         {
@@ -210,7 +222,14 @@ namespace DataEditor.Control.Wrapper
             if (Control.SelectedIndex < 0) return;
             var value = this.value[index] as FuzzyData.FuzzyObject;
             var command = GetModel(value);
-            Control.UsingFocus = Control.SelectedIndex >= 0 && index > Control.SelectedIndex && index <= next;
+            Control.UsingFocus = false;
+            foreach(int selected in Control.SelectedIndices)
+            {
+                int va = -1;
+                if (Ranges.TryGetValue(selected, out va))
+                    if (index >= selected && index <= va)
+                    { Control.UsingFocus = true; break; }
+            }
             Control.UsingNull = command.Follow >= 0;
             Control.Indent = GetIndent(value);
             Control.ItemColor = command.Color;
@@ -221,12 +240,20 @@ namespace DataEditor.Control.Wrapper
                      Control.AddOnString = commands[command.Follow].Name;
             }
         }
-
+        protected void AddToIndex(EventCommand Type, WrapBaseWindow Window, int Index)
+        {
+            object raw_with = null;
+            if (Type.With != null) raw_with = Type.With.call(Window);
+        }
         public void Add()
         {
+            var index = Control.SelectedIndex;
             if (choser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                // Add in;
+                value.Insert(index, choser.Value);
+                if (choser.With != null) value.InsertRange(index + 1, choser.With);
+                Pull();
+                Control.SelectedIndex = index;
             }
         }
         public void Change()
@@ -234,6 +261,7 @@ namespace DataEditor.Control.Wrapper
             // 获取 Index
             if (Control.SelectedIndex < 0) return;
             int index = Control.SelectedIndex;
+            int origin_index = index;
             // 获取对象
             var target = value[index] as FuzzyData.FuzzyObject;
             var target_parameters = GetParameter(target);
@@ -250,18 +278,61 @@ namespace DataEditor.Control.Wrapper
                 if (Model.Follow != command.Code) break;
                 with.Add(value[index] as FuzzyData.FuzzyObject);
                 if (Model.Parameters == "f" && Special_Text_Index >= 0)
-                    (target_parameters[Special_Text_Index] as FuzzyData.FuzzyString).Text += "\n" + (GetParameter(obj)[0] as FuzzyData.FuzzyString).Text;
+                    (target_parameters[Special_Text_Index] as FuzzyData.FuzzyString).Text += Environment.NewLine + (GetParameter(obj)[0] as FuzzyData.FuzzyString).Text;
             }
+            if (Ranges.ContainsKey(origin_index)) index = Ranges[origin_index];
             // 申请窗口
-            var window = command.ApplicateWindow(target_parameters);
+            var window = command.ApplicateWindow(target_parameters, with);
             if (window == null) return;
             if (window.Show() == System.Windows.Forms.DialogResult.OK)
             {
-
+                IEnumerable<object> NewWith = null;
+                if (command.With != null) 
+                {
+                    NewWith = command.With.call(window, with) as IEnumerable<object>;
+                    Check(NewWith);
+                    if (NewWith != null)
+                    {
+                        value.RemoveRange(origin_index + 1, index - 1);
+                        value.InsertRange(origin_index + 1, NewWith);
+                        Pull();
+                    }
+                }
             }
         }
         public void Erase()
         { 
+        }
+        public void Next()
+        {
+            int i = Control.SelectedIndex;
+            while (i < Control.Items.Count - 1)
+                if (GetModel(value[++i] as FuzzyData.FuzzyObject).Follow < 0)
+                    break;
+            Control.SelectedIndex = i;
+
+        }
+        public void Prev()
+        {
+            int i = Control.SelectedIndex;
+            while (i > 0)
+                if (GetModel(value[--i] as FuzzyData.FuzzyObject).Follow < 0)
+                    break;
+            Control.SelectedIndex = i;
+        }
+        public int Check(IEnumerable<object> Items, int start = 0)
+        {
+            EventCommand command;
+            EventCommand last = null;
+            foreach(object obj in Items)
+            {
+                command = GetModel(obj as FuzzyData.FuzzyObject);
+                if (command == null) continue;
+                start += (last == null ? 0: last.DownIndent) + command.UpIndent;
+                SetIndent(obj as FuzzyData.FuzzyObject, start);
+                last = command;
+            }
+            return start;
         }
     }
 }

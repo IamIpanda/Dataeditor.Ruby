@@ -13,6 +13,7 @@ namespace DataEditor.Control.Wrapper.Event
         public override void Push()
         {
             NowTaint = false;
+            if (value.Value <= 0) value.Value = 1;
         }
         public override void Pull()
         {

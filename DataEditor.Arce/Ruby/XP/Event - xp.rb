@@ -18,11 +18,12 @@ $commands_xp[0] = Command.new(0, -1, "TAB", "空指令", Text.ret(""))
 target_text = Text.new do |parameters, *followings| 
   parameters[0].Text
 end
+
 target_window = Proc.new do |window, commands|
   window = Builder.Add(:dialog_text, {:actual => :INDEX0 })
 end
-target_with = Proc.new do |command|
-  
+target_with = Proc.new do |window, oldwith|
+  $commands_xp[101].SperateText(window.Value, $commands_xp[401])
 end
 $commands_xp[101] = Command.new(101, -1, "MESSAGE", "显示对话", target_text, "t", target_window, target_with, 0, 0)
 
@@ -60,8 +61,35 @@ target_window = Proc.new do |window, commands|
   Builder.Out
   window
 end
-target_with = Proc.new do |command|
-
+target_with = Proc.new do |window, oldwith|
+  window.Value[0].Clear
+  texts = window.SearchChild("metro").SearchChilds("text")
+  radios = window.SearchChild("group").SearchChilds("single_radio")
+  count = 0
+  for i in 1..3
+    count = i if texts[i].Binding.Text != "" 
+  end
+  count = [count, window.Value[1].Value - 1].max
+  puts texts[0].Binding.Text
+  puts texts[0].Binding.Text.GetType.ToString
+  puts FuzzyString.new(texts[i].Binding.Text)
+  for i in 0..count
+    window.Value[0].Add(FuzzyString.new(texts[i].Binding.Text))
+  end
+  ans = []
+  for i in 0..count
+    para = $commands_xp[402].GetStruct
+    para["@parameters"][0].Value = i
+    para["@parameters"][1].Text = FuzzyString.new(texts[i].Binding.Text)
+    ans.push para
+    ans.push $commands_xp[0].GetStruct
+  end
+  if (radios[5].Binding.Checked)
+    ans.push $commands_xp[403].GetStruct
+    ans.push $commands_xp[0].GetStruct
+  end
+  ans.push $commands_xp[404].GetStruct
+  ans
 end
 $commands_xp[102] = Command.new(102, -1, "CHOOSE", "显示选择项", target_text, "ai", target_window, target_with, 0, 0)
 
@@ -161,7 +189,7 @@ target_window = Proc.new do |window, commands|
   Builder.Out
   window
 end
-target_with = Proc.new do |command|
+target_with = Proc.new do |window, oldwith|
 
 end
 $commands_xp[108] = Command.new(108, -1, "REM", "注释", target_text, "t", target_window, target_with, 0, 0)
@@ -414,7 +442,7 @@ $commands_xp[113] = Command.new(113, -1, "LOOP", "中断循环", target_text, ""
 # Parameter : []
 #=================================================================
 target_text = Text.ret("")
-$commands_xp[115] = Command.new(115, -1, "YIELD", "中断事件处理", target_text, "", nil, nil, 0, 0)
+$commands_xp[115] = Command.new(115, -1, "BREAK", "中断事件处理", target_text, "", nil, nil, 0, 0)
 
 #=================================================================
 # Code 116
@@ -423,7 +451,7 @@ $commands_xp[115] = Command.new(115, -1, "YIELD", "中断事件处理", target_t
 # Parameter : []
 #=================================================================
 target_text = Text.ret("")
-$commands_xp[116] = Command.new(116, -1, "ERASE", "暂时消除事件", target_text, "", nil, nil, 0, 0)
+$commands_xp[116] = Command.new(116, -1, "YIELD", "暂时消除事件", target_text, "", nil, nil, 0, 0)
 
 #=================================================================
 # Code 117
@@ -666,10 +694,13 @@ target_text = Text.new do |parameters, *followings|
   end
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-    
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_r) do
+    Builder.Add(:group, {:text => "操作"}) do
+      Builder.Add(:single_radio, {:actual => :INDEX0, :text => "开始", :key => 0, :group => "window_code_124"})
+      Builder.Add(:single_radio, {:actual => :INDEX0, :text => "停止", :key => 1, :group => "window_code_124"})
+    end
+    Builder.Add(:timer, {:actual => :INDEX1, :label => 0})
+  end
 end
 $commands_xp[124] = Command.new(124, -1, "TIMER", "定时器操作", target_text, "ii", target_window, nil, 0, 0)
 
@@ -1071,9 +1102,7 @@ target_text = Text.new do |parameters, *followings|
   "\"#{parameters[0].Text}\""
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_image, {:actual => {:name => :INDEX0}, :path => "Graphics/Transitions"})
 end
 $commands_xp[222] = Command.new(222, -1, "SEGUE", "执行渐变", target_text, "s", target_window, nil, 0, 0)
 
@@ -1322,9 +1351,7 @@ target_text = Text.new do |parameters, *followings|
   Event_Help.audio(parameters[0])
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_audio, {:actual => :INDEX0, :type => "BGM"})
 end
 $commands_xp[241] = Command.new(241, -1, "PLAYBGM", "演奏 BGM", target_text, "d", target_window, nil, 0, 0)
 
@@ -1356,9 +1383,7 @@ target_text = Text.new do |parameters, *followings|
   Event_Help.audio(parameters[0])
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_audio, {:actual => :INDEX0, :type => "BGS"})
 end
 $commands_xp[245] = Command.new(245, -1, "PLAYBGS", "演奏 BGS", target_text, "d", target_window, nil, 0, 0)
 
@@ -1408,9 +1433,7 @@ target_text = Text.new do |parameters, *followings|
   Event_Help.audio(parameters[0])
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_audio, {:actual => :INDEX0, :type => "ME"})
 end
 $commands_xp[249] = Command.new(249, -1, "PLAYME", "演奏 ME", target_text, "d", target_window, nil, 0, 0)
 
@@ -1424,9 +1447,7 @@ target_text = Text.new do |parameters, *followings|
   Event_Help.audio(parameters[0])
 end
 target_window = Proc.new do |window, commands|
-  Builder.In(window)
-  Builder.Out
-  window
+  window = Builder.Add(:dialog_audio, {:actual => :INDEX0, :type => "SE"})
 end
 $commands_xp[250] = Command.new(250, -1, "PLAYSE", "演奏 SE", target_text, "d", target_window, nil, 0, 0)
 
@@ -2019,7 +2040,7 @@ end
 target_window = Proc.new do |window, commands|
   window = Builder.Add(:dialog_text, {:actual => :INDEX0})
 end
-target_with = Proc.new do |command|
+target_with = Proc.new do |window, oldwith|
 
 end
 $commands_xp[355] = Command.new(355, -1, "SHELL", "脚本", target_text, "t", target_window, target_with, 0, 0)
@@ -2041,7 +2062,7 @@ $commands_xp[401] = Command.new(401, 101, "_MESSAGE", "继续显示对话", targ
 target_text = Text.new do |parameters, *followings| 
   "[ " + parameters[1].Text + " ] 的场合".encode
 end
-$commands_xp[402] = Command.new(402, 102, "CHOICE", "选择项", target_text, "is", nil, nil, 0, 1)
+$commands_xp[402] = Command.new(402, 102, "CHOICE", "选择项", target_text, "is", nil, nil, -1, 1)
 #=================================================================
 # Code 403
 #-----------------------------------------------------------------

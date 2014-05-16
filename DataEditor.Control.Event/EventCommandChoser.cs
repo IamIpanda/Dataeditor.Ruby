@@ -26,8 +26,8 @@ namespace DataEditor.Control.Event
 
         protected int code = 0;
         public int Code { get { return code; } }
-        protected FuzzyData.FuzzyArray value;
-        public FuzzyData.FuzzyArray Value { get { return value; } }
+        protected FuzzyData.FuzzyObject value;
+        public FuzzyData.FuzzyObject Value { get { return value; } }
         protected List<FuzzyData.FuzzyObject> with;
         public List<FuzzyData.FuzzyObject> With { get { return with; } }
         private void protoListBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -42,6 +42,7 @@ namespace DataEditor.Control.Event
         }
         private void protoListBox2_DoubleClick(object sender, EventArgs e)
         {
+            this.with = null;
             var command = protoListBox2.SelectedItem as EventCommand;
             if (command == null) return;
             if (command.Window != null)
@@ -51,7 +52,9 @@ namespace DataEditor.Control.Event
                 if (window.Show() == System.Windows.Forms.DialogResult.OK)
                 {
                     this.code = command.Code;
-                    IEnumerable<object> withobj = command.With.call(window.Value) as IEnumerable<object>;
+                    IEnumerable<object> withobj = null;
+                    if (command.With != null)
+                        withobj = command.With.call(window, null) as IEnumerable<object>;
                     if (withobj != null)
                     {
                         this.with = new List<FuzzyData.FuzzyObject>();
@@ -59,7 +62,7 @@ namespace DataEditor.Control.Event
                             if (obj is FuzzyData.FuzzyObject)
                                 this.With.Add(obj as FuzzyData.FuzzyObject);
                     }
-                    this.value = window.Value as FuzzyData.FuzzyArray;
+                    this.value = command.GetStruct(window.Value as FuzzyData.FuzzyArray);
                     this.DialogResult = System.Windows.Forms.DialogResult.OK;
                     this.Close();
                 }

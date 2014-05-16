@@ -73,6 +73,17 @@ namespace DataEditor.Control.Wrapper
             base.SetDefaultArgument();
             argument.SetArgument("type", "SE");
         }
+        public override FuzzyData.FuzzyObject Parent
+        {
+            get
+            {
+                return base.Parent;
+            }
+            set
+            {
+                base.Parent = value;
+            }
+        }
         public override void Reset()
         {
             base.Reset();
@@ -81,6 +92,7 @@ namespace DataEditor.Control.Wrapper
         }
         public override void Pull()
         {
+            if (value == null) return;
             Window.Volume = Convert.ToInt32((value["@volume"] as FuzzyData.FuzzyFixnum).Value);
             Window.Freq = Convert.ToInt32((value["@pitch"] as FuzzyData.FuzzyFixnum).Value);
             Window.FileName = (value["@name"] as FuzzyData.FuzzyString).Text;

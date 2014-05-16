@@ -8,6 +8,7 @@ namespace DataEditor.Control
     {
         public override bool ValueIsChanged() { return false; }
         abstract public System.Windows.Forms.DialogResult Show();
+        public object Tag { get; set; }
     }
     public class WrapBaseWindow<T> : WrapBaseWindow where T : System.Windows.Forms.Form, new()
     {
@@ -22,6 +23,5 @@ namespace DataEditor.Control
         public override System.Windows.Forms.DialogResult Show() { return Window.ShowDialog(); }
         public bool ShowAndTell() { return (Window.ShowDialog() == System.Windows.Forms.DialogResult.OK); }
         public override void SetSize(System.Drawing.Size size) { Window.ClientSize = size; }
-
     }
 }

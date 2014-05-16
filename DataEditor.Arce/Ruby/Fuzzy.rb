@@ -18,3 +18,6 @@ class DataEditor::FuzzyData::FuzzyObject
 		return Marshal.load(str)
 	end
 end
+
+FuzzyString = DataEditor::FuzzyData::FuzzyString
+FuzzyArray = DataEditor::FuzzyData::FuzzyArray

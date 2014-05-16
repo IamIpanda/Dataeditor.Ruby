@@ -30,6 +30,7 @@ namespace DataEditor.Control.Window
         public class WrapWindowWithRightOK<T> : WrapBaseWindow<T> where T : WindowWithRightOK, new()
         {
             protected FuzzyData.FuzzyObject origin;
+            protected bool SetByParent = true;
             public override System.Windows.Forms.Control.ControlCollection Controls
             { get { return this.Window.pnMain.Controls; } }
             public override int end_y { get { return 12; } }
@@ -39,8 +40,19 @@ namespace DataEditor.Control.Window
                 get { return origin; }
                 set
                 {
+                    SetByParent = false;
                     origin = value.Clone() as FuzzyData.FuzzyObject;
                     base.Value = value;
+                }
+            }
+            public override FuzzyData.FuzzyObject Parent
+            {
+                get { return origin; }
+                set
+                {
+                    SetByParent = true;
+                    origin = value.Clone() as FuzzyData.FuzzyObject;
+                    base.Parent = value;
                 }
             }
             public override void Bind()
@@ -54,7 +66,10 @@ namespace DataEditor.Control.Window
                 if (form == null) return;
                 FuzzyData.FuzzyObject temp;
                 if (form.DialogResult == DialogResult.Cancel)
-                    temp = base.Value & origin;
+                    if (SetByParent)
+                        temp = base.Parent & origin;
+                    else
+                        temp = base.Value & origin;
             }
         }
         public class ApplicationRightWindow : WrapWindowWithRightOK<WindowWithRightOK>

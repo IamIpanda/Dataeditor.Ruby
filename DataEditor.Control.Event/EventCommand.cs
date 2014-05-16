@@ -46,6 +46,8 @@ namespace DataEditor.Control.Event
                 switch (t)
                 {
                     case 'i': ans.Add(new FuzzyData.FuzzyFixnum(0)); break; // int
+                    case 't':
+                    case 'f':
                     case 's': ans.Add(new FuzzyData.FuzzyString("")); break; // text or string or follow
                     case 'a': ans.Add(new FuzzyData.FuzzyArray()); break; // array
                     case 'b': ans.Add(FuzzyData.FuzzyBool.False); break; // bool
@@ -89,34 +91,49 @@ namespace DataEditor.Control.Event
             }
             set { model = value; }
         }
-        public WrapBaseWindow ApplicateWindow(FuzzyData.FuzzyArray paras = null)
+        public WrapBaseWindow ApplicateWindow(FuzzyData.FuzzyArray paras = null, IEnumerable<FuzzyData.FuzzyObject> with = null)
         {
             if (Window == null) return null;
             if (paras == null) paras = Model;
             DataEditor.Control.WrapBaseWindow window;
             window = new DataEditor.Control.Window.WindowWithOK.WrapWindowWithOK<DataEditor.Control.Window.WindowWithOK>();
+            if (with != null) window.Tag = with;
             window = Window.call(window, paras) as WrapBaseWindow;
             if (window != null)
             {
-                window.Value = paras;
+                window.Parent = paras;
                 window.Binding.Text = Name;
             }
             return window;
         }
-        static public List<FuzzyData.FuzzyObject> SperateText(string Text, EventCommand Follow, int FollowIndex = 0,
+        static public FuzzyData.FuzzySymbol ClassName = FuzzyData.FuzzySymbol.GetSymbol("RPG::Event::EventCommand");
+        static public FuzzyData.FuzzySymbol CodeSymbol =FuzzyData.FuzzySymbol.GetSymbol("@code");
+        static public FuzzyData.FuzzySymbol IndentSymbol = FuzzyData.FuzzySymbol.GetSymbol("@indent");
+        static public FuzzyData.FuzzySymbol ParametersSymbol = FuzzyData.FuzzySymbol.GetSymbol("@parameters");
+        public FuzzyData.FuzzyObject GetStruct(FuzzyData.FuzzyArray parameter = null)
+        {
+            FuzzyData.FuzzyObject ans = new FuzzyData.FuzzyObject();
+            ans.ClassName = ClassName;
+            ans.InstanceVariables.Add(CodeSymbol, new FuzzyData.FuzzyFixnum(Code));
+            ans.InstanceVariables.Add(IndentSymbol, new FuzzyData.FuzzyFixnum(0));
+            ans.InstanceVariables.Add(ParametersSymbol, parameter ?? GetParameter());
+            return ans;
+        }
+        public List<FuzzyData.FuzzyObject> SperateText(FuzzyData.FuzzyString Text, EventCommand Follow, int FollowIndex = 0,
             FuzzyData.FuzzySymbol sub_code = null, FuzzyData.FuzzySymbol sub_parameters = null, FuzzyData.FuzzySymbol sub_class_name = null)
         {
             var ans = new List<FuzzyData.FuzzyObject>();
-            string[] texts = Text.Split('\n');
+            string[] texts = Text.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            Text.Text = texts[0];
             FuzzyData.FuzzyObject obj;
+            bool isFirst = true;
             foreach (string text in texts)
             {
-                obj = new FuzzyData.FuzzyObject();;
-                if (sub_class_name != null) obj.ClassName = sub_class_name;
-                if (sub_code != null) obj.InstanceVariables.Add(sub_code, new FuzzyData.FuzzyFixnum(Follow.Code));
-                FuzzyData.FuzzyArray arr = Follow.GetParameter();
+                if (isFirst) { isFirst = false; continue; }
+                obj = Follow.GetStruct();
+                var arr = obj[ParametersSymbol] as FuzzyData.FuzzyArray;
                 arr[FollowIndex] = new FuzzyData.FuzzyString(text);
-                if (sub_parameters != null) obj.InstanceVariables.Add(sub_parameters, arr);
+                ans.Add(obj);
             }
             return ans;
         }

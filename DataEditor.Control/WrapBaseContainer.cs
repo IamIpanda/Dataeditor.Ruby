@@ -57,7 +57,24 @@ namespace DataEditor.Control
             else
                 Binding.ClientSize = size;
         }
-        
+        public Control.ObjectEditor SearchChild(string Flag, int index = 0)
+        {
+            foreach (System.Windows.Forms.Control control in Controls)
+                if (control.Tag != null && control.Tag is ObjectEditor)
+                    if ((control.Tag as ObjectEditor).Flag == Flag)
+                        if (index <= 0) return control.Tag as ObjectEditor;
+                        else index -= 1;
+            return null;
+        }
+        public List<Control.ObjectEditor> SearchChilds(string Flag)
+        {
+            List<Control.ObjectEditor> ans = new List<ObjectEditor>();
+            foreach (System.Windows.Forms.Control control in Controls)
+                if (control.Tag != null && control.Tag is ObjectEditor)
+                    if ((control.Tag as ObjectEditor).Flag == Flag)
+                        ans.Add(control.Tag as ObjectEditor);
+            return ans;
+        }
     }
     public abstract class WrapControlContainer<TControl> : WrapBaseContainer
         where TControl : System.Windows.Forms.Control, new()

@@ -11,14 +11,17 @@ namespace DataEditor.Control.Wrapper
         public override void Bind() { Binding = control; }
         public override void Push()
         {
+            if (value == null) return;
             value.Text = control.Text;
         }
         public override void Pull()
         {
+            if (value == null) return;
             control.Text = value.Text;
         }
         public override bool ValueIsChanged()
         {
+            if (value == null) return false;
             return control.Text != value.Text;
         }
     }

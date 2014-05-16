@@ -58,7 +58,7 @@ namespace DataEditor.Control.Prototype
             }
         }
 
-        protected bool GetFocused(DrawItemState state)
+        protected virtual bool GetFocused(DrawItemState state)
         {
             if (DisappearRectLosingFocus)
                 return (state & DrawItemState.Focus) != 0;

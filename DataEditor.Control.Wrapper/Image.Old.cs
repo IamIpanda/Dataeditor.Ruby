@@ -59,4 +59,44 @@ namespace DataEditor.Control.Wrapper
             return NowTaint;
         }
     }
+    public class Image_Window : Window.WrapAnyWindow<Image_Choser>
+    {
+        string path;
+        public override string Flag { get { return "dialog_image"; } }
+        protected override void SetDefaultArgument()
+        {
+            base.SetDefaultArgument();
+            argument.SetArgument("path", "Graphics/characters", Help.Parameter.ArgumentType.Option);
+        }
+        public override void Pull()
+        {
+            var complex = value as FuzzyData.FuzzyComplex;
+            if (complex == null) { return; }
+            Image.SplitManager split = new Image.SplitManager();
+            split.Main.Add("", new Help.Parameter.Split(Help.Parameter.Split.SplitType.Count, 1, Help.Parameter.Split.SplitType.Count, 1));
+            Window.Split = split;
+            Window.Show = split;
+            Window.Path = path;
+            var name = complex["name"] as FuzzyData.FuzzyString;
+            var hue = complex["hue"] as FuzzyData.FuzzyFixnum;
+            Window.FileName = name.Text;
+            // TODO : Finish HUE.
+            if (hue != null) { }
+        }
+        public override void Push()
+        {
+            base.Push();
+            var complex = value as FuzzyData.FuzzyComplex;
+            if (complex == null) { return; }
+            var name = complex["name"] as FuzzyData.FuzzyString;
+            var hue = complex["hue"] as FuzzyData.FuzzyFixnum;
+            name.Text = Window.FileName;
+            if (hue != null) { }
+        }
+        public override void Reset()
+        {
+            path = argument.GetArgument<string>("path");
+            base.Reset();
+        }
+    }
 }

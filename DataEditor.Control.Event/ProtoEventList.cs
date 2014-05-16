@@ -48,6 +48,10 @@ namespace DataEditor.Control.Prototype
                     (base.GetFocused(e.State) || UsingFocus) ? ForeBrushOnFocus : ForeBrush, pos);
             }
         }
+        protected override bool GetFocused(DrawItemState state)
+        {
+            return base.GetFocused(state);
+        }
         public ProtoEventList()
         {
 

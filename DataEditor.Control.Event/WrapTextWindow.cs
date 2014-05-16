@@ -8,9 +8,15 @@ namespace DataEditor.Control.Event
     public class WrapTextWindow : Window.WrapAnyWindow<Prototype.ProtoLinedPaperDialog>
     {
         public override string Flag { get { return "dialog_text"; } }
-        protected override void OnValueChanged()
+        public override void Pull()
         {
-            Window.Value = base.value.ToString();
+            var ans = value.ToString();
+            Window.Value = ans;
+        }
+        public override void Push()
+        {
+            if (value is FuzzyData.FuzzyString)
+                (value as FuzzyData.FuzzyString).Text = Window.Value;
         }
     }
 }

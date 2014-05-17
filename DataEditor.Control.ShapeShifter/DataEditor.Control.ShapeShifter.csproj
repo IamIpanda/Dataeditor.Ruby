@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileChoser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FileChoser.Designer.cs">
+      <DependentUpon>FileChoser.cs</DependentUpon>
+    </Compile>
     <Compile Include="ObjectChecker.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +99,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FileChoser.resx">
+      <DependentUpon>FileChoser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ObjectChecker.resx">
       <DependentUpon>ObjectChecker.cs</DependentUpon>
     </EmbeddedResource>

@@ -59,7 +59,7 @@ namespace DataEditor.Control.Wrapper
         public override void Bind()
         {
             base.Bind();
-            Control.SelectionMode = System.Windows.Forms.SelectionMode.One;
+            Control.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             Control.Enter += Control_Enter;
             Control.Leave += Control_Leave;
             Control.DoubleClick += Control_DoubleClick;
@@ -110,6 +110,7 @@ namespace DataEditor.Control.Wrapper
 
         public override void Pull()
         {
+            Control.BeginUpdate();
             Control.Items.Clear();
             foreach (var obj in value)
             {
@@ -117,6 +118,7 @@ namespace DataEditor.Control.Wrapper
                 if (fobj == null) throw new ArgumentNullException();
                 Control.Items.Add(GetText(fobj));
             }
+            Control.EndUpdate();
             BuildRange();
         }
 
@@ -219,7 +221,7 @@ namespace DataEditor.Control.Wrapper
         }
         void ItemGoingDraw(int index)
         {
-            if (Control.SelectedIndex < 0) return;
+            //if (Control.SelectedIndices.Count == 0) return;
             var value = this.value[index] as FuzzyData.FuzzyObject;
             var command = GetModel(value);
             Control.UsingFocus = false;
@@ -301,24 +303,32 @@ namespace DataEditor.Control.Wrapper
             }
         }
         public void Erase()
-        { 
+        {
+ 
         }
         public void Next()
         {
+            Control.BeginUpdate();
             int i = Control.SelectedIndex;
             while (i < Control.Items.Count - 1)
                 if (GetModel(value[++i] as FuzzyData.FuzzyObject).Follow < 0)
                     break;
-            Control.SelectedIndex = i;
+            Control.SelectedIndices.Clear();
+            Control.SetSelected(i, true);
+            Control.EndUpdate();
 
         }
         public void Prev()
         {
+            Control.BeginUpdate();
             int i = Control.SelectedIndex;
             while (i > 0)
                 if (GetModel(value[--i] as FuzzyData.FuzzyObject).Follow < 0)
                     break;
-            Control.SelectedIndex = i;
+            Control.SelectedIndices.Clear();
+            Control.SetSelected(i, true);
+            Control.EndUpdate();
+            
         }
         public int Check(IEnumerable<object> Items, int start = 0)
         {

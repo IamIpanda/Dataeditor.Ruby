@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
+    <Compile Include="Bash.cs" />
     <Compile Include="Calculator.cs" />
     <Compile Include="Complex.cs" />
     <Compile Include="Data.cs" />

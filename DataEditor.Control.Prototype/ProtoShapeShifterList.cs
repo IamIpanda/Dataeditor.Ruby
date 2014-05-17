@@ -43,54 +43,64 @@ namespace DataEditor.Control.Prototype
         public event EventHandler ValueChanged;
         public event EventHandler ContainerChanged;
         protected Stack<object> loading = new Stack<object>();
-        protected virtual TreeNode RealizeObject(FuzzyData.FuzzyObject obj, string prefix = "")
+        protected StringBuilder stb = new StringBuilder();
+        protected virtual TreeNode RealizeObject(FuzzyData.FuzzyObject obj, string prefix = "", string name = "")
         {
             if (obj == null) return null;
             else if (loading.Contains(obj)) return RealizeCircle(obj, prefix);
-            else if (obj is FuzzyData.FuzzyArray) return RealizeArray(obj as FuzzyData.FuzzyArray, prefix);
-            else if (obj is FuzzyData.FuzzyHash) return RealizeHash(obj as FuzzyData.FuzzyHash, prefix);
+            else if (obj is FuzzyData.FuzzyArray) return RealizeArray(obj as FuzzyData.FuzzyArray, prefix, name);
+            else if (obj is FuzzyData.FuzzyHash) return RealizeHash(obj as FuzzyData.FuzzyHash, prefix, name);
             else if (obj.GetType() != typeof(FuzzyData.FuzzyObject)) return null;
             var ans = new TreeNode();
             ans.Text = prefix + (prefix == "" ? "" : ":") + "[" + obj.ClassName.Name + "]";
             loading.Push(obj);
-            foreach(var key in obj.InstanceVariables.Keys)
+            stb.Append(name);
+            foreach (var key in obj.InstanceVariables.Keys)
             {
-                var node = RealizeObject(obj[key] as FuzzyData.FuzzyObject, key.Name);
+                var node = RealizeObject(obj[key] as FuzzyData.FuzzyObject, key.Name, "." + key.Name.Substring(1));
                 if (node != null) ans.Nodes.Add(node);
             }
             ans.Tag = obj;
+            ans.Name = stb.ToString();
             loading.Pop();
+            stb.Remove(stb.Length - name.Length, name.Length);
             return ans;
         }
-        protected virtual TreeNode RealizeArray(FuzzyData.FuzzyArray obj, string prefix = "")
+        protected virtual TreeNode RealizeArray(FuzzyData.FuzzyArray obj, string prefix = "", string name = "")
         {
             loading.Push(obj);
+            stb.Append(name);
             var ans = new TreeNode();
             ans.Text = prefix + (prefix == "" ? "" : ":") + "[Array:" + obj.Count + "]";
             for(int i = 0; i < obj.Count; i++)
             {
-                var node = RealizeObject(obj[i] as FuzzyData.FuzzyObject, "[" + i.ToString() + "]");
+                var node = RealizeObject(obj[i] as FuzzyData.FuzzyObject, "[" + i.ToString() + "]", "[" + i.ToString() + "]");
                 if (node != null) ans.Nodes.Add(node);
             }
             ans.Tag = obj;
+            ans.Name = stb.ToString();
             loading.Pop();
+            stb.Remove(stb.Length - name.Length, name.Length);
             return ans;
         }
-        protected virtual TreeNode RealizeHash(FuzzyData.FuzzyHash obj, string prefix = "")
+        protected virtual TreeNode RealizeHash(FuzzyData.FuzzyHash obj, string prefix = "", string name = "")
         {
             loading.Push(obj);
+            stb.Append(name);
             var ans = new TreeNode();
             ans.Text = prefix + (prefix == "" ? "" : ":") + "[Hash:" + obj.Count + "]";
             int count = 0;
-            foreach(var key in obj.Keys)
+            foreach (var key in obj.Keys)
             {
-                var nodeKey = RealizeObject(key as FuzzyData.FuzzyObject, "Key["+count.ToString() +"]");
-                var nodeValue = RealizeObject(obj[key] as FuzzyData.FuzzyObject, "Value[" + count.ToString() + "]");
+                var nodeKey = RealizeObject(key as FuzzyData.FuzzyObject, "Key[" + count.ToString() + "]", ".Keys[" + count.ToString() + "]");
+                var nodeValue = RealizeObject(obj[key] as FuzzyData.FuzzyObject, "Value[" + count.ToString() + "]", ".Values[" + count.ToString() + "]");
                 if (nodeKey != null) ans.Nodes.Add(nodeKey);
                 if (nodeValue != null) ans.Nodes.Add(nodeValue);
             }
             ans.Tag = obj;
+            ans.Name = stb.ToString();
             loading.Pop();
+            stb.Remove(stb.Length - name.Length, name.Length);
             return ans;
         }
         protected virtual TreeNode RealizeCircle(FuzzyData.FuzzyObject obj, string prefix = "")
@@ -109,6 +119,10 @@ namespace DataEditor.Control.Prototype
             foreach (TreeNode child in new_node.Nodes)
                 node.Nodes.Add(child);
         }
+        public string SelectedPath
+        {
+            get { return SelectedNode == null ? "" : SelectedNode.Name; }
+        }
     }
     public class ProtoShapeShifterData : ProtoShapeShifterList
     {
@@ -116,13 +130,13 @@ namespace DataEditor.Control.Prototype
         {
             foreach (var name in Help.Data.Instance.Names)
             {
-                var node = RealizeObject(Help.Data.Instance[name], name);
+                var node = RealizeObject(Help.Data.Instance[name], name, "Data[" + name + "]");
                 if (node != null)
                     this.Nodes.Add(node);
             }
             foreach(var key in Help.Data.Instance.Map.Keys)
             {
-                var node = RealizeObject(Help.Data.Instance[key], "map[" + key.ToString() + "]");
+                var node = RealizeObject(Help.Data.Instance[key], "Map[" + key.ToString() + "]", "Map[" + key.ToString() + "]");
                 if (node != null)
                     this.Nodes.Add(node);
             }

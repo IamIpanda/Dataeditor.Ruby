@@ -55,6 +55,12 @@
     </Compile>
     <Compile Include="Interpreter.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Search.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Search.Designer.cs">
+      <DependentUpon>Search.cs</DependentUpon>
+    </Compile>
     <Compile Include="ShapeShifterDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ObjectChecker.resx">
       <DependentUpon>ObjectChecker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Search.resx">
+      <DependentUpon>Search.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ShapeShifter.resx">
       <DependentUpon>ShapeShifter.cs</DependentUpon>

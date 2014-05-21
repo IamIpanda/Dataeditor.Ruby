@@ -44,7 +44,6 @@ namespace DataEditor.Help
         public static Parameter RubyStructToParameter(this DataEditor.Help.Parameter parameter, IronRuby.Builtins.RubyStruct target)
         {
             Parameter child = new Parameter();
-            child.Unreliable = true;
             int count = 0;
             foreach (var name in target.GetNames())
                 child.Arguments.Add(name.ToUpper(), RubyCheckValue(parameter, target.Values[count++]));

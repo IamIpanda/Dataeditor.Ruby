@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.protoShapeShifterData1 = new DataEditor.Control.Prototype.ProtoShapeShifterData();
-            this.protoShapeShifterValue1 = new DataEditor.Control.Prototype.ProtoShapeShifterValue();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -60,38 +58,14 @@
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.protoShapeShifterData1 = new DataEditor.Control.Prototype.ProtoShapeShifterData();
+            this.protoShapeShifterValue1 = new DataEditor.Control.Prototype.ProtoShapeShifterValue();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // protoShapeShifterData1
-            // 
-            this.protoShapeShifterData1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.protoShapeShifterData1.Location = new System.Drawing.Point(0, 0);
-            this.protoShapeShifterData1.Name = "protoShapeShifterData1";
-            this.protoShapeShifterData1.Size = new System.Drawing.Size(283, 446);
-            this.protoShapeShifterData1.TabIndex = 0;
-            this.protoShapeShifterData1.ValueChanged += new System.EventHandler(this.protoShapeShifterData1_ValueChanged);
-            // 
-            // protoShapeShifterValue1
-            // 
-            this.protoShapeShifterValue1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.protoShapeShifterValue1.FullRowSelect = true;
-            this.protoShapeShifterValue1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.protoShapeShifterValue1.Location = new System.Drawing.Point(0, 0);
-            this.protoShapeShifterValue1.MultiSelect = false;
-            this.protoShapeShifterValue1.Name = "protoShapeShifterValue1";
-            this.protoShapeShifterValue1.OwnerDraw = true;
-            this.protoShapeShifterValue1.ReadOnly = false;
-            this.protoShapeShifterValue1.Size = new System.Drawing.Size(563, 446);
-            this.protoShapeShifterValue1.TabIndex = 0;
-            this.protoShapeShifterValue1.UseCompatibleStateImageBehavior = false;
-            this.protoShapeShifterValue1.Value = null;
-            this.protoShapeShifterValue1.View = System.Windows.Forms.View.Details;
-            this.protoShapeShifterValue1.SelectedValueChanged += new System.EventHandler(this.protoShapeShifterValue1_SelectedValueChanged);
             // 
             // statusStrip1
             // 
@@ -100,6 +74,7 @@
             this.statusStrip1.Location = new System.Drawing.Point(0, 576);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(970, 22);
+            this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -215,6 +190,7 @@
             this.删除ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.删除ToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.删除ToolStripMenuItem.Text = "删除";
+            this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -227,6 +203,7 @@
             this.复制名称ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.复制名称ToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.复制名称ToolStripMenuItem.Text = "复制名称";
+            this.复制名称ToolStripMenuItem.Click += new System.EventHandler(this.复制名称ToolStripMenuItem_Click);
             // 
             // 改为链接ToolStripMenuItem
             // 
@@ -246,6 +223,7 @@
             this.执行代码ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.执行代码ToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.执行代码ToolStripMenuItem.Text = "执行代码";
+            this.执行代码ToolStripMenuItem.Click += new System.EventHandler(this.执行代码ToolStripMenuItem_Click);
             // 
             // 查看ToolStripMenuItem
             // 
@@ -278,6 +256,7 @@
             this.拆分ToolStripMenuItem.Name = "拆分ToolStripMenuItem";
             this.拆分ToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.拆分ToolStripMenuItem.Text = "拆分(&D)";
+            this.拆分ToolStripMenuItem.Click += new System.EventHandler(this.拆分ToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -307,7 +286,8 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Location = new System.Drawing.Point(0, 27);
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -317,18 +297,43 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.protoShapeShifterValue1);
-            this.splitContainer1.Size = new System.Drawing.Size(850, 446);
-            this.splitContainer1.SplitterDistance = 283;
-            this.splitContainer1.TabIndex = 0;
+            this.splitContainer1.Size = new System.Drawing.Size(970, 552);
+            this.splitContainer1.SplitterDistance = 322;
+            this.splitContainer1.TabIndex = 4;
+            // 
+            // protoShapeShifterData1
+            // 
+            this.protoShapeShifterData1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.protoShapeShifterData1.Location = new System.Drawing.Point(0, 0);
+            this.protoShapeShifterData1.Name = "protoShapeShifterData1";
+            this.protoShapeShifterData1.Size = new System.Drawing.Size(322, 552);
+            this.protoShapeShifterData1.TabIndex = 0;
+            this.protoShapeShifterData1.ValueChanged += new System.EventHandler(this.protoShapeShifterData1_ValueChanged);
+            // 
+            // protoShapeShifterValue1
+            // 
+            this.protoShapeShifterValue1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.protoShapeShifterValue1.FullRowSelect = true;
+            this.protoShapeShifterValue1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.protoShapeShifterValue1.Location = new System.Drawing.Point(0, 0);
+            this.protoShapeShifterValue1.MultiSelect = false;
+            this.protoShapeShifterValue1.Name = "protoShapeShifterValue1";
+            this.protoShapeShifterValue1.OwnerDraw = true;
+            this.protoShapeShifterValue1.ReadOnly = false;
+            this.protoShapeShifterValue1.Size = new System.Drawing.Size(644, 552);
+            this.protoShapeShifterValue1.TabIndex = 0;
+            this.protoShapeShifterValue1.UseCompatibleStateImageBehavior = false;
+            this.protoShapeShifterValue1.Value = null;
+            this.protoShapeShifterValue1.View = System.Windows.Forms.View.Details;
             // 
             // ShapeShifter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(970, 598);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.splitContainer1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ShapeShifter";
             this.Text = "通用编辑器";
@@ -347,9 +352,6 @@
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private Prototype.ProtoShapeShifterData protoShapeShifterData1;
-        private Prototype.ProtoShapeShifterValue protoShapeShifterValue1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.MenuStrip menuStrip1;
@@ -378,5 +380,8 @@
         private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private Prototype.ProtoShapeShifterData protoShapeShifterData1;
+        private Prototype.ProtoShapeShifterValue protoShapeShifterValue1;
     }
 }

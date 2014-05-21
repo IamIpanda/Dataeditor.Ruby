@@ -24,34 +24,41 @@ namespace DataEditor.Help
         public Dictionary<string, object> Arguments { get; set; }
         protected Dictionary<string, object> Defaults { get; set; }
         protected Dictionary<string, ArgumentType> Types = new Dictionary<string, ArgumentType>();
-        public bool Unreliable { get; set; }
         public Parameter()
         {
             Defaults = new Dictionary<string, object>();
             Arguments = new Dictionary<string, object>();
-            Unreliable = false;
         }
         public T GetArgument<T>(string key)
         {
             key = key.ToUpper();
             ArgumentType type = ArgumentType.Option;
-            if (!Unreliable)
-                if (Types.TryGetValue(key, out type) == false)
-                    Help.Log.log("程序正在试图请求一个未被设定的参数值：" + key);
+            if (Types.TryGetValue(key, out type) == false)
+                Help.Log.log("程序正在试图请求一个未被设定的参数值：" + key);
             object ob = null;
             Arguments.TryGetValue(key, out ob);
             if (ob != null)
             {
-                if (!Unreliable && type == ArgumentType.HardlyEver) 
+                if (type == ArgumentType.HardlyEver)
                     Help.Log.log("程序正在试图修改一个不被推荐的值 " + key);
                 if (ob is T) return (T)ob;
                 else Help.Log.log("程序在正在请求" + key + ":" + typeof(T).ToString() + " 但获得了一个" + ob.GetType().ToString());
             }
-            if (!Unreliable)
-                 if (type == ArgumentType.Must) Help.Log.log("未提供参数 " + key + "，程序将返回一个不可靠的值");
+            if (type == ArgumentType.Must) Help.Log.log("未提供参数 " + key + "，程序将返回一个不可靠的值");
             Defaults.TryGetValue(key, out ob);
             if (ob is T) return (T)ob;
             return default(T);
+        }
+        public bool TryGetArgument<T>(string key, out T value)
+        {
+            value = default(T);
+            key = key.ToUpper();
+            object ob = null;
+            Arguments.TryGetValue(key, out ob);
+            if (ob is T) { value = (T)ob; return true; }
+            Defaults.TryGetValue(key, out ob);
+            if (ob is T) { value = (T)ob; return true; }
+            return false;
         }
 
         public enum ArgumentType { Must, Option, HardlyEver }

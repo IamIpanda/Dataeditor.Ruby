@@ -31,7 +31,7 @@ namespace DataEditor.Control.ShapeShifter
 
 namespace DataEditor.Help
 {
-    public class ShapeShofter
+    public class ShapeShifter
     {
         public static void ShowObject(FuzzyData.FuzzyObject obj,string text = "ans")
         {

@@ -61,6 +61,7 @@
     <Compile Include="OutLink\SelectWindow.Designer.cs">
       <DependentUpon>SelectWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Search.cs" />
     <Compile Include="Serialization.cs" />
   </ItemGroup>
   <ItemGroup>

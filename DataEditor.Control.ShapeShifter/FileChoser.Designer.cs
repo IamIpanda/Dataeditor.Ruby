@@ -30,7 +30,7 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.protoShapeShifterData1 = new DataEditor.Control.Prototype.ProtoShapeShifterData();
+            this.protoShapeShifterData1 = new DataEditor.Control.Prototype.ProtoShapeShifterFullList();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,7 +46,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(289, 497);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(289, 387);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // textBox1
@@ -62,8 +62,9 @@
             this.protoShapeShifterData1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.protoShapeShifterData1.Location = new System.Drawing.Point(3, 31);
             this.protoShapeShifterData1.Name = "protoShapeShifterData1";
-            this.protoShapeShifterData1.Size = new System.Drawing.Size(283, 463);
+            this.protoShapeShifterData1.Size = new System.Drawing.Size(283, 353);
             this.protoShapeShifterData1.TabIndex = 1;
+            this.protoShapeShifterData1.ValueChanged += new System.EventHandler(this.protoShapeShifterData1_ValueChanged);
             // 
             // FileChoser
             // 
@@ -71,7 +72,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "FileChoser";
-            this.Size = new System.Drawing.Size(289, 497);
+            this.Size = new System.Drawing.Size(289, 387);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -82,6 +83,6 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox textBox1;
-        private ProtoShapeShifterData protoShapeShifterData1;
+        private ProtoShapeShifterFullList protoShapeShifterData1;
     }
 }

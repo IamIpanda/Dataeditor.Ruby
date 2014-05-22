@@ -64,7 +64,7 @@ namespace DataEditor.Control.ShapeShifter
             if (protoShapeShifterData1.Focused)
                 Clipboard.SetText(protoShapeShifterData1.SelectedNode.Text);
             else if (protoShapeShifterData1.Focused)
-            { }
+                Clipboard.SetText(protoShapeShifterValue1.SelectedItems[0].Text);
         }
 
         private void 执行代码ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -76,6 +76,50 @@ namespace DataEditor.Control.ShapeShifter
                 if (ans != null && ans is FuzzyData.FuzzyObject)
                     Help.ShapeShifter.ShowObject(ans as FuzzyData.FuzzyObject, "执行结果");
             }
+        }
+
+        TargetSelect ts = null;
+        private void 改为链接ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ts == null) ts = new TargetSelect();
+            if (ts.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (protoShapeShifterData1.Focused)
+                {
+                }
+                else if (protoShapeShifterValue1.Focused)
+                { }
+        }
+
+        Search s = null;
+        protected IEnumerator<FuzzyData.FuzzyObject> LastSearch = null;
+        private void 查找ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (s == null) s = new Search();
+            if (s.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                LastSearch = Help.Finder.Search(s.Option);
+                查找下一项ToolStripMenuItem_Click(sender, e);
+            }
+        }
+
+        private void 查找下一项ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LastSearch == null) return;
+            if (LastSearch.MoveNext())
+            {
+                var target = LastSearch.Current;
+
+            }
+        }
+
+        private void 插入ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void 编辑ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            查找下一项ToolStripMenuItem.Enabled = !(LastSearch == null);
         }
     }
 }

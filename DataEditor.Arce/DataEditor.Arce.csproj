@@ -94,6 +94,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangeInWaveDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeInWaveDialog.Designer.cs">
+      <DependentUpon>ChangeInWaveDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Engine.cs" />
     <Compile Include="Lead.cs">
       <SubType>Form</SubType>
@@ -109,6 +115,9 @@
     <Compile Include="Titan.Designer.cs">
       <DependentUpon>Titan.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ChangeInWaveDialog.resx">
+      <DependentUpon>ChangeInWaveDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Lead.resx">
       <DependentUpon>Lead.cs</DependentUpon>
     </EmbeddedResource>

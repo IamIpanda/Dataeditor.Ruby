@@ -143,4 +143,35 @@ namespace DataEditor.Control.Prototype
         }
         protected override void OnContainerChanged() { }
     }
+    public class ProtoShapeShifterFullList : ProtoShapeShifterData
+    {
+        protected override TreeNode RealizeObject(FuzzyData.FuzzyObject obj, string prefix = "", string name = "")
+        {
+            if (obj == null) return null;
+            else if (loading.Contains(obj)) return RealizeCircle(obj, prefix);
+            else if (obj is FuzzyData.FuzzyArray) return RealizeArray(obj as FuzzyData.FuzzyArray, prefix, name);
+            else if (obj is FuzzyData.FuzzyHash) return RealizeHash(obj as FuzzyData.FuzzyHash, prefix, name);
+            var ans = new TreeNode();
+            ans.Text = prefix + (prefix == "" ? "" : ":") + "[" + obj.ClassName.Name + "]";
+            if (obj.GetType() != typeof(FuzzyData.FuzzyObject))
+            {
+                string extra = obj.ToString();
+                if (extra.Length >= 20)
+                    extra = extra.Substring(0, 19) + "...";
+                ans.Text += extra;
+            }
+            loading.Push(obj);
+            stb.Append(name);
+            foreach (var key in obj.InstanceVariables.Keys)
+            {
+                var node = RealizeObject(obj[key] as FuzzyData.FuzzyObject, key.Name, "." + key.Name.Substring(1));
+                if (node != null) ans.Nodes.Add(node);
+            }
+            ans.Tag = obj;
+            ans.Name = stb.ToString();
+            loading.Pop();
+            stb.Remove(stb.Length - name.Length, name.Length);
+            return ans;
+        }
+    }
 }

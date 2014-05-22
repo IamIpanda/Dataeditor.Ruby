@@ -21,9 +21,10 @@ namespace DataEditor.Help
         static public FuzzyData.FuzzyObject Search(string target, bool name = true, bool value = true)
         {
             var x = Search(new SearchOption(target, name, value));
-            return x.GetEnumerator().Current;
+            return x.Current;
         }
-        static public IEnumerable<FuzzyData.FuzzyObject> Search(SearchOption option)
+
+        static public IEnumerator<FuzzyData.FuzzyObject> Search(SearchOption option)
         {
             List<FuzzyData.FuzzyObject> all = new List<FuzzyObject>();
             foreach (var name in Data.Instance.Names) all.Add(Data.Instance[name]);

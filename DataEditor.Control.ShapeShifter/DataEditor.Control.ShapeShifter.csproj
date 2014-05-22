@@ -77,6 +77,12 @@
     <Compile Include="ProtoShapShifterValue.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="TargetSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TargetSelect.Designer.cs">
+      <DependentUpon>TargetSelect.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">
@@ -119,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ShapeShifterDialog.resx">
       <DependentUpon>ShapeShifterDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TargetSelect.resx">
+      <DependentUpon>TargetSelect.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

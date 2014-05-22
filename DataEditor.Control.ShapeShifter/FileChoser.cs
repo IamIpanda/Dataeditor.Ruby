@@ -15,6 +15,12 @@ namespace DataEditor.Control.Prototype
         public FileChoser()
         {
             InitializeComponent();
+            protoShapeShifterData1.Load();
+        }
+
+        private void protoShapeShifterData1_ValueChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = protoShapeShifterData1.SelectedNode.Name;
         }
     }
 }

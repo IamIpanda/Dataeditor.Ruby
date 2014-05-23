@@ -39,6 +39,7 @@ namespace DataEditor.Control.ShapeShifter
 
         private void 刷新ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            protoShapeShifterData1.Nodes.Clear();
             protoShapeShifterData1.Load();
         }
 
@@ -55,9 +56,112 @@ namespace DataEditor.Control.ShapeShifter
         private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (protoShapeShifterData1.Focused)
-            { }
-            else if (protoShapeShifterData1.Focused)
-            { }
+            {
+                if (protoShapeShifterData1.SelectedNode.Parent == null)
+                {
+                    MessageBox.Show("抱歉。出于程序运行的安全性考虑，"
+                        + Environment.NewLine+"我们暂时不允许您删除 Data 中的条目。"
+                        +Environment.NewLine+"如果您确实想要这么做，您可以通过执行代码来达成这一点。");
+                    return;
+                }
+                if (MessageBox.Show("您正在试图删除一个大项。您确定要这么做么？", "删除确认", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    var parentNode = protoShapeShifterData1.SelectedNode.Parent;
+                    var parent = parentNode.Tag as FuzzyData.FuzzyObject;
+                    var target = protoShapeShifterData1.SelectedNode.Name;
+                    Remove(parent, target);
+                    protoShapeShifterData1.RecycleSelectedNode(parentNode);
+                }
+            }
+            else if (this.protoShapeShifterValue1.Focused)
+            {
+                if (protoShapeShifterValue1.SelectedItems.Count == 0) return;
+                int index = protoShapeShifterValue1.SelectedIndices[0];
+                var parent = protoShapeShifterData1.SelectedNode.Tag as FuzzyData.FuzzyObject;
+                var target = protoShapeShifterValue1.SelectedItems[0].Text;
+                Remove(parent, target);
+                protoShapeShifterValue1.RealizeObject(protoShapeShifterValue1.Value);
+                if (index >= protoShapeShifterValue1.Items.Count - 1)
+                    index = protoShapeShifterValue1.Items.Count - 2;
+                if (index < 0) index = 0;
+                protoShapeShifterValue1.SelectedIndices.Clear();
+                protoShapeShifterValue1.SelectedIndices.Add(index);
+                protoShapeShifterValue1.Focus();
+            }
+        }
+        void Remove(FuzzyData.FuzzyObject Parent, FuzzyData.FuzzyObject Target)
+        {
+            if (Parent is FuzzyData.FuzzyArray)
+                (Parent as FuzzyData.FuzzyArray).Remove(Target);
+            if (Parent is FuzzyData.FuzzyHash)
+            {
+                var hash = Parent as FuzzyData.FuzzyHash;
+                if (MessageBox.Show("您正在试图删除一个哈希表值。"
+                    + Environment.NewLine + "这将导致一个关联项被删除。"
+                    + Environment.NewLine + "您确定要那么做么？", "删除确认", MessageBoxButtons.YesNo) != System.Windows.Forms.DialogResult.Yes)
+                    return;
+                if (hash.ContainsKey(Target)) hash.Remove(Target);
+                else if (hash.ContainsValue(Target))
+                    foreach (var key in hash.Keys)
+                        if (hash[key] == Target)
+                        {
+                            hash.Remove(key);
+                            break;
+                        }
+            }
+            if (Parent.InstanceVariables.ContainsValue(Target))
+                foreach (var key in Parent.InstanceVariables.Keys)
+                    if (Parent.InstanceVariables[key] == Target)
+                    {
+                        Parent.InstanceVariables.Remove(key);
+                        break;
+                    }
+        }
+        void Remove(FuzzyData.FuzzyObject Parent, string Target)
+        {
+            if (Target.StartsWith("[") && Parent is FuzzyData.FuzzyArray)
+            {
+                int index = 0;
+                if (int.TryParse(Target.Substring(1, Target.Length - 2), out index))
+                    (Parent as FuzzyData.FuzzyArray).RemoveAt(index);
+            }
+            if (Target.StartsWith("."))
+            {
+                FuzzyData.FuzzySymbol sym = FuzzyData.FuzzySymbol.GetSymbol(Target.Substring(1));
+                if (Parent.InstanceVariables.ContainsKey(sym))
+                    Parent.InstanceVariables.Remove(sym);
+            }
+            if (Target.StartsWith("@"))
+            {
+                FuzzyData.FuzzySymbol sym = FuzzyData.FuzzySymbol.GetSymbol(Target);
+                if (Parent.InstanceVariables.ContainsKey(sym))
+                    Parent.InstanceVariables.Remove(sym);
+            }
+            Target = Target.ToUpper();
+            int cut = -1;
+            if (Target.StartsWith(".KEYS")) cut = 5;
+            if (Target.StartsWith(".VALUES")) cut = 7;
+            if (Target.StartsWith("KEY")) cut = 3;
+            if (Target.StartsWith("VALUE")) cut = 5;
+            if (cut > 0 && Parent is FuzzyData.FuzzyHash)
+            {
+                var hash = Parent as FuzzyData.FuzzyHash;
+                if (MessageBox.Show("您正在试图删除一个哈希表值。"
+                    + Environment.NewLine + "这将导致一个关联项被删除。"
+                    + Environment.NewLine + "您确定要那么做么？", "删除确认", MessageBoxButtons.YesNo) != System.Windows.Forms.DialogResult.Yes)
+                    return;
+                int index = 0;
+                object key = null;
+                if (int.TryParse(Target.Substring(cut + 1, Target.Length - cut - 2), out index))
+                {
+                    foreach (object Key in hash.Keys)
+                    {
+                        key = Key;
+                        if (index-- == 0) break;
+                    }
+                    hash.Remove(key);
+                }
+            } 
         }
         private void 复制名称ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -107,14 +211,20 @@ namespace DataEditor.Control.ShapeShifter
             if (LastSearch == null) return;
             if (LastSearch.MoveNext())
             {
-                var target = LastSearch.Current;
-
+                FuzzyData.FuzzyObject[] ar = Help.Finder.Path.ToArray();
+                List<FuzzyData.FuzzyObject> path = new List<FuzzyData.FuzzyObject>();
+                foreach (var element in ar) path.Insert(0, element);
+                if (!(protoShapeShifterData1.SearchViaPath(path)))
+                    protoShapeShifterValue1.SearchValue(path[path.Count - 1]);
             }
+            else
+                if (MessageBox.Show("已搜索完毕.您要从头开始继续搜索么？", "搜索", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    查找ToolStripMenuItem_Click(sender, e);
         }
 
         private void 插入ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            protoShapeShifterValue1.ProtoShapeShifterValue_DoubleClick(this, e);
         }
 
         private void 编辑ToolStripMenuItem_Click(object sender, EventArgs e)

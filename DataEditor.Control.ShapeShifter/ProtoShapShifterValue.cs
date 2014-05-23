@@ -34,7 +34,7 @@ namespace DataEditor.Control.Prototype
             this.DoubleClick += ProtoShapeShifterValue_DoubleClick;
         }
 
-        void ProtoShapeShifterValue_DoubleClick(object sender, EventArgs e)
+        public void ProtoShapeShifterValue_DoubleClick(object sender, EventArgs e)
         {
             if (this.SelectedIndices.Count == 0) return;
             ShapeShifter.ShapeShifterDialog dialog = new ShapeShifter.ShapeShifterDialog();
@@ -148,6 +148,18 @@ namespace DataEditor.Control.Prototype
             this.unders.Add(obj);
             this.keys.Add(index);
             this.Items.Add(new ListViewItem(new string[] { index, type, value }));
+        }
+        public bool SearchValue(FuzzyObject target)
+        {
+            for (int i = 0; i < this.Items.Count; i++)
+                if (unders[i] == target)
+                {
+                    this.SelectedIndices.Clear();
+                    this.SelectedIndices.Add(i);
+                    this.Focus();
+                    return true;
+                }
+            return false;
         }
     }
 }

@@ -101,6 +101,7 @@
             // 
             // button3
             // 
+            this.button3.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button3.Location = new System.Drawing.Point(426, 39);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(98, 23);
@@ -111,8 +112,10 @@
             // 
             // Search
             // 
+            this.AcceptButton = this.button2;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.button3;
             this.ClientSize = new System.Drawing.Size(536, 122);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);

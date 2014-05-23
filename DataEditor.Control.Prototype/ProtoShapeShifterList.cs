@@ -10,6 +10,7 @@ namespace DataEditor.Control.Prototype
         public ProtoShapeShifterList()
         {
             this.AfterSelect += ProtoShapeShifterList_AfterSelect;
+            this.HideSelection = false;
         }
 
         void ProtoShapeShifterList_AfterSelect(object sender, TreeViewEventArgs e)
@@ -43,7 +44,7 @@ namespace DataEditor.Control.Prototype
         public event EventHandler ValueChanged;
         public event EventHandler ContainerChanged;
         protected Stack<object> loading = new Stack<object>();
-        protected StringBuilder stb = new StringBuilder();
+        //protected StringBuilder stb = new StringBuilder();
         protected virtual TreeNode RealizeObject(FuzzyData.FuzzyObject obj, string prefix = "", string name = "")
         {
             if (obj == null) return null;
@@ -54,22 +55,22 @@ namespace DataEditor.Control.Prototype
             var ans = new TreeNode();
             ans.Text = prefix + (prefix == "" ? "" : ":") + "[" + obj.ClassName.Name + "]";
             loading.Push(obj);
-            stb.Append(name);
+            //stb.Append(name);
             foreach (var key in obj.InstanceVariables.Keys)
             {
                 var node = RealizeObject(obj[key] as FuzzyData.FuzzyObject, key.Name, "." + key.Name.Substring(1));
                 if (node != null) ans.Nodes.Add(node);
             }
             ans.Tag = obj;
-            ans.Name = stb.ToString();
+            ans.Name = name;//stb.ToString();
             loading.Pop();
-            stb.Remove(stb.Length - name.Length, name.Length);
+            //stb.Remove(stb.Length - name.Length, name.Length);
             return ans;
         }
         protected virtual TreeNode RealizeArray(FuzzyData.FuzzyArray obj, string prefix = "", string name = "")
         {
             loading.Push(obj);
-            stb.Append(name);
+            //stb.Append(name);
             var ans = new TreeNode();
             ans.Text = prefix + (prefix == "" ? "" : ":") + "[Array:" + obj.Count + "]";
             for(int i = 0; i < obj.Count; i++)
@@ -78,15 +79,15 @@ namespace DataEditor.Control.Prototype
                 if (node != null) ans.Nodes.Add(node);
             }
             ans.Tag = obj;
-            ans.Name = stb.ToString();
+            ans.Name = name;//stb.ToString();
             loading.Pop();
-            stb.Remove(stb.Length - name.Length, name.Length);
+            //stb.Remove(stb.Length - name.Length, name.Length);
             return ans;
         }
         protected virtual TreeNode RealizeHash(FuzzyData.FuzzyHash obj, string prefix = "", string name = "")
         {
             loading.Push(obj);
-            stb.Append(name);
+            //stb.Append(name);
             var ans = new TreeNode();
             ans.Text = prefix + (prefix == "" ? "" : ":") + "[Hash:" + obj.Count + "]";
             int count = 0;
@@ -98,9 +99,9 @@ namespace DataEditor.Control.Prototype
                 if (nodeValue != null) ans.Nodes.Add(nodeValue);
             }
             ans.Tag = obj;
-            ans.Name = stb.ToString();
+            ans.Name = name;//stb.ToString();
             loading.Pop();
-            stb.Remove(stb.Length - name.Length, name.Length);
+            //stb.Remove(stb.Length - name.Length, name.Length);
             return ans;
         }
         protected virtual TreeNode RealizeCircle(FuzzyData.FuzzyObject obj, string prefix = "")
@@ -109,9 +110,9 @@ namespace DataEditor.Control.Prototype
             ans.Text = prefix + (prefix == "" ? "" : ":") + "[circle]";
             return ans;
         }
-        public void RecycleSelectedNode()
+        public void RecycleSelectedNode(TreeNode node = null)
         {
-            var node = this.SelectedNode;
+            if (node == null) node = this.SelectedNode;
             if (node == null) return;
             var value = node.Tag as FuzzyData.FuzzyObject;
             var new_node = RealizeObject(value);
@@ -119,9 +120,23 @@ namespace DataEditor.Control.Prototype
             foreach (TreeNode child in new_node.Nodes)
                 node.Nodes.Add(child);
         }
+        static public string GetStringPath(TreeNode Node)
+        {
+            if (Node == null) return "";
+            StringBuilder sb = new StringBuilder();
+            Stack<string> st = new Stack<string>();
+            while (Node != null)
+            {
+                st.Push(Node.Name);
+                Node = Node.Parent;
+            }
+            while (st.Count > 0)
+                sb.Append(st.Pop());
+            return sb.ToString();
+        }
         public string SelectedPath
         {
-            get { return SelectedNode == null ? "" : SelectedNode.Name; }
+            get { return GetStringPath(this.SelectedNode); }
         }
     }
     public class ProtoShapeShifterData : ProtoShapeShifterList
@@ -142,6 +157,42 @@ namespace DataEditor.Control.Prototype
             }
         }
         protected override void OnContainerChanged() { }
+        public bool SearchViaPath(IEnumerable<FuzzyData.FuzzyObject> path)
+        {
+            TreeNode node = null;
+            foreach (var obj in path)
+            {
+                if (node == null)
+                {
+                    foreach (TreeNode child in this.Nodes)
+                        if (child.Tag == obj)
+                        {
+                            child.Expand();
+                            node = child;
+                            goto Ending;
+                        }
+                    goto GoFalse;
+                }
+                foreach (TreeNode child in node.Nodes)
+                    if (child.Tag == obj)
+                    {
+                        child.Expand();
+                        node = child;
+                        goto Ending;
+                    }
+                goto GoFalse;
+            Ending:
+                continue;
+            }
+            this.SelectedNode = node;
+            return true;
+        GoFalse:
+            {
+                this.SelectedNode = node;
+                node.Collapse();
+                return false;
+            }
+        }
     }
     public class ProtoShapeShifterFullList : ProtoShapeShifterData
     {
@@ -161,16 +212,16 @@ namespace DataEditor.Control.Prototype
                 ans.Text += extra;
             }
             loading.Push(obj);
-            stb.Append(name);
+            //stb.Append(name);
             foreach (var key in obj.InstanceVariables.Keys)
             {
                 var node = RealizeObject(obj[key] as FuzzyData.FuzzyObject, key.Name, "." + key.Name.Substring(1));
                 if (node != null) ans.Nodes.Add(node);
             }
             ans.Tag = obj;
-            ans.Name = stb.ToString();
+            ans.Name = name;//stb.ToString();
             loading.Pop();
-            stb.Remove(stb.Length - name.Length, name.Length);
+            //stb.Remove(stb.Length - name.Length, name.Length);
             return ans;
         }
     }

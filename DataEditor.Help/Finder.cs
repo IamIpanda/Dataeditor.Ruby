@@ -23,9 +23,12 @@ namespace DataEditor.Help
             var x = Search(new SearchOption(target, name, value));
             return x.Current;
         }
+        static Stack<FuzzyObject> path = new Stack<FuzzyObject>();
+        static public Stack<FuzzyObject> Path { get { return path; } }
 
         static public IEnumerator<FuzzyData.FuzzyObject> Search(SearchOption option)
         {
+            path.Clear();
             List<FuzzyData.FuzzyObject> all = new List<FuzzyObject>();
             foreach (var name in Data.Instance.Names) all.Add(Data.Instance[name]);
             all.AddRange(Data.Instance.Map.Values);
@@ -36,6 +39,7 @@ namespace DataEditor.Help
         static public IEnumerable<FuzzyObject> Deepin(FuzzyData.FuzzyObject obj, SearchOption option)
         {
             if (obj == null) yield break;
+            path.Push(obj);
             if (option.Value)
                 if (Match(obj, option.Target))
                     yield return obj;
@@ -61,6 +65,7 @@ namespace DataEditor.Help
                 foreach (var target in obj.InstanceVariables.Values)
                     foreach (var ans in Deepin(target as FuzzyObject, option))
                         yield return ans;
+            path.Pop();
             yield break;
         }
         static public bool Match(FuzzyData.FuzzyObject obj, string target)

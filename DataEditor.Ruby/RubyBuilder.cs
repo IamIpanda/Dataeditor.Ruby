@@ -195,6 +195,7 @@ namespace DataEditor.Ruby
             if (control == null) { builder.NotBindingControl(editor); return null; }
             // 绑定默认事件
             control.Leave += Help.Event.OnLeave;
+            control.Enter += Help.Event.OnEnter;
             // 绑定关系
             control.Tag = editor;
             // 生成和计算 Label

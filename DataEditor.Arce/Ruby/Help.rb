@@ -13,6 +13,13 @@ class Help
 		watch.push name
 		return sprintf("%03d:%s",id.Value,name.Text)
 	end
+	def self.Auto_Get_String(*args)
+		target = args[0]
+		name = target["@name"]
+		watch = args[1]
+		watch.clear
+		watch.push name
+	end
 	def self.System_Property_Text(*args)
 		string = args[0]
 		watch.clear
@@ -27,6 +34,11 @@ class Help
 	def self.Get_Property_Text
 		return Text.new do |*args|
 			Help.System_Property_Text(*args)
+		end
+	end
+	def self.Get_Silence_Text
+		return Text.new do |*args|
+			Help.Auto_Get_String(*args)
 		end
 	end
 	XP_IMAGE_SPLIT = { "" => Split.new(Split::COUNT,1,Split::COUNT,1) }

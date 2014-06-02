@@ -58,6 +58,13 @@
     <Compile Include="Choose.cs" />
     <Compile Include="Container\Check.cs" />
     <Compile Include="Drop.cs" />
+    <Compile Include="Exp.Dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Exp.Dialog.Designer.cs">
+      <DependentUpon>Exp.Dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Exp.cs" />
     <Compile Include="Icon.cs" />
     <Compile Include="Complex.cs" />
     <Compile Include="Container\Group.cs" />
@@ -65,7 +72,6 @@
     <Compile Include="Container\Metro.cs" />
     <Compile Include="Container\Tab.cs" />
     <Compile Include="Container\Tabs.cs" />
-    <Compile Include="Experience.cs" />
     <Compile Include="Float.cs" />
     <Compile Include="Icon.Choser.cs">
       <SubType>Form</SubType>
@@ -131,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Audio.Choser.resx">
       <DependentUpon>Audio.Choser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Exp.Dialog.resx">
+      <DependentUpon>Exp.Dialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Icon.Choser.resx">
       <DependentUpon>Icon.Choser.cs</DependentUpon>

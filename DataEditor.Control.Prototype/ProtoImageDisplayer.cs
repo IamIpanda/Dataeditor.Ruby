@@ -128,10 +128,13 @@ namespace DataEditor.Control.Prototype
         {
             try
             {
+                /*
                 DefaultBackColors = DataEditor.Help.Option.GetOption
                     (typeof(ProtoImageBackgroundDisplayer)) as List<Color>;
                 if (DefaultBackColors == null)
                     DefaultBackColors = new List<Color>() { DefaultBackColor };
+                 * */
+                DefaultBackColors = Help.Painter.Instance.Now.ImageBackground;
             }
             catch { }
         }

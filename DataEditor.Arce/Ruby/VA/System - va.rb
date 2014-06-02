@@ -25,9 +25,9 @@ page = Builder.Add(:tab , { :text => "系统" }) do
 				:label => 0,
 				:catalogue => texts ,
 				:columns => columns, 
-				:texts => texts, 
+				:cataloguw => texts, 
 				:window => window, 
-				:window_style => 0, 
+				:window_type => 0, 
 				:new => [1].to_fuzzy,
 				:width => 250
 			})

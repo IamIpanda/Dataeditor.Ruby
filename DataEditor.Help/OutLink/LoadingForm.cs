@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DataEditor.Arce
+namespace DataEditor.Control.Window
 {
-    public partial class ChangeInWaveDialog : Form
+    public partial class LoadingForm : Form
     {
-        public ChangeInWaveDialog()
+        public LoadingForm()
         {
             InitializeComponent();
         }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        public new string Text 
         {
-
+            get { return label1.Text; }
+            set { label1.Text = value; }
         }
     }
 }

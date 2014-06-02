@@ -23,28 +23,26 @@ namespace DataEditor.Help
     {
         public Dictionary<string, object> Arguments { get; set; }
         protected Dictionary<string, object> Defaults { get; set; }
+        public string paradix { get; set; }
         protected Dictionary<string, ArgumentType> Types = new Dictionary<string, ArgumentType>();
         public Parameter()
         {
             Defaults = new Dictionary<string, object>();
             Arguments = new Dictionary<string, object>();
+            paradix = "";
         }
         public T GetArgument<T>(string key)
         {
             key = key.ToUpper();
             ArgumentType type = ArgumentType.Option;
             if (Types.TryGetValue(key, out type) == false)
-                Help.Log.log("程序正在试图请求一个未被设定的参数值：" + key);
+                Help.Log.log(paradix + "程序正在试图请求一个未被设定的参数值：" + key);
             object ob = null;
             Arguments.TryGetValue(key, out ob);
             if (ob != null)
-            {
-                if (type == ArgumentType.HardlyEver)
-                    Help.Log.log("程序正在试图修改一个不被推荐的值 " + key);
                 if (ob is T) return (T)ob;
-                else Help.Log.log("程序在正在请求" + key + ":" + typeof(T).ToString() + " 但获得了一个" + ob.GetType().ToString());
-            }
-            if (type == ArgumentType.Must) Help.Log.log("未提供参数 " + key + "，程序将返回一个不可靠的值");
+                else Help.Log.log(paradix + "程序在正在请求" + key + ":" + typeof(T).ToString() + " 但获得了一个" + ob.GetType().ToString());
+            if (type == ArgumentType.Must) Help.Log.log(paradix + "未提供参数 " + key + "，程序将返回一个不可靠的值");
             Defaults.TryGetValue(key, out ob);
             if (ob is T) return (T)ob;
             return default(T);
@@ -60,7 +58,6 @@ namespace DataEditor.Help
             if (ob is T) { value = (T)ob; return true; }
             return false;
         }
-
         public enum ArgumentType { Must, Option, HardlyEver }
         public void SetArgument(string name, object _default, ArgumentType type = ArgumentType.Must)
         {
@@ -82,22 +79,33 @@ namespace DataEditor.Help
             Defaults.Remove(name);
             Types.Remove(name);
         }
-        public bool CheckArgument()
-        {
-            foreach (string key in Defaults.Keys)
-                if (Types[key] == ArgumentType.Must && !(Arguments.ContainsKey(key))) return false;
-            return true;
-        }
 
         public bool CheckArgument(out string str)
         {
             StringBuilder sb = new StringBuilder();
             bool ans = true;
+            bool contains;
             foreach (string key in Defaults.Keys)
-                if (Types[key] == ArgumentType.Must && !(Arguments.ContainsKey(key)))
+            {
+                contains = Arguments.ContainsKey(key);
+                if (Types[key] == ArgumentType.Must && !contains)
                 {
                     ans = false;
                     sb.Append("没有提供参数 ");
+                    sb.AppendLine(key);
+                }
+                if (Types[key] == ArgumentType.HardlyEver && contains)
+                {
+                    ans = false;
+                    sb.Append("修改一个不被推荐的值 ");
+                    sb.AppendLine(key);
+                }
+            }
+            foreach(string key in Arguments.Keys)
+                if (!(Defaults.ContainsKey(key)))
+                {
+                    ans = false;
+                    sb.Append("发现了一个额外的参数： ");
                     sb.AppendLine(key);
                 }
             str = sb.ToString();

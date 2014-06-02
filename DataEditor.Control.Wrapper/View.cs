@@ -10,6 +10,7 @@ namespace DataEditor.Control.Wrapper
         public override string Flag { get { return "view"; } }
         protected FuzzyData.FuzzyObject model = null;
         protected MultiCatalogue catalogue = null;
+        bool isChanged = false;
 
         public override void Push() { /* 已作废 */ }
 
@@ -24,7 +25,7 @@ namespace DataEditor.Control.Wrapper
         // FIXME : 设置污染标记
         public override bool ValueIsChanged()
         {
-            return false;
+            return isChanged;
         }
         public override void Reset()
         {
@@ -118,6 +119,7 @@ namespace DataEditor.Control.Wrapper
                 if (Control.SelectedIndices[0] == base.value.Count)
                     base.value.Add(value);
                 // 刷新文字
+                isChanged = true;
             }
         }
 

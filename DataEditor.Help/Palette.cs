@@ -7,7 +7,7 @@ namespace DataEditor.Help
 {
     public class Palette
     {
-        private Color?[] Colors = new Color?[26];
+        private Color?[] Colors = new Color?[30];
         /// <summary>
         /// 根据索引，返回目标颜色值。
         /// 根据索引具有下述的含义：
@@ -24,6 +24,7 @@ namespace DataEditor.Help
         /// 16-25、虹色。根据不同的颜色，来指定：
         /// RTP 的默认颜色
         /// TextListbox 的默认颜色
+        /// 26-30、其他自定义颜色
         /// </summary>
         /// <param name="index">索引值</param>
         /// <returns>目标颜色</returns>
@@ -39,9 +40,10 @@ namespace DataEditor.Help
                 if (Colors[i].HasValue) ans.Add(Colors[i].Value);
             return ans;
         }
-        public List<Color> ListBackground { get { return ColorRange(7, 10); } }
+        public List<Color> ListBackground { get { return ColorRange(8, 10); } }
         public List<Color> ImageBackground { get { return ColorRange(12, 15); } }
         public List<Color> RainbowColor { get { return ColorRange(16, 25); } }
+        public List<Color> FocusColor { get { return ColorRange(4, 5); } }
     }
 
     public class Painter
@@ -51,29 +53,28 @@ namespace DataEditor.Help
             palette = new Dictionary<string, Help.Palette>();
             now = new Palette();
             palette.Add("Arce", now);
-            now[0] = Color.FromArgb(255, 190, 210, 231);
             now[1] = Color.FromArgb(255, 255, 255, 255);
-            now[2] = Color.FromArgb(255, 0, 0, 0);
-            now[3] = Color.FromArgb(255, 0, 0, 0);
-            now[4] = Color.FromArgb(255, 255, 100, 200);
-            now[5] = Color.FromArgb(255, 0, 126, 221);
+            now[2] = Color.FromArgb(255, 35, 75, 100);
+            now[3] = Color.FromArgb(255, 60, 60, 60);
+            now[4] = Color.FromArgb(255, 0, 100, 200);
+            now[5] = Color.FromArgb(255, 0, 158, 247);
             now[6] = Color.FromArgb(255, 255, 255, 255);
             now[7] = Color.FromArgb(255, 0, 100, 200);
             now[8] = Color.FromArgb(255, 228, 236, 242);
             now[9] = Color.FromArgb(255, 255, 255, 255);
             now[11] = Color.FromArgb(255, 255, 255, 255);
-            now[12] = Color.FromArgb(255, 0, 0, 0);
-            now[13] = Color.FromArgb(255, 0, 0, 0);
-            now[16] = Color.FromArgb(255, 255, 0, 0);
-            now[17] = Color.FromArgb(255, 255, 165, 0);
-            now[18] = Color.FromArgb(255, 0, 0, 255);
-            now[19] = Color.FromArgb(255, 255, 255, 0);
-            now[20] = Color.FromArgb(255, 0, 255, 255);
-            now[21] = Color.FromArgb(255, 255, 0, 255);
-            now[22] = Color.FromArgb(255, 0, 0, 0);
-            now[23] = Color.FromArgb(255, 0, 0, 0);
-            now[24] = Color.FromArgb(255, 0, 0, 0);
-            now[25] = Color.FromArgb(255, 125, 125, 125);
+            now[12] = Color.FromArgb(255, 0, 0, 128);
+            now[13] = Color.FromArgb(255, 0, 0, 65);
+            now[16] = Color.FromArgb(255, 183, 40, 143);
+            now[17] = Color.FromArgb(255, 174, 46, 78);
+            now[18] = Color.FromArgb(255, 185, 102, 37);
+            now[19] = Color.FromArgb(255, 197, 164, 27);
+            now[20] = Color.FromArgb(255, 109, 193, 7);
+            now[21] = Color.FromArgb(255, 59, 146, 34);
+            now[22] = Color.FromArgb(255, 62, 192, 91);
+            now[23] = Color.FromArgb(255, 62, 102, 224);
+            now[24] = Color.FromArgb(255, 68, 158, 221);
+            now[25] = Color.FromArgb(255, 173, 54, 166);
             
         }
         public static Painter Instance { get; set; }
@@ -99,6 +100,5 @@ namespace DataEditor.Help
         {
             get { return now[index] ?? default(Color); }
         }
-
     }
 }

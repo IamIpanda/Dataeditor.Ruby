@@ -28,7 +28,12 @@ namespace DataEditor.Control
         public virtual Help.Parameter Argument
         {
             get { return argument; }
-            set { argument = value; Reset(); }
+            set
+            {
+                argument = value;
+                argument.paradix = "[" + Flag + "] ";
+                Reset();
+            }
         }
         public virtual void Reset()
         {

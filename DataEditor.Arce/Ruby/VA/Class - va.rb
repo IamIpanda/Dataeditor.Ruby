@@ -10,19 +10,38 @@ Builder.Add(:tab , {:text => "职业" }) do
 		Builder.Add(:metro, {:text => "基本设置"}) do
 			Builder.order
 			Builder.Add(:text , {:actual => :name , :text => "名称" })
+			Builder.Add(:metro, {:actual => :exp_params }) do
+				Builder.Add(:exp, {:actual => {
+				:arg0 => :INDEX0, 
+				:arg1 => :INDEX1, 
+				:arg2 => :INDEX2,
+				:arg3 => :INDEX3},
+			  :text => "经验值曲线", :min => 10, :max => 50,
+				:value => Proc.new do |*args|
+						lv = args[0].to_f
+				    basis = args[1][0].to_f
+				    extra = args[1][1].to_f
+				    acc_a = args[1][2].to_f
+				    acc_b = args[1][3].to_f
+				    s1 = (basis * ((lv - 1) ** (0.9 + acc_a / 250)) * lv * (lv + 1) / (6 + lv ** 2 / 50 / acc_b) + (lv - 1) * extra).round.to_i
+				    lv += 1
+				    (basis * ((lv - 1) ** (0.9 + acc_a / 250)) * lv * (lv + 1) / (6 + lv ** 2 / 50 / acc_b) + (lv - 1) * extra).round.to_i - s1
+					end
+					})
+			end
 		end
 		Builder.Add(:metro , { :text => "能力值成长曲线" }) do
 			Builder.Add(:actor_parameters, :actual => :params) do
 					Builder.Order
-				Builder.Add(:actor , {:index => 0 , :text => "体力上限" ,:color => Color.new(255,0,0).to_c , :max_number => 9999 })
-				Builder.Add(:actor , {:index => 1 , :text => "魔力上限" ,:color => Color.new(0,255,0).to_c , :max_number => 9999 })
-				Builder.Add(:actor , {:index => 2 , :text => "物理攻击" ,:color => Color.new(0,0,255).to_c , :max_number => 999 })
-				Builder.Add(:actor , {:index => 3 , :text => "物理防御" ,:color => Color.new(255,255,0).to_c , :max_number => 999 })
+				Builder.Add(:actor , {:index => 0 , :text => "体力上限" ,:color => Painter[16] , :max_number => 9999 })
+				Builder.Add(:actor , {:index => 1 , :text => "魔力上限" ,:color => Painter[18] , :max_number => 9999 })
+				Builder.Add(:actor , {:index => 2 , :text => "物理攻击" ,:color => Painter[19] , :max_number => 999 })
+				Builder.Add(:actor , {:index => 3 , :text => "物理防御" ,:color => Painter[21] , :max_number => 999 })
 					Builder.Next
-				Builder.Add(:actor , {:index => 4 , :text => "魔法攻击" ,:color => Color.new(255,0,255).to_c , :max_number => 999 })
-				Builder.Add(:actor , {:index => 5 , :text => "魔法防御" ,:color => Color.new(0,255,255).to_c , :max_number => 999 })
-				Builder.Add(:actor , {:index => 6 , :text => "敏捷值" ,:color => Color.new(128,0,255).to_c , :max_number => 999 })
-				Builder.Add(:actor , {:index => 7 , :text => "幸运值" ,:color => Color.new(0,128,255).to_c , :max_number => 999 })
+				Builder.Add(:actor , {:index => 4 , :text => "魔法攻击" ,:color => Painter[22] , :max_number => 999 })
+				Builder.Add(:actor , {:index => 5 , :text => "魔法防御" ,:color => Painter[23] , :max_number => 999 })
+				Builder.Add(:actor , {:index => 6 , :text => "敏捷值" ,:color => Painter[24] , :max_number => 999 })
+				Builder.Add(:actor , {:index => 7 , :text => "幸运值" ,:color => Painter[25] , :max_number => 999 })
 			end
 		end
 		Builder.Add(:metro , { :text => "技能" }) do

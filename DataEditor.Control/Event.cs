@@ -25,5 +25,9 @@ namespace DataEditor.Help
             // 与 Monitor 触发
             Help.Monitor.Trigger(editor);
         }
+        public static void OnEnter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

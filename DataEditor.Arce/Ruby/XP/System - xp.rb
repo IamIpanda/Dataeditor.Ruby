@@ -18,7 +18,7 @@ Builder.Add(:tab , { :text => "系统" }) do
 					window.value = target
 			end
 		Builder.Add(:view , {:actual => :party_members ,:text => "初期同伴", :catalogue => texts ,
-			:columns => columns, :texts => texts, :window => window, :window_style => 0, :new => nil })
+			:columns => columns, :catalogue => texts, :window => window, :window_type => 0, :new => nil })
 			text = Text.new { |i, target| sprintf("%03d:%s", i, target) }
 		Builder.Add(:paper , {:actual => :elements , :text => "属性", :textbook => text})
 			Builder.Next

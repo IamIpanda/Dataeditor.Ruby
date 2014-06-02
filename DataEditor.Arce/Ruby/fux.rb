@@ -3,7 +3,7 @@
 require "Ruby/XP/File - xp.rb"
 Builder.In(Window["main"])
 	list = Builder.Add(:list, {:textbook => Help.Get_Default_Text, :text => "卖萌的小黄鸡"}) do
-		Builder.Add(:group, {:text => "", :dock => 5}) do
+		Builder.Add(:group, {:text => ""}) do
 			Builder.Add(:actor_parameters, :actual => :parameters) do
 				Builder.Order
 				Builder.Add(:actor , {:index => 0 , :text => "MaxHP" ,:color => Color.new(183,40,103).to_c , :max_number => 9999 })

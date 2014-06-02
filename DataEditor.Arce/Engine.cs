@@ -24,17 +24,18 @@ namespace DataEditor.Arce
         }
         static public void OpenProject(string Path)
         {
-            
-            var proc = (IronRuby.Builtins.Proc) engine.Execute(@"Lead.Open_project");
+            var proc = (IronRuby.Builtins.Proc)engine.Execute(@"Lead.Open_project");
+            Help.Path.Instance["project"] = System.IO.Path.GetDirectoryName(Path);
             IronRuby.Builtins.MutableString str = IronRuby.Builtins.MutableString.Create(Path, IronRuby.Builtins.RubyEncoding.UTF8);
             try
             {
+                Help.Loading.StartLoading();
                 proc.Call(str);
+                Help.Loading.EndLoading();
             }
             catch (Exception ex)
             { 
             }
-            Help.Path.Instance["project"] = System.IO.Path.GetDirectoryName(Path);
             (Help.Window.Instance["Main"] as WrapTitan).Window.Show();
         }
         static public void OpenFile(string Path)

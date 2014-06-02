@@ -6,7 +6,7 @@ require "Ruby/XP/File - xp.rb"
 
 Builder.Add(:tab , { :text => "角色" }) do
 	list = Builder.Add(:list, {:textbook => Help.Get_Default_Text, :text => "角色"}) do
-		Builder.Add(:group, {:text => "", :dock => 5}) do
+		Builder.Add(:group, {:text => ""}) do
 				Builder.Order
 			Builder.Add(:text , {:actual => :name , :text => "名称" })
 				Builder.Next
@@ -16,7 +16,12 @@ Builder.Add(:tab , { :text => "角色" }) do
 			Builder.Add(:int , {:actual => :initial_level , :text => "初始等级"})
 			Builder.Add(:int , {:actual => :final_level , :text => "最终等级"})
 				Builder.Next
-			Builder.Add(:exp , {:actual => {:base => :exp_basis, :inflation => :exp_inflation} , :text => "EXP 曲线"})
+				exp_proc = Proc.new do |*args|
+					i = args[0] + 1
+					pow_i = 2.4 + args[1][1] / 100.0
+					args[1][0] * ((i + 3.0) ** pow_i) / (5.0 ** pow_i)
+				end
+			Builder.Add(:exp , {:actual => {:base => :exp_basis, :inflation => :exp_inflation} , :text => "EXP 曲线", :min => 10, :max => 50, :value => exp_proc})
 				Builder.Next
 			Builder.Add(:image , {:actual => {:name => :character_name, :hue => :character_hue } , 
 				:text => "角色脸谱" , :path => "Graphics/Characters", :show => Help::XP_IMAGE_SHOW, :split => Help::XP_IMAGE_SPLIT } )
@@ -26,14 +31,14 @@ Builder.Add(:tab , { :text => "角色" }) do
 				Builder.OrderAndNext
 			Builder.Add(:actor_parameters, :actual => :parameters) do
 				Builder.Order
-				Builder.Add(:actor , {:index => 0 , :text => "MaxHP" ,:color => Color.new(255,0,0).to_c , :max_number => 9999 })
-				Builder.Add(:actor , {:index => 1 , :text => "MaxSP" ,:color => Color.new(0,255,0).to_c , :max_number => 9999 })
+				Builder.Add(:actor , {:index => 0 , :text => "MaxHP" ,:color => Painter[16], :max_number => 9999 })
+				Builder.Add(:actor , {:index => 1 , :text => "MaxSP" ,:color => Painter[17] , :max_number => 9999 })
 					Builder.Next
-				Builder.Add(:actor , {:index => 2 , :text => "力量" ,:color => Color.new(0,0,255).to_c , :max_number => 999 })
-				Builder.Add(:actor , {:index => 3 , :text => "速度" ,:color => Color.new(255,255,0).to_c , :max_number => 999 })
+				Builder.Add(:actor , {:index => 2 , :text => "力量" ,:color => Painter[19], :max_number => 999 })
+				Builder.Add(:actor , {:index => 3 , :text => "速度" ,:color => Painter[20], :max_number => 999 })
 					Builder.Next
-				Builder.Add(:actor , {:index => 4 , :text => "灵巧" ,:color => Color.new(255,0,255).to_c , :max_number => 999 })
-				Builder.Add(:actor , {:index => 5 , :text => "敏捷" ,:color => Color.new(0,255,255).to_c , :max_number => 999 })
+				Builder.Add(:actor , {:index => 4 , :text => "灵巧" ,:color => Painter[22], :max_number => 999 })
+				Builder.Add(:actor , {:index => 5 , :text => "敏捷" ,:color => Painter[23], :max_number => 999 })
 			end
 				Builder.Next
 			Builder.Add(:group, :text => "初期装备") do 

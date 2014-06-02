@@ -24,5 +24,20 @@ namespace DataEditor.Control.Wrapper
             if (value == null) return false;
             return control.Text != value.Text;
         }
+        protected System.Drawing.Color Fore, Back;
+        public override void OnEnter(object sender, EventArgs e)
+        {
+            Fore = control.ForeColor;
+            Back = control.BackColor;
+            control.ForeColor = Help.Painter.Instance[2];
+            control.BackColor = Help.Painter.Instance[3];
+            base.OnEnter(sender, e);
+        }
+        public override void OnLeave(object sender, EventArgs e)
+        {
+            control.ForeColor = Fore;
+            control.BackColor = Back;
+            base.OnLeave(sender, e);
+        }
     }
 }

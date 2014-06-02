@@ -47,22 +47,25 @@ namespace DataEditor.Control.Wrapper
                     if (file_choice == null) continue;
                     FuzzyData.FuzzyArray targets;
                     // 尝试直接获取值
-                    targets = file_choice.GetArgument<FuzzyData.FuzzyArray>("DATA");
-                    if (targets == null)
+                    if (file_choice.TryGetArgument<FuzzyData.FuzzyArray>("DATA", out targets) == false)
                     {
                         //  从选项中获取目标文件的短名
-                        string key = file_choice.GetArgument<string>("DATA");
+                        string key;
+                        file_choice.TryGetArgument<string>("DATA", out key);
                         // 将文件数据读取
                         targets = Help.Data.Instance[key] as FuzzyData.FuzzyArray;
                     }
                     if (targets == null) continue;
                     // 获取指定的Text文档
-                    Help.Parameter.Text text = file_choice.GetArgument<Help.Parameter.Text>("TEXT");
-                    if (text == null) continue;
+                    Help.Parameter.Text text;
+                    if (file_choice.TryGetArgument<Help.Parameter.Text>("TEXT", out text) == false)
+                        continue;
                     // 获取指定的过滤器
-                    Contract.Runable filter = file_choice.GetArgument<Contract.Runable>("FILTER");
+                    Contract.Runable filter;
+                    file_choice.TryGetArgument<Contract.Runable>("FILTER", out filter);
                     // 获取指定的ID值
-                    string id_symbol = file_choice.GetArgument<string>("ID");
+                    string id_symbol;
+                    if (file_choice.TryGetArgument<string>("ID", out id_symbol) == false) id_symbol = "";
                     FuzzyData.FuzzySymbol id_fuzzy_symbol = null;
                     if (id_symbol != null && id_symbol != "")
                         id_fuzzy_symbol = FuzzyData.FuzzySymbol.GetSymbol("@" + id_symbol);

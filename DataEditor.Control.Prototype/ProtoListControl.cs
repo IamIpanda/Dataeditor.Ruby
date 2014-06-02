@@ -23,6 +23,7 @@ namespace DataEditor.Control.Prototype
         {
             try
             {
+                /*
                 List<object> list = DataEditor.Help.Option.GetOption(typeof(ProtoListControl)) as List<object>;
                 if (list == null)
                     return;
@@ -39,6 +40,11 @@ namespace DataEditor.Control.Prototype
                 DefaultFocusBorderColor = (Color)list[2];
                 if (list.Count <= 3) { return; }
                 DefaultForeColorOnFocus = (Color)list[3];
+                 */
+                DefaultBackColors = Help.Painter.Instance.Now.ListBackground;
+                DefaultFocusColors = Help.Painter.Instance.Now.FocusColor;
+                DefaultFocusBorderColor = Help.Painter.Instance[7];
+                DefaultForeColorOnFocus = Help.Painter.Instance[6];
             }
             catch { }
         }

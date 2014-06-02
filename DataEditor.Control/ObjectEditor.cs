@@ -17,6 +17,7 @@ namespace DataEditor.Control
         /// </summary>
         FuzzyData.FuzzyObject Value { get; set; }
         FuzzyData.FuzzyObject Parent { set; }
+        bool HighLight { get; }
 
     }
 }

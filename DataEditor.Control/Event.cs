@@ -8,8 +8,13 @@ namespace DataEditor.Help
     {
         public static void OnLeave(object sender, EventArgs e)
         {
+            // 获取 control
+            System.Windows.Forms.Control control = sender as System.Windows.Forms.Control;
             // 获取 editor
-            Control.ObjectEditor editor =  (sender as System.Windows.Forms.Control).Tag as Control.ObjectEditor;
+            Control.ObjectEditor editor = control.Tag as Control.ObjectEditor;
+            // 重置颜色标记
+            if (editor.HighLight)
+                Help.Painter.Instance.PopColor(control);
             if (editor == null) return;
             if (!(editor.ValueIsChanged())) return;
             // 储存旧值，以与 Action 交换
@@ -27,7 +32,12 @@ namespace DataEditor.Help
         }
         public static void OnEnter(object sender, EventArgs e)
         {
-
+            // 获取 control
+            System.Windows.Forms.Control control = sender as System.Windows.Forms.Control;
+            // 获取 editor
+            Control.ObjectEditor editor = control.Tag as Control.ObjectEditor;
+            if (editor.HighLight)
+                Help.Painter.Instance.PushColor(control);
         }
     }
 }

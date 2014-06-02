@@ -17,6 +17,7 @@ namespace DataEditor.Control
         abstract public bool ValueIsChanged();
         public virtual void Putt() { Help.Taint.DefaultPutt(this); }
         public virtual string Flag { get { return this.GetType().Name; } }
+        public virtual bool HighLight { get { return false; } }
         public virtual DataContainer Container { get; set; }
         public virtual System.Windows.Forms.Label Label { get; set; }
         public virtual System.Windows.Forms.Control Binding { get; set; }

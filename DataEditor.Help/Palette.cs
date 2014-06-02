@@ -54,8 +54,8 @@ namespace DataEditor.Help
             now = new Palette();
             palette.Add("Arce", now);
             now[1] = Color.FromArgb(255, 255, 255, 255);
-            now[2] = Color.FromArgb(255, 35, 75, 100);
-            now[3] = Color.FromArgb(255, 60, 60, 60);
+            now[2] = Color.FromArgb(255, 0, 98, 196);
+            now[3] = Color.FromArgb(255, 254, 214, 146);
             now[4] = Color.FromArgb(255, 0, 100, 200);
             now[5] = Color.FromArgb(255, 0, 158, 247);
             now[6] = Color.FromArgb(255, 255, 255, 255);
@@ -99,6 +99,33 @@ namespace DataEditor.Help
         public Color this[int index]
         {
             get { return now[index] ?? default(Color); }
+        }
+        Color? Fore = null, Back = null;
+        public void PushColor(System.Windows.Forms.Control Control)
+        {
+            if (now[2].HasValue)
+            {
+                Back = Control.BackColor;
+                Control.BackColor = now[2].Value;
+            }
+            if (now[3].HasValue)
+            {
+                Fore = Control.ForeColor;
+                Control.ForeColor = now[3].Value;
+            }
+        }
+        public void PopColor(System.Windows.Forms.Control Control)
+        {
+            if (Fore != null)
+            {
+                Control.ForeColor = Fore.Value;
+                Fore = null;
+            }
+            if (Back != null)
+            {
+                Control.BackColor = Back.Value;
+                Back = null;
+            }
         }
     }
 }

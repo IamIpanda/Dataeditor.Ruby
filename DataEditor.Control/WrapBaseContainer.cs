@@ -15,7 +15,7 @@ namespace DataEditor.Control
         public virtual bool CanAdd(System.Windows.Forms.Control control) 
         {
             return !(control is System.Windows.Forms.TabPage || control is System.Windows.Forms.Form); 
-        }
+        } 
         public override void Pull()
         {
             foreach (System.Windows.Forms.Control control in Controls)
@@ -33,7 +33,7 @@ namespace DataEditor.Control
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
-            argument.SetArgument("backcolor", default(System.Drawing.Color), Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("backcolor", Help.Painter.Instance[1], Help.Parameter.ArgumentType.Option);
             argument.OverrideArgument("label", 0, Help.Parameter.ArgumentType.HardlyEver);
             argument.OverrideArgument("actual", null, Help.Parameter.ArgumentType.Option);
         }

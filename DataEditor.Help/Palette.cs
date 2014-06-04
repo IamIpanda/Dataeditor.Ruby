@@ -53,7 +53,7 @@ namespace DataEditor.Help
             palette = new Dictionary<string, Help.Palette>();
             now = new Palette();
             palette.Add("Arce", now);
-            now[1] = Color.FromArgb(255, 255, 255, 255);
+            now[1] = Color.FromArgb(255, 206, 222, 243);
             now[2] = Color.FromArgb(255, 0, 98, 196);
             now[3] = Color.FromArgb(255, 254, 214, 146);
             now[4] = Color.FromArgb(255, 0, 100, 200);

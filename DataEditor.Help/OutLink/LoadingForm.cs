@@ -13,11 +13,34 @@ namespace DataEditor.Control.Window
         public LoadingForm()
         {
             InitializeComponent();
+            //this.Shown += LoadingForm_Shown;
         }
+        static LoadingForm()
+        {
+            LoadingForm.CheckForIllegalCrossThreadCalls = false;
+        }
+        /*
+
+        void LoadingForm_Shown(object sender, EventArgs e)
+        {
+            backgroundWorker1.RunWorkerAsync();
+        }*/
         public new string Text 
         {
             get { return label1.Text; }
             set { label1.Text = value; }
         }
+        /*
+        public System.Threading.ThreadStart Work = null;
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (Work != null)
+                Work();
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.Close();
+        }*/
     }
 }

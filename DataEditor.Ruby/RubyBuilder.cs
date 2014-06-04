@@ -103,6 +103,12 @@ namespace DataEditor.Ruby
             if (builder.mode == ControlOrder.Row) builder.now_y += space;
             else builder.now_x += space;
         }
+        public static void Space(int x_space = 20, int y_space = 20)
+        {
+            var builder = Builders.Peek();
+            builder.now_x += x_space;
+            builder.now_y += y_space;
+        }
         public static void Next()
         {
             var builder = Builders.Peek();

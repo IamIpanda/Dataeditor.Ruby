@@ -53,6 +53,7 @@ namespace DataEditor.Arce
             if (OFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string Path = OFD.FileName;
+                Help.Loading.StartLoading();
                 Engine.OpenProject(Path);
                 var sp = new DataEditor.Control.ShapeShifter.ShapeShifter();
                 sp.Show();

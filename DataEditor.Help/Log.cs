@@ -32,6 +32,7 @@ namespace DataEditor.Help
         {
             Text.WriteLine("[" + DateTime.Now.ToString()+ "] " + info);
             System.Diagnostics.Debugger.Log(1, "Log", info + "\n");
+            Loading.SetLoading(info);
             // Flush();
         }
         static public void Flush ()

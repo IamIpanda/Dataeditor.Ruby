@@ -44,6 +44,12 @@ namespace DataEditor.Control
             key = argument.GetArgument<FuzzyData.FuzzySymbol>("ACTUAL");
             if (width > 0) Binding.Width = width;
             if (height > 0) Binding.Height = height;
+            if (width <= 0 && height <= 0)
+            {
+                System.Drawing.Size size;
+                if (Help.Measurement.Instance.Get(this.Flag, out size))
+                    Binding.Size = size;
+            }
             Binding.Leave += OnLeave;
             Binding.Enter += OnEnter;
         }

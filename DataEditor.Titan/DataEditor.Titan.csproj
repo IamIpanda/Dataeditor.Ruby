@@ -138,8 +138,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>COPY ..\..\..\DataEditor.FuzzyData.Serialization.RubyMarshal\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.dll     Program\Serialization\DataEditor.FuzzyData.Serialization.RubyMarshal.dll
-COPY ..\..\..\DataEditor.FuzzyData.Extra\bin\Debug\DataEditor.FuzzyData.Extra.dll          Program\Serialization\UserDefined\RGSSData.dll</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

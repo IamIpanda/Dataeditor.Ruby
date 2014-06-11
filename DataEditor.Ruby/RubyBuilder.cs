@@ -16,8 +16,10 @@ namespace DataEditor.Ruby
         protected int now_w = 0, now_h = 0;
         protected int head_x = 0, head_y = 0;
         protected ControlOrder mode = ControlOrder.Row;
+        protected System.Windows.Forms.Control last;
         protected System.Windows.Forms.Control.ControlCollection target;
         protected DataContainer container;
+        protected System.Windows.Forms.Padding margin;
 
         protected RubyBuilder(DataContainer container, int default_head_x = 0, int default_head_y = 0)
         {
@@ -27,6 +29,9 @@ namespace DataEditor.Ruby
             max_y = head_y = now_y = default_head_y;
             this.container = container;
             this.target = container.Controls;
+            this.last = new System.Windows.Forms.Control();
+            this.last.Size = new System.Drawing.Size(1, 1);
+            this.margin = new System.Windows.Forms.Padding(0, 0, 6, 3);
         }
         protected virtual Control.ObjectEditor SearchControl(RubySymbol type)
         {
@@ -65,12 +70,12 @@ namespace DataEditor.Ruby
                 max_y = now_y + h;
             if (mode == ControlOrder.Row)
             {
-                now_y += h + control.Margin.Bottom;
+                now_y += h + this.margin.Bottom;
                 if (w > now_w) now_w = w;
             }
             else
             {
-                now_x += w + control.Margin.Right;
+                now_x += w + this.margin.Right;
                 if (h > now_h) now_h = h;
             }
         }
@@ -115,14 +120,14 @@ namespace DataEditor.Ruby
             if (builder.mode == ControlOrder.Row)
             {
                 builder.now_y = builder.head_y;
-                builder.head_x = builder.now_x + builder.now_w;
+                builder.head_x = builder.now_x + builder.now_w + builder.margin.Right;
                 builder.now_x = builder.head_x;
                 builder.now_w = 0;
             }
             else
             {
                 builder.now_x = builder.head_x;
-                builder.head_y = builder.now_y + builder.now_h;
+                builder.head_y = builder.now_y + builder.now_h + builder.margin.Bottom;
                 builder.now_y = builder.head_y;
                 builder.now_h = 0;
             }
@@ -132,7 +137,7 @@ namespace DataEditor.Ruby
             var builder = Builders.Peek();
             if (builder.mode == ControlOrder.Column)
             {
-                builder.head_x = builder.now_x = builder.max_x;
+                builder.head_x = builder.now_x = builder.max_x + builder.margin.Right * 2;
                 builder.now_y = builder.container.start_y;
                 builder.now_w = builder.now_h = 0;
             }
@@ -162,6 +167,8 @@ namespace DataEditor.Ruby
         {
             var builder = Builders.Peek();
             var label = new System.Windows.Forms.Label();
+            if (extra_w < 0) { }
+            if (extra_h < 0) { } 
             label.Text = text;
             label.Size = label.PreferredSize;
             label.Location = new System.Drawing.Point(builder.now_x, builder.now_y);
@@ -226,6 +233,8 @@ namespace DataEditor.Ruby
             builder.CalcCoodinate(control, size.Width + control.Width, size.Height + control.Height);
             // 上传控件
             builder.AddControl(control);
+            // 记忆控件
+            builder.last = control;
             return editor;
         }
     }

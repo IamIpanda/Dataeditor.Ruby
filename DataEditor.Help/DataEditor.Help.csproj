@@ -70,6 +70,7 @@
     </Compile>
     <Compile Include="Finder.cs" />
     <Compile Include="Serialization.cs" />
+    <Compile Include="Measurement.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">

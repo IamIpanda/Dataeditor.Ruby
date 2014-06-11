@@ -50,7 +50,6 @@ namespace DataEditor.Control.Wrapper
             base.SetDefaultArgument();
             argument.SetArgument("data", new FuzzyData.FuzzyArray());
             argument.SetArgument("textbook", null);
-            argument.OverrideArgument("height", 200, Help.Parameter.ArgumentType.Option);
         }
         public override void Bind()
         {

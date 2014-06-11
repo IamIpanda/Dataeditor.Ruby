@@ -39,5 +39,6 @@ namespace DataEditor.Control.Wrapper
             Control.Minimum = argument.GetArgument<int>("MINVALUE");
             Control.Increment = (decimal)argument.GetArgument<double>("INCREMENT");
         }
+        public override bool HighLight { get { return true; } }
     }
 }

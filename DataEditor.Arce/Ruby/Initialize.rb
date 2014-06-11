@@ -14,6 +14,7 @@ Text       = DataEditor::Help::Parameter::Text
 Split      = DataEditor::Help::Parameter::Split
 Builder    = DataEditor::Ruby::RubyBuilder
 Engine     = DataEditor::Ruby::RubyEngine
+Measurement	= DataEditor::Help::Measurement.Instance
 
 # Builder 修正。
 # 为 Builder 添加了块的支持。

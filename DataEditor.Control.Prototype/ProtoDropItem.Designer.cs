@@ -35,10 +35,10 @@
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button1.Location = new System.Drawing.Point(131, 0);
+            this.button1.Location = new System.Drawing.Point(133, 0);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(25, 22);
+            this.button1.Size = new System.Drawing.Size(25, 24);
             this.button1.TabIndex = 4;
             this.button1.Text = "∷";
             this.button1.UseVisualStyleBackColor = true;
@@ -50,7 +50,7 @@
             this.protoSelectable1.Location = new System.Drawing.Point(0, 0);
             this.protoSelectable1.Margin = new System.Windows.Forms.Padding(6);
             this.protoSelectable1.Name = "protoSelectable1";
-            this.protoSelectable1.Size = new System.Drawing.Size(131, 22);
+            this.protoSelectable1.Size = new System.Drawing.Size(133, 24);
             this.protoSelectable1.TabIndex = 6;
             this.protoSelectable1.DoubleClick += new System.EventHandler(this.protoSelectable1_DoubleClick);
             // 
@@ -58,11 +58,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.protoSelectable1);
             this.Controls.Add(this.button1);
             this.Name = "ProtoDropItem";
-            this.Size = new System.Drawing.Size(156, 22);
+            this.Size = new System.Drawing.Size(158, 24);
             this.Resize += new System.EventHandler(this.ProtoDropItem_Resize);
             this.ResumeLayout(false);
 

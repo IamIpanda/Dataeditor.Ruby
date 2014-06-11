@@ -73,7 +73,7 @@ namespace DataEditor.Control.Wrapper.Container
             base.Pull();
         }
         public override int start_x { get { return 3; } }
-        public override int start_y { get { return 3; } }
+        public override int start_y { get { return 0; } }
         public override int end_x { get { return 3; } }
         public override int end_y { get { return 3; } }
         public override void Putt()

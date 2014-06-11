@@ -6,38 +6,40 @@ require "Ruby/XP/File - xp.rb"
 
 Builder.Add(:tab , { :text => "职业" }) do
 	list = Builder.Add(:list, {:textbook => Help.Get_Default_Text, :text => "职业"}) do
-		Builder.Add(:text , {:actual => :name , :text => "名称"})
-		Builder.Add(:checklist , {:actual => :weapon_set , :text => "可装备的武器", :data => Data["weapon"], :textbook => Help.Get_Default_Text, :height => 350} )
-			Builder.Next
-		Builder.Add(:choose , {:actual => :position , :text => "位置" ,:choice => {0 => "前卫", 1 => "中卫", 2 => "后卫"}})
-		Builder.Add(:checklist , {:actual => :armor_set , :text => "可装备的防具", :data => Data["armor"], :textbook => Help.Get_Default_Text, :height => 350 } )
-			Builder.Next
-		Builder.Add(:group) do
-				Builder.Order
-				text = Text.new { |*args| args[0] }
-			Builder.Add(:textlist , {:actual => :element_ranks, :text => "属性有效度", :textbook => text, 
-				:choices => ["A","B","C","D","E","F"], :value => [1,2,3,4,5,6,7], :default => 3, :data => Data["system"]["@elements"] })
-				text = Text.new { |*args| args[0]["@name"] }
-			Builder.Add(:textlist , {:actual => :state_ranks , :text => "状态有效度" , :textbook => text, 
-				:choices => ["A","B","C","D","E","F"], :value => [1,2,3,4,5,6,7], :default => 3, :data => Data["state"]})
-		end
-			window = Proc.new do |window, value|
-					Builder.In(window)
-				Builder.Add(:int , {:actual => :level , :text => "等级"})
-				Builder.Add(:choose , {:actual => :skill_id , :text => "学会的特技" , :choice => { nil => Filechoice.new("skill") }})
-					Builder.Out
-					window.Value = value
+		Builder.Add(:group, {:text => ""}) do
+			Builder.Add(:text , {:actual => :name , :text => "名称"})
+			Builder.Add(:checklist , {:actual => :weapon_set , :text => "可装备的武器", :data => Data["weapon"], :textbook => Help.Get_Default_Text, :height => 350} )
+				Builder.Next
+			Builder.Add(:choose , {:actual => :position , :text => "位置" ,:choice => {0 => "前卫", 1 => "中卫", 2 => "后卫"}})
+			Builder.Add(:checklist , {:actual => :armor_set , :text => "可装备的防具", :data => Data["armor"], :textbook => Help.Get_Default_Text, :height => 350 } )
+				Builder.Next
+			Builder.Add(:group) do
+					Builder.Order
+					text = Text.new { |*args| args[0] }
+				Builder.Add(:textlist , {:actual => :element_ranks, :text => "属性有效度", :textbook => text, 
+					:choices => ["A","B","C","D","E","F"], :value => [1,2,3,4,5,6,7], :default => 3, :data => Data["system"]["@elements"], :width => 130, :height => 425 })
+					text = Text.new { |*args| args[0]["@name"] }
+				Builder.Add(:textlist , {:actual => :state_ranks , :text => "状态有效度" , :textbook => text, 
+					:choices => ["A","B","C","D","E","F"], :value => [1,2,3,4,5,6,7], :default => 3, :data => Data["state"], :width => 130, :height => 425})
 			end
-			texts = []
-			texts.push Text.new {|target, watch, i, j, k| "Lv.#{target["@level"].Value}" }
-			texts.push( Text.new do |target, watch, i, j, k|
-				skill_id = target["@skill_id"].Value
-				target = Data["skill"][skill_id]
-				ans = Help.Auto_Get_Text(target, watch)
-				ans
-			end )
-		Builder.Add(:view , {:actual => :learnings , :text => "特技" ,:columns => ["等级","学会的特技"], 
-			:catalogue => texts, :window => window, :window_type => 1, :new => nil})
+				window = Proc.new do |window, value|
+						Builder.In(window)
+					Builder.Add(:int , {:actual => :level , :text => "等级"})
+					Builder.Add(:choose , {:actual => :skill_id , :text => "学会的特技" , :choice => { nil => Filechoice.new("skill") }})
+						Builder.Out
+						window.Value = value
+				end
+				texts = []
+				texts.push Text.new {|target, watch, i, j, k| "Lv.#{target["@level"].Value}" }
+				texts.push( Text.new do |target, watch, i, j, k|
+					skill_id = target["@skill_id"].Value
+					target = Data["skill"][skill_id]
+					ans = Help.Auto_Get_Text(target, watch)
+					ans
+				end )
+			Builder.Add(:view , {:actual => :learnings , :text => "特技" ,:columns => ["等级","学会的特技"], 
+				:catalogue => texts, :window => window, :window_type => 1, :new => nil})
+		end
 	end
 	list.value = Data["class"]
 end

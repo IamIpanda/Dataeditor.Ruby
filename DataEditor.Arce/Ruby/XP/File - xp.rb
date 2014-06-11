@@ -22,6 +22,18 @@ Data["map"] = "Data/Map*.rxdata"
 Data["focus_troop"] = Data["troop"][1];
 Data["focus_map"] = Data["map"][0];
 
+Measurement.Set("audio", 130, 20)
+Measurement.Set("int", 65, 20)
+Measurement.Set("choose", 130, 20)
+Measurement.Set("drop", 130, 20)
+Measurement.Set("oldimage", 130, 20)
+Measurement.Set("exp", 130, 20)
+Measurement.Set("text", 130, 20)
+Measurement.Set("bool_choose", 65, 20)
+Measurement.Set("checklist", 130, 320)
+Measurement.Set("bufflist", 130, 320)
+
+
 =begin
     $data_actors        = load_data("Data/Actors.rxdata")
     $data_classes       = load_data("Data/Classes.rxdata")

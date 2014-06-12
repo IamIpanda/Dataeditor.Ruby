@@ -29,7 +29,7 @@ Builder.Add(:tab , { :text => "武器" }) do
 				text = Text.new { |*args| args[0].Text }
 			Builder.Add(:checklist , {:actual => :element_set , :text => "属性", :data => Data["system"]["@elements"] , :textbook => text })
 		  Builder.Add(:bufflist , {:actual => {"+" => :plus_state_set, "-" => :minus_state_set}, :text => "状态变化",
-			 :data => Data["state"], :textbook => Help.Get_Default_Text, :default => ""})
+			 :data => Data["state"], :textbook => Help.Get_Silence_Text, :default => ""})
 		end
 	end
 	list.Value = Data["weapon"]

@@ -46,21 +46,21 @@ Builder.Add(:tab , { :text => "状态" }) do
 			 Builder.Add(:group , { :text => "解除条件" }) do
 			 			Builder.Order
 			 		Builder.Add(:check , {:actual => :battle_only , :text => "战斗结束时解除"})
-			 			Builder.Next
+			 			Builder.Next(4)
 			 		Builder.Add(:int , {:actual => :hold_turn , :label => 0})
-			 			Builder.Text("回合经过后")
+			 			Builder.Text("回合经过后", 0, 4)
 			 		Builder.Add(:int , {:actual => :auto_release_prob , :label => 0})
-			 			Builder.Text("% 的概率解除")
-			 			Builder.Next
-			 			Builder.Text("受到物理攻击后    ")
+			 			Builder.Text("% 的概率解除", 0, 4)
+			 			Builder.Next(4)
+			 			Builder.Text("受到物理攻击后", 0, 4)
 			 		Builder.Add(:int , {:actual => :shock_release_prob , :label => 0})
-			 			Builder.Text("% 的概率解除")
+			 			Builder.Text("% 的概率解除", 0, 4)
 			 end
 			 	Builder.OrderAndNext
 				text = Text.new { |*args| args[0].Text }
 			Builder.Add(:checklist , {:actual => :guard_element_set ,:text => "属性", :data => Data["system"]["@elements"] , :textbook => text})
 		  Builder.Add(:bufflist , {:actual => {"+" => :plus_state_set, "-" => :minus_state_set},:text => "状态变化",
-			 :data => Data["state"], :textbook => Help.Get_Default_Text, :default => ""})
+			 :data => Data["state"], :textbook => Help.Get_Silence_Text, :default => ""})
 		end
 	end
 	list.Value = Data["state"]

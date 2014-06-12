@@ -19,6 +19,7 @@ class Help
 		watch = args[1]
 		watch.clear
 		watch.push name
+		return name
 	end
 	def self.System_Property_Text(*args)
 		string = args[0]

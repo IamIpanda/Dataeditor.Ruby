@@ -13,12 +13,12 @@ Builder.Add(:tab , { :text => "系统" }) do
 				end
 				window = Proc.new do |window, target|
 						Builder.In(window)
-					Builder.Add(:choose , {:actual => "", :text => "角色", :choice => { nil => Filechoice.new("actor")} })
+					Builder.Add(:choose , {:actual => "", :text => "角色", :choice => { nil => Filechoice.new("actor")}})
 						Builder.Out
 						window.value = target
 				end
 			Builder.Add(:view , {:actual => :party_members ,:text => "初期同伴", :catalogue => texts ,
-				:columns => columns, :catalogue => texts, :window => window, :window_type => 0, :new => nil })
+				:columns => columns, :catalogue => texts, :window => window, :window_type => 0, :new => nil, :width => 140, :height => 100  })
 				text = Text.new { |i, target| sprintf("%03d:%s", i, target) }
 			Builder.Add(:paper , {:actual => :elements , :text => "属性", :textbook => text})
 				Builder.Next

@@ -114,20 +114,20 @@ namespace DataEditor.Ruby
             builder.now_x += x_space;
             builder.now_y += y_space;
         }
-        public static void Next()
+        public static void Next(int extra = 0)
         {
             var builder = Builders.Peek();
             if (builder.mode == ControlOrder.Row)
             {
                 builder.now_y = builder.head_y;
-                builder.head_x = builder.now_x + builder.now_w + builder.margin.Right;
+                builder.head_x = builder.now_x + builder.now_w + builder.margin.Right + extra;
                 builder.now_x = builder.head_x;
                 builder.now_w = 0;
             }
             else
             {
                 builder.now_x = builder.head_x;
-                builder.head_y = builder.now_y + builder.now_h + builder.margin.Bottom;
+                builder.head_y = builder.now_y + builder.now_h + builder.margin.Bottom + extra;
                 builder.now_y = builder.head_y;
                 builder.now_h = 0;
             }
@@ -167,11 +167,13 @@ namespace DataEditor.Ruby
         {
             var builder = Builders.Peek();
             var label = new System.Windows.Forms.Label();
-            if (extra_w < 0) { }
-            if (extra_h < 0) { } 
             label.Text = text;
             label.Size = label.PreferredSize;
-            label.Location = new System.Drawing.Point(builder.now_x, builder.now_y);
+            if (extra_w < 0)
+                extra_w = builder.last.Width - label.Width + extra_w + 1;
+            if (extra_h < 0)
+                extra_h = builder.last.Height - label.Height + extra_h + 1;
+            label.Location = new System.Drawing.Point(builder.now_x + extra_w, builder.now_y + extra_h);
             var size = new System.Drawing.Size(label.Width + extra_w, label.Height + extra_h);
             builder.AddLabel(label);
             builder.CalcCoodinate(label, size.Width, size.Height);

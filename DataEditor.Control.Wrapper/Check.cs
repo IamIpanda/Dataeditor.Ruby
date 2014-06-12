@@ -19,7 +19,7 @@ namespace DataEditor.Control.Wrapper
 
         public override bool ValueIsChanged()
         {
-            return Control.Checked == value.Value;
+             return !(Control.Checked == value.Value);
         }
         protected override void SetDefaultArgument()
         {
@@ -31,6 +31,14 @@ namespace DataEditor.Control.Wrapper
             base.Reset();
             Control.Text = argument.GetArgument<string>("text");
             Control.Size = Control.PreferredSize;
+        }
+        public override void Putt()
+        {
+            var state = DataEditor.Help.Taint.Instance[Value];
+            var color = DataEditor.Help.Taint.DefaultColor(state);
+            Control.ForeColor = System.Windows.Forms.CheckBox.DefaultForeColor;
+            if (state != Contract.TaintState.UnTainted)
+                Control.ForeColor = color;
         }
     }
 }

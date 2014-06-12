@@ -5,6 +5,7 @@ using System.Drawing;
 
 namespace DataEditor.Help
 {
+    [Serializable]
     public class Palette
     {
         private Color?[] Colors = new Color?[30];
@@ -46,6 +47,7 @@ namespace DataEditor.Help
         public List<Color> FocusColor { get { return ColorRange(4, 5); } }
     }
 
+    [Serializable]
     public class Painter
     {
         private Painter() 

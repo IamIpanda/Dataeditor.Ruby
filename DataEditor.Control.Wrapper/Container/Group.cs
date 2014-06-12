@@ -16,5 +16,10 @@ namespace DataEditor.Control.Wrapper.Container
             base.SetDefaultArgument();
             argument.OverrideArgument("text", "", Help.Parameter.ArgumentType.Option);
         }
+        public override void Bind()
+        {
+            base.Bind();
+            Control.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+        }
     }
 }

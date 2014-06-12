@@ -8,10 +8,10 @@ Builder.Add(:tab , { :text => "职业" }) do
 	list = Builder.Add(:list, {:textbook => Help.Get_Default_Text, :text => "职业"}) do
 		Builder.Add(:group, {:text => ""}) do
 			Builder.Add(:text , {:actual => :name , :text => "名称"})
-			Builder.Add(:checklist , {:actual => :weapon_set , :text => "可装备的武器", :data => Data["weapon"], :textbook => Help.Get_Default_Text, :height => 350} )
+			Builder.Add(:checklist , {:actual => :weapon_set , :text => "可装备的武器", :data => Data["weapon"], :textbook => Help.Get_Silence_Text, :height => 420, :width => 130} )
 				Builder.Next
 			Builder.Add(:choose , {:actual => :position , :text => "位置" ,:choice => {0 => "前卫", 1 => "中卫", 2 => "后卫"}})
-			Builder.Add(:checklist , {:actual => :armor_set , :text => "可装备的防具", :data => Data["armor"], :textbook => Help.Get_Default_Text, :height => 350 } )
+			Builder.Add(:checklist , {:actual => :armor_set , :text => "可装备的防具", :data => Data["armor"], :textbook => Help.Get_Silence_Text, :height => 420, :width => 130 } )
 				Builder.Next
 			Builder.Add(:group) do
 					Builder.Order
@@ -38,7 +38,7 @@ Builder.Add(:tab , { :text => "职业" }) do
 					ans
 				end )
 			Builder.Add(:view , {:actual => :learnings , :text => "特技" ,:columns => ["等级","学会的特技"], 
-				:catalogue => texts, :window => window, :window_type => 1, :new => nil})
+				:catalogue => texts, :window => window, :window_type => 1, :new => nil, :width => 205, :height => 150})
 		end
 	end
 	list.value = Data["class"]

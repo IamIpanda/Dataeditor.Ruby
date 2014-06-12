@@ -14,14 +14,17 @@ namespace DataEditor.Help
         {
             string full_path = System.IO.Path.Combine(DIRECTORY, path + EXTENSION);
             if (!(System.IO.File.Exists(full_path))) return null;
+            System.IO.FileStream stream = null;
             try
             {
-                System.IO.FileStream stream = new System.IO.FileStream(full_path, System.IO.FileMode.Open);
+                stream = new System.IO.FileStream(full_path, System.IO.FileMode.Open);
                 object answer = ser.Deserialize(stream);
                 stream.Close();
                 return answer;
             }
-            catch (Exception ex) { Log.log(ex.ToString()); return null; }
+            catch (Exception ex) { Log.log(ex.ToString()); }
+            finally { if (stream != null) { stream.Close(); } }
+            return null;
         }
         public static object GetOption(Type type)
         {

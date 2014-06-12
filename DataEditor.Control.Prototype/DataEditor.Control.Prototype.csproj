@@ -57,6 +57,9 @@
     <Compile Include="ProtoCheckContainer.Designer.cs">
       <DependentUpon>ProtoCheckContainer.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProtoCheckedListbox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ProtoColoredListBox.cs">
       <SubType>Component</SubType>
     </Compile>

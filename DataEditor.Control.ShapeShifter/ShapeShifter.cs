@@ -55,7 +55,7 @@ namespace DataEditor.Control.ShapeShifter
 
         private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (protoShapeShifterData1.Focused)
+            if (protoShapeShifterData1.Focused && protoShapeShifterData1.SelectedNode != null)
             {
                 if (protoShapeShifterData1.SelectedNode.Parent == null)
                 {

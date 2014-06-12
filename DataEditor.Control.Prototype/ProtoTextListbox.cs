@@ -14,7 +14,7 @@ namespace DataEditor.Control.Prototype
         protected Font font;
         public ProtoTextListBox()
         {
-            ItemHeight = 16;
+            ItemHeight = 14;
             base.RightShift = ItemHeight + 1;
             DefaultColor = Color.Gray;
             Texts = new List<string>();
@@ -27,7 +27,7 @@ namespace DataEditor.Control.Prototype
         {
             base.OnDrawItem(e);
             int y = e.Bounds.Y;
-            var rect = new Rectangle(1, y + 1, ItemHeight - 2, ItemHeight - 2);
+            var rect = new Rectangle(0, y, ItemHeight, ItemHeight);
             System.Windows.Forms.ControlPaint.DrawCheckBox(e.Graphics, rect, System.Windows.Forms.ButtonState.Flat);
             if (Texts != null && Texts.Count > e.Index && e.Index >= 0)
             {

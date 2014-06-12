@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataEditor.Control.Wrapper
 {
-    public class ListCheck : Control.WrapControlEditor<FuzzyData.FuzzyArray, System.Windows.Forms.CheckedListBox>
+    public class ListCheck : Control.WrapControlEditor<FuzzyData.FuzzyArray, Prototype.ProtoCheckedListbox>
     {
         bool NowTaint = false;
         Help.Catalogue catalogue;
@@ -28,7 +28,7 @@ namespace DataEditor.Control.Wrapper
                 if (num != null)
                     Control.SetItemChecked(catalogue.Link.Verse[(int)num.Value], true);
             }
-
+            Control.Invalidate();
         }
 
         public override bool ValueIsChanged()
@@ -56,7 +56,6 @@ namespace DataEditor.Control.Wrapper
             base.Bind();
             Control.ItemCheck += Control_ItemCheck;
             Control.Leave += Control_Leave;
-            Control.CheckOnClick = true;
         }
 
         void Control_Leave(object sender, EventArgs e)

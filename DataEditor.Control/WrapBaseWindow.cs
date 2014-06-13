@@ -9,6 +9,7 @@ namespace DataEditor.Control
         public override bool ValueIsChanged() { return false; }
         abstract public System.Windows.Forms.DialogResult Show();
         public object Tag { get; set; }
+        protected override void SetEnabled() { }
     }
     public class WrapBaseWindow<T> : WrapBaseWindow where T : System.Windows.Forms.Form, new()
     {

@@ -23,7 +23,7 @@ namespace DataEditor.Control
         public virtual System.Windows.Forms.Control Binding { get; set; }
         protected virtual TValue ConvertToValue(FuzzyData.FuzzyObject origin) { return origin as TValue; }
 
-        public WrapBaseEditor() { Bind(); SetDefaultArgument(); EnableData = true; }
+        public WrapBaseEditor() { Bind(); SetDefaultArgument(); EnableData = false; SetEnabled(); }
         public virtual void OnEnter(object sender, EventArgs e) { }
         public virtual void OnLeave(object sender, EventArgs e) { }
         public virtual Help.Parameter Argument
@@ -61,7 +61,11 @@ namespace DataEditor.Control
                 TValue ans = ConvertToValue(value);
                 if (ans != null)
                 {
-                    Binding.Enabled = true;
+                    if (!EnableData)
+                    {
+                        EnableData = true;
+                        SetEnabled();
+                    }
                     this.value = ans;
                     Pull();
                 }
@@ -76,7 +80,9 @@ namespace DataEditor.Control
                 parent = value;
                 FuzzyData.FuzzyObject origin = GetValueFromChild(value);
                 TValue ans = ConvertToValue(origin);
-                if (ans == null) return;
+                EnableData = !(ans == null);
+                if (!EnableData) return;
+                if (!Binding.Enabled) SetEnabled();
                 this.value = ans;
                 if (Binding.Enabled) Pull();
                 Putt();
@@ -121,6 +127,14 @@ namespace DataEditor.Control
             argument.SetArgument("text", "Untitled", Help.Parameter.ArgumentType.Option);
             argument.SetArgument("actual", null, Help.Parameter.ArgumentType.Must);
         }
+        protected virtual void SetEnabled()
+        {
+            Binding.Enabled = EnableData;
+            if (Label != null)
+                if (EnableData)
+                    Label.ForeColor = System.Drawing.Color.Gray;
+                else Putt();
+        }
     }
 
 
@@ -132,12 +146,6 @@ namespace DataEditor.Control
         public override void Bind() 
         { 
             Binding = Control;
-            Control.EnabledChanged += Control_EnabledChanged;
-        }
-
-        void Control_EnabledChanged(object sender, EventArgs e)
-        {
-            if (Control.Enabled && key != null && value != null) Pull();
         }
     }
 }

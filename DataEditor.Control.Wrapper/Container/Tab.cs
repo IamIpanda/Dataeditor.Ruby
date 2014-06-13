@@ -17,5 +17,6 @@ namespace DataEditor.Control.Wrapper.Container
             RememberSize = size;
             base.SetSize(size);
         }
+        protected override void SetEnabled() { }
     }
 }

@@ -38,14 +38,14 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.编辑ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.撤销ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.恢复ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.帮助ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ssMain = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnMain = new System.Windows.Forms.Panel();
-            this.撤销ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.恢复ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.SuspendLayout();
@@ -61,6 +61,7 @@
             this.msMain.Size = new System.Drawing.Size(805, 24);
             this.msMain.TabIndex = 0;
             this.msMain.Text = "menuStrip1";
+            this.msMain.Visible = false;
             this.msMain.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.msMain_ItemClicked);
             this.msMain.Leave += new System.EventHandler(this.msMain_Leave);
             // 
@@ -133,6 +134,23 @@
             this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.编辑ToolStripMenuItem.Text = "编辑";
             // 
+            // 撤销ToolStripMenuItem
+            // 
+            this.撤销ToolStripMenuItem.Name = "撤销ToolStripMenuItem";
+            this.撤销ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.撤销ToolStripMenuItem.Text = "撤销";
+            // 
+            // 恢复ToolStripMenuItem
+            // 
+            this.恢复ToolStripMenuItem.Name = "恢复ToolStripMenuItem";
+            this.恢复ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.恢复ToolStripMenuItem.Text = "恢复";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(95, 6);
+            // 
             // 帮助ToolStripMenuItem1
             // 
             this.帮助ToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -144,7 +162,7 @@
             // 关于ToolStripMenuItem
             // 
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.关于ToolStripMenuItem.Text = "关于";
             // 
             // ssMain
@@ -167,27 +185,10 @@
             // pnMain
             // 
             this.pnMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnMain.Location = new System.Drawing.Point(0, 24);
+            this.pnMain.Location = new System.Drawing.Point(0, 0);
             this.pnMain.Name = "pnMain";
-            this.pnMain.Size = new System.Drawing.Size(805, 491);
+            this.pnMain.Size = new System.Drawing.Size(805, 515);
             this.pnMain.TabIndex = 2;
-            // 
-            // 撤销ToolStripMenuItem
-            // 
-            this.撤销ToolStripMenuItem.Name = "撤销ToolStripMenuItem";
-            this.撤销ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.撤销ToolStripMenuItem.Text = "撤销";
-            // 
-            // 恢复ToolStripMenuItem
-            // 
-            this.恢复ToolStripMenuItem.Name = "恢复ToolStripMenuItem";
-            this.恢复ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.恢复ToolStripMenuItem.Text = "恢复";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // EditorWindow
             // 

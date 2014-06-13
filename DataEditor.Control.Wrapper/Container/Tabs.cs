@@ -30,6 +30,7 @@ namespace DataEditor.Control.Wrapper.Container
         {
             base.SetSize(new System.Drawing.Size(size.Width, size.Height + 25));
         }
+        protected override void SetEnabled() { }
        
     }
 }

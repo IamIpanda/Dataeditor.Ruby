@@ -22,13 +22,11 @@ namespace DataEditor.Control.Window
 
         private void EditorWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            /*
             if (!(e.Alt)) return;
             msMain.Visible = !(msMain.Visible);
             if (!msMain.Visible) return;
             msMain.Focus();
             msMain.Items[0].Select();
-             * */
         }
 
         private void msMain_Leave(object sender, EventArgs e)

@@ -75,11 +75,24 @@ namespace DataEditor.Control
                         ans.Add(control.Tag as ObjectEditor);
             return ans;
         }
+        protected bool SettingEnabled = false;
+        protected override void SetEnabled()
+        {
+            SettingEnabled = true;
+            base.SetEnabled();
+            SettingEnabled = false;
+        }
     }
     public abstract class WrapControlContainer<TControl> : WrapBaseContainer
         where TControl : System.Windows.Forms.Control, new()
     {
         protected TControl Control = new TControl();
-        public override void Bind() { Binding = Control; }
+        public override void Bind() { Binding = Control; Binding.EnabledChanged += Binding_EnabledChanged; }
+
+        void Binding_EnabledChanged(object sender, EventArgs e)
+        {
+            if (!SettingEnabled)
+                Pull();
+        }
     }
 }

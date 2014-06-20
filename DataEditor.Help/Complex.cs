@@ -28,6 +28,21 @@ namespace DataEditor.FuzzyData
         }
         public Dictionary<string,FuzzyObject>.KeyCollection AllKeys { get { return this.consistence.Keys; } }
         public Dictionary<string, FuzzyObject>.ValueCollection AllValues { get { return this.consistence.Values; } }
+        public override string ToString()
+        {
+            var sb = new StringBuilder("{");
+            sb.AppendLine();
+            foreach(var key in consistence.Keys)
+            {
+                sb.Append(":");
+                sb.Append(key);
+                sb.Append(" = ");
+                sb.AppendLine(consistence[key].ToString());
+                if (sb.Length >= 500) break;
+            }
+            sb.AppendLine("}");
+            return sb.ToString();
+        }
     }
     public class FuzzySymbolComplex : FuzzySymbol
     {

@@ -82,5 +82,33 @@ namespace DataEditor.Help
                 return null;
             }
         }
+
+
+        static Dictionary<string, System.Windows.Forms.Control> Controls
+             = new Dictionary<string, System.Windows.Forms.Control>();
+        static public System.Windows.Forms.Control GetControl(string Name)
+        {
+            System.Windows.Forms.Control ans;
+            if (Controls.TryGetValue(Name, out ans)) return ans;
+            else return null;
+        }
+        static public void SetControl(string Name, System.Windows.Forms.Control Control)
+        {
+            if (Controls.ContainsKey(Name)) Controls[Name] = Control;
+            else Controls.Add(Name, Control);
+        }
+
+        static public System.Windows.Forms.ToolStripLabel StatusLabel;
+        static public void SetStatus(string str)
+        {
+            if (StatusLabel != null) StatusLabel.Text = str;
+        }
+        static public System.Windows.Forms.ToolTip ToolTip;
+        static public void SetTip(System.Windows.Forms.Control Control, String Tip)
+        {
+            if (ToolTip != null) ToolTip.SetToolTip(Control, Tip);
+        }
+        
+
     }
 }

@@ -13,11 +13,12 @@ namespace DataEditor.Control.Window
         public EditorWindow()
         {
             InitializeComponent();
+            Help.Bash.StatusLabel = this.toolStripStatusLabel1;
+            Help.Bash.ToolTip = this.toolTip1;
         }
 
         private void WindowEditor_Load(object sender, EventArgs e)
         {
-
         }
 
         private void EditorWindow_KeyDown(object sender, KeyEventArgs e)

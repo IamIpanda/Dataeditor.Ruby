@@ -146,6 +146,47 @@ namespace DataEditor.Control
         public override void Bind() 
         { 
             Binding = Control;
+            Control.MouseEnter += Control_MouseEnter;
+            Control.MouseLeave += Control_MouseLeave;
+            ValueHasChanged = false;
+        }
+
+        string LastStatusBarText = null;
+        void Control_MouseLeave(object sender, EventArgs e)
+        {
+        }
+
+        void Control_MouseEnter(object sender, EventArgs e)
+        {
+            if (Help.Bash.ToolTip == null) return;
+            var label = this.Label == null ? "" : this.Label.Text;
+            Help.Bash.ToolTip.ToolTipTitle = label;
+            if (!ValueHasChanged) return;
+            ValueHasChanged = false;
+            var builder = new StringBuilder();
+            builder.AppendFormat("Editor = [{0}]", Flag);
+            builder.AppendLine();
+            if (this.value != null)
+            {
+                var type = this.Value.GetType().Name.Substring(5);
+                var that = this.value.ToString();
+                if (that.Length > 500) that = that.Substring(0, 500) + "...";
+                var key = this.key == null ? " - " : this.key.Name;
+                builder.AppendFormat("[{0}] {1}", type, key);
+                builder.AppendLine();
+                builder.AppendFormat("Value = {0}", that);
+                builder.AppendLine();
+            }
+            else
+                builder.AppendLine("No Value");
+            Help.Bash.ToolTip.SetToolTip(Control, builder.ToString());
+
+        }
+        protected bool ValueHasChanged { get; set; }
+        public override void Reset()
+        {
+            base.Reset();
+            ValueHasChanged = true;
         }
     }
 }

@@ -14,10 +14,12 @@ namespace DataEditor.FuzzyData
         {
             this.value = value;
             GetParam();
+            this.ClassName = FuzzySymbol.GetSymbol("Color");
         }
         public FuzzyColor(int red, int green, int blue, int alpha = 255)
         {
             set(red, green, blue, alpha);
+            this.ClassName = FuzzySymbol.GetSymbol("Color");
         }
         private void GetColor()
         {

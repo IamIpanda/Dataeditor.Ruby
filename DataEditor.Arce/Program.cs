@@ -17,7 +17,7 @@ namespace DataEditor.Arce
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             WrapLead lead = new WrapLead();
-            WrapTitan titan = new WrapTitan();
+            var titan = new WrapUranus();
             Help.Window.Instance["lead"] = lead;
             Help.Window.Instance["Main"] = titan;
             Application.Run(lead.Window);

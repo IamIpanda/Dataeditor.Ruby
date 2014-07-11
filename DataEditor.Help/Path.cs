@@ -109,6 +109,13 @@ namespace DataEditor.Help
                 RegistryKey l = Registry.LocalMachine;
                 RegistryKey s = l.OpenSubKey("SOFTWARE");
                 RegistryKey E = s.OpenSubKey("Enterbrain");
+                ScanRegistryRtps(E);
+                RegistryKey w = s.OpenSubKey("Wow6432Node");
+                if (w != null)
+                    ScanRegistryRtps(w.OpenSubKey("Enterbrain"));
+            }
+            static private void ScanRegistryRtps(RegistryKey E)
+            {
                 if (E == null) return;
                 int count = 0;
                 foreach (string t in E.GetSubKeyNames())

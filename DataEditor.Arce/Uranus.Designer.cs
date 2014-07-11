@@ -1,6 +1,6 @@
-﻿namespace DataEditor.Control.Window
+﻿namespace DataEditor.Arce
 {
-    partial class EditorWindow
+    partial class Uranus
     {
         /// <summary>
         /// Required designer variable.
@@ -66,7 +66,6 @@
             this.msMain.TabIndex = 0;
             this.msMain.Text = "menuStrip1";
             this.msMain.Visible = false;
-            this.msMain.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.msMain_ItemClicked);
             this.msMain.Leave += new System.EventHandler(this.msMain_Leave);
             // 
             // 文件ToolStripMenuItem
@@ -80,8 +79,8 @@
             this.toolStripSeparator2,
             this.退出ToolStripMenuItem});
             this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
-            this.文件ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.文件ToolStripMenuItem.Text = "文件";
+            this.文件ToolStripMenuItem.Size = new System.Drawing.Size(58, 21);
+            this.文件ToolStripMenuItem.Text = "文件(&F)";
             // 
             // 打开ToolStripMenuItem
             // 
@@ -89,6 +88,7 @@
             this.打开ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.打开ToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.打开ToolStripMenuItem.Text = "打开";
+            this.打开ToolStripMenuItem.Click += new System.EventHandler(this.打开ToolStripMenuItem_Click);
             // 
             // 保存ToolStripMenuItem
             // 
@@ -96,6 +96,7 @@
             this.保存ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.保存ToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.保存ToolStripMenuItem.Text = "保存";
+            this.保存ToolStripMenuItem.Click += new System.EventHandler(this.保存ToolStripMenuItem_Click);
             // 
             // 另存为ToolStripMenuItem
             // 
@@ -104,6 +105,7 @@
             | System.Windows.Forms.Keys.S)));
             this.另存为ToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.另存为ToolStripMenuItem.Text = "另存为";
+            this.另存为ToolStripMenuItem.Click += new System.EventHandler(this.另存为ToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -126,6 +128,7 @@
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
             this.退出ToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.退出ToolStripMenuItem.Text = "退出";
+            this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
             // 编辑ToolStripMenuItem
             // 
@@ -136,8 +139,8 @@
             this.呼出通用编辑器ToolStripMenuItem,
             this.执行脚本ToolStripMenuItem});
             this.编辑ToolStripMenuItem.Name = "编辑ToolStripMenuItem";
-            this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.编辑ToolStripMenuItem.Text = "编辑";
+            this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
+            this.编辑ToolStripMenuItem.Text = "编辑(&E)";
             // 
             // 撤销ToolStripMenuItem
             // 
@@ -145,6 +148,7 @@
             this.撤销ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.撤销ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.撤销ToolStripMenuItem.Text = "撤销";
+            this.撤销ToolStripMenuItem.Click += new System.EventHandler(this.撤销ToolStripMenuItem_Click);
             // 
             // 恢复ToolStripMenuItem
             // 
@@ -153,6 +157,7 @@
             | System.Windows.Forms.Keys.Z)));
             this.恢复ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.恢复ToolStripMenuItem.Text = "恢复";
+            this.恢复ToolStripMenuItem.Click += new System.EventHandler(this.恢复ToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -165,6 +170,7 @@
             this.呼出通用编辑器ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
             this.呼出通用编辑器ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.呼出通用编辑器ToolStripMenuItem.Text = "通用编辑器";
+            this.呼出通用编辑器ToolStripMenuItem.Click += new System.EventHandler(this.呼出通用编辑器ToolStripMenuItem_Click);
             // 
             // 执行脚本ToolStripMenuItem
             // 
@@ -172,6 +178,7 @@
             this.执行脚本ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.执行脚本ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.执行脚本ToolStripMenuItem.Text = "执行脚本";
+            this.执行脚本ToolStripMenuItem.Click += new System.EventHandler(this.执行脚本ToolStripMenuItem_Click);
             // 
             // 帮助ToolStripMenuItem1
             // 
@@ -207,9 +214,9 @@
             // pnMain
             // 
             this.pnMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnMain.Location = new System.Drawing.Point(0, 0);
+            this.pnMain.Location = new System.Drawing.Point(0, 25);
             this.pnMain.Name = "pnMain";
-            this.pnMain.Size = new System.Drawing.Size(805, 515);
+            this.pnMain.Size = new System.Drawing.Size(805, 490);
             this.pnMain.TabIndex = 2;
             // 
             // toolTip1
@@ -218,7 +225,7 @@
             this.toolTip1.InitialDelay = 2000;
             this.toolTip1.ReshowDelay = 1000;
             // 
-            // EditorWindow
+            // Uranus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -231,8 +238,9 @@
             this.MainMenuStrip = this.msMain;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "EditorWindow";
+            this.Name = "Uranus";
             this.Text = "数据库";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Uranus_FormClosed);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditorWindow_KeyDown);
             this.msMain.ResumeLayout(false);
             this.msMain.PerformLayout();
@@ -249,7 +257,6 @@
         protected System.Windows.Forms.ToolStripMenuItem 文件ToolStripMenuItem;
         protected System.Windows.Forms.StatusStrip ssMain;
         protected System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        protected System.Windows.Forms.Panel pnMain;
         protected System.Windows.Forms.ToolStripMenuItem 打开ToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem 保存ToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem 另存为ToolStripMenuItem;
@@ -266,8 +273,6 @@
         protected System.Windows.Forms.ToolStripMenuItem 恢复ToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem 呼出通用编辑器ToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem 执行脚本ToolStripMenuItem;
-
-
-
+        public System.Windows.Forms.Panel pnMain;
     }
 }

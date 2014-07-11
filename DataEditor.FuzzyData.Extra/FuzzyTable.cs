@@ -106,5 +106,18 @@ namespace DataEditor.FuzzyData
             self.value = source.value;
             return self;
         }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder("[Table: ");
+            if (this.dimension == 1)
+                sb.Append(x_size);
+            else if (this.dimension == 2)
+                sb.AppendFormat("{0}, {1}", x_size, y_size);
+            else if (this.dimension == 3)
+                sb.AppendFormat("{0}, {1}, {2}", x_size, y_size, z_size);
+            sb.Append("]");
+            return sb.ToString();
+        }
     }
 }

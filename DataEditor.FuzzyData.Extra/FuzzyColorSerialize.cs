@@ -11,7 +11,7 @@ namespace DataEditor.FuzzyData
     {
         protected void ToBytes(Stream stream)
         {
-            StreamWriter w = new StreamWriter(stream);
+            BinaryWriter w = new BinaryWriter(stream);
             w.Write((Byte)37);
             w.Write((double)r);
             w.Write((double)g);

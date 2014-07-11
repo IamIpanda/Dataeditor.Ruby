@@ -14,6 +14,7 @@ namespace DataEditor.Control
         abstract public void Pull();
         abstract public void Bind();
         public bool EnableData { get; set; }
+        public virtual string HelpDocument { get; set; }
         abstract public bool ValueIsChanged();
         public virtual void Putt() { Help.Taint.DefaultPutt(this); }
         public virtual string Flag { get { return this.GetType().Name; } }
@@ -52,6 +53,7 @@ namespace DataEditor.Control
             }
             Binding.Leave += OnLeave;
             Binding.Enter += OnEnter;
+            if (EnableData) Help.Link.Instance[this.Value] = this;
         }
         public virtual FuzzyData.FuzzyObject Value
         {
@@ -152,11 +154,12 @@ namespace DataEditor.Control
         }
 
         string LastStatusBarText = null;
-        void Control_MouseLeave(object sender, EventArgs e)
+        protected virtual void Control_MouseLeave(object sender, EventArgs e)
         {
+
         }
 
-        void Control_MouseEnter(object sender, EventArgs e)
+        protected virtual void Control_MouseEnter(object sender, EventArgs e)
         {
             if (Help.Bash.ToolTip == null) return;
             var label = this.Label == null ? "" : this.Label.Text;
@@ -179,8 +182,8 @@ namespace DataEditor.Control
             }
             else
                 builder.AppendLine("No Value");
+            builder.AppendLine(HelpDocument ?? "该控件未提供说明文档。");
             Help.Bash.ToolTip.SetToolTip(Control, builder.ToString());
-
         }
         protected bool ValueHasChanged { get; set; }
         public override void Reset()

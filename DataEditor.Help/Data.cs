@@ -11,6 +11,7 @@ namespace DataEditor.Help
         static Data() { Instance = new Data(); }
         protected Data () { }
         protected Dictionary<string, FuzzyObject> Datas = new Dictionary<string, FuzzyObject>();
+        protected Dictionary<string, System.IO.FileInfo> Origins = new Dictionary<string, System.IO.FileInfo>();
         public FuzzyObject this[string name]
         {
             get
@@ -77,8 +78,73 @@ namespace DataEditor.Help
                 else ans = files[0];
                 object content = Serialization.LoadFile(ans, serialize);
                 Datas.Add(name, content as FuzzyObject);
+                Origins.Add(name, new System.IO.FileInfo(ans));
             }
         }
+        public void Save(string name = null, string type = "")
+        {
+            if (name == null)
+            {
+                foreach (string str in Datas.Keys)
+                    Save(str);
+                return;
+            }
+            System.IO.FileInfo file;
+            System.IO.FileStream stream;
+            if (Origins.TryGetValue(name, out file))
+            {
+                try 
+                {
+                    stream = file.OpenWrite();
+                    Serialization.TryGetSerialization(type).Dump(stream, Instance[name]);
+
+                }
+                catch(Exception ex)
+                {
+                    var message = "An error occured when saving data for " + name + ":" + Environment.NewLine + ex.ToString();
+                    Log.log(message);
+                    System.Windows.Forms.MessageBox.Show(message, "Save Failed", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                }
+            }
+            else 
+            {
+                var message = "Discarded data named " + name + " for its unexistance.";
+                Log.log(message);
+            }
+        }
+        public void Discard(string name = null, string type = "")
+        {
+            if (name == null)
+            {
+                foreach (string str in Datas.Keys)
+                    Discard(str);
+                return;
+            }
+            System.IO.FileInfo file;
+            System.IO.FileStream stream;
+            object obj;
+            FuzzyObject target;
+            if (Origins.TryGetValue(name, out file))
+            {
+                try
+                {
+                    stream = file.OpenRead();
+                    obj = Serialization.TryGetSerialization(type).Load(stream);
+                    if (obj is FuzzyObject) target = obj as FuzzyObject;
+                }
+                catch (Exception ex)
+                {
+                    var message = "An Error occured when reloading data for " + name + ":" + Environment.NewLine + ex.ToString();
+                    Log.log(message);
+                }
+            }
+            else
+            {
+                var message = "No file named " + name;
+                Log.log(message);
+            }
+        }
+
         internal static class MapComponent
         {
             static public Dictionary<int, FuzzyData.FuzzyObject> Maps = new Dictionary<int,FuzzyObject>();

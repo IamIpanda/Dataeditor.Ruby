@@ -35,7 +35,7 @@ namespace DataEditor.Control.Wrapper.Container
             var text = argument.GetArgument<Help.Parameter.Text>("TEXTBOOK");
             var filter = argument.GetArgument<Contract.Runable>("FILTER");
             catalogue = new Help.Catalogue(Control.Items, text, filter);
-            Control.Dock = System.Windows.Forms.DockStyle.Fill;
+            //Control.Dock = System.Windows.Forms.DockStyle.Fill;
             Control.Text = argument.GetArgument<string>("text");
         }
         protected override void SetDefaultArgument()
@@ -80,6 +80,7 @@ namespace DataEditor.Control.Wrapper.Container
         {
             var index = Control.SelectedIndex;
             var obj = Value;
+            if (obj == null) return;
             var state = Help.Taint.Instance[obj];
             if (state == Contract.TaintState.UnTainted) return;
             var color = Help.Taint.DefaultColor(state);

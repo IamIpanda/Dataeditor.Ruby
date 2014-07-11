@@ -14,6 +14,7 @@ namespace DataEditor.Control.Window
         {
             InitializeComponent();
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.BackColor = Help.Painter.Instance[1];
         }
 
         private void btOK_Click(object sender, EventArgs e)

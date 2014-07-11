@@ -8,7 +8,10 @@ namespace DataEditor.Help
     {
         public static Taint Instance { get; set; }
         static Taint() { Instance = new Taint(); }
-        protected Taint() { }
+        protected Taint() 
+        {
+            Help.Action.Instance.Act += Instance_Act;
+        }
         protected Dictionary<FuzzyData.FuzzyObject, Contract.TaintState> records 
             = new Dictionary<FuzzyData.FuzzyObject, Contract.TaintState>();
         protected Dictionary<FuzzyData.FuzzyObject, Contract.TaintCollection> books
@@ -33,7 +36,8 @@ namespace DataEditor.Help
             e.OldState = this[e.Owner];
             this[e.Owner] = e.NewState;
             e.Editor = target;
-            Control.ObjectEditor container = target.Container;
+            Control.ObjectEditor container = null;
+            if (target != null) container = target.Container;
             switch (e.NewState)
             {
                 case Contract.TaintState.Undo:
@@ -64,6 +68,29 @@ namespace DataEditor.Help
         {
             foreach (var key in records.Keys)
                 records[key] = Contract.TaintState.Saved;
+        }
+        public void Save(FuzzyData.FuzzyObject obj)
+        {
+            if (obj == null) return;
+            if (records.ContainsKey(obj))
+            {
+                records[obj] = Contract.TaintState.Saved;
+                if (obj.InstanceVariables.Count > 0)
+                    foreach (var value in obj.InstanceVariables.Values)
+                        Save(value as FuzzyData.FuzzyObject);
+                if (obj is FuzzyData.FuzzyArray)
+                    foreach (var value in obj as FuzzyData.FuzzyArray)
+                        Save(value as FuzzyData.FuzzyObject);
+                if (obj is FuzzyData.FuzzyHash)
+                {
+                    FuzzyData.FuzzyHash hash = obj as FuzzyData.FuzzyHash;
+                    foreach(var key in hash.Keys)
+                    {
+                        Save(key as FuzzyData.FuzzyObject);
+                        Save(hash[key] as FuzzyData.FuzzyObject);
+                    }
+                }
+            }
         }
         public class TaintEventArgs : EventArgs
         {
@@ -142,6 +169,20 @@ namespace DataEditor.Help
                 case Contract.TaintState.UnTainted:
                 default:
                     return System.Windows.Forms.Label.DefaultForeColor;
+            }
+        }
+
+        void Instance_Act(object sender, Action.ActionEventArgs e)
+        {
+            var target = e.Change.New;
+            if (e.Type == Action.ActionType.Undo)
+                SetTaint(null, new TaintEventArgs(target, this[target], Contract.TaintState.Undo));
+            else if (e.Type == Action.ActionType.Redo)
+                SetTaint(null, new TaintEventArgs(target, this[target], Contract.TaintState.Tainted));
+            if (e.Type != Action.ActionType.Do)
+            {
+                var editor = Link.Instance[target];
+                if (editor != null) editor.Pull();
             }
         }
         public class TaintList : List<Contract.TaintState>, Contract.TaintCollection

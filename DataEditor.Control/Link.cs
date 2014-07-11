@@ -20,8 +20,17 @@ namespace DataEditor.Help
         }
         public Control.ObjectEditor this[FuzzyObject key]
         {
-            get { return Collection[key]; }
-            set { Collection.Add(key, value); }
+            get 
+            {
+                Control.ObjectEditor ans;
+                return Collection.TryGetValue(key, out ans) ? ans : null;
+            }
+            set 
+            {
+                if (Collection.ContainsKey(key))
+                    Collection[key] = value;
+                else Collection.Add(key, value);
+            }
         }
         
 	}

@@ -19,12 +19,13 @@ namespace DataEditor.FuzzyData
             green = g;
             blue = b;
             this.gray = gray;
+            this.ClassName = FuzzySymbol.GetSymbol("Tone");
         }
 
 
         protected void ToBytes (Stream stream)
         {
-            StreamWriter w = new StreamWriter(stream);
+            BinaryWriter w = new BinaryWriter(stream);
             w.Write((Byte)37);
             w.Write((double)red);
             w.Write((double)green);

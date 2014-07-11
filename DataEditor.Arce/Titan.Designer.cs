@@ -32,8 +32,7 @@
             // 
             // pnMain
             // 
-            this.pnMain.Size = new System.Drawing.Size(1134, 681);
-            this.pnMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnMain_Paint);
+            this.pnMain.Size = new System.Drawing.Size(1134, 680);
             // 
             // Titan
             // 

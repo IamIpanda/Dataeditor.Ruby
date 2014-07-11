@@ -58,7 +58,10 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="IronRuby, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -101,11 +104,35 @@
       <DependentUpon>ChangeInWaveDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Engine.cs" />
+    <Compile Include="Uranus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Uranus.Designer.cs">
+      <DependentUpon>Uranus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SaveAsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SaveAsDialog.Designer.cs">
+      <DependentUpon>SaveAsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SaveDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SaveDialog.Designer.cs">
+      <DependentUpon>SaveDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Lead.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Lead.Designer.cs">
       <DependentUpon>Lead.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Option.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Option.Designer.cs">
+      <DependentUpon>Option.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,6 +148,9 @@
     <EmbeddedResource Include="Lead.resx">
       <DependentUpon>Lead.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Option.resx">
+      <DependentUpon>Option.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -130,8 +160,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SaveAsDialog.resx">
+      <DependentUpon>SaveAsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SaveDialog.resx">
+      <DependentUpon>SaveDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Titan.resx">
       <DependentUpon>Titan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Uranus.resx">
+      <DependentUpon>Uranus.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

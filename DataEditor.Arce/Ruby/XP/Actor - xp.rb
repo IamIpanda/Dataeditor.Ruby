@@ -4,8 +4,8 @@
 
 require "Ruby/XP/File - xp.rb"
 
-Builder.Add(:tab , { :text => "角色" }) do
-	list = Builder.Add(:list, {:textbook => Help.Get_Default_Text, :text => "角色"}) do
+tab = Builder.Add(:tab , { :text => "角色" }) do
+	Builder.Add(:list, {:textbook => Help.Get_Default_Text, :text => "角色"}) do
 		Builder.Add(:group, {:text => ""}) do
 				Builder.Order
 			Builder.Add(:text , {:actual => :name , :text => "名称" })
@@ -75,8 +75,8 @@ Builder.Add(:tab , { :text => "角色" }) do
 			end
 		end
 	end
-	list.Value = Data["actor"]
 end
+tab.Value = Data["actor"]
 
 
 =begin

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.protoLeftListBox1 = new DataEditor.Control.Prototype.ProtoLeftListBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.protoLeftListBox1 = new DataEditor.Control.Prototype.ProtoLeftListBox();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -54,16 +54,6 @@
             this.splitContainer1.SplitterDistance = 181;
             this.splitContainer1.TabIndex = 0;
             // 
-            // protoLeftListBox1
-            // 
-            this.protoLeftListBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.protoLeftListBox1.Location = new System.Drawing.Point(0, 0);
-            this.protoLeftListBox1.Name = "protoLeftListBox1";
-            this.protoLeftListBox1.SelectedIndex = -1;
-            this.protoLeftListBox1.Size = new System.Drawing.Size(181, 519);
-            this.protoLeftListBox1.TabIndex = 0;
-            this.protoLeftListBox1.LeftBoxSelectedIndexChanged += new System.EventHandler(this.protoLeftListBox1_LeftBoxSelectedIndexChanged);
-            // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -73,6 +63,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(656, 519);
             this.panel1.TabIndex = 0;
+            // 
+            // protoLeftListBox1
+            // 
+            this.protoLeftListBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.protoLeftListBox1.Location = new System.Drawing.Point(0, 0);
+            this.protoLeftListBox1.Name = "protoLeftListBox1";
+            this.protoLeftListBox1.SelectedIndex = -1;
+            this.protoLeftListBox1.Size = new System.Drawing.Size(181, 519);
+            this.protoLeftListBox1.TabIndex = 0;
+            this.protoLeftListBox1.LeftBoxSelectedIndexChanged += new System.EventHandler(this.protoLeftListBox1_LeftBoxSelectedIndexChanged);
             // 
             // ProtoFullListBox
             // 

@@ -23,7 +23,7 @@ namespace DataEditor.Help
         {
             foreach (Type serialization in Ass.GetExportedTypes())
                 if (Fit(serialization))
-                {
+               { 
                     serializations.Add(Ass.CreateInstance(serialization.ToString()) as Contract.Serialization);
                     Log.log("已获得序列化器：" + serialization.FullName);
                 }
@@ -77,9 +77,10 @@ namespace DataEditor.Help
         static public Contract.Serialization TryGetSerialization(string key)
         {
             Contract.Serialization ser = null;
+            if (key == null) return null;
             flags.TryGetValue(key, out ser);
             if (ser == null) Log.log("序列化器申请被拒绝：" + key);
-            return ser;
+            return ser ?? Default;
         }
         static public object TryGetValue(string data, string key)
         {

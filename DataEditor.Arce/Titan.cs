@@ -43,11 +43,6 @@ namespace DataEditor.Arce
              * */
         }
 
-        private void pnMain_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
     }
     public class WrapTitan : DataEditor.Control.Window.EditorWindow.WrapEditorWindow<Titan> 
     {

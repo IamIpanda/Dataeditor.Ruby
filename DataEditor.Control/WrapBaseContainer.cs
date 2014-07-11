@@ -50,8 +50,8 @@ namespace DataEditor.Control
             if (Binding == null) return;
             if (Binding.Dock == System.Windows.Forms.DockStyle.Fill && Container != null)
             {
-                int width_increment = Container.Binding.Size.Width - Binding.Size.Width;
-                int height_increment = Container.Binding.Size.Height - Binding.Size.Height;
+                int width_increment = 0;//Container.Binding.Size.Width - Binding.Size.Width;
+                int height_increment = 0;//Container.Binding.Size.Height - Binding.Size.Height;
                 Container.SetSize(new System.Drawing.Size(size.Width + width_increment, size.Height + height_increment));
             }
             else

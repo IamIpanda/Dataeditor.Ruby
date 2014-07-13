@@ -12,6 +12,16 @@ namespace DataEditor.Control.Wrapper.Container
             base.Bind();
             Control.Dock = System.Windows.Forms.DockStyle.Fill;
             Control.SelectedIndexChanged += Control_SelectedIndexChanged;
+            Control.ControlAdded += Control_ControlAdded;
+        }
+
+        void Control_ControlAdded(object sender, System.Windows.Forms.ControlEventArgs e)
+        {
+            if (Control.TabPages.Count == 1)
+            {
+                Control.SelectedIndex = 0;
+                Control_SelectedIndexChanged(this, e);
+            }
         }
 
         void Control_SelectedIndexChanged(object sender, EventArgs e)
@@ -30,7 +40,7 @@ namespace DataEditor.Control.Wrapper.Container
         {
             base.SetSize(new System.Drawing.Size(size.Width, size.Height + 25));
         }
-        protected override void SetEnabled() { }
-       
+        protected override void SetEnabled() {
+        }
     }
 }

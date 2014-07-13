@@ -38,8 +38,8 @@ namespace DataEditor.Help
                     var text = new Parameter.Text(Text);
                     catalogue.Add(text);
                     Items.Add(text.ToString(value[i], text.Watch, i, j));
-                    if (text.Watch != null && text.Watch.Count != 0) 
-                        Monitor.Watch(text, TextChanged, text.Watch.ToArray());
+                    if (text.Watch != null && text.Watch.Count != 0)
+                        Monitor.Watch(text, TextChanged);
                     j++;
                 }
         }
@@ -52,7 +52,7 @@ namespace DataEditor.Help
             object target = using_value[i];
             Items[j] = (text.ToString(target, text.Watch, i, j));
             Monitor.Remove(text);
-            Monitor.Watch(text, TextChanged, text.Watch.ToArray());
+            Monitor.Watch(text, TextChanged);
         }
         bool IsFix(object value)
         {

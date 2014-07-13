@@ -71,21 +71,26 @@ namespace DataEditor.Control.Prototype
             Rectangle rect = SrcRect;
             if (SrcRect.Width == 0 && SrcRect.Height == 0)
                 rect = new Rectangle(new Point(0, 0), bitmap.Size);
-            int x = 0, y = 0;
+            RectangleF DestRect = new RectangleF();
+            if (Scale)
+            {
+                float z = 1, zx = 1, zy = 1;
+                if (e.ClipRectangle.Width < rect.Width)
+                    zx = (e.ClipRectangle.Width - 2.0F) / rect.Width;
+                if (e.ClipRectangle.Height < rect.Height)
+                    zy = (e.ClipRectangle.Height - 2.0F) / rect.Height;
+                if (z > zx) z = zx;
+                if (z > zy) z = zy;
+                DestRect.Width = rect.Width * z;
+                DestRect.Height = rect.Height * z;
+            }
+            else { DestRect.Size = rect.Size; }
             if (ImageAlignCenter)
             {
-                x = (int)(e.Graphics.ClipBounds.Width - rect.Width) / 2;
-                y = (int)(e.Graphics.ClipBounds.Height - rect.Height) / 2;
+                DestRect.X = (int)(e.Graphics.ClipBounds.Width - DestRect.Width) / 2;
+                DestRect.Y = (int)(e.Graphics.ClipBounds.Height - DestRect.Height) / 2;
             }
-            else 
-            {
-                x = ((bitmap.Width) - bitmap.Width) / 2;
-                y = ((bitmap.Height) - bitmap.Height) / 2;
-            }
-            if ( Scale )
-                e.Graphics.DrawImage(bitmap, e.ClipRectangle, rect, GraphicsUnit.Pixel);
-            else
-                e.Graphics.DrawImage(bitmap, new Rectangle(x, y, rect.Width, rect.Height), rect, GraphicsUnit.Pixel);
+            e.Graphics.DrawImage(bitmap, DestRect, rect, GraphicsUnit.Pixel);
             if (this.UseRectangleFocus && this.Focused)
                 ProtoFrameControlHelp.DrawFocusRectangle(e.Graphics, e.ClipRectangle);
         }
@@ -141,7 +146,7 @@ namespace DataEditor.Control.Prototype
         protected override void DrawBackGround(Graphics graphics)
         {
             graphics.Clear(BackColor);
-            if ( bitmap == null ) return;
+            if ( bitmap == null && !FullBackgroundDraw ) return;
             int w, h;
             if ( src_rect.Width == 0 && src_rect.Height == 0 )
             { w = bitmap.Width; h = bitmap.Height; }

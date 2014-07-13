@@ -158,7 +158,7 @@ namespace DataEditor.Control.Wrapper
                             var t = text[k];
                             ans[k] = t.ToString(value[i], t.Watch, i, j, k);
                             if (t.Watch != null && t.Watch.Count != 0)
-                                Help.Monitor.Watch(t, TextChanged, t.Watch.ToArray());
+                                Help.Monitor.Watch(t, TextChanged);
                         }
                         j++;
                         Items.Add(new ListViewItem(ans));
@@ -176,7 +176,7 @@ namespace DataEditor.Control.Wrapper
                 string ans = (text.ToString(target, text.Watch, i, j));
                 if (k == 0) Items[j].Text = ans; else Items[j].SubItems[k - 1].Text = ans;
                 Help.Monitor.Remove(text);
-                Help.Monitor.Watch(text, TextChanged, text.Watch.ToArray());
+                Help.Monitor.Watch(text, TextChanged);
             }
             bool IsFix(object value)
             {

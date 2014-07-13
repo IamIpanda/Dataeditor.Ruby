@@ -70,6 +70,7 @@ namespace DataEditor.Arce
                 Help.Taint.Instance.Save(Help.Data.Instance[name]);
                 Help.Data.Instance.Save(name);
                 protoListBox1.Items.RemoveAt(protoListBox1.SelectedIndex);
+                if (protoListBox1.Items.Count == 0) this.Close();
             }
             else
             {
@@ -86,6 +87,7 @@ namespace DataEditor.Arce
             {
                 Help.Data.Instance.Discard(protoListBox1.SelectedItem.ToString());
                 protoListBox1.Items.RemoveAt(protoListBox1.SelectedIndex);
+                if (protoListBox1.Items.Count == 0) this.Close();
             }
             else
             {

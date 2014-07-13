@@ -39,7 +39,7 @@ namespace DataEditor.Control.Wrapper
         {
             base.Bind();
             Control.FullBackgroundDraw = true;
-            Control.Scale = false;
+            Control.Scale = true;
             Control.ImageAlignCenter = true;
             Control.Bitmap = new Bitmap(1,1);
             Control.DoubleClick += Control_DoubleClick;
@@ -83,7 +83,7 @@ namespace DataEditor.Control.Wrapper
             string string_file_name = System.IO.Path.Combine(path, file_name.Text);
             string file = "";
             Help.Path.Instance.SearchFile(string_file_name, out file, "project", version, "rtp");
-            if (file == "") return;
+            if (file == "") { Control.Bitmap = null; Control.Invalidate(); return; }
             string pure_file_name = System.IO.Path.GetFileName(string_file_name);
             Bitmap bitmap = new Bitmap(file);
             Help.Parameter.Split show = Show.SearchSplit(ref pure_file_name);

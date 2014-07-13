@@ -164,9 +164,9 @@ namespace DataEditor.Control.Wrapper
             Image_Choser window = new Image_Choser();
             var manager = new Image.SplitManager();
             manager.Main.Add("", new Help.Parameter.Split(Help.Parameter.Split.SplitType.Count, 1, Help.Parameter.Split.SplitType.Count, 1));
+            window.Path = background;
             window.Split = window.Show = manager;
             window.FileName = backgroundname;
-            window.Path = background;
             if (window.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 backgroundname = window.FileName;

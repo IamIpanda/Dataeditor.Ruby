@@ -54,5 +54,13 @@ namespace DataEditor.Control.Prototype
         {
             get { return this.Width - panel1.Width; }
         }
+        public void AddMenu(string Text, EventHandler Handle, Keys Key)
+        {
+            protoLeftListBox1.AddMenu(Text, Handle, Key);
+        }
+        public void ClearMenu()
+        {
+            protoLeftListBox1.ClearMenu();
+        }
     }
 }

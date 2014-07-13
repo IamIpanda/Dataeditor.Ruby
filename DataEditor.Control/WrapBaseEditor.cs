@@ -153,7 +153,7 @@ namespace DataEditor.Control
             ValueHasChanged = false;
         }
 
-        string LastStatusBarText = null;
+        //string LastStatusBarText = null;
         protected virtual void Control_MouseLeave(object sender, EventArgs e)
         {
 

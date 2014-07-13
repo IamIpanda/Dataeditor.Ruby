@@ -61,9 +61,10 @@ namespace DataEditor.Arce
         {
             saveDialog.ShowDialog();
         }
+        static SaveAsDialog saveAsDialog = new SaveAsDialog();
         static public void SaveAs()
         {
-
+            saveAsDialog.ShowDialog();
         }
         static public void Undo()
         {

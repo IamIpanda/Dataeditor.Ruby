@@ -81,6 +81,11 @@ namespace DataEditor.Arce
         private void 打开ToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class WrapUranus : DataEditor.Control.WrapBaseWindow<Uranus>

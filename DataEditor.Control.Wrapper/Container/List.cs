@@ -55,6 +55,10 @@ namespace DataEditor.Control.Wrapper.Container
         {
             base.Bind();
             Control.SelectedIndexChanged += Control_SelectedIndexChanged;
+            Control.AddMenu("复制", CopyItemClicked, System.Windows.Forms.Keys.C | System.Windows.Forms.Keys.Control);
+            Control.AddMenu("粘贴", PasteItemClicked,System.Windows.Forms.Keys.V | System.Windows.Forms.Keys.Control);
+            Control.AddMenu("清除", ClearItemClicked, System.Windows.Forms.Keys.Delete);
+        }
         }
         public override System.Windows.Forms.Control.ControlCollection Controls
         {
@@ -88,6 +92,18 @@ namespace DataEditor.Control.Wrapper.Container
             if (target.ContainsKey(index))
                 target[index] = color;
             else target.Add(index, color);
+        }
+        void CopyItemClicked(object sender, EventArgs e)
+        {
+            
+        }
+        void PasteItemClicked(object sender, EventArgs e)
+        {
+
+        }
+        void ClearItemClicked(object sender, EventArgs e)
+        {
+
         }
         
     }

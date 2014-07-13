@@ -43,6 +43,25 @@ namespace DataEditor.Control.Prototype
         {
             get { return protoListBox1.BackColors; }
         }
-        
+
+        public void AddMenu(string Text, EventHandler Handle, Keys Key)
+        {
+            ToolStripMenuItem item = new ToolStripMenuItem(Text, null, Handle, Key);
+            contextMenuStrip1.Items.Add(item);
+        }
+        public void ClearMenu()
+        {
+            contextMenuStrip1.Items.Clear();
+        }
+
+        private void protoListBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                int y = e.Y / protoListBox1.ItemHeight;
+                if (y >= 0 && y < protoListBox1.Items.Count)
+                    protoListBox1.SelectedIndex = y;
+            }
+        }
     }
 }

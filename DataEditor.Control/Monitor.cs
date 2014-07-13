@@ -11,8 +11,9 @@ namespace DataEditor.Help
             = new Dictionary<FuzzyData.FuzzyObject, List<ObjectEditor>>();
         static Dictionary<ObjectEditor, List<FuzzyData.FuzzyObject>> reverse
             = new Dictionary<ObjectEditor, List<FuzzyData.FuzzyObject>>();
-        static Dictionary<ObjectEditor, EventHandler> Events = new Dictionary<ObjectEditor, EventHandler>();
-        public static void Watch(Control.ObjectEditor editor, EventHandler trigger, params FuzzyData.FuzzyObject[] target)
+        static Dictionary<ObjectEditor, EventHandler<MonitorTriggerEventArgs>> Events =
+            new Dictionary<ObjectEditor, EventHandler<MonitorTriggerEventArgs>>();
+        public static void Watch(Control.ObjectEditor editor, EventHandler<MonitorTriggerEventArgs> trigger, params FuzzyData.FuzzyObject[] target)
         {
             if (trigger == null || editor == null || target.Length == 0) return;
             if (Events.ContainsKey(editor)) Events[editor] = trigger;
@@ -42,11 +43,16 @@ namespace DataEditor.Help
             verse.TryGetValue(changed_value, out recall);
             if (recall == null) return;
             foreach (var editor in recall)
-                Events[editor](changed_editor, new EventArgs());
+                Events[editor](changed_editor, new MonitorTriggerEventArgs(changed_value));
         }
     }
 
-
+    public class MonitorTriggerEventArgs : EventArgs
+    {
+        public FuzzyData.FuzzyObject TriggerValue { get; set; }
+        public MonitorTriggerEventArgs(FuzzyData.FuzzyObject trigger) { TriggerValue = trigger; }
+    }
+    
     static public partial class Monitor
     {
         static Dictionary<FuzzyData.FuzzyObject, List<Parameter.Text>> text_verse
@@ -54,8 +60,9 @@ namespace DataEditor.Help
         static Dictionary<Parameter.Text, List<FuzzyData.FuzzyObject>> text_reverse
             = new Dictionary<Parameter.Text, List<FuzzyData.FuzzyObject>>();
         static Dictionary<Parameter.Text, EventHandler> text_events = new Dictionary<Parameter.Text, EventHandler>();
-        public static void Watch(Parameter.Text text, EventHandler trigger, params FuzzyData.FuzzyObject[] target)
+        public static void Watch(Parameter.Text text, EventHandler trigger)
         {
+            FuzzyData.FuzzyObject[] target = text.Watch.ToArray();
             if (trigger == null || text == null || target.Length == 0) return;
             if (text_events.ContainsKey(text)) text_events[text] = trigger;
             else text_events.Add(text, trigger);
@@ -83,4 +90,5 @@ namespace DataEditor.Help
                 text_events[editor](changed_text, new EventArgs());
         }
     }
+    
 }

@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.protoTitleBox1 = new DataEditor.Control.Prototype.ProtoTitleBox();
             this.protoListBox1 = new DataEditor.Control.Prototype.ProtoListBox();
             this.tableLayoutPanel1.SuspendLayout();
@@ -51,6 +53,11 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(157, 481);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // protoTitleBox1
             // 
             this.protoTitleBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -63,6 +70,7 @@
             // 
             // protoListBox1
             // 
+            this.protoListBox1.ContextMenuStrip = this.contextMenuStrip1;
             this.protoListBox1.DisappearRectLosingFocus = false;
             this.protoListBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.protoListBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
@@ -72,12 +80,13 @@
             this.protoListBox1.Size = new System.Drawing.Size(151, 427);
             this.protoListBox1.TabIndex = 1;
             this.protoListBox1.SelectedIndexChanged += new System.EventHandler(this.protoListBox1_SelectedIndexChanged);
+            this.protoListBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.protoListBox1_MouseDown);
             // 
             // ProtoLeftListBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            base.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ProtoLeftListBox";
             this.Size = new System.Drawing.Size(157, 481);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -90,5 +99,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private ProtoTitleBox protoTitleBox1;
         private ProtoListBox protoListBox1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }

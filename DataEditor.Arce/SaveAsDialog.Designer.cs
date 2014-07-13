@@ -33,6 +33,7 @@
             this.btCancel = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.protoListBox1 = new DataEditor.Control.Prototype.ProtoListBox();
+            this.SFD = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,6 +89,12 @@
             this.protoListBox1.Size = new System.Drawing.Size(277, 270);
             this.protoListBox1.TabIndex = 5;
             // 
+            // SFD
+            // 
+            this.SFD.DefaultExt = "rxproj";
+            this.SFD.Filter = "RMXP 数据文件|*.rxdata|RMVX 数据文件|*.rvdata|RMVA 数据文件|*.rvdata2|所有文件|*.*";
+            this.SFD.Title = "文件存储目录";
+            // 
             // SaveAsDialog
             // 
             this.AcceptButton = this.btSave;
@@ -115,5 +122,6 @@
         private System.Windows.Forms.Button btCancel;
         private System.Windows.Forms.Panel panel1;
         private Control.Prototype.ProtoListBox protoListBox1;
+        private System.Windows.Forms.SaveFileDialog SFD;
     }
 }

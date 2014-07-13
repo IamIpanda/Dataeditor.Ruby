@@ -14,12 +14,11 @@ namespace DataEditor.Arce
         public SaveAsDialog()
         {
             InitializeComponent();
+            this.Shown += SaveAsDialog_Shown;
         }
-        void SaveDialog_Shown(object sender, EventArgs e)
+        void SaveAsDialog_Shown(object sender, EventArgs e)
         {
             protoListBox1.Items.Clear();
-            FuzzyData.FuzzyObject obj;
-            Contract.TaintState state;
             foreach(string key in Help.Data.Instance.Names)
             {
                 protoListBox1.Items.Add(key);
@@ -33,11 +32,10 @@ namespace DataEditor.Arce
 
         private void btSave_Click(object sender, EventArgs e)
         {
+            if (SFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Help.Serialization.TryGetSerialization("").Dump(SFD.OpenFile(), Help.Data.Instance[this.protoListBox1.SelectedItem.ToString()]);
+            }
         }
-
-        private void btDiscard_Click(object sender, EventArgs e)
-        {
-        }
-
     }
 }

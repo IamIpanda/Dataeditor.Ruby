@@ -106,6 +106,21 @@ namespace DataEditor.FuzzyData
             self.value = source.value;
             return self;
         }
+        public override void Clone(FuzzyObject source)
+        {
+            var from = source as FuzzyTable;
+            if (from == null) return;
+            this.x_size = from.x_size;
+            this.y_size = from.y_size;
+            this.z_size = from.z_size;
+            short[, ,] new_value = new short[x_size, y_size, z_size];
+            for (int i = 0; i < x_size; i++)
+                for (int j = 0; j < y_size; j++)
+                    for (int k = 0; k < z_size; k++)
+                        new_value[i, j, k] = from.SafeGetValue(i, j, k);
+            value = new_value;
+            base.Clone(source);
+        }
 
         public override string ToString()
         {

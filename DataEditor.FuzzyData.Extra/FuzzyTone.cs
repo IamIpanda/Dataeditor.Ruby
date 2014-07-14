@@ -77,6 +77,16 @@ namespace DataEditor.FuzzyData
             Parent.AppendChild(A);
             return Parent;
         }
+        public override void Clone(FuzzyObject source)
+        {
+            var from = source as FuzzyTone;
+            if (from == null) return;
+            this.red = from.red;
+            this.gray = from.gray;
+            this.green = from.green;
+            this.blue = from.blue;
+            base.Clone(source);
+        }
         public class FuzzyToneFactoty : ISerializationFactory<byte[]>,
     ISerializationFactory<XmlNode>
         {

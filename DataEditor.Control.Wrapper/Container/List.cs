@@ -8,6 +8,7 @@ namespace DataEditor.Control.Wrapper.Container
     {
         FuzzyData.FuzzyArray target_array;
         public override string Flag { get { return "list"; } }
+        public string ClipboardFormat { get; set; }
         public override FuzzyData.FuzzyObject Value
         {
             get
@@ -37,6 +38,7 @@ namespace DataEditor.Control.Wrapper.Container
             catalogue = new Help.Catalogue(Control.Items, text, filter);
             //Control.Dock = System.Windows.Forms.DockStyle.Fill;
             Control.Text = argument.GetArgument<string>("text");
+            this.ClipboardFormat = argument.GetArgument<string>("clipboardformat");
         }
         protected override void SetDefaultArgument()
         {
@@ -44,6 +46,7 @@ namespace DataEditor.Control.Wrapper.Container
             argument.SetArgument("textbook", new Help.Parameter.Text("卖萌的阿尔西斯"));
             argument.SetArgument("filter", null, Help.Parameter.ArgumentType.Option);
             argument.OverrideArgument("text", "未明位面", Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("clipboardformat", "Arce" + this.GetHashCode().ToString(), Help.Parameter.ArgumentType.Option);
         }
         protected Help.Catalogue catalogue = null;
 
@@ -58,7 +61,7 @@ namespace DataEditor.Control.Wrapper.Container
             Control.AddMenu("复制", CopyItemClicked, System.Windows.Forms.Keys.C | System.Windows.Forms.Keys.Control);
             Control.AddMenu("粘贴", PasteItemClicked,System.Windows.Forms.Keys.V | System.Windows.Forms.Keys.Control);
             Control.AddMenu("清除", ClearItemClicked, System.Windows.Forms.Keys.Delete);
-        }
+        
         }
         public override System.Windows.Forms.Control.ControlCollection Controls
         {
@@ -95,11 +98,23 @@ namespace DataEditor.Control.Wrapper.Container
         }
         void CopyItemClicked(object sender, EventArgs e)
         {
-            
+            var value = this.Value;
+            if (value == null) return;
+            var target = Help.Serialization.TrySetValue(this.Value, "[m]");
+            System.Windows.Forms.DataObject db = new System.Windows.Forms.DataObject(ClipboardFormat, target);
+            System.Windows.Forms.Clipboard.SetDataObject(db, true, 5, 100);
         }
         void PasteItemClicked(object sender, EventArgs e)
         {
-
+            if (System.Windows.Forms.Clipboard.ContainsData(ClipboardFormat) == false) return;
+            var db = System.Windows.Forms.Clipboard.GetDataObject();
+            var str = (byte[])db.GetData(ClipboardFormat);
+            var target = Help.Serialization.TryGetValue(str, "[m]") as FuzzyData.FuzzyObject;
+            if (target != null && this.Value != null)
+            {
+                var temp = this.Value & target;
+                base.Pull();
+            }
         }
         void ClearItemClicked(object sender, EventArgs e)
         {

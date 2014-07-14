@@ -48,7 +48,7 @@ namespace DataEditor.Arce
 
         private void SaveDialog_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Menu)
+            if ((e.KeyCode & Keys.Menu) > 0)
             {
                 btSave.Text = "保存";
                 btDiscard.Text = "丢弃";

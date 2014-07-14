@@ -82,20 +82,20 @@ namespace DataEditor.Help
             if (ser == null) Log.log("序列化器申请被拒绝：" + key);
             return ser ?? Default;
         }
-        static public object TryGetValue(string data, string key)
+        static public object TryGetValue(byte[] data, string key)
         {
             Contract.Serialization ser = TryGetSerialization(key);
             if (ser == null) return null;
-            var stream = new System.IO.MemoryStream(System.Text.Encoding.Default.GetBytes(data));
+            var stream = new System.IO.MemoryStream(data);
             return ser.Load(stream);
         }
-        static public object TrySetValue(object data, string key)
+        static public byte[] TrySetValue(object data, string key)
         {
             Contract.Serialization ser = TryGetSerialization(key);
             if (ser == null) return null;
             var stream = new System.IO.MemoryStream();
             ser.Dump(stream, data);
-            return System.Text.Encoding.Default.GetString(stream.ToArray());
+            return stream.ToArray();
         }
     }
 }

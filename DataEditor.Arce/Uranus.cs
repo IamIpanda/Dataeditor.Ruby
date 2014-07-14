@@ -20,19 +20,22 @@ namespace DataEditor.Arce
             恢复ToolStripMenuItem.Enabled = Help.Action.Instance.CanRedo;
         }
 
-        private void WindowEditor_Load(object sender, EventArgs e)
-        {
-        }
-
+        bool Lock = false;
         private void EditorWindow_KeyDown(object sender, KeyEventArgs e)
         {
+            if (Lock) return;
             if (!(e.Alt)) return;
             msMain.Visible = !(msMain.Visible);
             if (!msMain.Visible) return;
             msMain.Focus();
             msMain.Items[0].Select();
+            Lock = true;
         }
-
+        private void EditorWindow_KeyUp(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode & Keys.Menu) <= 0) return;
+            Lock = false;
+        }
         private void msMain_Leave(object sender, EventArgs e)
         {
             msMain.Visible = false;
@@ -78,13 +81,9 @@ namespace DataEditor.Arce
             Engine.SaveAs();
         }
 
-        private void 打开ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
+            Engine.Execute();
         }
     }
 

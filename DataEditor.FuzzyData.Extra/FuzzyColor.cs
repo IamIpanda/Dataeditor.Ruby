@@ -59,5 +59,15 @@ namespace DataEditor.FuzzyData
             sb.Append("}");
             return sb.ToString();
         }
+        public override void Clone(FuzzyObject source)
+        {
+            FuzzyColor from = source as FuzzyColor;
+            if (from == null) return;
+            this.r = from.r;
+            this.g = from.g;
+            this.b = from.b;
+            this.a = from.a;
+            base.Clone(source);
+        }
     }
 }

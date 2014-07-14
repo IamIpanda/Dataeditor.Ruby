@@ -70,7 +70,7 @@ namespace DataEditor.Arce
         }
         void RunExecuteFile()
         {
-            OFD.Filter = "|Ruby 脚本文件|*.rb|所有文件|*.*";
+            OFD.Filter = "Ruby 脚本文件|*.rb|所有文件|*.*";
             if (OFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string Path = OFD.FileName;
@@ -80,7 +80,6 @@ namespace DataEditor.Arce
         }
         void RunOption()
         {
-            DataEditor.Control.Wrapper.TroopMember t = new Control.Wrapper.TroopMember();
             Engine.OpenOption();
         }
         void RunExit()

@@ -114,6 +114,7 @@ namespace DataEditor.Control.Wrapper.Container
             {
                 var temp = this.Value & target;
                 base.Pull();
+                
             }
         }
         void ClearItemClicked(object sender, EventArgs e)

@@ -34,5 +34,9 @@ namespace DataEditor.Help
                 ass.Add(GetAssembly(file));
             return ass;
         }
+        public static DateTime LastModifiedTime(Assembly ass)
+        {
+            return System.IO.File.GetLastWriteTime(ass.Location);
+        }
     }
 }

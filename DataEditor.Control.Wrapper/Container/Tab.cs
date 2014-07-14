@@ -24,5 +24,10 @@ namespace DataEditor.Control.Wrapper.Container
             var color = Help.Taint.DefaultColor(state);
             Control.ForeColor = color;
         }
+        public override void Reset()
+        {
+            base.Reset();
+            Help.Log.log("正在初始化 " + Control.Text + " 标签页...");
+        }
     }
 }

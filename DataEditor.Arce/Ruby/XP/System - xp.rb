@@ -3,6 +3,8 @@
 # Describe the user interface for system
 
 require "Ruby/XP/File - xp.rb"
+require "Ruby/Fuzzy.rb"
+
 Builder.Add(:tab , { :text => "系统" }) do
 		group = Builder.Add(:group) do
 				columns = ["角色"]
@@ -13,12 +15,21 @@ Builder.Add(:tab , { :text => "系统" }) do
 				end
 				window = Proc.new do |window, target|
 						Builder.In(window)
+						Builder.Space(5, 5)
+						window.Text = "初期同伴".encode
 					Builder.Add(:choose , {:actual => "", :text => "角色", :choice => { nil => Filechoice.new("actor")}})
 						Builder.Out
 						window.value = target
 				end
-			Builder.Add(:view , {:actual => :party_members ,:text => "初期同伴", :catalogue => texts ,
-				:columns => columns, :catalogue => texts, :window => window, :window_type => 0, :new => nil, :width => 140, :height => 100  })
+				after = Proc.new do |array, new|
+					i = array.Count - 1
+					for j in array
+						i = -1 if j.Value == new.Value
+					end
+					i
+				end
+			Builder.Add(:view , {:actual => :party_members ,:text => "初期同伴", :catalogue => texts, :after => after, 
+				:columns => columns, :catalogue => texts, :window => window, :window_type => 1, :new => 1.to_fuzzy, :width => 140, :height => 100  })
 				text = Text.new { |i, target| sprintf("%03d:%s", i, target) }
 			Builder.Add(:paper , {:actual => :elements , :text => "属性", :textbook => text})
 				Builder.Next

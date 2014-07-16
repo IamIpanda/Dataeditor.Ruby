@@ -49,6 +49,8 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnMain = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.一并更改ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.SuspendLayout();
@@ -128,7 +130,9 @@
             this.恢复ToolStripMenuItem,
             this.toolStripSeparator3,
             this.呼出通用编辑器ToolStripMenuItem,
-            this.执行脚本ToolStripMenuItem});
+            this.执行脚本ToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.一并更改ToolStripMenuItem});
             this.编辑ToolStripMenuItem.Name = "编辑ToolStripMenuItem";
             this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
             this.编辑ToolStripMenuItem.Text = "编辑(&E)";
@@ -182,7 +186,7 @@
             // 关于ToolStripMenuItem
             // 
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.关于ToolStripMenuItem.Text = "关于";
             // 
             // ssMain
@@ -205,9 +209,9 @@
             // pnMain
             // 
             this.pnMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnMain.Location = new System.Drawing.Point(0, 0);
+            this.pnMain.Location = new System.Drawing.Point(0, 25);
             this.pnMain.Name = "pnMain";
-            this.pnMain.Size = new System.Drawing.Size(805, 515);
+            this.pnMain.Size = new System.Drawing.Size(805, 490);
             this.pnMain.TabIndex = 2;
             // 
             // toolTip1
@@ -215,6 +219,19 @@
             this.toolTip1.AutoPopDelay = 5000;
             this.toolTip1.InitialDelay = 2000;
             this.toolTip1.ReshowDelay = 1000;
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            // 
+            // 一并更改ToolStripMenuItem
+            // 
+            this.一并更改ToolStripMenuItem.Name = "一并更改ToolStripMenuItem";
+            this.一并更改ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.一并更改ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.一并更改ToolStripMenuItem.Text = "一并更改";
+            this.一并更改ToolStripMenuItem.Click += new System.EventHandler(this.一并更改ToolStripMenuItem_Click);
             // 
             // Uranus
             // 
@@ -265,5 +282,7 @@
         protected System.Windows.Forms.ToolStripMenuItem 呼出通用编辑器ToolStripMenuItem;
         protected System.Windows.Forms.ToolStripMenuItem 执行脚本ToolStripMenuItem;
         public System.Windows.Forms.Panel pnMain;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem 一并更改ToolStripMenuItem;
     }
 }

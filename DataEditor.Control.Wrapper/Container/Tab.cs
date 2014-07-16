@@ -22,7 +22,7 @@ namespace DataEditor.Control.Wrapper.Container
         {
             var state = Help.Taint.Instance[Value];
             var color = Help.Taint.DefaultColor(state);
-            Control.ForeColor = color;
+            // Control.ForeColor = color;
         }
         public override void Reset()
         {

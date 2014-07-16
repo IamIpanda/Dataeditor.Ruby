@@ -34,7 +34,7 @@ namespace DataEditor.Control.Window
             protected bool SetByParent = true;
             public override System.Windows.Forms.Control.ControlCollection Controls
             { get { return this.Window.pnMain.Controls; } }
-            public override int end_y { get { return 30; } }
+            public override int end_y { get { return 42; } }
             public override int end_x { get { return 20; } }
             public override FuzzyData.FuzzyObject Value
             {

@@ -1,6 +1,7 @@
 # Arce Sctipt : Initialize.rb
 # Initialize all the Constant Ruby need from C#
 
+Bash			 = DataEditor::Help::Bash
 Link       = DataEditor::Help::Link.Instance
 Window     = DataEditor::Help::Window.Instance
 Monitor    = DataEditor::Help::Monitor
@@ -75,5 +76,11 @@ class DataEditor::FuzzyData::FuzzyArray
 			ans.push self[i] if block.call(self[i])
 		end
 		ans
+	end
+end
+
+class Proc
+	def to_p
+		return DataEditor::Ruby::Proc.new(self)
 	end
 end

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AudioChoser));
             this.protoRtpViewList1 = new DataEditor.Control.Prototype.ProtoRtpViewList();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -51,6 +52,7 @@
             // 
             this.protoRtpViewList1.DisappearRectLosingFocus = true;
             this.protoRtpViewList1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.protoRtpViewList1.Extands = ((System.Collections.Generic.List<string>)(resources.GetObject("protoRtpViewList1.Extands")));
             this.protoRtpViewList1.FormattingEnabled = true;
             this.protoRtpViewList1.Location = new System.Drawing.Point(12, 12);
             this.protoRtpViewList1.Name = "protoRtpViewList1";
@@ -194,7 +196,7 @@
             this.MinimizeBox = false;
             this.Name = "AudioChoser";
             this.ShowInTaskbar = false;
-            this.Text = "AudioChoser";
+            this.Text = "选取音乐";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();

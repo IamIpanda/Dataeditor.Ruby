@@ -35,7 +35,7 @@ namespace DataEditor.Control.Window
             public override System.Windows.Forms.Control.ControlCollection Controls
             { get { return this.Window.pnMain.Controls; } }
             public override int end_y { get { return 12; } }
-            public override int end_x { get { return 120; } }
+            public override int end_x { get { return 100; } }
             public override FuzzyData.FuzzyObject Value
             {
                 get { return origin; }

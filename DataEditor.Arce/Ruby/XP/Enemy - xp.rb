@@ -57,10 +57,13 @@ Builder.Add(:tab , { :text => "敌人" }) do
 						str
 					end
 					window = Proc.new do |window, target|
+							window.Text = "宝物".encode
 							Builder.In(window)
 							ison = Proc.new do |value, parent, key|
 								parent["@item_id"].Value == 0 && parent["@weapon_id"].Value == 0 && parent["@armor_id"].Value == 0
+								parent["@item_id"].Value == 0 && parent["@weapon_id"].Value == 0 && parent["@armor_id"].Value == 0
 							end
+							Builder.Space(3, 3)
 						Builder.Add(:radio , {:text => "无", :ison => ison})
 							ison = Proc.new do |value, parent, key|
 								parent["@item_id"].Value != 0
@@ -69,6 +72,7 @@ Builder.Add(:tab , { :text => "敌人" }) do
 								parent["@weapon_id"].Value = 0
 								parent["@armor_id"].Value = 0
 							end
+							Builder.Space(3)
 						Builder.Add(:radio , {:text => "物品", :ison => ison, :deny => deny}) do
 							Builder.Add(:choose , {:actual => :item_id , :label => 0 ,:choice => { nil => Filechoice.new("item") }})
 						end
@@ -79,6 +83,7 @@ Builder.Add(:tab , { :text => "敌人" }) do
 								parent["@item_id"].Value = 0
 								parent["@armor_id"].Value = 0
 							end
+							Builder.Space(3)
 						Builder.Add(:radio , {:text => "武器", :ison => ison, :deny => deny}) do
 							Builder.Add(:choose , {:actual => :weapon_id , :label => 0 ,:choice => { nil => Filechoice.new("weapon") }})
 						end
@@ -89,10 +94,12 @@ Builder.Add(:tab , { :text => "敌人" }) do
 								parent["@item_id"].Value = 0
 								parent["@weapon_id"].Value = 0
 							end
+							Builder.Space(3)
 						Builder.Add(:radio , {:text => "防具", :ison => ison, :deny => deny}) do
 							Builder.Add(:choose , {:actual => :armor_id , :label => 0 ,:choice => { nil => Filechoice.new("armor") }})
 						end
-						Builder.Add(:int , {:actual => :treasure_prob , :text => "掉落概率" })
+							Builder.Space(20)
+						Builder.Add(:int , {:actual => :treasure_prob , :text => "出現" })
 							Builder.Out
 							window.value = target
 					end

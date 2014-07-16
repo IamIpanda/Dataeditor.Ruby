@@ -117,5 +117,10 @@ namespace DataEditor.Arce
             if (result != DialogResult.OK) return;
             engine.ExecuteFile(dialog.FileName);
         }
+        static ChangeInWaveDialog wave = new ChangeInWaveDialog();
+        static public void Wave()
+        {
+            wave.ShowDialog();
+        }
     }
 }

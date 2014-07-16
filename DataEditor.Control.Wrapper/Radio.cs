@@ -60,6 +60,8 @@ namespace DataEditor.Control.Wrapper
                 var ison = argument.GetArgument<Contract.Runable>("ison");
                 if (ison != null)
                 {
+                    EnableData = true;
+                    SetEnabled();
                     bool on = (bool)ison.call(value, parent, radio_key);
                     if (on) Control.Radio.Checked = true;
                     base.Pull();
@@ -125,6 +127,7 @@ namespace DataEditor.Control.Wrapper
             radio_key = argument.GetArgument<int>("KEY");
             Control.Radio.Tag = group;
             Control.Radio.Text = argument.GetArgument<string>("TEXT");
+            Control.RadioWidth = argument.GetArgument<int>("INNER_WIDTH");
             base.Reset();
         }
         protected override void SetDefaultArgument()
@@ -136,6 +139,7 @@ namespace DataEditor.Control.Wrapper
             argument.SetArgument("ison", null, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("deny", null, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("accept", null, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("inner_width", 75, Help.Parameter.ArgumentType.Option);
         }
     }
     public class SingleRadio : Control.WrapControlEditor<FuzzyData.FuzzyFixnum, System.Windows.Forms.RadioButton>

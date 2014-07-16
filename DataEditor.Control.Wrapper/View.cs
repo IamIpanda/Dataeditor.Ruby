@@ -10,6 +10,7 @@ namespace DataEditor.Control.Wrapper
         public override string Flag { get { return "view"; } }
         protected FuzzyData.FuzzyObject model = null;
         protected MultiCatalogue catalogue = null;
+        protected Contract.Runable after = null;
         bool isChanged = false;
 
         public override void Push() { /* 已作废 */ }
@@ -31,8 +32,8 @@ namespace DataEditor.Control.Wrapper
         {
             SetColumns(argument.GetArgument<List<object>>("COLUMNS"), argument.GetArgument<List<object>>("COLUMN_WIDTH"));
             List<object> texts = argument.GetArgument<List<object>>("CATALOGUE");
+            SetModel(); 
             SetCatalogue(texts);
-            // FIXME : 处理 NEW 节点以提供给 MODEL
             base.Reset();
         }
         protected override void SetDefaultArgument()
@@ -42,6 +43,7 @@ namespace DataEditor.Control.Wrapper
             argument.SetArgument("columns", new string[0]);
             argument.SetArgument("catalogue", new List<object>());
             argument.SetArgument("new", null, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("after", null, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("window_type", 0, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("column_width", null, Help.Parameter.ArgumentType.Option);
             argument.OverrideArgument("width", 500, Help.Parameter.ArgumentType.Option);
@@ -91,6 +93,7 @@ namespace DataEditor.Control.Wrapper
         protected void SetModel()
         {
             model = argument.GetArgument<FuzzyData.FuzzyObject>("new");
+            after = argument.GetArgument<Contract.Runable>("after");
         }
          
 
@@ -113,12 +116,28 @@ namespace DataEditor.Control.Wrapper
                 window = new Control.Window.WindowWithOK.WrapWindowWithOK<Control.Window.WindowWithOK>() ;
                 else window = new Control.Window.WindowWithRightOK.WrapWindowWithRightOK<Control.Window.WindowWithRightOK>();
             var value = SelectedValue;
+            var back = value.Clone() as FuzzyData.FuzzyObject;
             window_proc.call(window, value);
             if (window.Show() == DialogResult.OK)
             {
                 if (Control.SelectedIndices[0] == base.value.Count)
                     base.value.Add(value);
+                int index = Control.SelectedIndices[0];
                 // 刷新文字
+                if (after != null)
+                {
+                    object result = after.call(base.value, value);
+                    int i = Convert.ToInt32(result);
+                    if (i < 0)
+                    {
+                        var temp = value & back;
+                        if (Control.SelectedIndices[0] == base.value.Count) base.value.Remove(value);
+                    }
+                    else { index = i; }
+                }
+                catalogue.UpdateText();
+                Control.SelectedIndices.Clear();
+                Control.SelectedIndices.Add(index);
                 isChanged = true;
             }
         }
@@ -163,6 +182,10 @@ namespace DataEditor.Control.Wrapper
                         j++;
                         Items.Add(new ListViewItem(ans));
                     }
+            }
+            public void UpdateText()
+            {
+                InitializeText(using_value);
             }
             void TextChanged(object sender, EventArgs e)
             {

@@ -85,6 +85,11 @@ namespace DataEditor.Arce
         {
             Engine.Execute();
         }
+
+        private void 一并更改ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Engine.Wave();
+        }
     }
 
     public class WrapUranus : DataEditor.Control.WrapBaseWindow<Uranus>

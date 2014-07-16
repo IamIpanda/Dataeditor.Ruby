@@ -10,6 +10,11 @@ namespace DataEditor.Control
         abstract public System.Windows.Forms.DialogResult Show();
         public object Tag { get; set; }
         protected override void SetEnabled() { }
+        public string Text 
+        {
+            get { return Binding.Text; }
+            set { Binding.Text = value; }
+        }
     }
     public class WrapBaseWindow<T> : WrapBaseWindow where T : System.Windows.Forms.Form, new()
     {

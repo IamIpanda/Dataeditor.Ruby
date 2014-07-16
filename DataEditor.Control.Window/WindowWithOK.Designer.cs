@@ -49,17 +49,17 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(491, 396);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btOK
             // 
             this.btOK.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btOK.Location = new System.Drawing.Point(292, 373);
-            this.btOK.Margin = new System.Windows.Forms.Padding(1);
+            this.btOK.Location = new System.Drawing.Point(297, 368);
+            this.btOK.Margin = new System.Windows.Forms.Padding(6);
             this.btOK.Name = "btOK";
-            this.btOK.Size = new System.Drawing.Size(98, 22);
+            this.btOK.Size = new System.Drawing.Size(88, 22);
             this.btOK.TabIndex = 0;
             this.btOK.Text = "确定";
             this.btOK.UseVisualStyleBackColor = true;
@@ -69,10 +69,10 @@
             // 
             this.btCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btCancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btCancel.Location = new System.Drawing.Point(392, 373);
-            this.btCancel.Margin = new System.Windows.Forms.Padding(1);
+            this.btCancel.Location = new System.Drawing.Point(397, 368);
+            this.btCancel.Margin = new System.Windows.Forms.Padding(6);
             this.btCancel.Name = "btCancel";
-            this.btCancel.Size = new System.Drawing.Size(98, 22);
+            this.btCancel.Size = new System.Drawing.Size(88, 22);
             this.btCancel.TabIndex = 1;
             this.btCancel.Text = "取消";
             this.btCancel.UseVisualStyleBackColor = true;
@@ -84,7 +84,7 @@
             this.pnMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnMain.Location = new System.Drawing.Point(3, 3);
             this.pnMain.Name = "pnMain";
-            this.pnMain.Size = new System.Drawing.Size(485, 366);
+            this.pnMain.Size = new System.Drawing.Size(485, 356);
             this.pnMain.TabIndex = 2;
             // 
             // WindowWithOK

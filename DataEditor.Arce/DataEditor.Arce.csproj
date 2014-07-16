@@ -331,6 +331,9 @@
     <None Include="Ruby\XP\Item - xp.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Ruby\XP\RPG - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Ruby\XP\Skill - xp.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

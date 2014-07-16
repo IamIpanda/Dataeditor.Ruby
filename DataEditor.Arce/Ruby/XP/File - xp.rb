@@ -2,6 +2,7 @@
 # Load All the File needed in RPG Maker XP Environment
 
 require "Ruby/Help.rb"
+require "Ruby/XP/RPG - xp.rb"
 
 Data["actor"] = "Data/Actors.rxdata"
 Data["class"] = "Data/Classes.rxdata"

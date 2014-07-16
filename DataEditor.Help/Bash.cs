@@ -108,7 +108,16 @@ namespace DataEditor.Help
         {
             if (ToolTip != null) ToolTip.SetToolTip(Control, Tip);
         }
-        
 
+        static public class Sort
+        {
+            static Contract.Runable comparison;
+            static public void SetComparison(Contract.Runable target) { comparison = target; }
+            static public int InnerCompare(object T1, object T2)
+            {
+                return Convert.ToInt32(comparison.call(T1, T2));
+            }
+            static public Comparison<object> Compare = InnerCompare;
+        }
     }
 }

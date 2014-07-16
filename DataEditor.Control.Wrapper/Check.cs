@@ -25,12 +25,12 @@ namespace DataEditor.Control.Wrapper
         {
             base.SetDefaultArgument();
             Argument.OverrideArgument("label", 0);
+            argument.OverrideArgument("height", 20);
         }
         public override void Reset()
         {
             base.Reset();
             Control.Text = argument.GetArgument<string>("text");
-            Control.Size = Control.PreferredSize;
         }
         public override void Putt()
         {

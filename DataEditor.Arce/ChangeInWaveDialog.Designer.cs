@@ -99,6 +99,7 @@
             // protoAutoSizeTextBox1
             // 
             this.protoAutoSizeTextBox1.Location = new System.Drawing.Point(6, 20);
+            this.protoAutoSizeTextBox1.Multiline = true;
             this.protoAutoSizeTextBox1.Name = "protoAutoSizeTextBox1";
             this.protoAutoSizeTextBox1.Size = new System.Drawing.Size(280, 21);
             this.protoAutoSizeTextBox1.TabIndex = 0;
@@ -168,6 +169,7 @@
             // 
             // button2
             // 
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2.Location = new System.Drawing.Point(615, 410);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
@@ -237,6 +239,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.button2;
             this.ClientSize = new System.Drawing.Size(708, 445);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.protoListBox4);

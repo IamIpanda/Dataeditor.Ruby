@@ -44,6 +44,7 @@
     <Compile Include="Action.cs" />
     <Compile Include="Bash.cs" />
     <Compile Include="Calculator.cs" />
+    <Compile Include="Clipboard.cs" />
     <Compile Include="Complex.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="Encoding.cs" />

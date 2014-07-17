@@ -122,6 +122,12 @@
     <Compile Include="ProtoLinedPaper.Designer.cs">
       <DependentUpon>ProtoLinedPaper.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProtoExecuteDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProtoExecuteDialog.Designer.cs">
+      <DependentUpon>ProtoExecuteDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProtoLinedPaperDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoLinedPaper.resx">
       <DependentUpon>ProtoLinedPaper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoExecuteDialog.resx">
+      <DependentUpon>ProtoExecuteDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoLinedPaperDialog.resx">
       <DependentUpon>ProtoLinedPaperDialog.cs</DependentUpon>

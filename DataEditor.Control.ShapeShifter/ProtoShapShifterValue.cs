@@ -161,5 +161,15 @@ namespace DataEditor.Control.Prototype
                 }
             return false;
         }
+        public FuzzyObject SelectedValue
+        {
+            get
+            {
+                if (SelectedIndices.Count == 0) return null;
+                int index = SelectedIndices[0];
+                if (index >= unders.Count) return null;
+                return unders[index];
+            }
+        }
     }
 }

@@ -91,13 +91,14 @@ namespace DataEditor.Arce
 
         static public void CallEditor()
         {
+            if (sp == null || sp.IsDisposed) sp = new Control.ShapeShifter.ShapeShifter();
             sp.Show();
             sp.Focus();
         }
 
         static public void Run()
         {
-            var dialog = new DataEditor.Control.Prototype.ProtoLinedPaperDialog();
+            var dialog = new DataEditor.Control.Prototype.ProtoExecuteDialog();
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 object ans = Help.Bash.Call(dialog.Value);
@@ -105,6 +106,7 @@ namespace DataEditor.Arce
                     Help.ShapeShifter.ShowObject(ans as FuzzyData.FuzzyObject, "执行结果");
             }
         }
+
         static public void Execute()
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -117,7 +119,9 @@ namespace DataEditor.Arce
             if (result != DialogResult.OK) return;
             engine.ExecuteFile(dialog.FileName);
         }
-        static ChangeInWaveDialog wave = new ChangeInWaveDialog();
+
+        private static ChangeInWaveDialog wave = new ChangeInWaveDialog();
+
         static public void Wave()
         {
             wave.ShowDialog();

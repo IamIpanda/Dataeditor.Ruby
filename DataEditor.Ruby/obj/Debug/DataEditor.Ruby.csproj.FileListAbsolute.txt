@@ -85,3 +85,5 @@ E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.Control.pdb
 E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.Help.pdb
 E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.pdb
 E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\obj\Debug\DataEditor.Ruby.dll
+E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.Ruby.dll.CodeAnalysisLog.xml
+E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.Ruby.dll.lastcodeanalysissucceeded

@@ -231,5 +231,49 @@ namespace DataEditor.Control.ShapeShifter
         {
             查找下一项ToolStripMenuItem.Enabled = !(LastSearch == null);
         }
+
+        Help.Clipboard clip = Help.Clipboard.GetClip();
+        FuzzyData.FuzzyObject buffer;
+
+        private void 复制ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FuzzyData.FuzzyObject obj = null;
+            if (contextMenuStrip1.SourceControl == protoShapeShifterData1) obj = protoShapeShifterData1.Value;
+            else if (contextMenuStrip1.SourceControl == protoShapeShifterValue1) obj = protoShapeShifterValue1.SelectedValue;
+            if (obj == null)
+            {
+                MessageBox.Show("没有可用项被选中。", "复制失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            clip.Set(obj as FuzzyData.FuzzyObject);
+            buffer = obj;
+        }
+
+        private void 粘贴ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FuzzyData.FuzzyObject value = clip.Get();
+            if (value == null) return;
+            FuzzyData.FuzzyObject parent = protoShapeShifterData1.Value;
+            if (parent == null) return;
+            if (parent is FuzzyData.FuzzyArray)
+                (parent as FuzzyData.FuzzyArray).Add(value);
+            else if (parent is FuzzyData.FuzzyHash)
+                (parent as FuzzyData.FuzzyHash).Add(FuzzyData.FuzzyNil.Instance, value);
+            else if (parent is FuzzyData.FuzzyObject)
+            {
+                int i = 1;
+                FuzzyData.FuzzySymbol sym;
+                while (parent.InstanceVariables.ContainsKey(sym = FuzzyData.FuzzySymbol.GetSymbol("PasteValue" + i.ToString()))) i++;
+                parent.InstanceVariables.Add(sym, value);
+            }
+            if (value is FuzzyData.FuzzyArray || value is FuzzyData.FuzzyHash || value.InstanceVariables.Count > 0)
+                protoShapeShifterData1.RecycleSelectedNode();
+            protoShapeShifterValue1.Value = this.protoShapeShifterData1.Value;
+        }
+
+        private void 删除ToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            删除ToolStripMenuItem_Click(this, e);
+        }
     }
 }

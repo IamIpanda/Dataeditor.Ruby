@@ -50,3 +50,5 @@ E:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.FuzzyData
 E:\VS Projects\DataEditor.Ruby\DataEditor.Control\obj\Debug\DataEditor.Control.csprojResolveAssemblyReference.cache
 E:\VS Projects\DataEditor.Ruby\DataEditor.Control\obj\Debug\DataEditor.Control.dll
 E:\VS Projects\DataEditor.Ruby\DataEditor.Control\obj\Debug\DataEditor.Control.pdb
+E:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.Control.dll.CodeAnalysisLog.xml
+E:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.Control.dll.lastcodeanalysissucceeded

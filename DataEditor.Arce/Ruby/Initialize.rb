@@ -84,3 +84,45 @@ class Proc
 		return DataEditor::Ruby::Proc.new(self)
 	end
 end
+
+class DataEditor::FuzzyData::FuzzyObject
+	alias old_mm method_missing
+	def method_missing(nam, *args, &block)
+		name = nam.to_s
+		set = name[-1] == '='
+		name = name[0, name.length - 1] if set
+		return old_mm(nam, *args, &block) if name == "Value" || name == "Text"
+		hash = self.InstanceVariables
+		sym = DataEditor::FuzzyData::FuzzySymbol.GetSymbol("@" + name)
+		return old_mm(nam, *args, &block) if !(hash.ContainsKey(sym))
+		target = hash[sym]
+		return set ? (target.__value = args[0]) : target.__value
+	end
+
+	def __value
+		if self.is_a?(DataEditor::FuzzyData::FuzzyNil)
+			return nil
+		elsif self.is_a?(DataEditor::FuzzyData::FuzzyString)
+			return self.Text
+		else
+			return self.Value
+		end
+	end
+	def __value=(value)
+		if self.is_a?(DataEditor::FuzzyData::FuzzyNil)
+			return
+		elsif self.is_a?(DataEditor::FuzzyData::FuzzyString)
+			self.Text = value.encode
+		else
+			self.Value = value
+		end
+	end
+end
+
+class DataEditor::Help::Data
+	alias old_mm method_missing
+	def method_missing(nam, *args, &block)
+		name = nam.to_s
+		return self[name]
+	end
+end

@@ -52,5 +52,3 @@ E:\VS Projects\DataEditor.Ruby\DataEditor.Help\obj\Debug\DataEditor.Control.Wind
 E:\VS Projects\DataEditor.Ruby\DataEditor.Help\obj\Debug\DataEditor.Help.csproj.GenerateResource.Cache
 E:\VS Projects\DataEditor.Ruby\DataEditor.Help\obj\Debug\DataEditor.Help.dll
 E:\VS Projects\DataEditor.Ruby\DataEditor.Help\obj\Debug\DataEditor.Help.pdb
-E:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.Help.dll.CodeAnalysisLog.xml
-E:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.Help.dll.lastcodeanalysissucceeded

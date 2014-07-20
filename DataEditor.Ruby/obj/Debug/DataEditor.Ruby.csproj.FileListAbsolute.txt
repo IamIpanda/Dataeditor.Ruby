@@ -85,5 +85,9 @@ E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.Control.pdb
 E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.Help.pdb
 E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.pdb
 E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\obj\Debug\DataEditor.Ruby.dll
-E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.Ruby.dll.CodeAnalysisLog.xml
-E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\DataEditor.Ruby.dll.lastcodeanalysissucceeded
+E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\IronRuby.dll
+E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\IronRuby.Libraries.dll
+E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\IronRuby.Libraries.YAML.dll
+E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\Microsoft.Dynamic.dll
+E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\Microsoft.Scripting.Debugging.dll
+E:\VS Projects\DataEditor.Ruby\DataEditor.Ruby\bin\Debug\Microsoft.Scripting.dll

@@ -36,30 +36,26 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IronRuby, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>W:\IronRuby 1.0v4\bin\IronRuby.dll</HintPath>
+    <Reference Include="IronRuby">
+      <HintPath>..\..\..\IronRuby 1.0v4\bin\IronRuby.dll</HintPath>
     </Reference>
-    <Reference Include="IronRuby.Libraries, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>W:\IronRuby 1.0v4\bin\IronRuby.Libraries.dll</HintPath>
+    <Reference Include="IronRuby.Libraries">
+      <HintPath>..\..\..\IronRuby 1.0v4\bin\IronRuby.Libraries.dll</HintPath>
     </Reference>
-    <Reference Include="IronRuby.Libraries.YAML, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>W:\IronRuby 1.0v4\bin\IronRuby.Libraries.YAML.dll</HintPath>
+    <Reference Include="IronRuby.Libraries.YAML">
+      <HintPath>..\..\..\IronRuby 1.0v4\bin\IronRuby.Libraries.YAML.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp">
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Dynamic">
-      <HintPath>W:\IronRuby 1.0v4\bin\Microsoft.Dynamic.dll</HintPath>
+      <HintPath>..\..\..\IronRuby 1.0v4\bin\Microsoft.Dynamic.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Scripting, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>W:\IronRuby 1.0v4\bin\Microsoft.Scripting.dll</HintPath>
+    <Reference Include="Microsoft.Scripting">
+      <HintPath>..\..\..\IronRuby 1.0v4\bin\Microsoft.Scripting.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Scripting.Debugging">
-      <HintPath>W:\IronRuby 1.0v4\bin\Microsoft.Scripting.Debugging.dll</HintPath>
+      <HintPath>..\..\..\IronRuby 1.0v4\bin\Microsoft.Scripting.Debugging.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

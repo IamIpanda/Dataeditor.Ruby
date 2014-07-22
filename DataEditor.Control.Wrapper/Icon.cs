@@ -42,7 +42,7 @@ namespace DataEditor.Control.Wrapper
             var version = argument.GetArgument<string>("version");
             var full_path = "";
             Help.Path.Instance.SearchFile(image_path, out full_path, "project", version, "rtp");
-            if (full_path == "") { EnableData = false; return; }
+            if (full_path == "") { EnableData = DataState.Disable; return; }
             full = new Bitmap(full_path);
             base.Reset();
         }

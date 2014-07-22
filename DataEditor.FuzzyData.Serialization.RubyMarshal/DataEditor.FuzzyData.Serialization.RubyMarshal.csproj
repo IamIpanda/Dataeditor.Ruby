@@ -59,7 +59,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Key.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -95,21 +96,18 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">
+    <ProjectReference Include="..\DataEditor.Contract\DataEditor.Contract.csproj">
       <Project>{d7dfc2b5-bb85-4037-b052-c4f1e3c1bde0}</Project>
       <Name>DataEditor.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DataEditor\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
-      <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
-      <Name>DataEditor.FuzzyData</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataEditor.FuzzyData.Extra\DataEditor.FuzzyData.Extra.csproj">
       <Project>{3332a025-6e2b-4d9f-8a46-9f2350b39750}</Project>
       <Name>DataEditor.FuzzyData.Extra</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Key.pfx" />
+    <ProjectReference Include="..\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
+      <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
+      <Name>DataEditor.FuzzyData</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

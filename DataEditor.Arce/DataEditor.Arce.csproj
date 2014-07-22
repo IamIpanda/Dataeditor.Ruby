@@ -348,13 +348,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">
+    <ProjectReference Include="..\DataEditor.Contract\DataEditor.Contract.csproj">
       <Project>{d7dfc2b5-bb85-4037-b052-c4f1e3c1bde0}</Project>
       <Name>DataEditor.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DataEditor\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
-      <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
-      <Name>DataEditor.FuzzyData</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataEditor.Control.Event\DataEditor.Control.Event.csproj">
       <Project>{233070a6-124e-454f-800b-bca40f03856b}</Project>
@@ -389,6 +385,10 @@
       <Project>{a9c0dc50-cec6-401b-92e3-65787c9bedc9}</Project>
       <Name>DataEditor.FuzzyData.Serialization.RubyMarshal</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
+      <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
+      <Name>DataEditor.FuzzyData</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataEditor.Help\DataEditor.Help.csproj">
       <Project>{aafc4019-7092-4e66-9f1d-8a3ea4ba75a0}</Project>

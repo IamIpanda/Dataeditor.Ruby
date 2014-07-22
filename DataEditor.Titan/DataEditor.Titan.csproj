@@ -93,14 +93,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">
-      <Project>{d7dfc2b5-bb85-4037-b052-c4f1e3c1bde0}</Project>
-      <Name>DataEditor.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DataEditor\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
-      <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
-      <Name>DataEditor.FuzzyData</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DataEditor.Control.Prototype\DataEditor.Control.Prototype.csproj">
       <Project>{02449EDB-B4B5-47E6-AD29-7CC1C8B0BF09}</Project>
       <Name>DataEditor.Control.Prototype</Name>

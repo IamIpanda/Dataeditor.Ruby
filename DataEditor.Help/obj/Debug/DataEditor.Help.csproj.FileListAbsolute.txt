@@ -41,7 +41,6 @@ V:\VS Projects\DataEditor.Ruby\DataEditor.Help\obj\Debug\DataEditor.Control.Wind
 E:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.Help.dll
 E:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.Help.pdb
 E:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.Contract.dll
-E:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.FuzzyData.dll
 E:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.dll
 E:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.Contract.pdb
 E:\VS Projects\DataEditor.Ruby\DataEditor.Help\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.pdb

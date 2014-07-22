@@ -99,13 +99,9 @@
     <Compile Include="WrapVariable.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">
+    <ProjectReference Include="..\DataEditor.Contract\DataEditor.Contract.csproj">
       <Project>{d7dfc2b5-bb85-4037-b052-c4f1e3c1bde0}</Project>
       <Name>DataEditor.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DataEditor\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
-      <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
-      <Name>DataEditor.FuzzyData</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataEditor.Control.Prototype\DataEditor.Control.Prototype.csproj">
       <Project>{02449edb-b4b5-47e6-ad29-7cc1c8b0bf09}</Project>
@@ -122,6 +118,10 @@
     <ProjectReference Include="..\DataEditor.FuzzyData.Extra\DataEditor.FuzzyData.Extra.csproj">
       <Project>{3332a025-6e2b-4d9f-8a46-9f2350b39750}</Project>
       <Name>DataEditor.FuzzyData.Extra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
+      <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
+      <Name>DataEditor.FuzzyData</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataEditor.Help\DataEditor.Help.csproj">
       <Project>{aafc4019-7092-4e66-9f1d-8a3ea4ba75a0}</Project>

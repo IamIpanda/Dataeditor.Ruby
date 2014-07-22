@@ -75,7 +75,7 @@
     <Compile Include="Measurement.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DataEditor\DataEditor.Contract\DataEditor.Contract.csproj">
+    <ProjectReference Include="..\DataEditor.Contract\DataEditor.Contract.csproj">
       <Project>{d7dfc2b5-bb85-4037-b052-c4f1e3c1bde0}</Project>
       <Name>DataEditor.Contract</Name>
     </ProjectReference>

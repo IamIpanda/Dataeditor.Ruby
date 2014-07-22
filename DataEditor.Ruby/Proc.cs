@@ -17,7 +17,7 @@ namespace DataEditor.Ruby
         {
             try
             {
-                return proc.Call(arguments);
+                return proc.Call(proc, arguments);
             }
             catch (Exception ex)
             {

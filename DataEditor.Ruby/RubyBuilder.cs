@@ -228,7 +228,14 @@ namespace DataEditor.Ruby
             if (editor is DataContainer)
             {
                 In(editor as DataContainer);
-                if (after != null) after.Call(editor);
+                try
+                {
+                    if (after != null) after.Call(after, editor);
+                }
+                catch(Exception ex)
+                {
+
+                }
                 Out();
             }
             // 结算坐标

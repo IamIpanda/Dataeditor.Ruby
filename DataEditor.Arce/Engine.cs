@@ -28,7 +28,7 @@ namespace DataEditor.Arce
                 var proc = (IronRuby.Builtins.Proc)engine.Execute(@"Lead.Open_project");
                 Help.Path.Instance["project"] = System.IO.Path.GetDirectoryName(Path);
                 IronRuby.Builtins.MutableString str = IronRuby.Builtins.MutableString.Create(Path, IronRuby.Builtins.RubyEncoding.UTF8);
-                proc.Call(str);
+                proc.Call(proc, str);
                 (Help.Window.Instance["Main"] as WrapUranus).Window.Show();
             }
             catch (Exception ex)

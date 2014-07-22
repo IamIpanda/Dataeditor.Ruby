@@ -40,7 +40,7 @@ Builder.Add(:tab , { :text => "职业" }) do
 					ans
 				end )
 				column_width = [55, 140]
-				sort = Proc.new {|T1, T2| T1["@skill_id"].Value - T2["@skill_id"].Value }
+				sort = Proc.new {|t1, t2| t1["@skill_id"].Value - t2["@skill_id"].Value }
 				after = Proc.new do |array, new|
 					Bash::Sort.SetComparison(sort.to_p)
 					array.Sort(Bash::Sort::Compare)

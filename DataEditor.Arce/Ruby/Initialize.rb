@@ -1,6 +1,5 @@
 # Arce Sctipt : Initialize.rb
 # Initialize all the Constant Ruby need from C#
-
 Bash			 = DataEditor::Help::Bash
 Link       = DataEditor::Help::Link.Instance
 Window     = DataEditor::Help::Window.Instance

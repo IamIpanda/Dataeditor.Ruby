@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IronRuby;
+using Microsoft.Scripting.Hosting;
 
 namespace DataEditor.Ruby
 {
@@ -40,7 +41,8 @@ namespace DataEditor.Ruby
             }
             catch ( Exception ex )
             {
-                System.Windows.Forms.MessageBox.Show("Titan Rock the Olympic！\n" + ex.ToString(), "Ruby 程序执行错误",
+                ExceptionOperations eo = engine.GetService<ExceptionOperations>();
+                System.Windows.Forms.MessageBox.Show("Titan Rock the Olympic！\n" + eo.FormatException(ex), "Ruby 程序执行错误",
                     System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 return null;
             }

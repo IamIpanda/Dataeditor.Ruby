@@ -43,14 +43,15 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.呼出通用编辑器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.执行脚本ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.一并更改ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ssMain = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnMain = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.一并更改ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.SuspendLayout();
@@ -175,6 +176,19 @@
             this.执行脚本ToolStripMenuItem.Text = "执行脚本";
             this.执行脚本ToolStripMenuItem.Click += new System.EventHandler(this.执行脚本ToolStripMenuItem_Click);
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            // 
+            // 一并更改ToolStripMenuItem
+            // 
+            this.一并更改ToolStripMenuItem.Name = "一并更改ToolStripMenuItem";
+            this.一并更改ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.一并更改ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.一并更改ToolStripMenuItem.Text = "一并更改";
+            this.一并更改ToolStripMenuItem.Click += new System.EventHandler(this.一并更改ToolStripMenuItem_Click);
+            // 
             // 帮助ToolStripMenuItem1
             // 
             this.帮助ToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -186,7 +200,7 @@
             // 关于ToolStripMenuItem
             // 
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.关于ToolStripMenuItem.Text = "关于";
             // 
             // ssMain
@@ -209,9 +223,9 @@
             // pnMain
             // 
             this.pnMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnMain.Location = new System.Drawing.Point(0, 25);
+            this.pnMain.Location = new System.Drawing.Point(0, 0);
             this.pnMain.Name = "pnMain";
-            this.pnMain.Size = new System.Drawing.Size(805, 490);
+            this.pnMain.Size = new System.Drawing.Size(805, 515);
             this.pnMain.TabIndex = 2;
             // 
             // toolTip1
@@ -220,18 +234,10 @@
             this.toolTip1.InitialDelay = 2000;
             this.toolTip1.ReshowDelay = 1000;
             // 
-            // toolStripSeparator4
+            // timer1
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
-            // 
-            // 一并更改ToolStripMenuItem
-            // 
-            this.一并更改ToolStripMenuItem.Name = "一并更改ToolStripMenuItem";
-            this.一并更改ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.一并更改ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.一并更改ToolStripMenuItem.Text = "一并更改";
-            this.一并更改ToolStripMenuItem.Click += new System.EventHandler(this.一并更改ToolStripMenuItem_Click);
+            this.timer1.Interval = 600000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Uranus
             // 
@@ -284,5 +290,6 @@
         public System.Windows.Forms.Panel pnMain;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem 一并更改ToolStripMenuItem;
+        private System.Windows.Forms.Timer timer1;
     }
 }

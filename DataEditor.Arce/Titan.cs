@@ -21,7 +21,7 @@ namespace DataEditor.Arce
         {
             Help.Collector.AddAssembly(typeof(DataEditor.Control.Window.EditorWindow).Assembly);
             Help.Collector.AddAssembly(typeof(DataEditor.Control.Wrapper.Text).Assembly);
-
+            Help.Backup.Start();
         }
 
         private void Titan_FormClosed(object sender, FormClosedEventArgs e)

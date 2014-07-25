@@ -12,6 +12,12 @@ namespace DataEditor.Arce
             Help.Bash.StatusLabel = this.toolStripStatusLabel1;
             Help.Bash.ToolTip = this.toolTip1;
             Help.Action.Instance.Act += Instance_Act;
+            this.Shown += Uranus_Shown;
+        }
+
+        void Uranus_Shown(object sender, EventArgs e)
+        {
+            timer1.Enabled = true;
         }
 
         void Instance_Act(object sender, Help.Action.ActionEventArgs e)
@@ -89,6 +95,11 @@ namespace DataEditor.Arce
         private void 一并更改ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Engine.Wave();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            Help.Backup.Save();
         }
     }
 

@@ -146,14 +146,16 @@ namespace DataEditor.Control.Prototype
         protected override void DrawBackGround(Graphics graphics)
         {
             graphics.Clear(BackColor);
-            if ( bitmap == null && !FullBackgroundDraw ) return;
+            if (bitmap == null && !FullBackgroundDraw) return;
             int w, h;
-            if ( src_rect.Width == 0 && src_rect.Height == 0 )
+            if (FullBackgroundDraw)
+            { w = (int)graphics.ClipBounds.Width; h = (int)graphics.ClipBounds.Height; }
+            else if (src_rect.Width == 0 && src_rect.Height == 0)
             { w = bitmap.Width; h = bitmap.Height; }
             else { w = src_rect.Width; h = src_rect.Height; }
             Rectangle rect;
-            if ( FullBackgroundDraw ) rect = new Rectangle(0, 0, (int)graphics.ClipBounds.Width, (int)graphics.ClipBounds.Height);
-            else if ( ImageAlignCenter )
+            if (FullBackgroundDraw) rect = new Rectangle(0, 0, w, h);
+            else if (ImageAlignCenter)
             {
                 int x = ((int)graphics.ClipBounds.Width - w) / 2;
                 int y = ((int)graphics.ClipBounds.Height - h) / 2;

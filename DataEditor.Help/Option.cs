@@ -8,6 +8,12 @@ namespace DataEditor.Help
         private static readonly string DIRECTORY = "Program/Options";
         private static readonly string EXTENSION = ".option";
 
+        static Option()
+        {
+            System.IO.DirectoryInfo Directory = new System.IO.DirectoryInfo(DIRECTORY);
+            if (!(Directory.Exists)) Directory.Create();
+        }
+
         public static object GetOption(string path)
         {
             string full_path = System.IO.Path.Combine(DIRECTORY, path + EXTENSION);

@@ -29,6 +29,7 @@ Builder.Add(:tab, { :text => "技能" }) do
 					nil => Fileselect.new(Data["system"]["@skill_types"])
 				}
 				})
+
 			Builder.Add(:int , {:actual => :mp_cost , :text => "魔力值消耗" })
 			Builder.Add(:int , {:actual => :tp_cost , :text => "特技值消耗" })
 				Builder.Next
@@ -107,7 +108,7 @@ Builder.Add(:tab, { :text => "技能" }) do
 			Builder.Next
 		VA_Help::Damage.build_damage
 		Builder.Add(:metro, :text => "使用效果") do
-			VA_Help::Effect.build_effect
+			# VA_Help::Effect.build_effect
 		end
 		Builder.Add(:metro, :text => "备注") do
 			Builder.Add(:text , {:actual => :note , :label => 0})

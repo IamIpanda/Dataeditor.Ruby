@@ -102,6 +102,11 @@ namespace DataEditor.Help
         static public void SetStatus(string str)
         {
             if (StatusLabel != null) StatusLabel.Text = str;
+            StatusLabel.Invalidate();
+        }
+        static public string GetStatus()
+        {
+            return StatusLabel == null ? null : StatusLabel.Text;
         }
         static public System.Windows.Forms.ToolTip ToolTip;
         static public void SetTip(System.Windows.Forms.Control Control, String Tip)

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace DataEditor.Help
 {
+    [Serializable]
     public class Data
     {
         public static Data Instance { get; set; }

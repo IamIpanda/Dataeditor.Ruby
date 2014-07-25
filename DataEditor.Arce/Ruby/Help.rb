@@ -137,7 +137,7 @@ Fileselect = Struct.new(:data,:filter,:text,:watch) do
 	def initialize(data,&filter)
 		self.data = data
 		self.filter = filter
-		self.text = Text.new { |value| value[0].Text }
+		self.text = Text.new { |value| value.Text }
 		self.watch = []
 	end
 end

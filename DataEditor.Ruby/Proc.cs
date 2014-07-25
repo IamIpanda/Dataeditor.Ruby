@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Scripting;
+using Microsoft.Scripting.Hosting;
 
 namespace DataEditor.Ruby
 {
@@ -21,11 +23,12 @@ namespace DataEditor.Ruby
             }
             catch (Exception ex)
             {
+                ExceptionOperations eo = RubyEngine.LastEngine.Engine.GetService<ExceptionOperations>();
                 System.Windows.Forms.MessageBox.Show("Arke meets Iris: On Line "
-                    + proc.SourceLine + "\n In File : "
-                    + proc.SourcePath + "\n With"
-                    + arguments.ToString() + "\n Report As :"
-                    + ex.ToString());
+                    + proc.SourceLine + Environment.NewLine + "In File : "
+                    + proc.SourcePath + Environment.NewLine + "With"
+                    + arguments.ToString() + Environment.NewLine + "Report As :"
+                    + eo.FormatException(ex));
                 return null;
             }
         }

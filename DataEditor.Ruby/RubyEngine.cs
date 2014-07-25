@@ -12,6 +12,8 @@ namespace DataEditor.Ruby
        
         protected Microsoft.Scripting.Hosting.ScriptEngine engine;
         public Microsoft.Scripting.Hosting.ScriptEngine Engine { get { return engine; } }
+        // 谁告诉我怎么从一个Proc获取它的绑定Engine……
+        internal static RubyEngine LastEngine;
         public RubyEngine ()
         {
             engine = IronRuby.Ruby.CreateEngine();
@@ -22,6 +24,7 @@ namespace DataEditor.Ruby
             LoadAssembly(typeof(System.Windows.Forms.Form).Assembly);
             LoadAssembly(typeof(System.Drawing.Color).Assembly);
             LoadAssembly(typeof(System.Text.Encoding).Assembly);
+            LastEngine = this;
         }
         public object this[string key]
         {

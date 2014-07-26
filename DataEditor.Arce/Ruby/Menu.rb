@@ -4,7 +4,7 @@
 class Menu
 	module_function
 	def Initialize
-		Menu.Add("文件")  do
+		Menu.Add("文件") do
 			Menu.Add("保存",menu_save) 
 			Menu.Add("另存为",menu_save_as)
 			Menu.Add("")

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace DataEditor.Control
 {
+    public enum DataState { Enable, Default, Disable }
     public abstract class WrapBaseEditor<TValue> : ObjectEditor,Contract.TaintableEditor where TValue : FuzzyData.FuzzyObject
     {
         protected TValue value;
@@ -13,7 +14,7 @@ namespace DataEditor.Control
         abstract public void Push();
         abstract public void Pull();
         abstract public void Bind();
-        public bool EnableData { get; set; }
+        public DataState EnableData { get; set; }
         public virtual string HelpDocument { get; set; }
         abstract public bool ValueIsChanged();
         public virtual void Putt() { Help.Taint.DefaultPutt(this); }
@@ -24,7 +25,13 @@ namespace DataEditor.Control
         public virtual System.Windows.Forms.Control Binding { get; set; }
         protected virtual TValue ConvertToValue(FuzzyData.FuzzyObject origin) { return origin as TValue; }
 
-        public WrapBaseEditor() { Bind(); SetDefaultArgument(); EnableData = false; SetEnabled(); }
+        public WrapBaseEditor() 
+        {
+            Bind(); 
+            SetDefaultArgument(); 
+            EnableData = DataState.Disable; 
+            SetEnabled(); 
+        }
         public virtual void OnEnter(object sender, EventArgs e) { }
         public virtual void OnLeave(object sender, EventArgs e) { }
         public virtual Help.Parameter Argument
@@ -53,7 +60,7 @@ namespace DataEditor.Control
             }
             Binding.Leave += OnLeave;
             Binding.Enter += OnEnter;
-            if (EnableData) Help.Link.Instance[this.Value] = this;
+            if (this.value != null) Help.Link.Instance[this.Value] = this;
         }
         public virtual FuzzyData.FuzzyObject Value
         {
@@ -63,15 +70,17 @@ namespace DataEditor.Control
                 TValue ans = ConvertToValue(value);
                 if (ans != null)
                 {
-                    if (!EnableData)
-                    {
-                        EnableData = true;
-                        SetEnabled();
-                    }
+                    EnableData = DataState.Enable;
+                    SetEnabled();
                     this.value = ans;
                     Pull();
                 }
-                else if (Binding != null && EnableData) Binding.Enabled = false;
+                else 
+                {
+                    this.value = null;
+                    EnableData = DataState.Disable;
+                    SetEnabled();
+                }
             }
         }
         public virtual FuzzyData.FuzzyObject Parent
@@ -80,12 +89,17 @@ namespace DataEditor.Control
             set
             {
                 parent = value;
+                if (parent == null) { EnableData = DataState.Disable; return; }
                 FuzzyData.FuzzyObject origin = GetValueFromChild(value);
                 TValue ans = ConvertToValue(origin);
-                EnableData = !(ans == null);
-                if (!EnableData) return;
-                if (!Binding.Enabled) SetEnabled();
-                this.value = ans;
+                if (ans == null)
+                    EnableData = SetDefault() ? DataState.Disable : DataState.Default;
+                else
+                {
+                    EnableData = DataState.Enable;
+                    this.value = ans;
+                }
+                SetEnabled();
                 if (Binding.Enabled) Pull();
                 Putt();
             }
@@ -120,6 +134,36 @@ namespace DataEditor.Control
             if (temp == null) Help.Log.log("在 " + Flag + " 中未找到所宣告的下述值：" + symbol.Name);
             return temp as FuzzyData.FuzzyObject;
         }
+        protected virtual bool SetDefault()
+        {
+            if (key == null || EnableData != DataState.Default) return false;
+            var _default = argument.GetArgument<FuzzyData.FuzzyObject>("default");
+            if (_default == null) return false;
+            if (key is FuzzyData.FuzzySymbolComplex)
+            { 
+
+            }
+            else
+            {
+                var value = ConvertToValue(_default);
+                if (value == null) return false;
+                var name = key.Name.ToUpper();
+                if (name.StartsWith("INDEX") && parent is FuzzyData.FuzzyArray)
+                {
+                    int i = -1;
+                    var array = parent as FuzzyData.FuzzyArray;
+                    var index = name.Substring(6);
+                    if (int.TryParse(index, out i))
+                    {
+                        while (array.Size < i - 1) array.Add(new FuzzyData.FuzzyObject());
+                        array[i] = value;
+                        return true;
+                    }
+                }
+                parent.InstanceVariables.Add(key, value);
+            }
+            return true;
+        }
         protected virtual void SetDefaultArgument()
         {
             argument = new Help.Parameter();
@@ -128,12 +172,13 @@ namespace DataEditor.Control
             argument.SetArgument("label", 1, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("text", "Untitled", Help.Parameter.ArgumentType.Option);
             argument.SetArgument("actual", null, Help.Parameter.ArgumentType.Must);
+            argument.SetArgument("default", null, Help.Parameter.ArgumentType.Option);
         }
         protected virtual void SetEnabled()
         {
-            Binding.Enabled = EnableData;
+            Binding.Enabled = EnableData != DataState.Disable;
             if (Label != null)
-                if (EnableData)
+                if (EnableData == DataState.Enable)
                     Label.ForeColor = System.Drawing.Color.Gray;
                 else Putt();
         }

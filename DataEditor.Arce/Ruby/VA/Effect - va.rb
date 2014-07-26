@@ -7,22 +7,22 @@ require "Ruby/Fuzzy.rb"
 class RPG
 	class UsableItem
 		class Effect
-		  def initialize(code = 0, data_id = 0, value1 = 0.0, value2 = 0.0)
-		    @code = code
-		    @data_id = data_id
-		    @value1 = value1
-		    @value2 = value2
-		  end
-		  attr_accessor :code
-		  attr_accessor :data_id
-		  attr_accessor :value1
-		  attr_accessor :value2
+		 def initialize(code = 0, data_id = 0, value1 = 0.0, value2 = 0.0)
+		  @code = code
+		  @data_id = data_id
+		  @value1 = value1
+		  @value2 = value2
+		 end
+		 attr_accessor :code
+		 attr_accessor :data_id
+		 attr_accessor :value1
+		 attr_accessor :value2
 		 end
 	end
 end
 class VA_Help
 	class Effect
-		@@abilities = {
+		@@abilities = { 
 			0 => "体力上限",
 			1 => "魔力上限",
 			2 => "物理攻击",
@@ -31,8 +31,8 @@ class VA_Help
 			5 => "魔法防御",
 			6 => "敏捷值",
 			7 => "幸运值"
-		}
-		@@names = {
+		 }
+		@@names = { 
 			11 => "回复体力值",
 			12 => "恢复魔力值",
 			13 => "增加特技值",
@@ -46,7 +46,7 @@ class VA_Help
 			42 => "能力提升",
 			43 => "学会技能",
 			44 => "公共事件"
-		}
+		 }
 		def self.build_effect
 			columns = ["类型", "内容"]
 			texts = []			
@@ -64,29 +64,29 @@ class VA_Help
 					first = (value1 * 100).to_i
 					second = value2.to_i
 					if first == 0
-						"#{second}"
+						"#{ second }"
 					elsif second == 0
-						"#{first} %"
+						"#{ first } %"
 					else
-						"#{first} % + #{second}"
+						"#{ first } % + #{ second }"
 					end
 				when 13
 					# What the fuck the programmer is thinking when they write this ?
-					"#{value1.to_i} %"
+					"#{ value1.to_i } %"
 				when 21, 22
 					target = data_id == 0 ? "普通攻击".encode : Data["state"][data_id]["@name"].Text
-					"[#{target}] #{(value1 * 100).to_i} %"
+					"[#{ target }] #{ (value1 * 100).to_i } %"
 				when 31, 32
 					target = @@abilities[data_id.to_s.to_i].encode
-					"[#{target}] #{value1.to_i} 回合"
+					"[#{ target }] #{ value1.to_i } 回合"
 				when 33, 34
 					target = @@abilities[data_id]
-					"[#{target}]".encode
+					"[#{ target }]".encode
 				when 41
 					"撤退".encode
 				when 42
 					target = @@abilities[data_id.to_s.to_i].encode
-					"[#{target}] + #{value1.to_i}"
+					"[#{ target }] + #{ value1.to_i }"
 				when 43
 					"[" + Data["skill"][data_id]["@name"].Text + "]"
 				when 44
@@ -96,7 +96,7 @@ class VA_Help
 			window = Proc.new do |window, target|
 				Builder.In(window)
 				Builder.Add(:tabs) do
-					Builder.Add(:tab ,{:text => "恢复"}) do
+					Builder.Add(:tab ,{ text: "恢复" }) do
 						radio(11) do
 							VA_Help::Effect.int1
 							Builder.Text(" + ")
@@ -111,7 +111,7 @@ class VA_Help
 							VA_Help::Effect.fucking_brain_broken_programmer
 						end
 					end
-					Builder.Add(:tab ,{:text => "能力"}) do
+					Builder.Add(:tab ,{ text: "能力" }) do
 						VA_Help::Effect.radio(21) do
 							VA_Help::Effect.choose("state", true)
 							VA_Help::Effect.int1
@@ -121,7 +121,7 @@ class VA_Help
 							VA_Help::Effect.int1
 						end
 					end
-					Builder.Add(:tab ,{:text => "状态"}) do
+					Builder.Add(:tab ,{ text: "状态" }) do
 						VA_Help::Effect.radio(31) do
 							VA_Help::Effect.ability
 							VA_Help::Effect.int1(" 回合".encode)
@@ -137,9 +137,9 @@ class VA_Help
 							VA_Help::Effect.ability
 						end
 					end
-					Builder.Add(:tab ,{:text => "其他"}) do
+					Builder.Add(:tab ,{ text: "其他" }) do
 						VA_Help::Effect.radio(41) do
-							Builder.Add(:choose , {:actual => :data_id , :label => 0, :choice => { 0 => "撤退" }})
+							Builder.Add(:choose, { actual: :data_id, label: 0, choice: { 0 => "撤退" } })
 						end
 						VA_Help::Effect.radio(42) do
 							VA_Help::Effect.ability
@@ -153,44 +153,44 @@ class VA_Help
 				Builder.Out
 				window.Value = target
 			end
-			Builder.Add(:view, {
-				 :actual => :effects,
-				 :label => 0,
-				 :columns => columns, 
-				 :catalogue =>texts, 
-				 :window => window, 
-				 :new => RPG::UsableItem::Effect.new.to_fuzzy 
-				})
+			Builder.Add(:view, { 
+				 actual: :effects,
+				 label: 0,
+				 columns: columns, 
+				 catalogue: texts, 
+				 window: window, 
+				 new: RPG::UsableItem::Effect.new.to_fuzzy 
+				 })
 		end
 		def self.int1(text = " % ")
 			Builder.Order(1)
-			Builder.Add(:float , {:actual => :value1 , :label => 0, :digits => 0, :times => 100.0 })
+			Builder.Add(:float, { actual: :value1, label: 0, digits: 0, times: 100.0 })
 			Builder.Text(text)
 			Builder.Next
 		end
 		def self.fucking_brain_broken_programmer(text = " % ")
 			Builder.Order(1)
-			Builder.Add(:float , {:actual => :value1 , :label => 0, :digits => 0, :times => 1.0 })
+			Builder.Add(:float, { actual: :value1, label: 0, digits: 0, times: 1.0 })
 			Builder.Text(text)
 			Builder.Next
 		end
 		def self.int2
-			Builder.Add(:int , {:actual => :value2 , :label => 0})
+			Builder.Add(:int, { actual: :value2, label: 0 })
 			Builder.Text(" 点")
 		end
 		def self.choose(key, with = false)
-			choice = { }
+			choice = {  }
 			choice[0] = "普通攻击" if (with)
 			choice[nil] = Filechoice.new(key)
-			Builder.Add(:choose , {:actual => :data_id , :label => 0 ,:choice => choice })
+			Builder.Add(:choose, { actual: :data_id, label: 0 ,choice: choice })
 		end
 		def self.ability
 			Builder.Order(1)
-			Builder.Add(:choose , {:actual => :data_id , :label => 0 ,:choice => @@abilities } )
+			Builder.Add(:choose, { actual: :data_id, label: 0 ,choice: @@abilities } )
 			Builder.Next
 		end
 		def self.radio(value, &block)
-			Builder.Add(:radio , {:actual => :code, :key => value , :text => @@names[value] ,:group => "VA_POPWINDOW_EFFECT_GROUP" }, &block)
+			Builder.Add(:radio, { actual: :code, key: value, text: @@names[value] ,group: "VA_POPWINDOW_EFFECT_GROUP" }, &block)
 		end
 	end
 end

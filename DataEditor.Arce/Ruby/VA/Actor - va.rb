@@ -5,101 +5,101 @@
 require "Ruby/VA/File - va.rb"
 require "Ruby/VA/Feature - va.rb"
 
-Builder.Add(:tab , {:text => "角色" }) do
-	list = Builder.Add(:list , { :text => "角色" ,:textbook => Help.Get_Default_Text}) do 
-		Builder.Add(:metro, {:text => "基本设置" }) do
+Builder.Add(:tab, { text: "角色" }) do
+	list = Builder.Add(:list, { text: "角色" ,textbook: Help.Get_Default_Text }) do 
+		Builder.Add(:metro, { text: "基本设置" }) do
 				Builder.Order
-			Builder.Add(:text , {:actual => :name , :text => "角色" })
-			Builder.Add(:text , {:actual => :nickname , :text => "称号" })
+			Builder.Add(:text, { actual: :name, text: "角色" })
+			Builder.Add(:text, { actual: :nickname, text: "称号" })
 				Builder.Next
-			Builder.Add(:choose , {
-				:actual => :class_id , 
-				:text => "职业" ,
-				:choice => { nil => Filechoice.new("class") }
-				})
-			Builder.Add(:int , {:actual => :initial_level , :text => "初始等级", :width => 26})
-			Builder.Add(:int , {:actual => :max_level , :text => "最终等级", :width => 26})
+			Builder.Add(:choose, { 
+				actual: :class_id, 
+				text: "职业" ,
+				choice: { nil => Filechoice.new("class") }
+				 })
+			Builder.Add(:int, { actual: :initial_level, text: "初始等级", width: 26 })
+			Builder.Add(:int, { actual: :max_level, text: "最终等级", width: 26 })
 				Builder.Next
-			Builder.Add(:text , {:actual => :description , :text => "说明" })
+			Builder.Add(:text, { actual: :description, text: "说明" })
 		end
-		Builder.Add(:metro , { :text => "图像" }) do	
+		Builder.Add(:metro, { text: "图像" }) do	
 				Builder.Order
-			Builder.Add(:image , {
-				:actual => {
+			Builder.Add(:image, { 
+				actual: {
 				:name => :character_name, 
-				:index => :character_index } , 
-				:text => "",
-				:path => "Graphics/Characters",
-				:show => Help::VX_IMAGE_SHOW,
-				:split => Help::VX_IMAGE_SPLIT 
-				})
-			Builder.Add(:image , {
-				:actual => {
+				:index => :character_index }, 
+				text: "",
+				path: "Graphics/Characters",
+				show: Help::VX_IMAGE_SHOW,
+				split: Help::VX_IMAGE_SPLIT 
+				 })
+			Builder.Add(:image, { 
+				actual: {
 				:name => :face_name, 
-				:index => :face_index } , 
-				:text => "",
-				:path => "Graphics/Faces",
-				:show => Help::XP_IMAGE_SPLIT,
-				:split => Help::FACE_SPLIT 
-				})
+				:index => :face_index }, 
+				text: "",
+				path: "Graphics/Faces",
+				show: Help::XP_IMAGE_SPLIT,
+				split: Help::FACE_SPLIT 
+				 })
 		end
 		Builder.Add(:metro, :text => "初期装备", :actual => :equips) do 
-			Builder.Add(:lazy_choose , {
-				:actual => :INDEX0 ,
-				:label => 2,
-				:textbook => Help.Get_Default_Text ,
-				:choice => { 0 => "（无）" } , 
-				:text => "武器", 
-				:source => Proc.new do |target, parent, control|
+			Builder.Add(:lazy_choose, { 
+				actual: :INDEX0 ,
+				label: 2,
+				textbook: Help.Get_Default_Text ,
+				choice: { 0 => "（无）" }, 
+				text: "武器", 
+				source: Proc.new do |target, parent, control|
 					VA_Help.search_weapon(control)
 			end })			
-			Builder.Add(:lazy_choose , {
-				:actual => :INDEX1,  
-				:label => 2, 
-				:textbook => Help.Get_Default_Text , 
-				:choice => { 0 => "（无）" }, 
-				:text => "副手",
-				:source => Proc.new do |target, parent, control|
+			Builder.Add(:lazy_choose, { 
+				actual: :INDEX1, 
+				label: 2, 
+				textbook: Help.Get_Default_Text, 
+				choice: { 0 => "（无）" }, 
+				text: "副手",
+				source: Proc.new do |target, parent, control|
 					if (VA_Help.isDouble(control))
 						VA_Help.search_weapon(control)
 					else
 						VA_Help.search_armor(control, 1)
 					end
 			end })
-			Builder.Add(:lazy_choose , {
-				:actual => :INDEX2,  
-				:label => 2, 
-				:textbook => Help.Get_Default_Text , 
-				:choice => { 0 => "（无）" }, 
-				:text => "头盔",
-				:source => Proc.new do |target, parent, control|
+			Builder.Add(:lazy_choose, { 
+				actual: :INDEX2, 
+				label: 2, 
+				textbook: Help.Get_Default_Text, 
+				choice: { 0 => "（无）" }, 
+				text: "头盔",
+				source: Proc.new do |target, parent, control|
 					VA_Help.search_armor(control, 2)
 			end })
-			Builder.Add(:lazy_choose , {
-				:actual => :INDEX3,  
-				:label => 2, 
-				:textbook => Help.Get_Default_Text , 
-				:choice => { 0 => "（无）" }, 
-				:text => "铠甲",
-				:source => Proc.new do |target, parent, control|
+			Builder.Add(:lazy_choose, { 
+				actual: :INDEX3, 
+				label: 2, 
+				textbook: Help.Get_Default_Text, 
+				choice: { 0 => "（无）" }, 
+				text: "铠甲",
+				source: Proc.new do |target, parent, control|
 					VA_Help.search_armor(control, 3)
 			end })
-			Builder.Add(:lazy_choose , {
-				:actual => :INDEX4,  
-				:label => 2, 
-				:textbook => Help.Get_Default_Text , 
-				:choice => { 0 => "（无）" }, 
-				:text => "饰品",
-				:source => Proc.new do |target, parent, control|
+			Builder.Add(:lazy_choose, { 
+				actual: :INDEX4, 
+				label: 2, 
+				textbook: Help.Get_Default_Text, 
+				choice: { 0 => "（无）" }, 
+				text: "饰品",
+				source: Proc.new do |target, parent, control|
 					VA_Help.search_armor(control, 4)
 			end })
 		end
 			Builder.Next
-		Builder.Add(:metro , { :text => "特性" }) do
+		Builder.Add(:metro, { text: "特性" }) do
 			VA_Help::Feature.build_feature
 		end
-		Builder.Add(:metro, { :text => "备注" }) do
-			Builder.Add(:text , {:actual => :note , :label => 0, :height => 400, :width => 600 })
+		Builder.Add(:metro, { text: "备注" }) do
+			Builder.Add(:text, { actual: :note, label: 0, height: 400, width: 600 })
 		end
 	end
 	list.Value = Data["actor"]
@@ -122,7 +122,7 @@ class VA_Help
 				banish = true if feature["@code"].Value == 54 && feature["@data_id"] == 0
 			end
 			return [] if banish
-			return Data["weapon"].select {|weapon| type.include?(weapon["@wtype_id"]) }
+			return Data["weapon"].select { |weapon| type.include?(weapon["@wtype_id"]) }
 		end
 		def search_armor(control, id)
 			actor_class = Data["class"][control.Container.Container.Value["@class_id"]]
@@ -139,7 +139,7 @@ class VA_Help
 				banish = true if feature["@code"].Value == 54 && feature["@data_id"] == id
 			end
 			return [] if banish
-			return Data["armor"].select {|weapon| type.include?(weapon["@atype_id"]) && weapon["@etype_id"].Value == id }
+			return Data["armor"].select { |weapon| type.include?(weapon["@atype_id"]) && weapon["@etype_id"].Value == id }
 		end
 		def isDouble(control)
 			actor_class = Data["class"][control.Container.Container.Value["@class_id"]]

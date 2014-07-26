@@ -1,24 +1,24 @@
 # Arce Sctipt : Initialize.rb
 # Initialize all the Constant Ruby need from C#
-Bash			 = DataEditor::Help::Bash
-Link       = DataEditor::Help::Link.Instance
-Window     = DataEditor::Help::Window.Instance
-Monitor    = DataEditor::Help::Monitor
+Bash    = DataEditor::Help::Bash
+Link    = DataEditor::Help::Link.Instance
+Window   = DataEditor::Help::Window.Instance
+Monitor  = DataEditor::Help::Monitor
 Serialization = DataEditor::Help::Serialization
-Data       = DataEditor::Help::Data.Instance
-Path       = DataEditor::Help::Path.Instance
-Log        = DataEditor::Help::Log
-Painter    = DataEditor::Help::Painter.Instance
-Palette    = DataEditor::Help::Palette
-Text       = DataEditor::Help::Parameter::Text
-Split      = DataEditor::Help::Parameter::Split
-Builder    = DataEditor::Ruby::RubyBuilder
-Engine     = DataEditor::Ruby::RubyEngine
+Data    = DataEditor::Help::Data.Instance
+Path    = DataEditor::Help::Path.Instance
+Log    = DataEditor::Help::Log
+Painter  = DataEditor::Help::Painter.Instance
+Palette  = DataEditor::Help::Palette
+Text    = DataEditor::Help::Parameter::Text
+Split   = DataEditor::Help::Parameter::Split
+Builder  = DataEditor::Ruby::RubyBuilder
+Engine   = DataEditor::Ruby::RubyEngine
 Measurement	= DataEditor::Help::Measurement.Instance
 
 # Builder 修正。
 # 为 Builder 添加了块的支持。
-def Builder.Add(type,parameter = {},&block)
+def Builder.Add(type,parameter = { },&block)
 	editor = Builder.Push(type,parameter,block)
 	return editor
 end

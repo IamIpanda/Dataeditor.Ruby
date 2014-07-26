@@ -14,7 +14,7 @@ class Lead
 				# start main window
 				#------------------------
 				Builder.In(Window["Main"])
-				Builder.Add(:tabs, {})
+				Builder.Add(:tabs, { })
 				#------------------------
 				require file_path
 				return true
@@ -28,7 +28,7 @@ class Lead
 				# start main window
 				#------------------------
 				Builder.In(Window["Main"])
-				Builder.Add(:tabs, {})
+				Builder.Add(:tabs, { })
 				#------------------------
 				require file_path
 				return true

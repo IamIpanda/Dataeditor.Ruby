@@ -82,7 +82,7 @@ class VA_Help
 			columns = ["类型","内容"]
 			texts = []
 			texts[0] = Text.new do |*args|
-				text = {
+				text = { 
 					11 => "物理抗性",
 					12 => "弱化抗性",
 					13 => "状态抗性",
@@ -107,7 +107,7 @@ class VA_Help
 					62 => "特殊标志",
 					63 => "消失效果",
 					64 => "队伍能力"
-				}
+				 }
 				text[args[0]["@code"].Value.to_s.to_i].encode
 			end
 			texts[1] = Text.new do |*args|
@@ -171,7 +171,7 @@ class VA_Help
 					part0 = @@outs[data_id].encode
 					add = false
 				end
-				part0 = "[#{part0}]" if add
+				part0 = "[#{ part0 }]" if add
 				if part1 == ""
 					part0
 				else
@@ -181,9 +181,9 @@ class VA_Help
 			window = Proc.new do |window, target|
 				Builder.In(window)
 				Builder.Add(:tabs) do
-					Builder.Add(:tab ,{:text => "抗性"}) do
+					Builder.Add(:tab ,{ text: "抗性" }) do
 						VA_Help::Feature.radio(11, "属性抗性") do
-						  VA_Help::Feature.choose({ nil => Fileselect.new(Data["system"]["@elements"]) })
+						 VA_Help::Feature.choose({ nil => Fileselect.new(Data["system"]["@elements"]) })
 							Builder.Text(" * ")
 							VA_Help::Feature.percent
 						end
@@ -193,15 +193,15 @@ class VA_Help
 							VA_Help::Feature.percent
 						end
 						VA_Help::Feature.radio(13, "状态抗性") do
-							VA_Help::Feature.choose( { nil => Filechoice.new("state")} )
+							VA_Help::Feature.choose( { nil => Filechoice.new("state") } )
 							Builder.Text(" * ")
 							VA_Help::Feature.percent
 						end
 						VA_Help::Feature.radio(14, "状态免疫") do
-							VA_Help::Feature.choose( { nil => Filechoice.new("state")} )
+							VA_Help::Feature.choose( { nil => Filechoice.new("state") } )
 						end
 					end
-					Builder.Add(:tab , { :text => "能力" }) do
+					Builder.Add(:tab, { text: "能力" }) do
 						VA_Help::Feature.radio(21, "普通能力") do
 							VA_Help::Feature.choose( VA_Help::Feature.turn_to_dictionary("elements") )
 							Builder.Text(" * ")
@@ -218,32 +218,32 @@ class VA_Help
 							VA_Help::Feature.percent
 						end
 					end
-					Builder.Add(:tab, { :text => "攻击" }) do
+					Builder.Add(:tab, { text: "攻击" }) do
 						VA_Help::Feature.radio(31, "攻击附加属性") do
-						  VA_Help::Feature.choose({ nil => Fileselect.new(Data["system"]["@elements"]) })
+						 VA_Help::Feature.choose({ nil => Fileselect.new(Data["system"]["@elements"]) })
 						end
 						VA_Help::Feature.radio(32, "攻击附加状态") do
-						  VA_Help::Feature.choose({ nil => Filechoice.new("state") })
-						  Builder.Text(" + ")
-						  VA_Help::Feature.percent
+						 VA_Help::Feature.choose({ nil => Filechoice.new("state") })
+						 Builder.Text(" + ")
+						 VA_Help::Feature.percent
 						end
-						VA_Help::Feature.radio(33, "修正攻击速度") { Builder.Add(:float , {:actual => :value, :label => 0, :digits => 0 }) }
-						VA_Help::Feature.radio(34, "增加攻击次数") { Builder.Add(:float , {:actual => :value, :label => 0, :digits => 0 }) }
+						VA_Help::Feature.radio(33, "修正攻击速度") { Builder.Add(:float, {:actual => :value, :label => 0, :digits => 0 }) }
+						VA_Help::Feature.radio(34, "增加攻击次数") { Builder.Add(:float, {:actual => :value, :label => 0, :digits => 0 }) }
 					end
-					Builder.Add(:tab, { :text => "技能" }) do
+					Builder.Add(:tab, { text: "技能" }) do
 						VA_Help::Feature.radio(41, "添加技能类型") { VA_Help::Feature.choose({ nil => Fileselect.new(Data["system"]["@skill_types"] )} ) }
 						VA_Help::Feature.radio(42, "禁止技能类型") { VA_Help::Feature.choose({ nil => Fileselect.new(Data["system"]["@skill_types"] )} ) }
 						VA_Help::Feature.radio(43, "添加技能") { VA_Help::Feature.choose({ nil => Filechoice.new("skill")} ) }
 						VA_Help::Feature.radio(44, "禁用技能") { VA_Help::Feature.choose({ nil => Filechoice.new("skill")} ) }
 					end
-					Builder.Add(:tab, { :text => "装备" }) do
+					Builder.Add(:tab, { text: "装备" }) do
 						VA_Help::Feature.radio(51, "添加武器类型") { VA_Help::Feature.choose({ nil => Fileselect.new(Data["system"]["@weapon_types"]) }) }
 						VA_Help::Feature.radio(52, "禁用武器类型") { VA_Help::Feature.choose({ nil => Fileselect.new(Data["system"]["@weapon_types"]) }) }
 						VA_Help::Feature.radio(53, "固定装备") { VA_Help::Feature.choose( VA_Help::Feature.turn_to_dictionary("equipments") ) }
 						VA_Help::Feature.radio(54, "禁用装备") { VA_Help::Feature.choose( VA_Help::Feature.turn_to_dictionary("equipments") ) }
 						VA_Help::Feature.radio(55, "禁用装备") { VA_Help::Feature.choose( 0 => "双持武器" ) }
 					end
-					Builder.Add(:tab, { :text => "特殊" }) do
+					Builder.Add(:tab, { text: "特殊" }) do
 						VA_Help::Feature.radio(61, "增加行动次数") { VA_Help::Feature.percent }
 						VA_Help::Feature.radio(62, "特殊标志") { VA_Help::Feature.choose( VA_Help::Feature.turn_to_dictionary("battleflags") ) }
 						VA_Help::Feature.radio(63, "消失效果") { VA_Help::Feature.choose( VA_Help::Feature.turn_to_dictionary("disappears") ) }
@@ -255,31 +255,31 @@ class VA_Help
 				window.Binding.Height = 300
 				window.Value = target
 			end
-			Builder.Add(:view, {
-				:actual => :features,
-				 :label => 0,
-				  :columns => columns, 
-				  :catalogue =>texts, 
-				:window => window, 
-				:new => RPG::BaseItem::Feature.new.to_fuzzy 
-				})
+			Builder.Add(:view, { 
+				actual: :features,
+				 label: 0,
+				 columns: columns, 
+				 catalogue: texts, 
+				window: window, 
+				new: RPG::BaseItem::Feature.new.to_fuzzy 
+				 })
 		end
 		def self.choose(choices)
 			Builder.Order
-			Builder.Add(:choose , {:actual => :data_id , :text => "", :label => 0, :choice => choices })
+			Builder.Add(:choose, { actual: :data_id, text: "", label: 0, choice: choices })
 			Builder.Next
 		end
 		def self.percent
-			Builder.Add(:float , {:actual => :value , :label => 0 , :digits => 0, :times => 100.0 })
+			Builder.Add(:float, { actual: :value, label: 0, digits: 0, times: 100.0 })
 			Builder.Text("%")
 		end
 		def self.radio(value, text, &block)
-			Builder.Add(:radio , {:actual => :code, :key => value , :text => text ,:group => "VA_POPWINDOW_FEATURE_GROUP" }, &block)
+			Builder.Add(:radio, { actual: :code, key: value, text: text ,group: "VA_POPWINDOW_FEATURE_GROUP" }, &block)
 		end
 		def self.turn_to_dictionary(array, start = 0)
-			ans = {}
-			array = eval("@@#{array}") if array.is_a?(String)
-			array.each_index {|index| ans[index + start] = array[index] }
+			ans = { }
+			array = eval("@@#{ array }") if array.is_a?(String)
+			array.each_index { |index| ans[index + start] = array[index] }
 			ans
 		end
 	end

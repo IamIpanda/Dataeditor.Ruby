@@ -54,7 +54,8 @@ namespace DataEditor.Arce
 
         static public void OpenOption()
         {
-            MessageBox.Show("Not usable now.");
+            if (new Option().ShowDialog() == DialogResult.OK)
+                Conquer();
         }
 
         static public void Exit()
@@ -125,6 +126,11 @@ namespace DataEditor.Arce
         static public void Wave()
         {
             wave.ShowDialog();
+        }
+        static public void Conquer()
+        {
+            var main = Help.Window.Instance["main"] as WrapUranus;
+            if (main != null) main.Conquer();
         }
     }
 }

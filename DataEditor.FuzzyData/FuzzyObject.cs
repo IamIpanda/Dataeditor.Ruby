@@ -5,8 +5,10 @@ using System.Text;
 namespace DataEditor.FuzzyData
 { 
     [System.Diagnostics.DebuggerTypeProxy(typeof(FuzzyObjectDebugView))]
+    [Serializable]
     public partial class FuzzyObject : ICloneable
     {
+        [Serializable]
         internal class FuzzyObjectDebugView
         {
             internal FuzzyObject obj;
@@ -79,7 +81,7 @@ namespace DataEditor.FuzzyData
             get;
             set;
         }
-
+        [Serializable]
         public class FuzzyObjectInstanceVariableProxy
         {
             FuzzyObject obj;

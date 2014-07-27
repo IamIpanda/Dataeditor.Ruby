@@ -4,6 +4,7 @@ using System.Text;
 
 namespace DataEditor.FuzzyData
 {
+    [Serializable]
     public class FuzzyModule: FuzzyObject
     {
         private string name;

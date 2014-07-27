@@ -12,7 +12,17 @@ namespace DataEditor.Control.Wrapper
         FuzzyData.FuzzyFixnum pitch;
         FuzzyData.FuzzyFixnum volume;
         FuzzyData.FuzzyString name;
+        public const string volume_name = "@volume";
+        public const string pitch_name = "@pitch";
+        public const string file_name = "@name";
 
+        public Audio()
+        {
+            _default = new FuzzyData.FuzzyObject();
+            _default[volume_name] = new FuzzyData.FuzzyFixnum();
+            _default[pitch_name] = new FuzzyData.FuzzyFixnum();
+            _default[file_name] = new FuzzyData.FuzzyString();
+        }
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
@@ -26,9 +36,9 @@ namespace DataEditor.Control.Wrapper
         }
         public override void Pull()
         {
-            volume = value["@volume"] as FuzzyData.FuzzyFixnum;
-            pitch = value["@pitch"] as FuzzyData.FuzzyFixnum;
-            name = value["@name"] as FuzzyData.FuzzyString;
+            volume = value[volume_name] as FuzzyData.FuzzyFixnum;
+            pitch = value[pitch_name] as FuzzyData.FuzzyFixnum;
+            name = value[file_name] as FuzzyData.FuzzyString;
             Control.Text = name.Text;
             if (Control.Text == "") Control.Text = "（无）";
         }
@@ -67,22 +77,18 @@ namespace DataEditor.Control.Wrapper
     }
     public class Audio_Window : Window.WrapAnyWindow<AudioChoser>
     {
+        public Audio_Window()
+        {
+            _default = new FuzzyData.FuzzyObject();
+            _default[Audio.volume_name] = new FuzzyData.FuzzyFixnum();
+            _default[Audio.pitch_name] = new FuzzyData.FuzzyFixnum();
+            _default[Audio.file_name] = new FuzzyData.FuzzyString();
+        }
         public override string Flag { get { return "dialog_audio"; } }
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
             argument.SetArgument("type", "SE");
-        }
-        public override FuzzyData.FuzzyObject Parent
-        {
-            get
-            {
-                return base.Parent;
-            }
-            set
-            {
-                base.Parent = value;
-            }
         }
         public override void Reset()
         {

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace DataEditor.FuzzyData
 {
+    [Serializable]
     public partial class FuzzyTable : FuzzyObject
     {
         short[, ,] value;
@@ -28,6 +29,7 @@ namespace DataEditor.FuzzyData
         {
             this.dimension = 1;
         }
+        public FuzzyTable() : this(1, 1, 1) { }
         public short this[int x]
         {
             get { return this[x, 0, 0]; }

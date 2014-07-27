@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataEditor.Control
 {
-    public abstract class WrapBaseValueContainer<T> : WrapBaseEditor<T>, DataContainer where T : FuzzyData.FuzzyObject
+    public abstract class WrapBaseValueContainer<T> : WrapBaseEditor<T>, DataContainer where T : FuzzyData.FuzzyObject, new()
     {
         public virtual int end_x { get { return 0; } }
         public virtual int end_y { get { return 0; } }
@@ -34,7 +34,7 @@ namespace DataEditor.Control
         }
     }
     public abstract class WrapControlValueContainer<TValue, TControl> : WrapBaseValueContainer<TValue>
-        where TValue : FuzzyData.FuzzyObject
+        where TValue : FuzzyData.FuzzyObject, new()
         where TControl : System.Windows.Forms.Control, new()
     {
         protected TControl Control = new TControl();

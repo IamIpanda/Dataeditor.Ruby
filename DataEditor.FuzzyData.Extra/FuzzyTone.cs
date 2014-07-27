@@ -21,8 +21,7 @@ namespace DataEditor.FuzzyData
             this.gray = gray;
             this.ClassName = FuzzySymbol.GetSymbol("Tone");
         }
-
-
+        public FuzzyTone() : this(0, 0, 0, 0) { }
         protected void ToBytes (Stream stream)
         {
             BinaryWriter w = new BinaryWriter(stream);

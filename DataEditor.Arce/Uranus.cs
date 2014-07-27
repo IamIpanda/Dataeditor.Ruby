@@ -17,7 +17,7 @@ namespace DataEditor.Arce
 
         void Uranus_Shown(object sender, EventArgs e)
         {
-            timer1.Enabled = true;
+            Conquer();
         }
 
         void Instance_Act(object sender, Help.Action.ActionEventArgs e)
@@ -101,6 +101,22 @@ namespace DataEditor.Arce
         {
             Help.Backup.Save();
         }
+        public void Conquer()
+        {
+            timer1.Enabled = Help.Environment.Instance.EnableAutoSave;
+            timer1.Interval = 60000 * Help.Environment.Instance.AutoSaveTimeSpan;
+            toolTip1.Active = Help.Environment.Instance.EnableAutoHint;
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Engine.OpenOption();
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class WrapUranus : DataEditor.Control.WrapBaseWindow<Uranus>
@@ -117,5 +133,6 @@ namespace DataEditor.Arce
                 return Window.pnMain.Controls;
             }
         }
+        public void Conquer() { Window.Conquer(); }
     }
 }

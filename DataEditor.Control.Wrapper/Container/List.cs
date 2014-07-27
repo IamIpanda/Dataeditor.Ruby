@@ -22,6 +22,9 @@ namespace DataEditor.Control.Wrapper.Container
             set 
             {
                 base.Value = value;
+                if (Control.Items.Count <= 0) return;
+                Control.SelectedIndex = 0;
+                Help.Log.log("正在载入 " + Control.Text + " 的值");
             }
         }
         public override void Pull()

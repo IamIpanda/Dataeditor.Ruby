@@ -6,6 +6,7 @@ using DataEditor.FuzzyData.Serialization;
 
 namespace DataEditor.FuzzyData
 {
+    [Serializable]
     public partial class FuzzyColor : FuzzyObject
     {
         Color value;
@@ -21,6 +22,7 @@ namespace DataEditor.FuzzyData
             set(red, green, blue, alpha);
             this.ClassName = FuzzySymbol.GetSymbol("Color");
         }
+        public FuzzyColor() : this(0, 0, 0, 255) { }
         private void GetColor()
         {
             value = Color.FromArgb(a, r, g, b);

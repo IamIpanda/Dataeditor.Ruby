@@ -54,7 +54,7 @@ namespace DataEditor.Help
             }
             else
             {
-                Log.log("读入了缓存：" + Environment.NewLine + ass.FullName);
+                Log.log("读入了缓存：" + System.Environment.NewLine + ass.FullName);
                 foreach (var key in buffer.Keys)
                     if (!Types.ContainsKey(key))
                         Types.Add(key, buffer[key]);

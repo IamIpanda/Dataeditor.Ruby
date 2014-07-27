@@ -29,6 +29,7 @@ namespace DataEditor.Control.Wrapper
             argument.SetArgument("window", null);
             argument.SetArgument("window_type", 0, Help.Parameter.ArgumentType.Option);
             argument.OverrideArgument("actual", null, Help.Parameter.ArgumentType.Option);
+            argument.OverrideArgument("default_value", new FuzzyData.FuzzyObject(), Help.Parameter.ArgumentType.Option);
         }
         public override void Bind()
         {

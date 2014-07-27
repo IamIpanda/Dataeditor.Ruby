@@ -4,6 +4,7 @@ using System.Text;
 
 namespace DataEditor.FuzzyData
 {
+    [Serializable]
     public class FuzzyNil : FuzzyObject
     {
         private static FuzzyNil instance;

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace DataEditor.FuzzyData
 {
+    [Serializable]
     public partial class FuzzyRegexp : FuzzyObject, ICloneable
     {
         public FuzzyRegexpOptions Options;
@@ -15,6 +16,7 @@ namespace DataEditor.FuzzyData
             this.Options = Options;
             this.ClassName = FuzzySymbol.GetSymbol("Regexp");
         }
+        public FuzzyRegexp() : this(new FuzzyString(), new FuzzyRegexpOptions()) { }
 
         public override Encoding Encoding
         {

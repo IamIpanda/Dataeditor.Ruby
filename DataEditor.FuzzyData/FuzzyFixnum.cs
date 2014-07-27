@@ -20,6 +20,7 @@ namespace DataEditor.FuzzyData
             this.value = value;
             this.ClassName = FuzzySymbol.GetSymbol("Fixnum");
         }
+        public FuzzyFixnum() : this(0) { }
 
         public override string ToString()
         {

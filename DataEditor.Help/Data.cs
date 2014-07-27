@@ -102,7 +102,7 @@ namespace DataEditor.Help
                 }
                 catch(Exception ex)
                 {
-                    var message = "An error occured when saving data for " + name + ":" + Environment.NewLine + ex.ToString();
+                    var message = "An error occured when saving data for " + name + ":" + System.Environment.NewLine + ex.ToString();
                     Log.log(message);
                     System.Windows.Forms.MessageBox.Show(message, "Save Failed", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 }
@@ -135,7 +135,7 @@ namespace DataEditor.Help
                 }
                 catch (Exception ex)
                 {
-                    var message = "An Error occured when reloading data for " + name + ":" + Environment.NewLine + ex.ToString();
+                    var message = "An Error occured when reloading data for " + name + ":" + System.Environment.NewLine + ex.ToString();
                     Log.log(message);
                 }
             }

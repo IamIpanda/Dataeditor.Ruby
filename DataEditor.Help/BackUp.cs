@@ -9,6 +9,7 @@ namespace DataEditor.Help
         public static readonly string DIRECTORY = "Program/Backup";
         public static readonly string FILENAME = "Backup.arce";
         public static readonly int HINT_TIME = 2000;
+        public static readonly string START_STRING = "正在保存备份文件...";
         public static readonly string HINT_STRING = "备份文件已保存。";
         // public static readonly string FILEBACK = "Backup.arce";
         static object loc = new object();
@@ -19,15 +20,18 @@ namespace DataEditor.Help
         }
         public static void Save()
         {
+            var temp = Help.Bash.GetStatus();
             lock (loc)
             {
+                Help.Log.log(START_STRING);
+                Help.Bash.SetStatus(START_STRING);
                 var fullpath = System.IO.Path.Combine(DIRECTORY, FILENAME);
                 var stream = new System.IO.FileStream(fullpath, System.IO.FileMode.Create);
                 Option.SetOption(stream, Help.Data.Instance);
                 stream.Close();
             }
-            var temp = Help.Bash.GetStatus();
             Help.Bash.SetStatus(HINT_STRING);
+            Help.Log.log(HINT_STRING);
             System.Threading.Thread.Sleep(HINT_TIME);
             Help.Bash.SetStatus(temp);
         }

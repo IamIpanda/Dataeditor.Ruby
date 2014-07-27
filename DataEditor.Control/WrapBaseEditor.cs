@@ -5,9 +5,9 @@ using System.Text;
 namespace DataEditor.Control
 {
     public enum DataState { Enable, Default, Disable }
-    public abstract class WrapBaseEditor<TValue> : ObjectEditor,Contract.TaintableEditor where TValue : FuzzyData.FuzzyObject
+    public abstract class WrapBaseEditor<TValue> : ObjectEditor,Contract.TaintableEditor where TValue : FuzzyData.FuzzyObject, new()
     {
-        protected TValue value;
+        protected TValue value, _default;
         protected FuzzyData.FuzzyObject parent;
         protected FuzzyData.FuzzySymbol key;
         protected Help.Parameter argument;
@@ -137,18 +137,25 @@ namespace DataEditor.Control
         protected virtual bool SetDefault()
         {
             if (key == null || EnableData != DataState.Default) return false;
-            var _default = argument.GetArgument<FuzzyData.FuzzyObject>("default");
+            var _default = argument.GetArgument<FuzzyData.FuzzyObject>("default_value");
             if (_default == null) return false;
+            _default = _default.Clone() as FuzzyData.FuzzyObject;
             if (key is FuzzyData.FuzzySymbolComplex)
-            { 
-
+            {
+                var complex = key as FuzzyData.FuzzySymbolComplex;
+                var value = _default as FuzzyData.FuzzyHash;
+                if (value == null) return false;
+                foreach (var component in complex.Extra.Keys)
+                    if (value.ContainsKey(component))
+                        parent[complex.Extra[component]] = value[component];
+                    else return false;
             }
             else
             {
                 var value = ConvertToValue(_default);
                 if (value == null) return false;
                 var name = key.Name.ToUpper();
-                if (name.StartsWith("INDEX") && parent is FuzzyData.FuzzyArray)
+                if (name.StartsWith("@INDEX") && parent is FuzzyData.FuzzyArray)
                 {
                     int i = -1;
                     var array = parent as FuzzyData.FuzzyArray;
@@ -172,7 +179,7 @@ namespace DataEditor.Control
             argument.SetArgument("label", 1, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("text", "Untitled", Help.Parameter.ArgumentType.Option);
             argument.SetArgument("actual", null, Help.Parameter.ArgumentType.Must);
-            argument.SetArgument("default", null, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("default_value", _default ?? new TValue(), Help.Parameter.ArgumentType.Option);
         }
         protected virtual void SetEnabled()
         {
@@ -186,7 +193,7 @@ namespace DataEditor.Control
 
 
     public abstract class WrapControlEditor<TValue, TControl> : WrapBaseEditor<TValue>
-        where TValue : FuzzyData.FuzzyObject
+        where TValue : FuzzyData.FuzzyObject, new()
         where TControl : System.Windows.Forms.Control, new()
     {
         protected TControl Control = new TControl();

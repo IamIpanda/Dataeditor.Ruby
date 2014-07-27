@@ -4,6 +4,7 @@ using System.Text;
 
 namespace DataEditor.FuzzyData
 {
+    [Serializable]
     public partial class FuzzyFloat: FuzzyObject,ICloneable
     {
         protected double value;
@@ -19,6 +20,7 @@ namespace DataEditor.FuzzyData
             this.value = value;
             this.ClassName = FuzzySymbol.GetSymbol("Float");
         }
+        public FuzzyFloat() : this(0) { }
 
         public override string ToString()
         {

@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace DataEditor.Control.Wrapper
 {
-    public abstract class ListWrapper<T> : Control.WrapControlList<T, Prototype.ProtoCircleTextListBox> where T : FuzzyData.FuzzyObject
+    public abstract class ListWrapper<T> : Control.WrapControlList<T, Prototype.ProtoCircleTextListBox> where T : FuzzyData.FuzzyObject, new()
     {
         protected bool NowTaint = false;
         static List<object> DefaultColors = new List<object>()

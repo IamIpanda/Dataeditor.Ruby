@@ -60,7 +60,7 @@ namespace DataEditor.Control.Wrapper
                 var ison = argument.GetArgument<Contract.Runable>("ison");
                 if (ison != null)
                 {
-                    EnableData = true;
+                    EnableData = DataState.Enable;
                     SetEnabled();
                     bool on = (bool)ison.call(value, parent, radio_key);
                     if (on) Control.Radio.Checked = true;

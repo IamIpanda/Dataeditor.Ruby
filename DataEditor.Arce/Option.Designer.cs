@@ -54,6 +54,7 @@
             this.button1.TabIndex = 8;
             this.button1.Text = "确定";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -63,13 +64,14 @@
             this.button2.TabIndex = 9;
             this.button2.Text = "取消";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 545);
+            this.panel1.Location = new System.Drawing.Point(0, 208);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(289, 36);
             this.panel1.TabIndex = 10;
@@ -81,7 +83,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(289, 545);
+            this.tabControl1.Size = new System.Drawing.Size(289, 208);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage1
@@ -97,7 +99,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(281, 519);
+            this.tabPage1.Size = new System.Drawing.Size(281, 182);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Arce";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -105,7 +107,7 @@
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(8, 489);
+            this.linkLabel2.Location = new System.Drawing.Point(8, 145);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(77, 12);
             this.linkLabel2.TabIndex = 7;
@@ -116,7 +118,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(8, 463);
+            this.linkLabel1.Location = new System.Drawing.Point(8, 119);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(53, 12);
             this.linkLabel1.TabIndex = 6;
@@ -190,7 +192,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(289, 581);
+            this.ClientSize = new System.Drawing.Size(289, 244);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

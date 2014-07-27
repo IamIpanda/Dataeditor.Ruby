@@ -4,6 +4,7 @@ using System.Text;
 
 namespace DataEditor.FuzzyData
 {
+    [Serializable]
     public partial class FuzzySymbol : FuzzyObject
     {
         private string name;

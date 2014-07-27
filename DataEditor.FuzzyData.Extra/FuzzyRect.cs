@@ -5,6 +5,7 @@ using System.Drawing;
 
 namespace DataEditor.FuzzyData
 {
+    [Serializable]
     public partial class FuzzyRect : FuzzyObject
     {
         Rectangle value;
@@ -18,6 +19,7 @@ namespace DataEditor.FuzzyData
         {
             set(x, y, width, height);
         }
+        public FuzzyRect() : this(0, 0, 0, 0) { }
         private void GetRect()
         {
             value = new Rectangle(X, Y, w, h);

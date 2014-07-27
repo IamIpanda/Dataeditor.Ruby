@@ -78,7 +78,7 @@ namespace DataEditor.Help
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("执行用户脚本中发生了错误。" + Environment.NewLine + ex.ToString());
+                System.Windows.Forms.MessageBox.Show("执行用户脚本中发生了错误。" + System.Environment.NewLine + ex.ToString());
                 return null;
             }
         }

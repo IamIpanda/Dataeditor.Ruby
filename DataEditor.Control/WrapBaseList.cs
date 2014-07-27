@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataEditor.Control
 {
-    public abstract class WrapBaseList<TValue> : DataEditor.Control.WrapBaseEditor<TValue>, Contract.TaintableList where TValue : FuzzyData.FuzzyObject
+    public abstract class WrapBaseList<TValue> : DataEditor.Control.WrapBaseEditor<TValue>, Contract.TaintableList where TValue : FuzzyData.FuzzyObject, new()
     {
 
         protected Contract.TaintCollection Collection = null;
@@ -47,7 +47,7 @@ namespace DataEditor.Control
         }
     }
     public abstract class WrapControlList<TValue, TControl> : WrapBaseList<TValue>
-        where TValue: FuzzyData.FuzzyObject
+        where TValue: FuzzyData.FuzzyObject, new()
         where TControl : System.Windows.Forms.Control, new()
     {
         protected TControl Control = new TControl();

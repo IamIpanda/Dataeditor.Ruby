@@ -49,6 +49,7 @@
     <Compile Include="Complex.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="Encoding.cs" />
+    <Compile Include="Environment.cs" />
     <Compile Include="Loading.cs" />
     <Compile Include="OutLink\LoadingForm.cs">
       <SubType>Form</SubType>

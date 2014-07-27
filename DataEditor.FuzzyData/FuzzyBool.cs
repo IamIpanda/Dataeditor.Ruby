@@ -4,12 +4,17 @@ using System.Text;
 
 namespace DataEditor.FuzzyData
 {
+    [Serializable]
     public partial class FuzzyBool : FuzzyObject,ICloneable
     {
         protected bool value;
         protected static List<FuzzyBool> trues = new List<FuzzyBool>();
         protected static List<FuzzyBool> falses = new List<FuzzyBool>();
-
+        /// <summary>
+        /// 警告：这一构造函数仅在内部用于进行默认值生成。
+        /// 请勿将之用于代码类别。
+        /// </summary>
+        public FuzzyBool() : this(false) { }
         private FuzzyBool(bool t) { value = t; this.ClassName = FuzzySymbol.GetSymbol("Bool"); }
 
         public override string ToString()

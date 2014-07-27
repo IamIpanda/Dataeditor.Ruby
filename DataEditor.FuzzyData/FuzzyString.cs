@@ -5,8 +5,10 @@ using System.Text;
 namespace DataEditor.FuzzyData
 {
     [System.Diagnostics.DebuggerTypeProxy(typeof(FuzzyStringDebugView))]
+    [Serializable]
     public partial class FuzzyString : FuzzyObject,ICloneable
     {
+        [Serializable]
         internal class FuzzyStringDebugView
         {
             internal FuzzyString str;
@@ -79,6 +81,7 @@ namespace DataEditor.FuzzyData
             this.setByRaw = true;
             this.ClassName = FuzzySymbol.GetSymbol("String");
         }
+        public FuzzyString() : this("") { }
 
         public FuzzyString ForceEncoding(Encoding encoding)
         {

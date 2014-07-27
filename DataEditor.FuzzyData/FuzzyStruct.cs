@@ -4,6 +4,7 @@ using System.Text;
 
 namespace DataEditor.FuzzyData
 {
+    [Serializable]
     public partial class FuzzyStruct : FuzzyObject
     {
         public FuzzyStruct()

@@ -37,5 +37,6 @@ namespace DataEditor.Control.Wrapper
         {
             if (target != null) target.call(this, parameter);
         }
+        protected override void SetEnabled() { Control.Enabled = true; }
     }
 }

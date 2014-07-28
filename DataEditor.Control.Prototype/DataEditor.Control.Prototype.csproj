@@ -51,6 +51,12 @@
     <Compile Include="ProtoAutoSizeTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ProtoAutoSizeTextbox.PopupWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProtoAutoSizeTextbox.PopupWindow.Designer.cs">
+      <DependentUpon>ProtoAutoSizeTextbox.PopupWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProtoCheckContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -205,6 +211,12 @@
   <ItemGroup>
     <EmbeddedResource Include="ProtoArticleInput.resx">
       <DependentUpon>ProtoArticleInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoAutoSizeTextBox.resx">
+      <DependentUpon>ProtoAutoSizeTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoAutoSizeTextbox.PopupWindow.resx">
+      <DependentUpon>ProtoAutoSizeTextbox.PopupWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoCheckContainer.resx">
       <DependentUpon>ProtoCheckContainer.cs</DependentUpon>

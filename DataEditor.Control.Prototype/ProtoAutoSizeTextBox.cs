@@ -36,7 +36,6 @@ namespace DataEditor.Control.Prototype
         private void OnEntering(object sender, EventArgs e)
         {
             CheckSize();
-            this.SelectAll();
         }
         protected void CheckSize()
         {
@@ -45,13 +44,52 @@ namespace DataEditor.Control.Prototype
             int height = origin_height;
             if (size.Width > width) width = size.Width;
             if (size.Height > height) height = size.Height;
+            if (Help.Environment.Instance.EnableFloatWindow && OverSize(size))
+            {
+                var window = new ProtoAutoSizeTextbox_PopupWindow();
+                window.Location = this.PointToScreen(new System.Drawing.Point(0, 0));
+                window.FormClosed += window_FormClosed;
+                window.Value = this.Text;
+                window.MinSize = new System.Drawing.Size(this.origin_width, this.origin_height);
+                window.Size = new System.Drawing.Size(width, height);
+                window.SetColor(this.ForeColor, this.BackColor);
+                window.SetIndex(this.SelectionStart, this.SelectionLength);
+                window.Show();
+                window.Focus();
+                ResetSize();
+            }
+            else
+            {
+                SizeChanging = true;
+                this.Size = new System.Drawing.Size(width, height);
+                SizeChanging = false;
+            }
+        }
+
+        void window_FormClosed(object sender, System.Windows.Forms.FormClosedEventArgs e)
+        {
+            var window  = sender as ProtoAutoSizeTextbox_PopupWindow;
+            if (window == null) return;
             SizeChanging = true;
-            this.Size = new System.Drawing.Size(width, height);
+            this.Text = window.Value;
             SizeChanging = false;
+            window.Dispose();
         }
         protected void ResetSize()
         {
             this.Size = new System.Drawing.Size(origin_width, origin_height); 
+        }
+        protected bool OverSize(System.Drawing.Size size)
+        {
+            return ((size.Width + this.Location.X) > Parent.ClientSize.Width)
+                || ((size.Height + this.Location.Y) > Parent.ClientSize.Height);
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            this.ResumeLayout(false);
+
         }
     }
 

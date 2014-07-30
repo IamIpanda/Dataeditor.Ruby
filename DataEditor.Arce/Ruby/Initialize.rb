@@ -38,8 +38,21 @@ end
 # 全局方法 puts 修正
 # 改为一个 MessageBox
 def puts(*obj)
+	obj = obj[0] if (obj.size == 1) 
 	System::Windows::Forms::MessageBox.Show obj.inspect
 end
+def print(*obj)
+	if (obj.size > 1)
+		ans = new DataEditor::FuzzyData::FuzzyArray()
+		ans.AddRange(obj)
+	else
+		ans = obj
+	end
+	window = DataEditor::Control::ShapeShifter::ObjectChecker.new
+	window.Value = ans if ans.is_a?(DataEditor::FuzzyData::FuzzyObject)
+	window.ShowDialog
+end
+
 class Split
 	COUNT = DataEditor::Help::Parameter::Split::SplitType.Count
 	VALUE = DataEditor::Help::Parameter::Split::SplitType.Value

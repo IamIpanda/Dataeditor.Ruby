@@ -3,8 +3,8 @@
 # Describe the user interface for Skill
 
 require "Ruby/XP/File - xp.rb"
-Builder.Add(:tab, { text: "技能" }) do
-	list = Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "技能" }) do
+tab = Builder.Add(:tab, { text: "技能" }) do
+	Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "技能", default: RPG::Skill.new }) do
 		Builder.Add(:group, { text: "" }) do
 				Builder.Order
 			Builder.Add(:text, { actual: :name, text: "名称" })
@@ -58,8 +58,8 @@ Builder.Add(:tab, { text: "技能" }) do
 			 data: Data["state"], textbook: Help.Get_Silence_Text, default: "" })
 		end		
 	end
-	list.Value = Data["skill"]
 end
+tab.Value = Data["skill"]
 
 =begin
 id 

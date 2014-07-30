@@ -3,8 +3,8 @@
 # Describe the user interface for Item
 
 require "Ruby/XP/File - xp.rb"
-Builder.Add(:tab, {  text: "物品" }) do
-	list = Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "物品" }) do
+tab = Builder.Add(:tab, {  text: "物品" }) do
+	Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "物品", default: RPG::Item.new }) do
 		Builder.Add(:group, { text: "" }) do
 				Builder.Order
 			Builder.Add(:text, { actual: :name, text: "名称" })
@@ -65,8 +65,8 @@ Builder.Add(:tab, {  text: "物品" }) do
 			 data: Data["state"], textbook: Help.Get_Silence_Text, default: "" })
 		end
 	end		
-	list.Value = Data["item"]
 end
+tab.Value = Data["item"]
 
 =begin
 RPG::Item

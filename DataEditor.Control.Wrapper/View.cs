@@ -12,6 +12,7 @@ namespace DataEditor.Control.Wrapper
         protected MultiCatalogue catalogue = null;
         protected Contract.Runable after = null;
         bool isChanged = false;
+        int max_count = -1;
 
         public override void Push() { /* 已作废 */ }
 
@@ -19,7 +20,7 @@ namespace DataEditor.Control.Wrapper
         {
             if (catalogue != null)
                 catalogue.InitializeText(value);
-            if (model != null)
+            if (model != null && !(max_count >= 0 && Control.Items.Count >= max_count))
                 Control.Items.Add(new ListViewItem());
         }
 
@@ -30,6 +31,7 @@ namespace DataEditor.Control.Wrapper
         }
         public override void Reset()
         {
+            max_count = argument.GetArgument<int>("max_count");
             SetColumns(argument.GetArgument<List<object>>("COLUMNS"), argument.GetArgument<List<object>>("COLUMN_WIDTH"));
             List<object> texts = argument.GetArgument<List<object>>("CATALOGUE");
             SetModel(); 
@@ -48,6 +50,7 @@ namespace DataEditor.Control.Wrapper
             argument.SetArgument("column_width", null, Help.Parameter.ArgumentType.Option);
             argument.OverrideArgument("width", 500, Help.Parameter.ArgumentType.Option);
             argument.OverrideArgument("height", 250, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("max_count", -1, Help.Parameter.ArgumentType.Option);
         }
         public override void Bind()
         {
@@ -89,6 +92,7 @@ namespace DataEditor.Control.Wrapper
             foreach (var target in value)
                 if (target is Help.Parameter.Text) text.Add(target as Help.Parameter.Text);
             catalogue = new MultiCatalogue(Control.Items, text);
+            catalogue.MaxCount = max_count;
         }
         protected void SetModel()
         {
@@ -148,6 +152,7 @@ namespace DataEditor.Control.Wrapper
             public List<Help.Parameter.Text> Text { get; set; }
             public Contract.Runable Filter { get; set; }
             public Help.LinkTable<int, int> Link { get; set; }
+            public int MaxCount { get; set; }
             List<List<Help.Parameter.Text>> catalogue = new List<List<Help.Parameter.Text>>();
             List<object> using_value = null;
             public MultiCatalogue(ListView.ListViewItemCollection items, List<Help.Parameter.Text> origin, Contract.Runable filter = null)
@@ -156,6 +161,7 @@ namespace DataEditor.Control.Wrapper
                 Text = origin;
                 Filter = filter;
                 Link = new Help.LinkTable<int, int>();
+                MaxCount = -1;
             }
             public void InitializeText(List<object> value)
             {
@@ -165,7 +171,7 @@ namespace DataEditor.Control.Wrapper
                 catalogue.Clear();
                 int i = 0, j = 0; //  i 表示 List 上的 ID，j 表示 ListBox 的ID（显示顺序）
                 for (; i < value.Count; i++)
-                    if (IsFix(value[i]))
+                    if (IsFit(value[i]))
                     {
                         Link.Add(i, j);
                         var text = new List<Help.Parameter.Text>();
@@ -181,6 +187,7 @@ namespace DataEditor.Control.Wrapper
                         }
                         j++;
                         Items.Add(new ListViewItem(ans));
+                        if (MaxCount > 0 && Items.Count >= MaxCount) break;
                     }
             }
             public void UpdateText()
@@ -201,7 +208,7 @@ namespace DataEditor.Control.Wrapper
                 Help.Monitor.Remove(text);
                 Help.Monitor.Watch(text, TextChanged);
             }
-            bool IsFix(object value)
+            bool IsFit(object value)
             {
                 if (Filter == null)
                     return (value != null && value != FuzzyData.FuzzyNil.Instance);

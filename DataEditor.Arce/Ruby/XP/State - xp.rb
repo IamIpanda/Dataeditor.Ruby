@@ -3,8 +3,8 @@
 # Describe the user interface for Item
 
 require "Ruby/XP/File - xp.rb"
-Builder.Add(:tab, { text: "状态" }) do
-	list = Builder.Add(:list, { textbook: Help.Get_Default_Text, text: "状态" }) do
+tab = Builder.Add(:tab, { text: "状态" }) do
+	Builder.Add(:list, { textbook: Help.Get_Default_Text, text: "状态", default: RPG::State.new }) do
 		Builder.Add(:group, { text: "" }) do
 				Builder.Order
 			Builder.Add(:metro) do
@@ -63,8 +63,8 @@ Builder.Add(:tab, { text: "状态" }) do
 			 data: Data["state"], textbook: Help.Get_Silence_Text, default: "" })
 		end
 	end
-	list.Value = Data["state"]
 end
+tab.Value = Data["state"]
 
 =begin
 RPG::State

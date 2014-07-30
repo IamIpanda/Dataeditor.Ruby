@@ -3,8 +3,8 @@
 # Describe the user Interface for Weapon
 
 require "Ruby/XP/File - xp.rb"
-Builder.Add(:tab, { text: "武器" }) do
-	list = Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "武器" }) do
+tab = Builder.Add(:tab, { text: "武器" }) do
+	Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "武器", default: RPG::Weapon.new }) do
 		Builder.Add(:group, { text: "" }) do
 				Builder.Order
 			Builder.Add(:text, { actual: :name, text: "名称" })
@@ -32,8 +32,8 @@ Builder.Add(:tab, { text: "武器" }) do
 			 data: Data["state"], textbook: Help.Get_Silence_Text, default: "" })
 		end
 	end
-	list.Value = Data["weapon"]
 end
+tab.Value = Data["weapon"]
 
 =begin
 RPG::Weapon

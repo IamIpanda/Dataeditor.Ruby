@@ -3,8 +3,8 @@
 # Describe the user interface for enemy
 
 require "Ruby/XP/File - xp.rb"
-Builder.Add(:tab, { text: "敌人" }) do
-	list = Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "敌人" }) do
+tab = Builder.Add(:tab, { text: "敌人" }) do
+	Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "敌人", default: RPG::Enemy.new }) do
 		Builder.Add(:group, { text: "" }) do
 				Builder.Order
 			Builder.Add(:metro) do
@@ -160,8 +160,11 @@ Builder.Add(:tab, { text: "敌人" }) do
 				# 窗口
 				window = Proc.new do |window, target|
 					Builder.In(window)
+						window.Text = "行为".encode
+						Builder.Space(10, 10)
 						# 四个事件框
-						Builder.Add(:group, { text: "事件出现条件" }) do
+						Builder.Add(:group, { text: "事件出现条件", width: 250 }) do
+								Builder.Space(5, 0)
 								proc = Proc.new do |target| 
 									target["@condition_turn_a"].Value = 0
 									target["@condition_turn_b"].Value = 1
@@ -181,7 +184,7 @@ Builder.Add(:tab, { text: "敌人" }) do
 							Builder.Add(:check_container, { text: "HP", deny: proc, ison: ison }) do
 									Builder.Order
 								Builder.Add(:int, { actual: :condition_hp, label: 0 })
-								Builder.Text(" \% 以下".encode)
+								Builder.Text("\% 以下".encode)
 							end
 								proc = Proc.new { |target| target["@condition_level"].Value = 1 }
 								ison = Proc.new { |target| target["@condition_level"].Value != 1 }
@@ -193,10 +196,13 @@ Builder.Add(:tab, { text: "敌人" }) do
 								proc = Proc.new { |target| target["@condition_switch_id"].Value = 0 }
 								ison = Proc.new { |target| target["@condition_switch_id"].Value != 0 }
 							Builder.Add(:check_container, { text: "开关", deny: proc, ison: ison }) do
+									Builder.Order
+								Builder.Add(:switch, { actual: :condition_switch_id, data: Data.system["@switches"], label: 0 })
 								Builder.Text("为 ON".encode)
 							end
 						end
 						Builder.Add(:group, { text: "行为" }) do
+							
 							Builder.Add(:radio, { actual: :kind, group: "Enemy_Action_Behave", text: "基本", key: 0 }) do
 								Builder.Add(:choose, { actual: :basic, label: 0, choice: { 0 => "攻击", 1 => "逃跑", 2 => "防御", 3 => "什么也不做"} })
 							end
@@ -204,18 +210,24 @@ Builder.Add(:tab, { text: "敌人" }) do
 								Builder.Add(:choose, { actual: :skill_id, label: 0, choice: { nil => Filechoice.new("skill")} })
 							end
 						end
-						Builder.Add(:group, { text: "概率" }) do
-							Builder.Add(:scrollint, { actual: :rating, label: 0, minvalue: 0, maxvalue: 10 })
+						Builder.Add(:group, { text: "概率", width: 250 }) do
+							Builder.Add(:scrollint, { actual: :rating, label: 0, minvalue: 0, maxvalue: 10, width: 230 })
 						end
 					Builder.Out
 					window.Value = target
 				end
-			Builder.Add(:view, { actual: :actions, text: "行动" ,columns: columns, 
-				catalogue: texts, window: window, new: nil })
+			Builder.Add(:view, {
+				actual: :actions,
+				text: "行动",
+				columns: columns, 
+				catalogue: texts, 
+				window: window, 
+				new: RPG::Enemy::Action.new
+			 })
 		end
 	end
-	list.Value = Data["enemy"]
 end
+tab.Value = Data["enemy"]
 =begin
 id 
 ID。

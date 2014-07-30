@@ -3,8 +3,8 @@
 # Describe the user Interface for Armor
 
 require "Ruby/XP/File - xp.rb"
-Builder.Add(:tab, { text: "防具" }) do
-	list = Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "防具" }) do
+tab = Builder.Add(:tab, { text: "防具" }) do
+	list = Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "防具", default: RPG::Armor.new }) do
 		Builder.Add(:group, { text: "" }) do
 				Builder.Order
 			Builder.Add(:text, { actual: :name, text: "名称" })
@@ -32,8 +32,8 @@ Builder.Add(:tab, { text: "防具" }) do
 			Builder.Add(:checklist, { actual: :guard_state_set, text: "状态防御", data: Data["state"], textbook: text })
 		end
 	end
-	list.Value = Data["armor"]
 end
+tab.Value = Data["armor"]
 =begin
 属性id 
 ID。

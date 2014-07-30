@@ -151,15 +151,6 @@
     <EmbeddedResource Include="Option.resx">
       <DependentUpon>Option.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="SaveAsDialog.resx">
       <DependentUpon>SaveAsDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -172,6 +163,7 @@
     <EmbeddedResource Include="Uranus.resx">
       <DependentUpon>Uranus.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -330,6 +322,9 @@
     </None>
     <None Include="Ruby\XP\Item - xp.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Ruby\XP\RPG - xp.data">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ruby\XP\RPG - xp.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

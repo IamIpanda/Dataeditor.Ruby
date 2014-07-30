@@ -48,6 +48,7 @@ namespace DataEditor.Control
         public virtual void SetSize(System.Drawing.Size size) 
         {
             if (Binding == null) return;
+
             if (Binding.Dock == System.Windows.Forms.DockStyle.Fill && Container != null)
             {
                 int width_increment = 0;//Container.Binding.Size.Width - Binding.Size.Width;
@@ -55,7 +56,14 @@ namespace DataEditor.Control
                 Container.SetSize(new System.Drawing.Size(size.Width + width_increment, size.Height + height_increment));
             }
             else
+            {
+                // int width = size.Width;
+                // int height = size.Height;
+                // if (Binding.Width > width) width = Binding.Width;
+                // if (Binding.Height > height) height = Binding.Height;
+                // Binding.ClientSize = new System.Drawing.Size(width, height);
                 Binding.ClientSize = size;
+            }
         }
         public Control.ObjectEditor SearchChild(string Flag, int index = 0)
         {

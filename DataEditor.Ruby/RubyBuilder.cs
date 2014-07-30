@@ -21,6 +21,8 @@ namespace DataEditor.Ruby
         protected DataContainer container;
         protected System.Windows.Forms.Padding margin;
 
+        protected static RubyBuilder StackTop = null;
+
         protected RubyBuilder(DataContainer container, int default_head_x = 0, int default_head_y = 0)
         {
             if (default_head_x == 0) default_head_x = container.start_x;
@@ -93,6 +95,7 @@ namespace DataEditor.Ruby
         public static void In(DataContainer container)
         {
             Builders.Push(new RubyBuilder(container));
+            StackTop = Builders.Peek();
         }
         public static System.Drawing.Size Out()
         {
@@ -100,23 +103,24 @@ namespace DataEditor.Ruby
             var builder = Builders.Pop();
             var size = new System.Drawing.Size(builder.max_x + builder.container.end_x, builder.max_y + builder.container.end_y);
             builder.container.SetSize(size);
+            if (Builders.Count > 0) StackTop = Builders.Peek(); else StackTop = null;
             return size;
         }
         public static void Space(int space = 20)
         {
-            var builder = Builders.Peek();
+            var builder = StackTop;
             if (builder.mode == ControlOrder.Row) builder.now_y += space;
             else builder.now_x += space;
         }
         public static void Space(int x_space = 20, int y_space = 20)
         {
-            var builder = Builders.Peek();
+            var builder = StackTop;
             builder.now_x += x_space;
             builder.now_y += y_space;
         }
         public static void Next(int extra = 0)
         {
-            var builder = Builders.Peek();
+            var builder = StackTop;
             if (builder.mode == ControlOrder.Row)
             {
                 builder.now_y = builder.head_y;
@@ -134,7 +138,7 @@ namespace DataEditor.Ruby
         }
         public static void OrderAndNext()
         {
-            var builder = Builders.Peek();
+            var builder = StackTop;
             if (builder.mode == ControlOrder.Column)
             {
                 builder.head_x = builder.now_x = builder.max_x + builder.margin.Right * 2;
@@ -151,7 +155,7 @@ namespace DataEditor.Ruby
         }
         public static void Order(int i = -1)
         {
-            var builder = Builders.Peek();
+            var builder = StackTop;
             if (i == 0)
                 builder.mode = ControlOrder.Row;
             else if (i == 1)
@@ -165,7 +169,7 @@ namespace DataEditor.Ruby
         }
         public static System.Windows.Forms.Label Text(string text = "", int extra_w = 0, int extra_h = 0)
         {
-            var builder = Builders.Peek();
+            var builder = StackTop;
             var label = new System.Windows.Forms.Label();
             label.Text = text;
             label.Size = label.PreferredSize;
@@ -182,7 +186,7 @@ namespace DataEditor.Ruby
         public static ObjectEditor Push(RubySymbol type, Hash parameters, IronRuby.Builtins.Proc after)
         {
             // 获得目前在顶的构造器
-            var builder = Builders.Peek();
+            var builder = StackTop;
             // 检索此名称的控件
             var editor = builder.SearchControl(type);
             if (editor == null)
@@ -234,7 +238,14 @@ namespace DataEditor.Ruby
                 }
                 catch(Exception ex)
                 {
-
+                    System.Windows.Forms.MessageBox.Show(
+                        "Zenus is watching you!" + System.Environment.NewLine +
+                        "In building " + type.String + System.Environment.NewLine +
+                        "Report As :" + System.Environment.NewLine +
+                        RubyEngine.LastEngine.FormatException(ex),
+                        "Error on Building", System.Windows.Forms.MessageBoxButtons.OK,
+                        System.Windows.Forms.MessageBoxIcon.Error
+                        );
                 }
                 Out();
             }

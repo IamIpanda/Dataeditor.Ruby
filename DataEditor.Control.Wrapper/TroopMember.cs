@@ -33,6 +33,10 @@ namespace DataEditor.Control.Wrapper
                                               name;
         FuzzyData.FuzzyArray data = null;
         string path = "Graphics\\Battlers", background = "Graphics\\Battlebacks", backgroundname = "041-EvilCastle01";
+        public TroopMember()
+        {
+
+        }
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();

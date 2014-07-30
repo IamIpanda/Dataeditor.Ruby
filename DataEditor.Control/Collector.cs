@@ -100,7 +100,15 @@ namespace DataEditor.Help
                 {
                     Type type = Types[s];
                     Assembly ass = Assembly.GetAssembly(type);
-                    object target = ass.CreateInstance(type.FullName);
+                    object target = null;
+                    try
+                    {
+                        target = ass.CreateInstance(type.FullName);
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
                     return target;
                 }
                 else

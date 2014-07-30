@@ -6,7 +6,7 @@ require "Ruby/XP/File - xp.rb"
 require "Ruby/Fuzzy.rb"
 
 Builder.Add(:tab, { text: "职业" }) do
-	list = Builder.Add(:list, { textbook: Help.Get_Default_Text, text: "职业" }) do
+	list = Builder.Add(:list, { textbook: Help.Get_Default_Text, text: "职业", default: RPG::Class.new }) do
 		Builder.Add(:group, { text: "" }) do
 			Builder.Add(:text, { actual: :name, text: "名称" })
 			Builder.Add(:checklist, { actual: :weapon_set, text: "可装备的武器", data: Data["weapon"], textbook: Help.Get_Silence_Text, height: 420, width: 130 } )

@@ -7,6 +7,7 @@ namespace DataEditor.Control.Wrapper.Container
     public class List : WrapControlContainer<Prototype.ProtoFullListBox>
     {
         FuzzyData.FuzzyArray target_array;
+        FuzzyData.FuzzyObject default_value = null;
         public override string Flag { get { return "list"; } }
         public string ClipboardFormat { get; set; }
         public override FuzzyData.FuzzyObject Value
@@ -19,29 +20,30 @@ namespace DataEditor.Control.Wrapper.Container
                 int i = catalogue.Link.Reverse[j];
                 return target_array[i] as FuzzyData.FuzzyObject;
             }
-            set 
+            set
             {
                 base.Value = value;
-                if (Control.Items.Count <= 0) return;
-                Control.SelectedIndex = 0;
-                Help.Log.log("正在载入 " + Control.Text + " 的值");
             }
         }
         public override void Pull()
         {
+            Control.Dock = System.Windows.Forms.DockStyle.Fill;
             target_array = base.Value as FuzzyData.FuzzyArray;
             if (target_array == null) return;
             catalogue.InitializeText(target_array.list);
+            if (Control.Items.Count <= 0) return;
+            Control.SelectedIndex = 0;
+            Help.Log.log("正在载入 " + Control.Text + " 的值");
         }
 
         public override void Reset()
         {
-            var text = argument.GetArgument<Help.Parameter.Text>("TEXTBOOK");
-            var filter = argument.GetArgument<Contract.Runable>("FILTER");
+            var text = argument.GetArgument<Help.Parameter.Text>("textbook");
+            var filter = argument.GetArgument<Contract.Runable>("filter");
             catalogue = new Help.Catalogue(Control.Items, text, filter);
-            //Control.Dock = System.Windows.Forms.DockStyle.Fill;
             Control.Text = argument.GetArgument<string>("text");
             this.ClipboardFormat = argument.GetArgument<string>("clipboardformat");
+            default_value = argument.GetArgument<FuzzyData.FuzzyObject>("default");
         }
         protected override void SetDefaultArgument()
         {
@@ -50,6 +52,7 @@ namespace DataEditor.Control.Wrapper.Container
             argument.SetArgument("filter", null, Help.Parameter.ArgumentType.Option);
             argument.OverrideArgument("text", "未明位面", Help.Parameter.ArgumentType.Option);
             argument.SetArgument("clipboardformat", "Arce" + this.GetHashCode().ToString(), Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("default", "", Help.Parameter.ArgumentType.Option);
         }
         protected Help.Catalogue catalogue = null;
 
@@ -122,7 +125,11 @@ namespace DataEditor.Control.Wrapper.Container
         }
         void ClearItemClicked(object sender, EventArgs e)
         {
-
+            if (default_value != null)
+            {
+                var temp = this.Value & default_value;
+                base.Pull();
+            }
         }
         
     }

@@ -33,7 +33,7 @@
             // 
             // label1
             // 
-            this.label1.Text = "欢迎使用 Fux 的节操\r\n您想要做什么？";
+            this.label1.Text = "欢迎使用 Arce\r\n您想要做什么？";
             // 
             // protoListBox1
             // 

@@ -4,8 +4,8 @@
 
 require "Ruby/XP/File - xp.rb"
 
-tab = Builder.Add(:tab, { text: "角色" }) do
-	Builder.Add(:list, { textbook: Help.Get_Default_Text, text: "角色" }) do
+tab = Builder.Add(:tab, { text: "角色"}) do
+	Builder.Add(:list, { textbook: Help.Get_Default_Text, text: "角色", default: RPG::Actor.new }) do
 		Builder.Add(:group, { text: "" }) do
 				Builder.Order
 			Builder.Add(:text, { actual: :name, text: "名称" })

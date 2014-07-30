@@ -12,6 +12,7 @@ namespace DataEditor.Ruby
        
         protected Microsoft.Scripting.Hosting.ScriptEngine engine;
         public Microsoft.Scripting.Hosting.ScriptEngine Engine { get { return engine; } }
+        ExceptionOperations operation;
         // 谁告诉我怎么从一个Proc获取它的绑定Engine……
         internal static RubyEngine LastEngine;
         public RubyEngine ()
@@ -24,6 +25,7 @@ namespace DataEditor.Ruby
             LoadAssembly(typeof(System.Windows.Forms.Form).Assembly);
             LoadAssembly(typeof(System.Drawing.Color).Assembly);
             LoadAssembly(typeof(System.Text.Encoding).Assembly);
+            operation = engine.GetService<ExceptionOperations>();
             LastEngine = this;
         }
         public object this[string key]
@@ -44,8 +46,10 @@ namespace DataEditor.Ruby
             }
             catch ( Exception ex )
             {
-                ExceptionOperations eo = engine.GetService<ExceptionOperations>();
-                System.Windows.Forms.MessageBox.Show("Titan Rock the Olympic！\n" + eo.FormatException(ex), "Ruby 程序执行错误",
+                System.Windows.Forms.MessageBox.Show(
+                    "Titan Rock the Olympic！" + Environment.NewLine +
+                    FormatException(ex), 
+                    "Error on Ruby executing",
                     System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 return null;
             }
@@ -59,10 +63,20 @@ namespace DataEditor.Ruby
             }
             catch ( Exception ex )
             {
-                System.Windows.Forms.MessageBox.Show("Titan Rock the Ground！\n" + ex.ToString(), "Ruby 文件执行错误",
+                System.Windows.Forms.MessageBox.Show(
+                    "Titan Rock the Ground！" + Environment.NewLine + 
+                    FormatException(ex), 
+                    "Error on Ruby File executing",
                     System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 return null;
             }
+        }
+        public string FormatException(Exception ex)
+        {
+            string str = operation.FormatException(ex);
+            Help.Log.log("Error in Ruby occured");
+            Help.Log.log(str);
+            return str;
         }
     }
 }

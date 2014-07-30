@@ -29,7 +29,9 @@ namespace DataEditor.Arce
             for (int i = 0; i < currentAssemblies.Length; i++)
                 if (currentAssemblies[i].FullName == args.Name)
                     return currentAssemblies[i];
-            throw new NotImplementedException();
+            Help.Log.log("Can't search named assembly: " + args.Name);
+            return null;
+            // throw new NotImplementedException();
         }
     }
 }

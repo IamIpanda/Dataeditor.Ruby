@@ -90,7 +90,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(0);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ProtoCheckContainer";
             this.Size = new System.Drawing.Size(616, 45);
             this.tableLayoutPanel1.ResumeLayout(false);

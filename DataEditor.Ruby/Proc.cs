@@ -23,12 +23,14 @@ namespace DataEditor.Ruby
             }
             catch (Exception ex)
             {
-                ExceptionOperations eo = RubyEngine.LastEngine.Engine.GetService<ExceptionOperations>();
                 System.Windows.Forms.MessageBox.Show("Arke meets Iris: On Line "
                     + proc.SourceLine + Environment.NewLine + "In File : "
                     + proc.SourcePath + Environment.NewLine + "With"
                     + arguments.ToString() + Environment.NewLine + "Report As :"
-                    + eo.FormatException(ex));
+                    + RubyEngine.LastEngine.FormatException(ex),
+                    "Error on execting Proc", System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Error
+                    );
                 return null;
             }
         }

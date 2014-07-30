@@ -4,8 +4,8 @@
 
 require "Ruby/XP/File - xp.rb"
 require "Ruby/XP/Event - xp.rb"
-Builder.Add(:tab, { text: "公共事件" }) do
-	list = Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "公共事件" }) do
+tab = Builder.Add(:tab, { text: "公共事件" }) do
+	Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "公共事件" }) do
 		Builder.Add(:group) do
 				Builder.Order
 			Builder.Add(:text, { actual: :name, text: "名称" })
@@ -14,6 +14,6 @@ Builder.Add(:tab, { text: "公共事件" }) do
 			Builder.Add(:event, { actual: :list, text: "未命名", commands: $commands_xp, groups: $groups_xp, width: 600, height: 400 })
 		end
 	end
-	list.Value = Data["commonevent"]
 end
+tab.Value = Data["commonevent"]
 

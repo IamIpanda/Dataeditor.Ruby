@@ -2,57 +2,60 @@
 # Load All the Data structure needed in RPG Maker XP
 
 module RPG
-	class Actor
-		def initialize
-			@id = 0
-			@name = ""
-			@class_id = 1
-			@initial_level = 1
-			@final_level = 99
-			@exp_basis = 30
-			@exp_inflation = 30
-			@character_name = ""
-			@character_hue = 0
-			@battler_name = ""
-			@battler_hue = 0
-			@parameters = Table.new(6,100)
-			for i in 1..99
-				@parameters[0,i] = 500+i*50
-				@parameters[1,i] = 500+i*50
-				@parameters[2,i] = 50+i*5
-				@parameters[3,i] = 50+i*5
-				@parameters[4,i] = 50+i*5
-				@parameters[5,i] = 50+i*5
+	Klass = ::Class
+	module Trap
+		def const_missing(name)
+			ans = RPG.name_check(self.name.to_s + "::#{name}")
+			nodule = RPG::Klass.new do
+				@@model = ans
+				extend Trap
+				def self.new
+					return @@model.Clone
+				end
 			end
-			@weapon_id = 0
-			@armor1_id = 0
-			@armor2_id = 0
-			@armor3_id = 0
-			@armor4_id = 0
-			@weapon_fix = false
-			@armor1_fix = false
-			@armor2_fix = false
-			@armor3_fix = false
-			@armor4_fix = false
+			const_set(name, nodule)
+			return nodule
 		end
 	end
-	class Class
-		def initialize
-			@id = 0
-			@name = ""
-			@position = 0
-			@weapon_set = []
-			@armor_set = []
-			@element_ranks = Table.new(1)
-			@state_ranks = Table.new(1)
-			@learnings = []
-		end
-		class Learning
-			def initialize
-				@level = 1
-				@skill_id = 1
-			end
-		end
+	extend Trap
+	def self.initialize
+		str = File.open("Ruby/XP/RPG - xp.data").read
+		cache = Serialization.TryGetValue(str, "[m]")
+		@@cache = {}
+		cache.each { |pair| @@cache[pair.Key.to_s] = pair.Value}
 	end
-
+	def self.[](name)
+		return @@cache[name]
+	end
+	def self.name_check(name)
+		return self[name]
+	end
 end
+RPG.initialize
+
+# That's link out code.
+# It describe how to output RPG modules from RPG Maker XP
+=begin
+hash = {}
+record = ""
+ObjectSpace.each_object do |klass|
+	if klass.is_a?(Class) && klass.name[0, 5] == "RPG::"
+		hash[klass.name] = begin
+      eval("#{klass.name}.new")
+    rescue
+      nil
+    end
+    record += klass.name + "\n"
+	end
+end
+print record
+hash["RPG::Event"] = RPG::Event.new(1, 1)
+hash["RPG::Map"] = RPG::Map.new(20, 15)
+hash.delete "RPG::Sprite"
+hash.delete "RPG::Weather"
+
+File.open("RPGXP.data", "wb") do |f|
+  Marshal.dump(hash, f)
+end
+exit
+=end

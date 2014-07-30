@@ -115,7 +115,12 @@ namespace DataEditor.Arce
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
+            Engine.SaveAll();
+        }
 
+        private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Engine.About();
         }
     }
 

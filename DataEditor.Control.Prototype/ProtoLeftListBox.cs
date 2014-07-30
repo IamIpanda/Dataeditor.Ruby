@@ -49,6 +49,11 @@ namespace DataEditor.Control.Prototype
             ToolStripMenuItem item = new ToolStripMenuItem(Text, null, Handle, Key);
             contextMenuStrip1.Items.Add(item);
         }
+        public void AddSplit()
+        {
+            ToolStripSeparator sp = new ToolStripSeparator();
+            contextMenuStrip1.Items.Add(sp);
+        }
         public void ClearMenu()
         {
             contextMenuStrip1.Items.Clear();

@@ -67,7 +67,8 @@ namespace DataEditor.Control.Wrapper.Container
             Control.AddMenu("复制", CopyItemClicked, System.Windows.Forms.Keys.C | System.Windows.Forms.Keys.Control);
             Control.AddMenu("粘贴", PasteItemClicked,System.Windows.Forms.Keys.V | System.Windows.Forms.Keys.Control);
             Control.AddMenu("清除", ClearItemClicked, System.Windows.Forms.Keys.Delete);
-        
+            Control.AddSplit();
+            Control.AddMenu("设置最大值", SetMaxCountClicked, System.Windows.Forms.Keys.M | System.Windows.Forms.Keys.Control);
         }
         public override System.Windows.Forms.Control.ControlCollection Controls
         {
@@ -131,6 +132,31 @@ namespace DataEditor.Control.Wrapper.Container
                 base.Pull();
             }
         }
-        
+        void SetMaxCountClicked(object sender, EventArgs e)
+        {
+            var index = Control.SelectedIndex;
+            var now_size = target_array.Count;
+            var window = new List_MaxSelector();
+            window.Value = now_size - 1;
+            if (window.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+            var new_size = window.Value;
+            if (new_size > now_size)
+                while (target_array.Size <= new_size + 1)
+                {
+                    var value = default_value.Clone() as FuzzyData.FuzzyObject;
+                    if (window.Checked)
+                    {
+                        var id = value["@id"] as FuzzyData.FuzzyFixnum;
+                        if (id != null) id.Value = target_array.Size - 1;
+                    }
+                    target_array.Add(value);
+                }
+            else if (new_size < now_size)
+                target_array.RemoveRange(new_size + 2, now_size - new_size);
+            catalogue.InitializeText(target_array);
+            if (index >= new_size || index < 0)
+                Control.SelectedIndex = 0;
+            else Control.SelectedIndex = index;
+        }
     }
 }

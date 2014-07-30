@@ -32,8 +32,10 @@
             this.msMain = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.另存为ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,8 +54,6 @@
             this.pnMain = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.msMain.SuspendLayout();
             this.ssMain.SuspendLayout();
             this.SuspendLayout();
@@ -94,6 +94,14 @@
             this.保存ToolStripMenuItem.Text = "保存";
             this.保存ToolStripMenuItem.Click += new System.EventHandler(this.保存ToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(190, 22);
+            this.toolStripMenuItem3.Text = "全部保存";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
             // 另存为ToolStripMenuItem
             // 
             this.另存为ToolStripMenuItem.Name = "另存为ToolStripMenuItem";
@@ -107,6 +115,14 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(187, 6);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(190, 22);
+            this.toolStripMenuItem2.Text = "选项";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -203,8 +219,9 @@
             // 关于ToolStripMenuItem
             // 
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.关于ToolStripMenuItem.Text = "关于";
+            this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
             // 
             // ssMain
             // 
@@ -226,9 +243,9 @@
             // pnMain
             // 
             this.pnMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnMain.Location = new System.Drawing.Point(0, 0);
+            this.pnMain.Location = new System.Drawing.Point(0, 25);
             this.pnMain.Name = "pnMain";
-            this.pnMain.Size = new System.Drawing.Size(805, 515);
+            this.pnMain.Size = new System.Drawing.Size(805, 490);
             this.pnMain.TabIndex = 2;
             // 
             // toolTip1
@@ -241,22 +258,6 @@
             // 
             this.timer1.Interval = 600000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(190, 22);
-            this.toolStripMenuItem2.Text = "选项";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(190, 22);
-            this.toolStripMenuItem3.Text = "全部保存";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // Uranus
             // 

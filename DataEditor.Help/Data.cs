@@ -91,7 +91,7 @@ namespace DataEditor.Help
                 return;
             }
             System.IO.FileInfo file;
-            System.IO.FileStream stream;
+            System.IO.FileStream stream = null;
             if (Origins.TryGetValue(name, out file))
             {
                 try 
@@ -106,6 +106,7 @@ namespace DataEditor.Help
                     Log.log(message);
                     System.Windows.Forms.MessageBox.Show(message, "Save Failed", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 }
+                finally { if (stream != null) stream.Close(); }
             }
             else 
             {

@@ -58,6 +58,10 @@ namespace DataEditor.Control.Prototype
         {
             protoLeftListBox1.AddMenu(Text, Handle, Key);
         }
+        public void AddSplit()
+        {
+            protoLeftListBox1.AddSplit();
+        }
         public void ClearMenu()
         {
             protoLeftListBox1.ClearMenu();

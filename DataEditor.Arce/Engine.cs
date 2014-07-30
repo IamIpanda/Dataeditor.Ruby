@@ -132,5 +132,19 @@ namespace DataEditor.Arce
             var main = Help.Window.Instance["main"] as WrapUranus;
             if (main != null) main.Conquer();
         }
+        static public void SaveAll()
+        {
+            Help.Data.Instance.Save();
+            Help.Bash.SetStatus("已保存。");
+            new System.Threading.Thread(() => {
+                System.Threading.Thread.Sleep(2000);
+                if (Help.Bash.GetStatus() == "已保存。")
+                    Help.Bash.SetStatus("已就绪。");
+            }).Start();
+        }
+        static public void About()
+        {
+            new AboutDialog().ShowDialog();
+        }
     }
 }

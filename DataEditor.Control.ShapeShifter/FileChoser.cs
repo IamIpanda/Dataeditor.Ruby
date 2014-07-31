@@ -10,8 +10,6 @@ namespace DataEditor.Control.Prototype
 {
     public partial class FileChoser : UserControl
     {
-        public FuzzyData.FuzzyObject Value { get; set; }
-        public FuzzyData.FuzzyObject SelectedValue { get; set; }
         public FileChoser()
         {
             InitializeComponent();
@@ -20,7 +18,11 @@ namespace DataEditor.Control.Prototype
 
         private void protoShapeShifterData1_ValueChanged(object sender, EventArgs e)
         {
-            textBox1.Text = protoShapeShifterData1.SelectedNode.Name;
+            textBox1.Text = protoShapeShifterData1.SelectedPath;
+        }
+        public object SelectedValue
+        {
+            get { return protoShapeShifterData1.SelectedNode.Tag; }
         }
     }
 }

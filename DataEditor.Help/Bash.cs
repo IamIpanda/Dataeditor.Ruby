@@ -113,6 +113,9 @@ namespace DataEditor.Help
         {
             if (ToolTip != null) ToolTip.SetToolTip(Control, Tip);
         }
+        public delegate void About();
+        static public About RequestAbout;
+        static public void ShowAbout() { if (RequestAbout != null) RequestAbout(); }
 
         static public class Sort
         {

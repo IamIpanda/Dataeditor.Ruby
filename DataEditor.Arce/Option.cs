@@ -24,12 +24,12 @@ namespace DataEditor.Arce
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            new Control.Window.RtpEditor().ShowDialog();
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            new Control.Window.PaletteEditor().ShowDialog();
         }
 
         private void button1_Click(object sender, EventArgs e)

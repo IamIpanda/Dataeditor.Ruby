@@ -44,7 +44,6 @@ E:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.Help.dll
 E:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.dll
 E:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.Contract.pdb
 E:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.Help.pdb
-E:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.FuzzyData.pdb
 E:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.pdb
 E:\VS Projects\DataEditor.Ruby\DataEditor.Control\obj\Debug\DataEditor.Control.csprojResolveAssemblyReference.cache
 E:\VS Projects\DataEditor.Ruby\DataEditor.Control\obj\Debug\DataEditor.Control.dll

@@ -12,7 +12,6 @@ namespace DataEditor.Help
         static Path()
         {
             Instance = new Path();
-            RTPManager.GetRegistryRtps();
             Instance["Program"] = System.Windows.Forms.Application.StartupPath;
         }
         protected Path() { }
@@ -94,6 +93,11 @@ namespace DataEditor.Help
 
         static public class RTPManager
         {
+            static RTPManager()
+            {
+                GetRegistryRtps();
+                Load();
+            }
             static private List<Color> colors = new List<Color>()
             {
                 Color.DarkRed, 
@@ -147,7 +151,7 @@ namespace DataEditor.Help
                     if (!(rtp.IsFromReg))
                         rtp_list.Add(rtp);
             }
-            static void Save()
+            static public void Save()
             {
                 Option.SetOption(typeof(RTPManager), rtp_list);
             }

@@ -43,6 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PaletteEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PaletteEditor.Designer.cs">
+      <DependentUpon>PaletteEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RtpEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RtpEditor.Designer.cs">
+      <DependentUpon>RtpEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="WrapAnyWindow.cs" />
     <Compile Include="ChoiceWindow.cs">
       <SubType>Form</SubType>
@@ -75,6 +87,9 @@
     <EmbeddedResource Include="ChoiceWindow.resx">
       <DependentUpon>ChoiceWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PaletteEditor.resx">
+      <DependentUpon>PaletteEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -84,6 +99,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RtpEditor.resx">
+      <DependentUpon>RtpEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WindowWithOK.resx">
       <DependentUpon>WindowWithOK.cs</DependentUpon>
     </EmbeddedResource>

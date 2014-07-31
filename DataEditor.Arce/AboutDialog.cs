@@ -16,6 +16,8 @@ namespace DataEditor.Arce
             InitializeComponent();
             this.Text = "关于 Dataeditor.Arce";
             protoListBox1.Items.Clear();
+            label2.Text = "ver. " + Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
+            label3.Text = AssemblyDescription(Assembly.GetExecutingAssembly());
             System.Reflection.Assembly[] currentAssemblies = AppDomain.CurrentDomain.GetAssemblies();
             foreach (Assembly ass in currentAssemblies)
                 if (ass.GetName().Name.StartsWith("DataEditor"))
@@ -23,6 +25,7 @@ namespace DataEditor.Arce
                     assemblies.Add(ass);
                     protoListBox1.Items.Add(ass.GetName().Name);
                 }
+            if (protoListBox1.Items.Count > 0) protoListBox1.SelectedIndex = 0;
         }
 
         #region 程序集特性访问器
@@ -85,17 +88,14 @@ namespace DataEditor.Arce
             }
         }
 
-        public string AssemblyCompany
+        public string AssemblyCompany(Assembly ass)
         {
-            get
+            object[] attributes = ass.GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
+            if (attributes.Length == 0)
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return "";
-                }
-                return ((AssemblyCompanyAttribute)attributes[0]).Company;
+                return "";
             }
+            return ((AssemblyCompanyAttribute)attributes[0]).Company;
         }
         #endregion
 
@@ -106,10 +106,10 @@ namespace DataEditor.Arce
             var assemblyname = assembly.GetName();
             sb.AppendLine(assemblyname.Name);
             sb.Append("ver.");
-            sb.AppendLine(assemblyname.Version.ToString());
+            sb.AppendLine(assemblyname.Version.ToString(3));
             sb.Append("by.");
-            sb.AppendLine(this.AssemblyProduct(assembly));
-            sb.AppendLine("description.");
+            sb.AppendLine(this.AssemblyCompany(assembly));
+            sb.Append("description.");
             sb.AppendLine(this.AssemblyDescription(assembly));
             textBox1.Text = sb.ToString();
         }

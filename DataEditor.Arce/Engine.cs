@@ -18,6 +18,7 @@ namespace DataEditor.Arce
             engine.LoadAssembly(typeof(DataEditor.Control.Event.EventCommand).Assembly);
             engine.LoadAssembly(typeof(DataEditor.Control.Window.EditorWindow).Assembly);
             Help.Bash.RubyEngine = ((str) => engine.Execute(str));
+            Help.Bash.RequestAbout = About;
             Engine.engine.Execute(@"require ""Ruby/main.rb""");
         }
 

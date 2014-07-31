@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShapeShifter));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -54,8 +55,6 @@
             this.执行代码ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查看ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.状态栏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.拆分ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.刷新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -265,8 +264,6 @@
             // 
             this.查看ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.状态栏ToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.拆分ToolStripMenuItem,
             this.toolStripSeparator3,
             this.刷新ToolStripMenuItem});
             this.查看ToolStripMenuItem.Name = "查看ToolStripMenuItem";
@@ -278,31 +275,19 @@
             this.状态栏ToolStripMenuItem.Checked = true;
             this.状态栏ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.状态栏ToolStripMenuItem.Name = "状态栏ToolStripMenuItem";
-            this.状态栏ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.状态栏ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.状态栏ToolStripMenuItem.Text = "状态栏(&S)";
             this.状态栏ToolStripMenuItem.Click += new System.EventHandler(this.状态栏ToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(124, 6);
-            // 
-            // 拆分ToolStripMenuItem
-            // 
-            this.拆分ToolStripMenuItem.Name = "拆分ToolStripMenuItem";
-            this.拆分ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.拆分ToolStripMenuItem.Text = "拆分(&D)";
-            this.拆分ToolStripMenuItem.Click += new System.EventHandler(this.拆分ToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // 刷新ToolStripMenuItem
             // 
             this.刷新ToolStripMenuItem.Name = "刷新ToolStripMenuItem";
-            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.刷新ToolStripMenuItem.Text = "刷新";
             this.刷新ToolStripMenuItem.Click += new System.EventHandler(this.刷新ToolStripMenuItem_Click);
             // 
@@ -319,6 +304,7 @@
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
             this.关于ToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.关于ToolStripMenuItem.Text = "关于(&A)";
+            this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
             // 
             // splitContainer1
             // 
@@ -339,6 +325,7 @@
             // 
             // protoShapeShifterData1
             // 
+            this.protoShapeShifterData1.Container = ((DataEditor.FuzzyData.FuzzyObject)(resources.GetObject("protoShapeShifterData1.Container")));
             this.protoShapeShifterData1.ContextMenuStrip = this.contextMenuStrip1;
             this.protoShapeShifterData1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.protoShapeShifterData1.HideSelection = false;
@@ -413,8 +400,6 @@
         private System.Windows.Forms.ToolStripMenuItem 执行代码ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 查看ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 状态栏ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem 拆分ToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem 刷新ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 帮助ToolStripMenuItem;

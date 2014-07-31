@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileChoser));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.protoShapeShifterData1 = new DataEditor.Control.Prototype.ProtoShapeShifterFullList();
@@ -54,12 +55,15 @@
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox1.Location = new System.Drawing.Point(3, 3);
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(283, 21);
             this.textBox1.TabIndex = 0;
             // 
             // protoShapeShifterData1
             // 
+            this.protoShapeShifterData1.Container = ((DataEditor.FuzzyData.FuzzyObject)(resources.GetObject("protoShapeShifterData1.Container")));
             this.protoShapeShifterData1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.protoShapeShifterData1.HideSelection = false;
             this.protoShapeShifterData1.Location = new System.Drawing.Point(3, 31);
             this.protoShapeShifterData1.Name = "protoShapeShifterData1";
             this.protoShapeShifterData1.Size = new System.Drawing.Size(283, 353);

@@ -66,6 +66,9 @@
     <Compile Include="ProtoCheckedListbox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ProtoCircleListbox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ProtoColoredListBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -220,6 +223,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoCheckContainer.resx">
       <DependentUpon>ProtoCheckContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProtoCircleListbox.resx">
+      <DependentUpon>ProtoCircleListbox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProtoDropItem.resx">
       <DependentUpon>ProtoDropItem.cs</DependentUpon>

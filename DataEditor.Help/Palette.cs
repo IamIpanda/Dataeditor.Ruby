@@ -87,6 +87,10 @@ namespace DataEditor.Help
             if (painter == null) Option.SetOption(typeof(Painter), Instance);
         }
 
+        static public void Save()
+        {
+            Option.SetOption(Instance, Instance);
+        }
 
         Palette now;
         Dictionary<string, Palette> palette;

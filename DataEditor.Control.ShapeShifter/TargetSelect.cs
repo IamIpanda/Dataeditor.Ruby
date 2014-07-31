@@ -26,5 +26,10 @@ namespace DataEditor.Control.ShapeShifter
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Close();
         }
+
+        public FuzzyData.FuzzyObject GetValue()
+        {
+            return fileChoser1.SelectedValue as FuzzyData.FuzzyObject; 
+        }
     }
 }

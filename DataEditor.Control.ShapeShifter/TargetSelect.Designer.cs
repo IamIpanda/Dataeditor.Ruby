@@ -38,10 +38,8 @@
             this.fileChoser1.Dock = System.Windows.Forms.DockStyle.Top;
             this.fileChoser1.Location = new System.Drawing.Point(0, 0);
             this.fileChoser1.Name = "fileChoser1";
-            this.fileChoser1.SelectedValue = null;
             this.fileChoser1.Size = new System.Drawing.Size(368, 568);
             this.fileChoser1.TabIndex = 0;
-            this.fileChoser1.Value = null;
             // 
             // button1
             // 

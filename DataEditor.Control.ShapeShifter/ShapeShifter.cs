@@ -187,11 +187,13 @@ namespace DataEditor.Control.ShapeShifter
         {
             if (ts == null) ts = new TargetSelect();
             if (ts.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                MessageBox.Show("此功能目前尚不可用。");
+                /*
                 if (protoShapeShifterData1.Focused)
                 {
                 }
                 else if (protoShapeShifterValue1.Focused)
-                { }
+                { }*/
         }
 
         Search s = null;
@@ -274,6 +276,11 @@ namespace DataEditor.Control.ShapeShifter
         private void 删除ToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             删除ToolStripMenuItem_Click(this, e);
+        }
+
+        private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Help.Bash.ShowAbout();
         }
     }
 }

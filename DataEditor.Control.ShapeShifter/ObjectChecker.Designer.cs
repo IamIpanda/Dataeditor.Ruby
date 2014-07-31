@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ObjectChecker));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.protoShapeShifterList1 = new DataEditor.Control.Prototype.ProtoShapeShifterList();
             this.protoShapeShifterValue1 = new DataEditor.Control.Prototype.ProtoShapeShifterValue();
@@ -55,7 +56,9 @@
             // 
             // protoShapeShifterList1
             // 
+            this.protoShapeShifterList1.Container = ((DataEditor.FuzzyData.FuzzyObject)(resources.GetObject("protoShapeShifterList1.Container")));
             this.protoShapeShifterList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.protoShapeShifterList1.HideSelection = false;
             this.protoShapeShifterList1.Location = new System.Drawing.Point(0, 0);
             this.protoShapeShifterList1.Name = "protoShapeShifterList1";
             this.protoShapeShifterList1.Size = new System.Drawing.Size(325, 548);
@@ -71,6 +74,7 @@
             this.protoShapeShifterValue1.MultiSelect = false;
             this.protoShapeShifterValue1.Name = "protoShapeShifterValue1";
             this.protoShapeShifterValue1.OwnerDraw = true;
+            this.protoShapeShifterValue1.ReadOnly = false;
             this.protoShapeShifterValue1.Size = new System.Drawing.Size(651, 548);
             this.protoShapeShifterValue1.TabIndex = 0;
             this.protoShapeShifterValue1.UseCompatibleStateImageBehavior = false;
@@ -83,6 +87,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(980, 548);
             this.Controls.Add(this.splitContainer1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ObjectChecker";
             this.Text = "Ans";
             this.splitContainer1.Panel1.ResumeLayout(false);

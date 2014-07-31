@@ -108,7 +108,8 @@ namespace DataEditor.Arce
             sb.Append("ver.");
             sb.AppendLine(assemblyname.Version.ToString(3));
             sb.Append("by.");
-            sb.AppendLine(this.AssemblyCompany(assembly));
+            var company = this.AssemblyCompany(assembly);
+            sb.AppendLine(company == "" ? "<Annoymous>" : company);
             sb.Append("description.");
             sb.AppendLine(this.AssemblyDescription(assembly));
             textBox1.Text = sb.ToString();

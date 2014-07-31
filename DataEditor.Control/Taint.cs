@@ -20,7 +20,7 @@ namespace DataEditor.Help
         {
             get
             {
-
+                if (key == null) return Contract.TaintState.UnTainted;
                 var state = Contract.TaintState.UnTainted;
                 records.TryGetValue(key, out state);
                 return state;

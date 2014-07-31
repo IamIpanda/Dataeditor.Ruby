@@ -32,10 +32,13 @@ namespace DataEditor.Control.Wrapper
                                               class_name = FuzzyData.FuzzySymbol.GetSymbol("RPG::Troop::Member"),
                                               name;
         FuzzyData.FuzzyArray data = null;
-        string path = "Graphics\\Battlers", background = "Graphics\\Battlebacks", backgroundname = "041-EvilCastle01";
-        public TroopMember()
+        string path = "Graphics\\Battlers", background = "Graphics\\Battlebacks";
+        static string backgroundname = "041-EvilCastle01";
+        static TroopMember()
         {
-
+            object str = Help.Option.GetOption(typeof(TroopMember));
+            if (str != null)
+                backgroundname = str.ToString();
         }
         protected override void SetDefaultArgument()
         {
@@ -175,6 +178,7 @@ namespace DataEditor.Control.Wrapper
             {
                 backgroundname = window.FileName;
                 SetBackGround();
+                Save();
             }
         }
 
@@ -183,9 +187,17 @@ namespace DataEditor.Control.Wrapper
             string filename = System.IO.Path.Combine(background, backgroundname);
             string fullname;
             if (Help.Path.Instance.SearchFile(filename, out fullname, "rtp", "project") == false)
+            {
+                Help.Log.log("Can't get background image named " + backgroundname);
                 Control.Main.Background = new System.Drawing.Bitmap(Control.Main.Size.Width, Control.Main.Size.Height);
+            }
             else
                 Control.Main.Background = new System.Drawing.Bitmap(fullname);
+        }
+
+        static void Save()
+        {
+            Help.Option.SetOption(typeof(TroopMember), backgroundname);
         }
     }
 }

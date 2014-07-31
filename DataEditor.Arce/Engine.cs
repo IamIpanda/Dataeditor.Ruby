@@ -132,6 +132,7 @@ namespace DataEditor.Arce
         {
             var main = Help.Window.Instance["main"] as WrapUranus;
             if (main != null) main.Conquer();
+            Help.Environment.Instance.Conquer();
         }
         static public void SaveAll()
         {

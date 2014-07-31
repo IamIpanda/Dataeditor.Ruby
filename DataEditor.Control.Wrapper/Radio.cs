@@ -25,6 +25,7 @@ namespace DataEditor.Control.Wrapper
             foreach (var radio in target_list)
                 if (radio.Control.Radio != son_radio)
                     radio.TurnOffRadio();
+                else radio.Push();
            
         }
         // ========================
@@ -42,6 +43,7 @@ namespace DataEditor.Control.Wrapper
 
         public override void Push() 
         {
+            if (value == null) return;
             if (Control.Radio.Checked) value.Value = radio_key;
         }
         public override void Pull()
@@ -119,6 +121,7 @@ namespace DataEditor.Control.Wrapper
                 if (chosen != null)
                     chosen.call(value, parent, radio_key);
             }
+            Push();
         }
         public override void Reset()
         {

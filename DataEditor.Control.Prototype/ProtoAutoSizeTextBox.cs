@@ -15,6 +15,27 @@ namespace DataEditor.Control.Prototype
             this.SizeChanged += OnSizeChanging;
             this.Leave += OnLeaving;
             this.Enter += OnEntering;
+            this.DoubleClick += ProtoAutoSizeTextBox_DoubleClick;
+            this.ForeColorChanged += ProtoAutoSizeTextBox_ForeColorChanged;
+            this.BackColorChanged += ProtoAutoSizeTextBox_BackColorChanged;
+        }
+
+        void ProtoAutoSizeTextBox_BackColorChanged(object sender, EventArgs e)
+        {
+            if (window != null && !window.IsDisposed) window.BackColor = this.BackColor;
+        }
+
+        void ProtoAutoSizeTextBox_ForeColorChanged(object sender, EventArgs e)
+        {
+            if (window != null && !window.IsDisposed) window.ForeColor = this.ForeColor;
+        }
+
+        void ProtoAutoSizeTextBox_DoubleClick(object sender, EventArgs e)
+        {
+            ProtoLinedPaperDialog dialog = new ProtoLinedPaperDialog();
+            dialog.Value = this.Text;
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                this.Text = dialog.Value;
         }
         private void OnSizeChanging(object sender,EventArgs e)
         {
@@ -37,6 +58,7 @@ namespace DataEditor.Control.Prototype
         {
             CheckSize();
         }
+        ProtoAutoSizeTextbox_PopupWindow window = null;
         protected void CheckSize()
         {
             System.Drawing.Size size = this.PreferredSize;
@@ -46,7 +68,7 @@ namespace DataEditor.Control.Prototype
             if (size.Height > height) height = size.Height;
             if (Help.Environment.Instance.EnableFloatWindow && OverSize(size))
             {
-                var window = new ProtoAutoSizeTextbox_PopupWindow();
+                window = new ProtoAutoSizeTextbox_PopupWindow();
                 window.Location = this.PointToScreen(new System.Drawing.Point(0, 0));
                 window.FormClosed += window_FormClosed;
                 window.Value = this.Text;
@@ -74,6 +96,7 @@ namespace DataEditor.Control.Prototype
             this.Text = window.Value;
             SizeChanging = false;
             window.Dispose();
+            this.window = null;
         }
         protected void ResetSize()
         {

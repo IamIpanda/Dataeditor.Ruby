@@ -18,6 +18,7 @@ namespace DataEditor.Arce
             checkBox2.Checked = Help.Environment.Instance.EnableAutoHint;
             checkBox3.Checked = Help.Environment.Instance.EnableLoading;
             checkBox4.Checked = Help.Environment.Instance.EnableFloatWindow;
+            checkBox5.Checked = Help.Environment.Instance.EnableVAType;
             comboBox1.Text = Help.Environment.Instance.AutoSaveTimeSpan.ToString();
             comboBox1.Enabled = checkBox1.Enabled;
         }
@@ -38,6 +39,7 @@ namespace DataEditor.Arce
             Help.Environment.Instance.EnableAutoHint = checkBox2.Checked;
             Help.Environment.Instance.EnableLoading = checkBox3.Checked;
             Help.Environment.Instance.EnableFloatWindow = checkBox4.Checked;
+            Help.Environment.Instance.EnableVAType = checkBox5.Checked;
             int value;
             if (int.TryParse(comboBox1.Text, out value))
                 Help.Environment.Instance.AutoSaveTimeSpan = value;

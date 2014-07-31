@@ -61,41 +61,48 @@ tab = Builder.Add(:tab, { text: "敌人" }) do
 							Builder.In(window)
 							ison = Proc.new do |value, parent, key|
 								parent["@item_id"].Value == 0 && parent["@weapon_id"].Value == 0 && parent["@armor_id"].Value == 0
-								parent["@item_id"].Value == 0 && parent["@weapon_id"].Value == 0 && parent["@armor_id"].Value == 0
+							end
+							accept = Proc.new do |value, parent, key|
+								parent["@weapon_id"] = 0
+								parent["@armor_id"] = 0
+								parent["@item_id"] = 0
 							end
 							Builder.Space(3, 3)
 						Builder.Add(:radio, { text: "无", ison: ison })
 							ison = Proc.new do |value, parent, key|
 								parent["@item_id"].Value != 0
 							end
-							deny = Proc.new do |value, parent, key|
+							accept = Proc.new do |value, parent, key|
 								parent["@weapon_id"].Value = 0
 								parent["@armor_id"].Value = 0
+								parent["@item_id"].Value = 1
 							end
 							Builder.Space(3)
-						Builder.Add(:radio, { text: "物品", ison: ison, deny: deny }) do
+						Builder.Add(:radio, { text: "物品", ison: ison, accept: accept }) do
 							Builder.Add(:choose, { actual: :item_id, label: 0 ,choice: { nil => Filechoice.new("item") } })
 						end
 							ison = Proc.new do |value, parent, key|
 								parent["@weapon_id"].Value != 0
 							end
-							deny = Proc.new do |value, parent, key|
+							accept = Proc.new do |value, parent, key|
 								parent["@item_id"].Value = 0
 								parent["@armor_id"].Value = 0
+								parent["@weapon_id"].Value = 1
 							end
 							Builder.Space(3)
-						Builder.Add(:radio, { text: "武器", ison: ison, deny: deny }) do
+						Builder.Add(:radio, { text: "武器", ison: ison, accept: accept }) do
 							Builder.Add(:choose, { actual: :weapon_id, label: 0 ,choice: { nil => Filechoice.new("weapon") } })
 						end
 							ison = Proc.new do |value, parent, key|
 								parent["@armor_id"].Value != 0
 							end
-							deny = Proc.new do |value, parent, key|
+							accept = Proc.new do |value, parent, key|
 								parent["@item_id"].Value = 0
 								parent["@weapon_id"].Value = 0
+								parent["@armor_id"].Value = 1
 							end
 							Builder.Space(3)
-						Builder.Add(:radio, { text: "防具", ison: ison, deny: deny }) do
+						Builder.Add(:radio, { text: "防具", ison: ison, accept: accept }) do
 							Builder.Add(:choose, { actual: :armor_id, label: 0 ,choice: { nil => Filechoice.new("armor") } })
 						end
 							Builder.Space(20)
@@ -202,7 +209,6 @@ tab = Builder.Add(:tab, { text: "敌人" }) do
 							end
 						end
 						Builder.Add(:group, { text: "行为" }) do
-							
 							Builder.Add(:radio, { actual: :kind, group: "Enemy_Action_Behave", text: "基本", key: 0 }) do
 								Builder.Add(:choose, { actual: :basic, label: 0, choice: { 0 => "攻击", 1 => "逃跑", 2 => "防御", 3 => "什么也不做"} })
 							end

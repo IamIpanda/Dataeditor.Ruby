@@ -14,8 +14,6 @@ namespace DataEditor.Arce
         public Lead()
         {
             InitializeComponent();
-
-
             string[] loads = new string[] { @"Program\Serialization\DataEditor.FuzzyData.Serialization.RubyMarshal.dll"
                 , @"Program\Serialization\UserDefined\DataEditor.FuzzyData.Extra.dll" };
             Array.ForEach(loads, (string ass) =>
@@ -25,6 +23,7 @@ namespace DataEditor.Arce
                         ass
                     ));
             });
+            this.protoListBox1.ForeColors.Add(1, Color.Gray);
         }
         protected override void protoListBox1_DoubleClick(object sender, EventArgs e)
         {
@@ -41,7 +40,7 @@ namespace DataEditor.Arce
             switch (i)
             {
                 case 0: RunOpenProject(); break;
-                case 1: RunOpenFile(); break;
+                case 1: /* RunOpenFile(); */ break;
                 case 2: RunExecuteFile(); break;
                 case 3: RunOption(); break;
                 case 4: RunExit(); break;
@@ -49,7 +48,7 @@ namespace DataEditor.Arce
         }
         void RunOpenProject()
         {
-            OFD.Filter = "RMXP 工程文件|*.rxproj|RMVX 工程文件|*.rvproj|RMVA 工程文件|*.rvproj2|所有文件|*.*";
+            OFD.Filter = "RMXP 工程文件|*.rxproj|所有文件|*.*"; // RMVX 工程文件|*.rvproj|RMVA 工程文件|*.rvproj2|
             if (OFD.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string Path = OFD.FileName;

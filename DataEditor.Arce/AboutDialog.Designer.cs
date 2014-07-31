@@ -87,7 +87,7 @@
             // 
             // protoListBox1
             // 
-            this.protoListBox1.DisappearRectLosingFocus = true;
+            this.protoListBox1.DisappearRectLosingFocus = false;
             this.protoListBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.protoListBox1.FormattingEnabled = true;
             this.protoListBox1.Location = new System.Drawing.Point(12, 117);

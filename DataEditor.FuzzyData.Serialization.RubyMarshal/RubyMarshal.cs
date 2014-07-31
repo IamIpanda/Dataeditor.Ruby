@@ -46,6 +46,7 @@ namespace DataEditor.FuzzyData.Serialization.RubyMarshal
         }
         public static class Options
         {
+            [Serializable]
             public enum StringStyleType { Style184, Style192 };
             public static StringStyleType StringStyle = StringStyleType.Style184;
         }

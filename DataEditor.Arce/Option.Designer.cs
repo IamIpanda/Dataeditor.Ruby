@@ -41,6 +41,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -72,7 +73,7 @@
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 208);
+            this.panel1.Location = new System.Drawing.Point(0, 218);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(289, 36);
             this.panel1.TabIndex = 10;
@@ -84,11 +85,12 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(289, 208);
+            this.tabControl1.Size = new System.Drawing.Size(289, 218);
             this.tabControl1.TabIndex = 11;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBox5);
             this.tabPage1.Controls.Add(this.linkLabel2);
             this.tabPage1.Controls.Add(this.linkLabel1);
             this.tabPage1.Controls.Add(this.checkBox4);
@@ -100,7 +102,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(281, 182);
+            this.tabPage1.Size = new System.Drawing.Size(281, 192);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Arce";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -108,7 +110,7 @@
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(8, 145);
+            this.linkLabel2.Location = new System.Drawing.Point(6, 166);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(77, 12);
             this.linkLabel2.TabIndex = 7;
@@ -119,7 +121,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(8, 119);
+            this.linkLabel1.Location = new System.Drawing.Point(6, 140);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(53, 12);
             this.linkLabel1.TabIndex = 6;
@@ -190,13 +192,23 @@
             this.checkBox1.Text = "每隔";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(8, 106);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(240, 16);
+            this.checkBox5.TabIndex = 8;
+            this.checkBox5.Text = "使用 Ruby 1.9.2 以后的方式来存储数据";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
             // Option
             // 
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(289, 244);
+            this.ClientSize = new System.Drawing.Size(289, 254);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -228,6 +240,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox5;
 
     }
 }

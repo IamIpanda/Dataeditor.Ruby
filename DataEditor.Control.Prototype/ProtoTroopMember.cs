@@ -123,6 +123,7 @@ namespace DataEditor.Control.Prototype
         {
             isAuto = false;
             if (troopMain.SelectedIndex > 0) Moveto(troopMain.SelectedIndex);
+            // Help.Log.log("MOVE!");
         }
 
         private void troopMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -132,6 +133,10 @@ namespace DataEditor.Control.Prototype
         }
         protected void Moveto(int index)
         {
+            if (troopMain.Coodinates[index].X < nudX.Minimum) troopMain.Coodinates[index] = new Point(Convert.ToInt32(nudX.Minimum), troopMain.Coodinates[index].Y);
+            if (troopMain.Coodinates[index].X > nudX.Maximum) troopMain.Coodinates[index] = new Point(Convert.ToInt32(nudX.Maximum), troopMain.Coodinates[index].Y);
+            if (troopMain.Coodinates[index].Y < nudX.Minimum) troopMain.Coodinates[index] = new Point(troopMain.Coodinates[index].X, Convert.ToInt32(nudY.Minimum));
+            if (troopMain.Coodinates[index].Y > nudX.Maximum) troopMain.Coodinates[index] = new Point(troopMain.Coodinates[index].X, Convert.ToInt32(nudY.Maximum)); 
             nudX.Value = troopMain.Coodinates[index].X;
             nudY.Value = troopMain.Coodinates[index].Y;
             cbFlash.Checked = Flash[index];

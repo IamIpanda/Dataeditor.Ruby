@@ -104,7 +104,9 @@ namespace DataEditor.Control.Prototype
         }
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            base.OnMouseUp(e);
+            base.OnMouseUp(e); 
+            if (SelectedBitmapMoved != null)
+                SelectedBitmapMoved(this, new EventArgs());
             pos = null;
         }
         protected override void OnMouseMove(MouseEventArgs e)

@@ -93,6 +93,7 @@ namespace DataEditor.Control
                 FuzzyData.FuzzyObject origin = GetValueFromChild(value);
                 TValue ans = ConvertToValue(origin);
                 if (ans == null)
+                    //this.value = parent;
                     EnableData = SetDefault() ? DataState.Disable : DataState.Default;
                 else
                 {

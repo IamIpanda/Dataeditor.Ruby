@@ -33,6 +33,8 @@
             this.btAuto = new System.Windows.Forms.Button();
             this.btBackground = new System.Windows.Forms.Button();
             this.btBattleTest = new System.Windows.Forms.Button();
+            this.troopMain = new DataEditor.Control.Prototype.ProtoTroopBitmap();
+            this.lbList = new DataEditor.Control.Prototype.ProtoListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -47,11 +49,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.cbFlash = new System.Windows.Forms.CheckBox();
             this.cbUndead = new System.Windows.Forms.CheckBox();
+            this.cbType = new DataEditor.Control.Prototype.ProtoComboBox();
             this.nudX = new System.Windows.Forms.NumericUpDown();
             this.nudY = new System.Windows.Forms.NumericUpDown();
-            this.troopMain = new DataEditor.Control.Prototype.ProtoTroopBitmap();
-            this.lbList = new DataEditor.Control.Prototype.ProtoListBox();
-            this.cbType = new DataEditor.Control.Prototype.ProtoComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -120,6 +120,35 @@
             this.btBattleTest.Text = "战斗测试";
             this.btBattleTest.UseVisualStyleBackColor = true;
             this.btBattleTest.Click += new System.EventHandler(this.btBattleTest_Click);
+            // 
+            // troopMain
+            // 
+            this.troopMain.Background = null;
+            this.troopMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tableLayoutPanel1.SetColumnSpan(this.troopMain, 3);
+            this.troopMain.Components = ((System.Collections.Generic.List<System.Drawing.Bitmap>)(resources.GetObject("troopMain.Components")));
+            this.troopMain.Coodinates = ((System.Collections.Generic.List<System.Drawing.Point>)(resources.GetObject("troopMain.Coodinates")));
+            this.troopMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.troopMain.Frontground = null;
+            this.troopMain.Location = new System.Drawing.Point(3, 29);
+            this.troopMain.Name = "troopMain";
+            this.tableLayoutPanel1.SetRowSpan(this.troopMain, 2);
+            this.troopMain.SelectedIndex = -1;
+            this.troopMain.Size = new System.Drawing.Size(462, 292);
+            this.troopMain.TabIndex = 3;
+            this.troopMain.SelectedIndexChanged += new System.EventHandler(this.troopMain_SelectedIndexChanged);
+            this.troopMain.SelectedBitmapMoved += new System.EventHandler(this.troopMain_SelectedBitmapMoved);
+            // 
+            // lbList
+            // 
+            this.lbList.DisappearRectLosingFocus = false;
+            this.lbList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lbList.FormattingEnabled = true;
+            this.lbList.Location = new System.Drawing.Point(627, 106);
+            this.lbList.Name = "lbList";
+            this.lbList.Size = new System.Drawing.Size(153, 215);
+            this.lbList.TabIndex = 4;
             // 
             // label2
             // 
@@ -301,6 +330,20 @@
             this.cbUndead.UseVisualStyleBackColor = true;
             this.cbUndead.CheckedChanged += new System.EventHandler(this.cbUndead_CheckedChanged);
             // 
+            // cbType
+            // 
+            this.tableLayoutPanel2.SetColumnSpan(this.cbType, 3);
+            this.cbType.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbType.FormattingEnabled = true;
+            this.cbType.ItemHeight = 12;
+            this.cbType.Location = new System.Drawing.Point(72, 3);
+            this.cbType.Name = "cbType";
+            this.cbType.Size = new System.Drawing.Size(234, 18);
+            this.cbType.TabIndex = 8;
+            this.cbType.SelectedIndexChanged += new System.EventHandler(this.cbType_SelectedIndexChanged);
+            this.cbType.Enter += new System.EventHandler(this.cbType_Enter);
+            // 
             // nudX
             // 
             this.nudX.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -326,49 +369,6 @@
             this.nudY.Name = "nudY";
             this.nudY.Size = new System.Drawing.Size(84, 21);
             this.nudY.TabIndex = 10;
-            // 
-            // troopMain
-            // 
-            this.troopMain.Background = null;
-            this.troopMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tableLayoutPanel1.SetColumnSpan(this.troopMain, 3);
-            this.troopMain.Components = ((System.Collections.Generic.List<System.Drawing.Bitmap>)(resources.GetObject("troopMain.Components")));
-            this.troopMain.Coodinates = ((System.Collections.Generic.List<System.Drawing.Point>)(resources.GetObject("troopMain.Coodinates")));
-            this.troopMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.troopMain.Frontground = null;
-            this.troopMain.Location = new System.Drawing.Point(3, 29);
-            this.troopMain.Name = "troopMain";
-            this.tableLayoutPanel1.SetRowSpan(this.troopMain, 2);
-            this.troopMain.SelectedIndex = -1;
-            this.troopMain.Size = new System.Drawing.Size(462, 292);
-            this.troopMain.TabIndex = 3;
-            this.troopMain.SelectedIndexChanged += new System.EventHandler(this.troopMain_SelectedIndexChanged);
-            this.troopMain.SelectedBitmapMoved += new System.EventHandler(this.troopMain_SelectedBitmapMoved);
-            // 
-            // lbList
-            // 
-            this.lbList.DisappearRectLosingFocus = false;
-            this.lbList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbList.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.lbList.FormattingEnabled = true;
-            this.lbList.Location = new System.Drawing.Point(627, 106);
-            this.lbList.Name = "lbList";
-            this.lbList.Size = new System.Drawing.Size(153, 215);
-            this.lbList.TabIndex = 4;
-            // 
-            // cbType
-            // 
-            this.tableLayoutPanel2.SetColumnSpan(this.cbType, 3);
-            this.cbType.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbType.FormattingEnabled = true;
-            this.cbType.ItemHeight = 12;
-            this.cbType.Location = new System.Drawing.Point(72, 3);
-            this.cbType.Name = "cbType";
-            this.cbType.Size = new System.Drawing.Size(234, 18);
-            this.cbType.TabIndex = 8;
-            this.cbType.SelectedIndexChanged += new System.EventHandler(this.cbType_SelectedIndexChanged);
-            this.cbType.Enter += new System.EventHandler(this.cbType_Enter);
             // 
             // ProtoTroopMember
             // 

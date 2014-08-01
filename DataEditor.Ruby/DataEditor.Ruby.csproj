@@ -59,7 +59,7 @@
       <HintPath>W:\IronRuby 1.0v4\bin\Microsoft.Scripting.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Scripting.Debugging">
-      <HintPath>W:\IronRuby 1.0v4\bin\Microsoft.Scripting.Debugging.dll</HintPath>
+      <HintPath>..\..\..\IronRuby 1.0v4\bin\Microsoft.Scripting.Debugging.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -127,6 +127,7 @@
     <ProjectReference Include="..\DataEditor.FuzzyData.Extra\DataEditor.FuzzyData.Extra.csproj">
       <Project>{3332a025-6e2b-4d9f-8a46-9f2350b39750}</Project>
       <Name>DataEditor.FuzzyData.Extra</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
       <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>

@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DataEditor.FuzzyData">
-      <HintPath>..\..\DataEditor\DataEditor.FuzzyData\bin\Debug\DataEditor.FuzzyData.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -84,6 +81,10 @@
     <ProjectReference Include="..\DataEditor.FuzzyData.Serialization.RubyMarshal\DataEditor.FuzzyData.Serialization.RubyMarshal.csproj">
       <Project>{a9c0dc50-cec6-401b-92e3-65787c9bedc9}</Project>
       <Name>DataEditor.FuzzyData.Serialization.RubyMarshal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
+      <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
+      <Name>DataEditor.FuzzyData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

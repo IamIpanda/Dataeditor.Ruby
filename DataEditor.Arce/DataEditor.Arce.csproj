@@ -83,7 +83,7 @@
       <HintPath>W:\IronRuby 1.0v4\bin\Microsoft.Scripting.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Scripting.Debugging">
-      <HintPath>W:\IronRuby 1.0v4\bin\Microsoft.Scripting.Debugging.dll</HintPath>
+      <HintPath>..\..\..\IronRuby 1.0v4\bin\Microsoft.Scripting.Debugging.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -518,7 +518,7 @@
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
+      <PublishState>Exclude</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
@@ -528,15 +528,15 @@
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>Include</PublishState>
+      <PublishState>Exclude</PublishState>
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>COPY ..\..\..\DataEditor.FuzzyData.Serialization.RubyMarshal\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.dll     Program\Serialization\DataEditor.FuzzyData.Serialization.RubyMarshal.dll
-COPY ..\..\..\DataEditor.FuzzyData.Extra\bin\Debug\DataEditor.FuzzyData.Extra.dll          Program\Serialization\UserDefined\DataEditor.FuzzyData.Extra.dll</PostBuildEvent>
+    <PostBuildEvent>COPY ..\..\..\DataEditor.FuzzyData.Serialization.RubyMarshal\bin\Release\DataEditor.FuzzyData.Serialization.RubyMarshal.dll     Program\Serialization\DataEditor.FuzzyData.Serialization.RubyMarshal.dll
+COPY ..\..\..\DataEditor.FuzzyData.Extra\bin\Release\DataEditor.FuzzyData.Extra.dll          Program\Serialization\UserDefined\DataEditor.FuzzyData.Extra.dll</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

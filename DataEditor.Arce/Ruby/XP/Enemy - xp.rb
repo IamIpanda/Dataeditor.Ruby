@@ -204,7 +204,7 @@ tab = Builder.Add(:tab, { text: "敌人" }) do
 								ison = Proc.new { |target| target["@condition_switch_id"].Value != 0 }
 							Builder.Add(:check_container, { text: "开关", deny: proc, ison: ison }) do
 									Builder.Order
-								Builder.Add(:switch, { actual: :condition_switch_id, data: Data.system["@switches"], label: 0 })
+								# Builder.Add(:switch, { actual: :condition_switch_id, data: Data.system["@switches"], label: 0 })
 								Builder.Text("为 ON".encode)
 							end
 						end

@@ -51,6 +51,6 @@ We released a 0.0.1 version now. Folloing is what it can do now :
 + Although what you seen at this page is all English, the program is ALL IN **CHINESE**. That may keep for a long time.
 + If you smiled for last item, **Put the program in a totally English path**, or it will break down on loading, and you have to kill it in *WIndows Task Manager*.
 
- --------------------------------
+--------------------------------
 ###Welcome###
 We need more people now. Join us!!

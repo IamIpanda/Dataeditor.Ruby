@@ -94,6 +94,19 @@
     </Compile>
     <Compile Include="Image.Old.cs" />
     <Compile Include="Int.cs" />
+    <Compile Include="Layers.cs" />
+    <Compile Include="Layers.Dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers.Dialog.Designer.cs">
+      <DependentUpon>Layers.Dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layers.Layer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Layers.Layer.Designer.cs">
+      <DependentUpon>Layers.Layer.cs</DependentUpon>
+    </Compile>
     <Compile Include="LazyChoose.cs" />
     <Compile Include="List.cs" />
     <Compile Include="ListBuff.cs" />
@@ -156,6 +169,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Image.Choser.resx">
       <DependentUpon>Image.Choser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers.Dialog.resx">
+      <DependentUpon>Layers.Dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers.Layer.resx">
+      <DependentUpon>Layers.Layer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

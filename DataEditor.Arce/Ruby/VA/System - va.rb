@@ -25,7 +25,7 @@ page = Builder.Add(:tab, { text: "系统" }) do
 				label: 0,
 				catalogue: texts ,
 				columns: columns, 
-				cataloguw: texts, 
+				columns_width: texts, 
 				window: window, 
 				window_type: 0, 
 				new: [1].to_fuzzy,
@@ -140,7 +140,7 @@ page = Builder.Add(:tab, { text: "系统" }) do
 	end
 
 	Builder.Add(:metro, { text: "标题画面" }) do
-		Builder.Add(:layers, { actual: [:battleback1_name, :battleback2_name], text: "图像" })
+		#Builder.Add(:layers, { actual: [:battleback1_name, :battleback2_name], text: "图像" })
 		Builder.Add(:check, { actual: :opt_draw_title, text: "绘制标题文字" })
 	end
 end

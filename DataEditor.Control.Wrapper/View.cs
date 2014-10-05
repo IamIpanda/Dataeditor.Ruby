@@ -32,7 +32,7 @@ namespace DataEditor.Control.Wrapper
         public override void Reset()
         {
             max_count = argument.GetArgument<int>("max_count");
-            SetColumns(argument.GetArgument<List<object>>("COLUMNS"), argument.GetArgument<List<object>>("COLUMN_WIDTH"));
+            SetColumns(argument.GetArgument<List<object>>("COLUMNS"), argument.GetArgument<List<object>>("COLUMNS_WIDTH"));
             List<object> texts = argument.GetArgument<List<object>>("CATALOGUE");
             SetModel(); 
             SetCatalogue(texts);
@@ -47,7 +47,7 @@ namespace DataEditor.Control.Wrapper
             argument.SetArgument("new", null, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("after", null, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("window_type", 0, Help.Parameter.ArgumentType.Option);
-            argument.SetArgument("column_width", null, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("columns_width", null, Help.Parameter.ArgumentType.Option);
             argument.OverrideArgument("width", 500, Help.Parameter.ArgumentType.Option);
             argument.OverrideArgument("height", 250, Help.Parameter.ArgumentType.Option);
             argument.SetArgument("max_count", -1, Help.Parameter.ArgumentType.Option);

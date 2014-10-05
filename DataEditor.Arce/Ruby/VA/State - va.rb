@@ -23,7 +23,8 @@ Builder.Add(:tab, { text: "状态" }) do
 				image: "Graphics/System/Iconset",
 				text: "图标",
 				version: "RPGVXAce",
-				split: Help::ICON_SPLIT
+				split: Help::ICON_SPLIT,
+				label: 2
 			 })
 			Builder.Add(:int, { actual: :priority, text: "显示优先级" })
 		end
@@ -78,7 +79,7 @@ Builder.Add(:tab, { text: "状态" }) do
 			VA_Help::Feature.build_feature
 		end
 		Builder.Add(:metro, { text: "备注" }) do
-			Builder.Add(:text, { actual: :note, label: 0, height: 400, width: 600 })
+			Builder.Add(:text, { actual: :note, label: 0, width: 275, height: 165 })
 		end
 	end
 	list.Value = Data["state"]

@@ -7,6 +7,7 @@ using DataEditor.FuzzyData.Serialization;
 
 namespace DataEditor.FuzzyData
 {
+    [Serializable]
     public class FuzzyTone : FuzzyObject
     {
         public int red { get; set; }

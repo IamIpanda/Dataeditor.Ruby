@@ -261,6 +261,8 @@ class VA_Help
 				 columns: columns, 
 				 catalogue: texts, 
 				window: window, 
+				width: 275,
+				height: 350,
 				new: RPG::BaseItem::Feature.new.to_fuzzy 
 				 })
 		end

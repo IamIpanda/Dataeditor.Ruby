@@ -39,7 +39,9 @@ Builder.Add(:tab, { text: "敌人" }) do
 			 	path: "Graphics/Battlers",
 			 	version: "RPGVXAce",
 			 	show: Help::XP_IMAGE_SPLIT, 
-			 	split: Help::XP_IMAGE_SPLIT 
+			 	split: Help::XP_IMAGE_SPLIT,
+			 	width: 150, 
+			 	height: 120
 			 	 })
 				Builder.Next
 			Builder.Add(:metro, { actual: :params }) do
@@ -249,8 +251,11 @@ Builder.Add(:tab, { text: "敌人" }) do
 				actual: :actions,
 				label: 0,
 				columns: columns, 
+				columns_width: [130, 130, 40],
 				catalogue: texts,
 				window: window, 
+				width: 320,
+				height: 190,
 				new: RPG::Enemy::Action.new.to_fuzzy })
 		end
 			Builder.Next
@@ -258,7 +263,7 @@ Builder.Add(:tab, { text: "敌人" }) do
 			VA_Help::Feature.build_feature
 		end
 		Builder.Add(:metro, { text: "备注" }) do
-			Builder.Add(:text, { actual: :note, label: 0, height: 400, width: 600 })
+			Builder.Add(:text, { actual: :note, label: 0, width: 275, height: 165 })
 		end
 	end
 	list.Value = Data["enemy"]

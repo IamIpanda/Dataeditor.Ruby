@@ -6,8 +6,8 @@ require "Ruby/VA/File - va.rb"
 require "Ruby/VA/Damage - va.rb"
 require "Ruby/VA/Effect - va.rb"
 
-Builder.Add(:tab, { text: "技能" }) do
-	list = Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "技能" }) do
+tab = Builder.Add(:tab, { text: "技能" }) do
+	Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "技能" }) do
 		Builder.Add(:metro, { text: "基本设置" }) do
 				Builder.Order
 			Builder.Add(:text, { actual: :name, text: "名称" })
@@ -16,10 +16,11 @@ Builder.Add(:tab, { text: "技能" }) do
 				image: "Graphics/System/Iconset",
 				text: "图标",
 				version: "RPGVXAce",
-				split: Help::ICON_SPLIT
+				split: Help::ICON_SPLIT,
+				label: 2
 			 })
 				Builder.Next
-			Builder.Add(:text, { actual: :description, text: "说明" })
+			Builder.Add(:text, { actual: :description, text: "说明", width: 320, Height: 35 })
 				Builder.Next
 			Builder.Add(:choose,{ 
 				actual: :stype_id,
@@ -27,8 +28,7 @@ Builder.Add(:tab, { text: "技能" }) do
 				choice: {
 					0 => "（无）",
 					nil => Fileselect.new(Data["system"]["@skill_types"])
-				}
-				 })
+				}})
 
 			Builder.Add(:int, { actual: :mp_cost, text: "魔力值消耗" })
 			Builder.Add(:int, { actual: :tp_cost, text: "特技值消耗" })
@@ -74,9 +74,9 @@ Builder.Add(:tab, { text: "技能" }) do
 		Builder.Add(:metro, { text: "使用者的信息" }) do
 				Builder.Order
 			Builder.Text("（使用者名称）")
-			box = Builder.Add(:text, { actual: :message1, label: 0 })
+			box = Builder.Add(:text, { actual: :message1, label: 0, width: 225 })
 				Builder.Next
-			Builder.Add(:text, { actual: :message2, label: 0 })
+			Builder.Add(:text, { actual: :message2, label: 0, width: 320 })
 				Builder.Next
 			proc = Proc.new do |control, args|
 				box = args[0]
@@ -108,14 +108,14 @@ Builder.Add(:tab, { text: "技能" }) do
 			Builder.Next
 		VA_Help::Damage.build_damage
 		Builder.Add(:metro, :text => "使用效果") do
-			# VA_Help::Effect.build_effect
+			VA_Help::Effect.build_effect
 		end
 		Builder.Add(:metro, :text => "备注") do
-			Builder.Add(:text, { actual: :note, label: 0 })
+			Builder.Add(:text, { actual: :note, label: 0, width: 275, height: 165 })
 		end
 	end
-	list.Value = Data["skill"]
 end
+tab.Value = Data["skill"]
 
 =begin
 stype_id 

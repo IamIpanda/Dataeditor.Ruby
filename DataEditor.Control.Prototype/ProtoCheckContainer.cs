@@ -47,6 +47,10 @@ namespace DataEditor.Control.Prototype
             get { return (int)tableLayoutPanel1.ColumnStyles[0].Width; }
             set { tableLayoutPanel1.ColumnStyles[0].Width = value; }
         }
+        public int PreferredRadioWidth
+        {
+            get { return checkBox1.PreferredSize.Width + 4; }
+        }
         public System.Windows.Forms.Control.ControlCollection PanelCollection
         {
             get { return panel1.Controls; }

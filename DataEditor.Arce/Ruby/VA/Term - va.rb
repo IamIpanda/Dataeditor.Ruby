@@ -19,7 +19,8 @@ page = Builder.Add(:tab, { text: "用语" }) do
 	Builder.Add(:metro, { text: "护甲类型" }) do
 		Builder.Add(:paper, { actual: :armor_types, label: 0, textbook: text })
 	end
-	Builder.Next
+	Builder.Next		
+	Measurement.Set "text", 100, 24 
 	Builder.Add(:metro, { actual: :terms }) do
 		Builder.Add(:metro, { actual: :basic, text: "基本用语" }) do
 			Builder.Add(:text, { actual: :INDEX0, text: "等级" })

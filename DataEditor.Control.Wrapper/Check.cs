@@ -24,13 +24,21 @@ namespace DataEditor.Control.Wrapper
         protected override void SetDefaultArgument()
         {
             base.SetDefaultArgument();
-            Argument.OverrideArgument("label", 0);
+            argument.OverrideArgument("label", 0);
             argument.OverrideArgument("height", 20);
+            argument.SetArgument("max_width", -1, Help.Parameter.ArgumentType.Option);
+            argument.SetArgument("lock_size", true, Help.Parameter.ArgumentType.Option);
         }
         public override void Reset()
         {
             base.Reset();
             Control.Text = argument.GetArgument<string>("text");
+            int max_width = argument.GetArgument<int>("max_width");
+            int prefer_width = Control.PreferredSize.Width;
+            bool lock_size = argument.GetArgument<bool>("lock_size");
+            if (max_width < 0) lock_size = false;
+            if (lock_size) prefer_width = max_width;
+            Control.Width = prefer_width;
         }
         public override void Putt()
         {

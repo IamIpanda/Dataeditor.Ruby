@@ -6,8 +6,8 @@ require "Ruby/VA/File - va.rb"
 require "Ruby/VA/Damage - va.rb"
 require "Ruby/VA/Effect - va.rb"
 
-Builder.Add(:tab, {  text: "物品" }) do
-	list = Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "物品" }) do
+tab = Builder.Add(:tab, {  text: "物品" }) do
+	Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "物品" }) do
 		Builder.Add(:metro, { text: "基本设置" }) do
 				Builder.Order
 			Builder.Add(:text, { actual: :name, text: "名称" })
@@ -16,10 +16,11 @@ Builder.Add(:tab, {  text: "物品" }) do
 				image: "Graphics/System/Iconset",
 				text: "图标",
 				version: "RPGVXAce",
-				split: Help::ICON_SPLIT
+				split: Help::ICON_SPLIT,
+				label: 2
 			 })
 				Builder.Next
-			Builder.Add(:text, { actual: :description, text: "说明" })
+			Builder.Add(:text, { actual: :description, text: "说明", width: 320, Height: 35 })
 				Builder.Next
 			Builder.Add(:choose,{ 
 				actual: :itype_id,
@@ -75,8 +76,8 @@ Builder.Add(:tab, {  text: "物品" }) do
 			VA_Help::Effect.build_effect
 		end
 		Builder.Add(:metro, :text => "备注") do
-			Builder.Add(:text, { actual: :note, label: 0 })
+			Builder.Add(:text, { actual: :note, label: 0, width: 275, height: 165 })
 		end
 	end
-	list.Value = Data["item"]
 end
+tab.Value = Data["item"]

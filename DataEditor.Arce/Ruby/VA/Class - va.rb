@@ -16,18 +16,18 @@ Builder.Add(:tab, { text: "职业" }) do
 				:arg1 => :INDEX1, 
 				:arg2 => :INDEX2,
 				:arg3 => :INDEX3},
-			 text: "经验值曲线", min: 10, max: 50,
-				value: Proc.new do |*args|
+				 text: "经验值曲线", min: 10, max: 50,
+					value: Proc.new do |*args|
 						lv = args[0].to_f
-				  basis = args[1][0].to_f
-				  extra = args[1][1].to_f
-				  acc_a = args[1][2].to_f
-				  acc_b = args[1][3].to_f
-				  s1 = (basis * ((lv - 1) ** (0.9 + acc_a / 250)) * lv * (lv + 1) / (6 + lv ** 2 / 50 / acc_b) + (lv - 1) * extra).round.to_i
-				  lv += 1
-				  (basis * ((lv - 1) ** (0.9 + acc_a / 250)) * lv * (lv + 1) / (6 + lv ** 2 / 50 / acc_b) + (lv - 1) * extra).round.to_i - s1
+						basis = args[1][0].to_f
+						extra = args[1][1].to_f
+						acc_a = args[1][2].to_f
+						acc_b = args[1][3].to_f
+						s1 = (basis * ((lv - 1) ** (0.9 + acc_a / 250)) * lv * (lv + 1) / (6 + lv ** 2 / 50 / acc_b) + (lv - 1) * extra).round.to_i
+						lv += 1
+						(basis * ((lv - 1) ** (0.9 + acc_a / 250)) * lv * (lv + 1) / (6 + lv ** 2 / 50 / acc_b) + (lv - 1) * extra).round.to_i - s1
 					end
-					 })
+				})
 			end
 		end
 		Builder.Add(:metro, { text: "能力值成长曲线" }) do
@@ -66,11 +66,14 @@ Builder.Add(:tab, { text: "职业" }) do
 			texts[2] = Text.new { |target, watch, i, j, k| target["@note"].Text }
 			Builder.Add(:view, { 
 				 actual: :learnings,
-				 text: "特技",
+				 label: 0,
 				 columns: ["等级", "学会的特技", "备注"], 
 				 catalogue: texts,
 				 window: window,
 				 window_type: 1,
+				 width: 320,
+				 height: 300,
+				 columns_width: [60, 130, 120],
 				 new: nil })
 		end
 
@@ -79,7 +82,7 @@ Builder.Add(:tab, { text: "职业" }) do
 			VA_Help::Feature.build_feature
 		end
 		Builder.Add(:metro, { text: "备注" }) do
-			Builder.Add(:text, { actual: :note, label: 0, height: 400, width: 600 })
+			Builder.Add(:text, { actual: :note, label: 0, width: 275, height: 165 })
 		end
 
 	end

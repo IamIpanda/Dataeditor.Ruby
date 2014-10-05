@@ -25,11 +25,13 @@ page = Builder.Add(:tab, { text: "系统" }) do
 				label: 0,
 				catalogue: texts ,
 				columns: columns, 
-				columns_width: texts, 
+				columns_width: [150],
+				texts: texts,
 				window: window, 
 				window_type: 0, 
 				new: [1].to_fuzzy,
-				width: 250
+				width: 160,
+				height: 170
 			 })
 	end
 	Builder.Add(:metro) do

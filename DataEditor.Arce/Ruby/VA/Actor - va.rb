@@ -67,10 +67,10 @@ tab = Builder.Add(:tab, { text: "角色" }) do
 				text: "职业" ,
 				choice: { nil => Filechoice.new("class") }
 				 })
-			Builder.Add(:int, { actual: :initial_level, text: "初始等级", width: 26 })
-			Builder.Add(:int, { actual: :max_level, text: "最终等级", width: 26 })
+			Builder.Add(:int, { actual: :initial_level, text: "初始等级"})
+			Builder.Add(:int, { actual: :max_level, text: "最终等级"})
 				Builder.Next
-			Builder.Add(:text, { actual: :description, text: "说明" })
+			Builder.Add(:text, { actual: :description, text: "说明", width: 320, Height: 35 })
 		end
 		Builder.Add(:metro, { text: "图像" }) do	
 				Builder.Order
@@ -81,7 +81,9 @@ tab = Builder.Add(:tab, { text: "角色" }) do
 				text: "",
 				path: "Graphics/Characters",
 				show: Help::VX_IMAGE_SHOW,
-				split: Help::VX_IMAGE_SPLIT 
+				split: Help::VX_IMAGE_SPLIT,
+				width: 85, 
+				height: 85
 				 })
 			Builder.Add(:image, { 
 				actual: {
@@ -90,7 +92,9 @@ tab = Builder.Add(:tab, { text: "角色" }) do
 				text: "",
 				path: "Graphics/Faces",
 				show: Help::XP_IMAGE_SPLIT,
-				split: Help::FACE_SPLIT 
+				split: Help::FACE_SPLIT,
+				width: 100, 
+				height: 100
 				 })
 		end
 		Builder.Add(:metro, :text => "初期装备", :actual => :equips) do 
@@ -99,7 +103,7 @@ tab = Builder.Add(:tab, { text: "角色" }) do
 				label: 2,
 				textbook: Help.Get_Default_Text ,
 				choice: { 0 => "（无）" }, 
-				text: "武器", 
+				text: "武器：      ", 
 				source: Proc.new do |target, parent, control|
 					VA_Help.search_weapon(control)
 			end })			
@@ -108,7 +112,7 @@ tab = Builder.Add(:tab, { text: "角色" }) do
 				label: 2, 
 				textbook: Help.Get_Default_Text, 
 				choice: { 0 => "（无）" }, 
-				text: "副手",
+				text: "副手：      ",
 				source: Proc.new do |target, parent, control|
 					if (VA_Help.isDouble(control))
 						VA_Help.search_weapon(control)
@@ -121,7 +125,7 @@ tab = Builder.Add(:tab, { text: "角色" }) do
 				label: 2, 
 				textbook: Help.Get_Default_Text, 
 				choice: { 0 => "（无）" }, 
-				text: "头盔",
+				text: "头盔：      ",
 				source: Proc.new do |target, parent, control|
 					VA_Help.search_armor(control, 2)
 			end })
@@ -130,7 +134,7 @@ tab = Builder.Add(:tab, { text: "角色" }) do
 				label: 2, 
 				textbook: Help.Get_Default_Text, 
 				choice: { 0 => "（无）" }, 
-				text: "铠甲",
+				text: "铠甲：      ",
 				source: Proc.new do |target, parent, control|
 					VA_Help.search_armor(control, 3)
 			end })
@@ -139,7 +143,7 @@ tab = Builder.Add(:tab, { text: "角色" }) do
 				label: 2, 
 				textbook: Help.Get_Default_Text, 
 				choice: { 0 => "（无）" }, 
-				text: "饰品",
+				text: "饰品：      ",
 				source: Proc.new do |target, parent, control|
 					VA_Help.search_armor(control, 4)
 			end })
@@ -149,7 +153,7 @@ tab = Builder.Add(:tab, { text: "角色" }) do
 			VA_Help::Feature.build_feature
 		end
 		Builder.Add(:metro, { text: "备注" }) do
-			Builder.Add(:text, { actual: :note, label: 0, height: 400, width: 600 })
+			Builder.Add(:text, { actual: :note, label: 0, width: 275, height: 165 })
 		end
 	end
 end

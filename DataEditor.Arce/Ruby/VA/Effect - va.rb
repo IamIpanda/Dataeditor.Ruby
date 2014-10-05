@@ -159,6 +159,8 @@ class VA_Help
 				 columns: columns, 
 				 catalogue: texts, 
 				 window: window, 
+				 width: 275,
+				 height: 165,
 				 new: RPG::UsableItem::Effect.new.to_fuzzy 
 				 })
 		end

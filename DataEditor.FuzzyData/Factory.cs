@@ -65,6 +65,7 @@ namespace DataEditor.FuzzyData.Serialization
             string sDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             string Dir = System.IO.Path.Combine(sDir, Path);
             System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Dir);
+            if (!(dir.Exists)) return;
             foreach (System.IO.FileInfo file in dir.GetFiles("*.dll"))
             {
                 System.Reflection.Assembly ass = System.Reflection.Assembly.LoadFile(file.FullName);

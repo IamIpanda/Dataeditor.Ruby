@@ -45,7 +45,7 @@ namespace DataEditor.Control.Prototype
             Color c = ProtoListControlHelp.DefaultBackColors[index];
             return ProtoListControlHelp.GetBrush(c);
         }
-        protected Brush GetForeBrush(DrawItemEventArgs e)
+        protected virtual Brush GetForeBrush(DrawItemEventArgs e)
         {
             if (GetFocused(e))
                 return ProtoListControlHelp.GetBrush(ProtoListControlHelp.DefaultForeColorOnFocus);

@@ -44,7 +44,7 @@ namespace DataEditor.Control.Wrapper
         public override void Push() 
         {
             if (value == null) return;
-            if (Control.Radio.Checked) value.Value = radio_key;
+            if (Control.Radio.Checked && radio_key > 0) value.Value = radio_key;
         }
         public override void Pull()
         {
@@ -202,6 +202,7 @@ namespace DataEditor.Control.Wrapper
             argument.SetArgument("key", 0, Help.Parameter.ArgumentType.Must);
             argument.SetArgument("group", "ungrouped", Help.Parameter.ArgumentType.Option);
             argument.OverrideArgument("label", 0, Help.Parameter.ArgumentType.Option);
+            argument.OverrideArgument("width", 60, Help.Parameter.ArgumentType.Option);
         }
         public override void Bind()
         {

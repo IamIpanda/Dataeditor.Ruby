@@ -23,7 +23,7 @@ namespace DataEditor.Control.Wrapper
                 SelectedIndexChanged(this, e);
         }
         public event EventHandler SelectedIndexChanged;
-        public string Text
+        public override string Text
         {
             get { return protoTitleBox1.Text; }
             set { protoTitleBox1.Text = value; }

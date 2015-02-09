@@ -50,3 +50,16 @@ E:\VS Projects\DataEditor.Ruby\DataEditor.Control\obj\Debug\DataEditor.Control.d
 E:\VS Projects\DataEditor.Ruby\DataEditor.Control\obj\Debug\DataEditor.Control.pdb
 E:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.FuzzyData.dll
 E:\VS Projects\DataEditor.Ruby\DataEditor.Control\bin\Debug\DataEditor.FuzzyData.pdb
+W:\VSProjects\dataeditor.ruby\DataEditor.Control\bin\Debug\DataEditor.Control.dll
+W:\VSProjects\dataeditor.ruby\DataEditor.Control\bin\Debug\DataEditor.Control.pdb
+W:\VSProjects\dataeditor.ruby\DataEditor.Control\bin\Debug\DataEditor.Contract.dll
+W:\VSProjects\dataeditor.ruby\DataEditor.Control\bin\Debug\DataEditor.FuzzyData.dll
+W:\VSProjects\dataeditor.ruby\DataEditor.Control\bin\Debug\DataEditor.Help.dll
+W:\VSProjects\dataeditor.ruby\DataEditor.Control\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.dll
+W:\VSProjects\dataeditor.ruby\DataEditor.Control\bin\Debug\DataEditor.Contract.pdb
+W:\VSProjects\dataeditor.ruby\DataEditor.Control\bin\Debug\DataEditor.FuzzyData.pdb
+W:\VSProjects\dataeditor.ruby\DataEditor.Control\bin\Debug\DataEditor.Help.pdb
+W:\VSProjects\dataeditor.ruby\DataEditor.Control\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.pdb
+W:\VSProjects\dataeditor.ruby\DataEditor.Control\obj\Debug\DataEditor.Control.csprojResolveAssemblyReference.cache
+W:\VSProjects\dataeditor.ruby\DataEditor.Control\obj\Debug\DataEditor.Control.dll
+W:\VSProjects\dataeditor.ruby\DataEditor.Control\obj\Debug\DataEditor.Control.pdb

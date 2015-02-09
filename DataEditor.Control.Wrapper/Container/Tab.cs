@@ -14,6 +14,7 @@ namespace DataEditor.Control.Wrapper.Container
         public override int end_y { get { return 2; } }
         public override void SetSize(System.Drawing.Size size)
         {
+            size = new System.Drawing.Size(size.Width, size.Height + 40);
             RememberSize = size;
             base.SetSize(size);
         }

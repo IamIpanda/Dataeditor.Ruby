@@ -138,3 +138,14 @@ class DataEditor::Help::Data
 		return self[name]
 	end
 end
+
+class DataEditor::Control::WrapBaseContainer
+	alias old_mm method_missing
+	def method_missing(nam, *args, &block)
+		name = nam.to_s
+		ans = self.SearchChilds name
+		return old_mm(nam, *args, &block) if ans.length == 0
+		ans = ans[0] if ans.length == 1
+		return ans
+	end
+end

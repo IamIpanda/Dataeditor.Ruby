@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataEditor.Control.Wrapper.Event
 {
-    public class Variable :Switch
+    public class Variable : Switch
     {
         public override string Flag { get { return "variable"; } }
         public Variable()

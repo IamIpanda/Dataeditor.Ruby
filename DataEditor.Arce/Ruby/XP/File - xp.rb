@@ -25,7 +25,7 @@ Data["focus_map"] = Data["map"][0];
 
 Measurement.Set("audio", 130, 20)
 Measurement.Set("int", 65, 20)
-Measurement.Set("choose", 130, 20)
+Measurement.Set("choose", 130, 24)
 Measurement.Set("drop", 130, 20)
 Measurement.Set("oldimage", 130, 20)
 Measurement.Set("exp", 130, 20)
@@ -33,6 +33,7 @@ Measurement.Set("text", 130, 20)
 Measurement.Set("bool_choose", 65, 20)
 Measurement.Set("checklist", 130, 320)
 Measurement.Set("bufflist", 130, 320)
+Measurement.Set("scrollint", 250, 42)
 
 
 =begin

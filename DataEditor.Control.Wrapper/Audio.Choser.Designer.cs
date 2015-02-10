@@ -58,6 +58,7 @@
             this.protoRtpViewList1.Name = "protoRtpViewList1";
             this.protoRtpViewList1.Size = new System.Drawing.Size(187, 329);
             this.protoRtpViewList1.TabIndex = 0;
+            this.protoRtpViewList1.DoubleClick += new System.EventHandler(this.protoRtpViewList1_DoubleClick);
             // 
             // groupBox1
             // 
@@ -173,6 +174,7 @@
             // 
             // button2
             // 
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2.Location = new System.Drawing.Point(190, 348);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(98, 21);
@@ -183,8 +185,10 @@
             // 
             // AudioChoser
             // 
+            this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.button2;
             this.ClientSize = new System.Drawing.Size(302, 376);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);

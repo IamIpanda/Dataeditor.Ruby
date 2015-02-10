@@ -111,7 +111,7 @@ namespace DataEditor.Control
         }
         protected virtual FuzzyData.FuzzyObject GetValueFromChild(FuzzyData.FuzzyObject parent, FuzzyData.FuzzySymbol symbol)
         {
-            if (symbol == null || symbol.Name == "") return parent;
+            if (symbol == null || symbol.Name == "" || symbol.Name == "@ORIGIN") return parent;
             if (parent == null) return null;
             if (symbol is FuzzyData.FuzzySymbolComplex)
             {

@@ -54,11 +54,11 @@ target_window = Proc.new do |window, commands|
   end
   Builder.Add(:group, { text: "取消的场合" }) do
    Builder.Add(:single_radio, { actual: :INDEX1, text: "无", key: 0, group: "window_code_102" })
-   Builder.Add(:single_radio, { actual: :INDEX1, text: "选择项 1", key: 1, group: "window_code_102" })
-   Builder.Add(:single_radio, { actual: :INDEX1, text: "选择项 2", key: 2, group: "window_code_102" })
-   Builder.Add(:single_radio, { actual: :INDEX1, text: "选择项 3", key: 3, group: "window_code_102" })
-   Builder.Add(:single_radio, { actual: :INDEX1, text: "选择项 4", key: 4, group: "window_code_102" })
-   Builder.Add(:single_radio, { actual: :INDEX1, text: "分歧", key: 5, group: "window_code_102" })
+   Builder.Add(:single_radio, { actual: :INDEX1, text: "选择项 1", key: 1, group: "window_code_102", width: 120 })
+   Builder.Add(:single_radio, { actual: :INDEX1, text: "选择项 2", key: 2, group: "window_code_102", width: 120 })
+   Builder.Add(:single_radio, { actual: :INDEX1, text: "选择项 3", key: 3, group: "window_code_102", width: 120 })
+   Builder.Add(:single_radio, { actual: :INDEX1, text: "选择项 4", key: 4, group: "window_code_102", width: 120 })
+   Builder.Add(:single_radio, { actual: :INDEX1, text: "分歧", key: 5, group: "window_code_102", width: 120 })
   end
  Builder.Out
  window
@@ -567,7 +567,7 @@ target_window = Proc.new do |window, command|
     Builder.Add(:radio, { actual: :INDEX3, text: "随机数", key: 2, group: "window_code_122#2", accept: accept_2 }) do
      Builder.Order
      Builder.Add(:int, { actual: :INDEX4, label: 0 })
-     Builder.Text("~")
+     Builder.Text("~", 0, -1)
      Builder.Add(:int, { actual: :INDEX5, label: 0 })
     end
     Builder.Add(:radio, { actual: :INDEX3, text: "物品", key: 3, group: "window_code_122#2", accept: accept_1 }) do
@@ -1030,9 +1030,10 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
  window = Builder.Add(:dialog_r) do
+  Builder.Order
   Builder.Add(:int, { actual: :INDEX0, text: "不透明度" })
   Builder.Add(:int, { actual: :INDEX1, text: "时间" })
-  Builder.Text "帧"
+  Builder.Text "帧", 0, -1
  end
 end
 $commands_xp[206] = Command.new(206, -1, "FOGTRANSPARENT", "更改雾的不透明度", target_text, "ii", target_window, nil)
@@ -1066,7 +1067,8 @@ end
 
 target_window = Proc.new do |window, commands|
   window = Builder.Add(:dialog_r) do
-    Builder.Add(:group, { text: "透明状态" }) do
+    Builder.Add(:group, { text: "透明状态", width: 120 }) do
+      Builder.Order
       Builder.Add(:single_radio, { actual: :INDEX0, text: "透明", key: 0, group: "window_code_208" })
       Builder.Add(:single_radio, { actual: :INDEX0, text: "普通", key: 1, group: "window_code_208" })
     end
@@ -1174,9 +1176,14 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
  Builder.In(window)
-  Builder.Add(:scrollint, { actual: :INDEX0, text: "强度", label: 2, maxvalue: 9 })
-  Builder.Add(:scrollint, { actual: :INDEX1, text: "速度", label: 2, maxvalue: 9 })
-  Builder.Add(:int, { actual: :INDEX2, text: "时间" })
+  Builder.Order
+  Builder.Add(:scrollint, { actual: :INDEX0, text: "强度", label: 2, maxvalue: 9, minvalue: 1 })
+  Builder.Next
+  Builder.Add(:scrollint, { actual: :INDEX1, text: "速度", label: 2, maxvalue: 9, minvalue: 1 })
+  Builder.Next
+  Builder.Add(:int, { actual: :INDEX2, text: "时间", label: 2 })
+  Builder.Text "帧", 0, -1
+
  Builder.Out
  window
 end
@@ -1245,7 +1252,7 @@ target_window = Proc.new do |window, commands|
  Builder.Order
   Builder.Add(:int, { actual: :INDEX0, text: "编号" })
   Builder.Add(:int, { actual: :INDEX1, text: "时间" })
-  Builder.Text("帧")
+  Builder.Text("帧", 0, -1)
   Builder.Next
   Builder.Add(:group, { text: "显示位置" }) do
    Builder.Add(:group, { text: "原点" }) do
@@ -1285,6 +1292,7 @@ target_text = Text.new do |parameters, *followings|
 end
 target_window = Proc.new do |window, commands|
  window = Builder.Add(:dialog_r) do
+  Builder.Order
   Builder.Add(:int, { actual: :INDEX0, text: "编号" })
   Builder.Add(:int, { actual: :INDEX1, text: "旋转速度" })
  end
@@ -1349,7 +1357,7 @@ target_window = Proc.new do |window, commands|
    Builder.Add(:single_radio, { actual: :INDEX0, text: "雨", key: 2, group: "window_code_236" })
    Builder.Add(:single_radio, { actual: :INDEX0, text: "雪", key: 3, group: "window_code_236" })
   end
-  Builder.Add(:scrollint, { actual: :INDEX1, text: "强度", label: 2, maxvalue: 9 })
+  Builder.Add(:scrollint, { actual: :INDEX1, text: "强度", label: 2, maxvalue: 9, minvalue: 1 })
   Builder.Add(:int, { actual: :INDEX2, text: "时间", label: 2 })
  Builder.Out
  window
@@ -1383,7 +1391,7 @@ target_window = Proc.new do |window, commands|
  window = Builder.Add(:dialog_r) do
   Builder.Order
   Builder.Add(:int, { actual: :INDEX0, text: "时间" })
-  Builder.Text("秒")
+  Builder.Text("秒", 0, -1)
  end
 end
 $commands_xp[242] = Command.new(242, -1, "FADEBGM", "BGM 的淡入淡出", target_text, "i", target_window, nil)
@@ -1415,7 +1423,7 @@ target_window = Proc.new do |window, commands|
  window = Builder.Add(:dialog_r) do
   Builder.Order
   Builder.Add(:int, { actual: :INDEX0, text: "时间" })
-  Builder.Text("秒")
+  Builder.Text("秒", 0, -1)
  end
 end
 $commands_xp[246] = Command.new(246, -1, "FADEBGS", "BGS 的淡入淡出", target_text, "i", target_window, nil)
@@ -1499,16 +1507,63 @@ $commands_xp[301] = Command.new(301, -1, "BATTLE", "战斗处理", target_text, 
 # 商店处理
 #-----------------------------------------------------------------
 # Parameter : [0, 1]
+# 为了这个愚蠢的结构我又改了两遍构筑！
 #=================================================================
 target_text = Text.new do |parameters, *followings| 
  Event_Help.shop(parameters[0].Value,parameters[1].Value)
 end
 target_window = Proc.new do |window, commands|
- Builder.In(window)
- Builder.Out
- window
+  target = FuzzyArray.new 
+  target.Add window.Tag.Link["@parameters"]
+  commands.each {|command| target.add(command.Link["@parameters"]) }
+  Builder.In(window)
+    catalogue = []
+    catalogue.push Text.new {|target, watch, i, j, k| target.is_a?(FuzzyFixnum) ? "" : Event_Help.shop_item(target[0].Value, target[1].Value).name }
+    catalogue.push Text.new {|target, watch, i, j, k| target.is_a?(FuzzyFixnum) ? "" : Event_Help.shop_item(target[0].Value, target[1].Value).price }
+    model = [0, 1].to_fuzzy
+    inner_window = Proc.new do |windNow, value|
+      Builder.In(window)
+        Builder.Add(:radio, {actual: :IDEX0, key: 0, text: "物品"}) do
+          Builder.Add(:choose, actual: :INDEX1, label: 0, choice: { nil => Filechoice.new("item") })
+        end
+        Builder.Add(:radio, {actual: :INDEX0, key: 1, text: "武器"}) do
+          Builder.Add(:choose, actual: :INDEX1, label: 0, choice: { nil => Filechoice.new("weapon") })
+        end
+        Builder.Add(:radio, {actual: :INDEX0, key: 2, text: "防具"}) do
+          Builder.Add(:choose, actual: :INDEX1, label: 0, choice: { nil => Filechoice.new("armor") })
+        end
+      Builder.Out
+      window.Value = value
+    end
+    view = Builder.Add(:view, {
+      actual: :ORIGIN,
+      label: 0,
+      columns: ["商品", "价格"],
+      catalogue: catalogue,
+      new: model,
+      columns_width: [120, 60],
+      window: inner_window,
+      width: 220
+      })
+  Builder.Out
+  window.Parent = target
+  window
 end
-$commands_xp[302] = Command.new(302, -1, "SHOP", "商店处理", target_text, "ii", target_window, nil, 605)
+target_with = Proc.new do |window, oldwith|
+  value = window.Value
+  window.Value = window.Value[0]
+  value.RemoveAt 0
+  ans = []
+  for arr in value
+    command = Instance.new $commands_xp[605]
+    command.Indent = window.Tag.Indent
+    command.Parameters.Add arr[0]
+    command.Parameters.Add arr[1]
+    ans.push command
+  end
+  ans
+end
+$commands_xp[302] = Command.new(302, -1, "SHOP", "商店处理", target_text, "ii", target_window, target_with, 605)
 
 #=================================================================
 # Code 303
@@ -1717,22 +1772,22 @@ $commands_xp[318] = Command.new(318, -1, "SETSKILL", "增减特技", target_text
 # Parameter : [1, 2, 8]
 #=================================================================
 target_text = Text.new do |parameters, *followings| 
- type = parameters[1].Value
- type_str = ["武器","盾","头部","身体","装饰品"][type].encode
- part0 = Event_Help.actor(parameters[0].Value)
- part1 = Event_Help.value(parameters[2].Value, (type == 0 ? Data["weapon"] : Data["armor"]))
- part0 + ", " + type_str + " = " + part1
+  type = parameters[1].Value
+  type_str = ["武器","盾","头部","身体","装饰品"][type].encode
+  part0 = Event_Help.actor(parameters[0].Value)
+  part1 = Event_Help.value(parameters[2].Value, (type == 0 ? Data["weapon"] : Data["armor"]))
+  part0 + ", " + type_str + " = " + part1
 end
 target_window = Proc.new do |window, commands|
- Builder.In(window)
-  Builder.Add(:choose, { actual: :INDEX0, text: "角色", choice: { nil => Filechoice.new("actor") } })
-  Builder.Add(:group, { text: "装备" }) do
-    Builder.Add(:radio, { actual: :INDEX1, key: 0, text: "武器" }) do
-      Builder.Add(:choose, { actual: :INDEX2, label: 0, choice: { nil => Filechoice.new("weapon") } })
+  Builder.In(window)
+    Builder.Add(:choose, { actual: :INDEX0, text: "角色", choice: { nil => Filechoice.new("actor") } })
+    Builder.Add(:group, { text: "装备" }) do
+      Builder.Add(:radio, { actual: :INDEX1, key: 0, text: "武器" }) do
+        Builder.Add(:choose, { actual: :INDEX2, label: 0, choice: { 0 => "无", nil => Filechoice.new("weapon") } })
+      end
     end
-  end
- Builder.Out
- window
+  Builder.Out
+  window
 end
 $commands_xp[319] = Command.new(319, -1, "SETBODY", "变更装备", target_text, "iii", target_window, nil)
 
@@ -1847,12 +1902,11 @@ target_text = Text.new do |parameters, *followings|
  part0 + "," + part1 + part2
 end
 target_window = Proc.new do |window, commands|
- Builder.In(window)
-  Builder.Pop(:enemy, 0)
-  Builder.Pop(:operate, 1)
-  Builder.Add(:choose, { actual: :INDEX2, text: "状态", choice: { nil => Filechoice.new("state") } })
- Builder.Out
- window
+  window = Builder.Add(:dialog_r) do
+    Builder.Pop(:enemy, 0)
+    Builder.Pop(:operate, 1)
+    Builder.Add(:choose, { actual: :INDEX2, text: "状态", choice: { nil => Filechoice.new("state") } })
+  end
 end
 $commands_xp[333] = Command.new(333, -1, "SETENEMYSTATAE", "增减敌人状态", target_text, "iii", target_window, nil)
 
@@ -1973,41 +2027,41 @@ target_text = Text.new do |parameters, *followings|
 end
 
 target_window = Proc.new do |window, commands|
- Builder.In(window)
-  Builder.Add(:group, { text: "目标" }) do
-   Builder.Add(:radio, { actual: :INDEX0, text: "敌人", key: 0, group: "window_code_337" }) do
-    Builder.Pop(:no_troop_enemy, 1)
-   end
-   Builder.Add(:radio, { actual: :INDEX0, text: "角色", key: 1, group: "window_code_337" }) do
-    Builder.Pop(:unknown_no_troop_actor, 1)
-   end
-  end
-  Builder.Add(:group, { text: "行为" }) do
-   Builder.Add(:radio, { actual: :INDEX2, text: "基本", key: 0, group: "window_code_337#2" }) do
-    Builder.Add(:choose, { actual: :INDEX3, label: 0, choice: { 0 => "攻击", 1 => "防御", 2 => "逃跑", 3 => "什么也不做" } })
-   end
-   Builder.Add(:radio, { actual: :INDEX2, text: "特技", key: 1, group: "window_code_337#2" }) do
-    Builder.Add(:choose, { actual: :INDEX3, label: 0, choice: { nil => Filechoice.new("skill") } })
-   end
-   Builder.Add(:choose, { actual: :INDEX4, text: "行为对象", label: 2, choice: {
-    -2 => "最后的目标",
-    -1 => "随机",
-    0 => "Index 1",
-    1 => "Index 2",
-    2 => "Index 3",
-    3 => "Index 4",
-    4 => "Index 5",
-    5 => "Index 6",
-    6 => "Index 7",
-    7 => "Index 8"
-    } })
-  end
-  Builder.Add(:group, { text: "顺序" }) do
-   Builder.Add(:single_radio, { actual: :INDEX5, text: "按照平时的执行顺序执行", key: 0, group: "window_code_337#3" })
-   Builder.Add(:single_radio, { actual: :INDEX5, text: "立即执行", key: 1, group: "window_code_337#3" })
-  end
- Builder.Out
- window
+  Builder.In(window)
+    Builder.Add(:group, { text: "目标" }) do
+      Builder.Add(:radio, { actual: :INDEX0, text: "敌人", key: 0, group: "window_code_337" }) do
+        Builder.Pop(:raw_no_troop_enemy, 1)
+      end
+      Builder.Add(:radio, { actual: :INDEX0, text: "角色", key: 1, group: "window_code_337" }) do
+        Builder.Pop(:unknown_no_troop_actor, 1)
+      end
+    end
+    Builder.Add(:group, { text: "行为" }) do
+      Builder.Add(:radio, { actual: :INDEX2, text: "基本", key: 0, group: "window_code_337#2" }) do
+        Builder.Add(:choose, { actual: :INDEX3, label: 0, choice: { 0 => "攻击", 1 => "防御", 2 => "逃跑", 3 => "什么也不做" } })
+      end
+      Builder.Add(:radio, { actual: :INDEX2, text: "特技", key: 1, group: "window_code_337#2" }) do
+        Builder.Add(:choose, { actual: :INDEX3, label: 0, choice: { nil => Filechoice.new("skill") } })
+      end
+      Builder.Add(:choose, { actual: :INDEX4, text: "行为对象", label: 2, choice: {
+        -2 => "最后的目标",
+        -1 => "随机",
+        0 => "Index 1",
+        1 => "Index 2",
+        2 => "Index 3",
+        3 => "Index 4",
+        4 => "Index 5",
+        5 => "Index 6",
+        6 => "Index 7",
+        7 => "Index 8"
+      } })
+    end
+    Builder.Add(:group, { text: "顺序" }) do
+      Builder.Add(:single_radio, { actual: :INDEX5, text: "按照平时的执行顺序执行", key: 0, group: "window_code_337#3", width: 213 })
+      Builder.Add(:single_radio, { actual: :INDEX5, text: "立即执行", key: 1, group: "window_code_337#3", width: 213 })
+    end
+  Builder.Out
+  window
 end
 $commands_xp[339] = Command.new(339, -1, "FORCEBEHAVE", "强制行动", target_text, "iiiiii", target_window, nil)
 

@@ -46,24 +46,24 @@ Builder.Add(:tab, { text: "职业" }) do
 		end
 		Builder.Add(:metro, { text: "技能" }) do
 			window = Proc.new do |window, value|
-					Builder.In(window)
+				Builder.In(window)
 					Builder.Order
-				Builder.Add(:int, { actual: :level, text: "等级" })
-				Builder.Add(:choose, { actual: :skill_id, text: "学会的特技", choice: { nil => Filechoice.new("skill") } })
+					Builder.Add(:int, { actual: :level, text: "等级" })
+					Builder.Add(:choose, { actual: :skill_id, text: "学会的特技", choice: { nil => Filechoice.new("skill") } })
 					Builder.Next
-				Builder.Add(:text, { actual: :note, text: "备注" })
-					Builder.Out
-					window.Value = value
+					Builder.Add(:text, { actual: :note, text: "备注" })
+				Builder.Out
+				window.Value = value
 			end
 			texts = []
-			texts[0] = Text.new { |target, watch, i, j, k| "Lv.#{target["@level"].Value}" }
+			texts[0] = Text.new { |target, watch, i, j, k | "Lv.#{target["@level"].Value}" }
 			texts[1] = Text.new do |target, watch, i, j, k|
 				skill_id = target["@skill_id"].Value
 				target = Data["skill"][skill_id]
 				ans = Help.Auto_Get_Text(target, watch)
 				ans
 			end 
-			texts[2] = Text.new { |target, watch, i, j, k| target["@note"].Text }
+			texts[2] = Text.new { |target, watch, i, j, k | target["@note"].Text }
 			Builder.Add(:view, { 
 				 actual: :learnings,
 				 label: 0,

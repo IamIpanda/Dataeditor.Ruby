@@ -163,10 +163,22 @@ class Event_Help
 			return "本事件".encode if int == 0
 			return "#{ int } 号事件" 
 		end
+		
+		def shop_item(int1, int2)
+			case int1
+			when 0
+				return Data["item"][int2]
+			when 1
+				return Data["weapon"][int2]
+			when 2
+				return Data["armor"][int2]
+			end
+		end
+
 	  	def CreateCommands(ids, source)
 	  		return ids.map {|id| Instance.new source[id] }
 	  	end
-	  	def SeprateText(str, id, source)
+	  	def SeprateText(str, id, source, indent = 0)
 	  		parts = str.split System::Environment.NewLine
 	  		type = source[id]
 	  		folllow_id = type.TextFollowPosition
@@ -174,6 +186,7 @@ class Event_Help
 	  		for i in 1...parts.length
 	  			commands.push Instance.new type
 	  			commands[i - 1].Parameters[folllow_id].Text = parts[i]
+	  			commands[i - 1].Indent = indent
 	  			commands.to_s # M·A·G·I·C, Don't TOUCH!!
 	  		end
 			return parts[0], commands
@@ -262,7 +275,7 @@ class Builder
 		  			end
 		  		end
 		  	when :direction
-		  		Builder.Add(:choose, { actual: get_symbol(index), text: "方向", choice: {
+		  		Builder.Add(:choose, { actual: get_symbol(index), text: "方向", width: 65, choice: {
 		  			0 => "就这样",
 		  			2 => "下",
 		  			4 => "左",
@@ -270,14 +283,14 @@ class Builder
 		  			7 => "上"
 		  			} })
 		  	when :force_direction
-		  		Builder.Add(:choose, { actual: get_symbol(index), text: "方向", choice: {
+		  		Builder.Add(:choose, { actual: get_symbol(index), text: "方向", width: 65, choice: {
 		  			2 => "下",
 		  			4 => "左",
 		  			6 => "右",
 		  			7 => "上"	  			
 		  			} })
 		  	when :speed
-		  		Builder.Add(:choose, { actual: get_symbol(index), text: "速度", choice: {
+		  		Builder.Add(:choose, { actual: get_symbol(index), text: "速度", width: 65, choice: {
 		  			1 => "1:Slowest",
 		  			2 => "2:Slower",
 		  			3 => "3:Slow",
@@ -316,9 +329,9 @@ class Builder
 		  	when :unknown_no_troop_actor
 		  		Builder.Add(:choose, { actual: get_symbol(index), label: 0, choice: {
 		  			1 => "1 人",
-		  			1 => "2 人",
-		  			1 => "3 人",
-		  			1 => "4 人"
+		  			2 => "2 人",
+		  			3 => "3 人",
+		  			4 => "4 人"
 		  			} })
 		  	when :enemy
 		  		text = Text.new do |*args|
@@ -338,7 +351,7 @@ class Builder
 		  		Builder.Add(:choose, { actual: get_symbol(index), choice: { -1 => "全体队伍", nil => file_choice }, label: 0 })
 		  	when :raw_no_troop_enemy
 		  		text = Text.new do |*args|
-		  			args[3].to_s + "." + Data["enemy"][args[0]["@enemy_id"].Value.to_s.to_i]["@name"].ToString()
+		  			(args[3] + 1).to_s + "." + Data["enemy"][args[0]["@enemy_id"].Value.to_s.to_i]["@name"].ToString()
 		  		end
 		  		file_choice = Filechoice.new(Data["focus_troop"]["@members"])
 		  		file_choice.id = ""
@@ -346,7 +359,7 @@ class Builder
 		  		Builder.Add(:choose, { actual: get_symbol(index), label: 0, choice: { nil => file_choice } })
 		  	when :no_troop_enemy
 		  		text = Text.new do |*args|
-		  			args[3].to_s + "." + Data["enemy"][args[0]["@enemy_id"].Value.to_s.to_i]["@name"].ToString()
+		  			(args[3] + 1).to_s + "." + Data["enemy"][args[0]["@enemy_id"].Value.to_s.to_i]["@name"].ToString()
 		  		end
 		  		file_choice = Filechoice.new(Data["focus_troop"]["@members"])
 		  		file_choice.id = ""
@@ -354,7 +367,7 @@ class Builder
 		  		Builder.Add(:choose, { actual: get_symbol(index), text: "敌人", choice: { nil => file_choice } })
 		  	when :event
 		  		text = Text.new do |*args|
-		  			sprintf("%03d", args[3]) + ":" + Data["focus_map"]["@events"][args[0]]["@name"].ToString()
+		  			sprintf("%03d", args[3] + 1) + ":" + Data["focus_map"]["@events"][args[0]]["@name"].ToString()
 		  		end
 		  		data = DataEditor::FuzzyData::FuzzyArray.new
 		  		Data["focus_map"]["@events"].Keys.each { |num| data.Add(num) }
@@ -364,7 +377,7 @@ class Builder
 		  		Builder.Add(:choose, { actual: get_symbol(index), text: "角色", choice: { -1 => "角色", 0 => "本事件", nil => file_choice} })
 		  	when :raw_event
 		  		text = Text.new do |*args|
-		  			sprintf("%03d", args[3]) + ":" + Data["focus_map"]["@events"][args[0]]["@name"].ToString()
+		  			sprintf("%03d", args[3] + 1) + ":" + Data["focus_map"]["@events"][args[0]]["@name"].ToString()
 		  		end
 		  		data = DataEditor::FuzzyData::FuzzyArray.new
 		  		Data["focus_map"]["@events"].Keys.each { |num| data.Add(num) }

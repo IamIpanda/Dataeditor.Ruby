@@ -43,14 +43,19 @@ namespace DataEditor.Control.Wrapper
         {
             get 
             {
+                if (protoRtpViewList1.SelectedIndex == 0)
+                    return "";
                 return System.IO.Path.GetFileNameWithoutExtension(protoRtpViewList1.ChosenFile.FullName);
             }
             set 
             {
                 var list = protoRtpViewList1.Files;
-                for (int i = 0; i < list.Count; i++)
-                    if (list[i] != null && list[i].Name.StartsWith(value))
-                        protoRtpViewList1.SelectedIndex = i;
+                if (value == "")
+                    protoRtpViewList1.SelectedIndex = 0;
+                else
+                    for (int i = 0; i < list.Count; i++)
+                        if (list[i] != null && list[i].Name.StartsWith(value))
+                            protoRtpViewList1.SelectedIndex = i;
             }
         }
         public string Path
@@ -69,6 +74,11 @@ namespace DataEditor.Control.Wrapper
             System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(full);
             if (!dir.Exists) return;
             this.protoRtpViewList1.AddChildFile(dir, rtp.Color);
+        }
+
+        private void protoRtpViewList1_DoubleClick(object sender, EventArgs e)
+        {
+            button1_Click(this, e);
         }
     }
 }

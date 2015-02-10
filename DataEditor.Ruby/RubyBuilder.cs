@@ -46,7 +46,10 @@ namespace DataEditor.Ruby
         {
             var Label = new System.Windows.Forms.Label();
             Label.Location = new System.Drawing.Point(x, y);
+            Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            Label.AutoSize = false;
             Label.Text = text;
+            Label.Size = Label.PreferredSize;
             return Label;
         }
         protected virtual System.Drawing.Size CalcLabel(int label_value, System.Windows.Forms.Label label, int width, int height)
@@ -174,11 +177,24 @@ namespace DataEditor.Ruby
             label.Text = text;
             label.Size = label.PreferredSize;
             if (extra_w < 0)
+            {
                 extra_w = builder.last.Width - label.Width + extra_w + 1;
+                var object_editor = builder.last.Tag as Control.ObjectEditor;
+                int label_parameter = object_editor.Argument.GetArgument<int>("label");
+                if (label_parameter == 2)
+                    extra_w += object_editor.Label.Width;
+            }
             if (extra_h < 0)
+            {
                 extra_h = builder.last.Height - label.Height + extra_h + 1;
+                var object_editor = builder.last.Tag as Control.ObjectEditor;
+                int label_parameter = object_editor.Argument.GetArgument<int>("label");
+                if (label_parameter == 1)
+                    extra_h += object_editor.Label.Height;
+            }
             label.Location = new System.Drawing.Point(builder.now_x + extra_w, builder.now_y + extra_h);
             var size = new System.Drawing.Size(label.Width + extra_w, label.Height + extra_h);
+            label.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             builder.AddLabel(label);
             builder.CalcCoodinate(label, size.Width, size.Height);
             return label;
@@ -251,6 +267,8 @@ namespace DataEditor.Ruby
             }
             // 结算坐标
             builder.CalcCoodinate(control, size.Width + control.Width, size.Height + control.Height);
+            // 若 Label 是横向的，那么置中
+            if (label_argument == 2) label.Height = control.Height;
             // 上传控件
             builder.AddControl(control);
             // 记忆控件

@@ -21,3 +21,4 @@ end
 
 FuzzyString = DataEditor::FuzzyData::FuzzyString
 FuzzyArray = DataEditor::FuzzyData::FuzzyArray
+FuzzyFixnum = DataEditor::FuzzyData::FuzzyFixnum

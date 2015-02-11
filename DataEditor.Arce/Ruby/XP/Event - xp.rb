@@ -5,6 +5,7 @@
 
 require "ruby/Event.rb"
 require "ruby/Fuzzy.rb"
+require "ruby/XP/MoveCommand - xp.rb"
 
 $commands_xp = { }
 $commands_xp[0] = Command.new(0, -1, "TAB", "空指令", Text.ret(""))
@@ -23,7 +24,7 @@ target_window = Proc.new do |window, commands|
 end
 target_with = Proc.new do |window, oldwith|
  str = window.Value
- answer = Event_Help.SeprateText str.Text, 401, $commands_xp 
+ answer = Event_Help.SeprateText str.Text, 401, $commands_xp, window.Tag.indent 
  str.Text = answer[0]
  answer[1]
 end
@@ -1084,7 +1085,12 @@ $commands_xp[208] = Command.new(208, -1, "TRANSPARENT", "更改透明状态", ta
 # Parameter : WTF
 #=================================================================
 target_text = Text.new do |parameters, *followings|
-
+  ans = Event_Help.event(parameters[0].Value)
+  route = parameters[1]
+  appendix = []
+  appendix.push "重复动作" if route["@repeat"]
+  appendix.push "忽略不能移动的场合" if route["@skippable"]
+  ans + (appendix.length == 0 ? "" : "(" + appendix.join(", ") + ")")
 end
 target_window = Proc.new do |window, commands|
 
@@ -1482,7 +1488,6 @@ $commands_xp[250] = Command.new(250, -1, "PLAYSE", "演奏 SE", target_text, "d"
 #=================================================================
 target_text = Text.ret("")
 $commands_xp[251] = Command.new(251, -1, "STOPSE", "停止 SE", target_text, "", nil, nil)
-
 
 #=================================================================
 # Code 301
@@ -2198,8 +2203,10 @@ $commands_xp[413] = Command.new(413, 112, "ENDLOOP", "以上反复", target_text
 #-----------------------------------------------------------------
 # Parameter : []
 #=================================================================
-target_text = Text.ret("某个移动")
-$commands_xp[508] = Command.new(509, 209, "MOVEMENT", "某个移动", target_text)
+target_text = Text.new do |parameters, followings|
+  MoveInstance.new(parameters[0]).ToString
+end
+$commands_xp[508] = Command.new(509, 209, "MOVEMENT", "某个移动", target_text, "", nil, nil, 209)
 #=================================================================
 # Code 601
 #-----------------------------------------------------------------

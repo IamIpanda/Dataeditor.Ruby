@@ -46,6 +46,7 @@ end
 
 Group = DataEditor::Control::Event::DataModel::CommandGroup
 Instance = DataEditor::Control::Event::DataModel::Command
+MoveInstance = DataEditor::Control::Event::DataModel::MoveCommand
 class Event_Help
 	class <<self
 		def switch(id)

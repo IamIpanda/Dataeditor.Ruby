@@ -10,7 +10,13 @@ namespace DataEditor.Help
         static Contract.Serialization Default;
         static List<Contract.Serialization> serializations = new List<Contract.Serialization>();
         static Dictionary<string, Contract.Serialization> flags = new Dictionary<string, Contract.Serialization>();
-        static Serialization() { serializations.Add(new DataEditor.FuzzyData.Serialization.RubyMarshal.RubyMarshalAdapter()); LoadDlls(); }
+
+        static Serialization()
+        {
+            serializations.Add(new DataEditor.FuzzyData.Serialization.RubyMarshal.RubyMarshalAdapter());
+            flags.Add((serializations[0] as Contract.Iconic).Flag, serializations[0]);
+            LoadDlls();
+        }
         static void LoadDlls()
         {
             System.IO.DirectoryInfo Directory = new System.IO.DirectoryInfo("Program/Serialization");
@@ -76,7 +82,7 @@ namespace DataEditor.Help
         }
         static public Contract.Serialization TryGetSerialization(string key)
         {
-            if (key == null || key == "") return Default;
+            if (string.IsNullOrEmpty(key)) return Default;
             Contract.Serialization ser = null;
             flags.TryGetValue(key, out ser);
             if (ser == null) Log.log("序列化器申请被拒绝：" + key);

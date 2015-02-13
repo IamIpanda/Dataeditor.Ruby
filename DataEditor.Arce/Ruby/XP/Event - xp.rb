@@ -539,7 +539,7 @@ target_window = Proc.new do |window, commands|
  Builder.Out
  window
 end
-$commands_xp[121] = Command.new(121, -1, "SWITCH", "开关操作", target_text, "iii", target_window, nil)
+$commands_xp[121] = Command.new(121, -1, "SWITCH", "开关操作", target_text, "i{1}i{1}i", target_window, nil)
 
 #=================================================================
 # Code 122
@@ -673,7 +673,7 @@ target_window = Proc.new do |window, command|
  Builder.Out
  window
 end
-$commands_xp[122] = Command.new(122, -1, "VARIABLE", "变量操作", target_text, "iiiiu", target_window, nil)
+$commands_xp[122] = Command.new(122, -1, "VARIABLE", "变量操作", target_text, "i{1}i{1}iiiu", target_window, nil)
 
 #=================================================================
 # Code 123

@@ -6,6 +6,7 @@
 require "ruby/Event.rb"
 
 $move_commands = {}
+$command_group_name = "Move"
 $move_commands[0] = Command.new(0, -1, "", "")
 #=================================================================
 # Code 1

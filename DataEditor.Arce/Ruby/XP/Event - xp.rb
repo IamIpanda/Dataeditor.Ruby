@@ -8,6 +8,7 @@ require "ruby/Fuzzy.rb"
 require "ruby/XP/MoveCommand - xp.rb"
 
 $commands_xp = { }
+$command_group_name = ""
 $commands_xp[0] = Command.new(0, -1, "TAB", "空指令", Text.ret(""))
 #=================================================================
 # Code 101
@@ -65,6 +66,18 @@ target_window = Proc.new do |window, commands|
  window
 end
 target_with = Proc.new do |window, oldwith|
+  # analyze old with
+  oldwithcommands = { 0 => [], 1 => [], 2 => [], 3 => [], 4 => [], 5 => [] }
+  key = 0
+  for command in oldwith
+    case command.Code
+    when 0 then next
+    when 404 then break
+    when 402 then key += 1
+    when 403 then key = 5
+    else oldwithcommands[key].push command
+    end
+  end
   window.Value[0].Clear
   texts = window.metro.text
   radios = window.group.single_radio
@@ -80,10 +93,15 @@ target_with = Proc.new do |window, oldwith|
     para.Parameters[0].Value = i
     para.Parameters[1].Text = texts[i].Binding.Text
     ans.push para
+    ans += old_with[i]
     ans.push Instance.new $commands_xp[0]
     ans.to_s # I had told you It's MAGIC!! DON'T TOUCH IT!
   end
-  ans += Event_Help.CreateCommands [403, 0], $commands_xp if window.Value[1].Value == 5
+  if window.Value[1].Value == 5
+    ans += Event_Help.CreateCommands [403], $commands_xp 
+    ans += oldwithcommands[5]
+    ans += Event_Help.CreateCommands [0], $commands_xp
+  end
   ans.push Instance.new $commands_xp[404]
   ans
 end
@@ -416,7 +434,16 @@ $commands_xp[111] = Command.new(111, -1, "IF", "条件分歧", target_text, "iu"
 # Parameter : []
 #=================================================================
 target_text = Text.ret("")
-$commands_xp[112] = Command.new(112, -1, "DO", "循环", target_text, "", nil, nil, 413)
+target_with = Proc.new do |window, oldwith|
+  command = window.Tag # althougn window is in fact no sense, command is still here
+  ans = []
+  for i in 0...oldwith.Count - 3
+    ans.push oldwith[i]
+  end
+  ans += Event_Help.CreateCommands [0, 413], $commands_xp
+  ans
+end
+$commands_xp[112] = Command.new(112, -1, "DO", "循环", target_text, "", nil, target_with, 413)
 
 #=================================================================
 # Code 113
@@ -1093,7 +1120,20 @@ target_text = Text.new do |parameters, *followings|
   ans + (appendix.length == 0 ? "" : "(" + appendix.join(", ") + ")")
 end
 target_window = Proc.new do |window, commands|
-
+  window = Builder.Add(:dialog_move, { actual: :INDEX1 })
+end
+target_with = Proc.new do |window, oldwith|
+  # Generate with Route
+  route = window.Value
+  list = route["@list"]
+  ans = []
+  for child in list
+    command = Instance.new $commands_xp[509]
+    command.Indent = window.Tag.Indent
+    command.Parameters.push child
+    ans.push command
+  end
+  ans
 end
 $commands_xp[209] = Command.new(209, -1, "MOVE", "设置移动路线", target_text, "u", target_window, nil, 509)
 

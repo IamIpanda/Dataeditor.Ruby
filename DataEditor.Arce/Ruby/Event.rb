@@ -23,7 +23,7 @@ class DataEditor::Control::Event::DataModel::CommandType
 		self.ends = ends
 		self.Window = DataEditor::Ruby::Proc.new(window) if window != nil
 		self.With = DataEditor::Ruby::Proc.new(with) if with != nil
-		self.AddToCategory
+		self.AddToCategory $command_group_name
 		Log.log("添加了指令：[#{ code }:#{ name }]".encode)
 	end
 	class <<self
@@ -34,7 +34,10 @@ class DataEditor::Control::Event::DataModel::CommandType
 		end
 	end
 end
+
 Command = DataEditor::Control::Event::DataModel::CommandType
+$command_group_name = ""
+
 class DataEditor::Control::Event::DataModel::CommandGroup
 	def AddCommands(source, indecies)
 		for index in indecies
@@ -47,6 +50,7 @@ end
 Group = DataEditor::Control::Event::DataModel::CommandGroup
 Instance = DataEditor::Control::Event::DataModel::Command
 MoveInstance = DataEditor::Control::Event::DataModel::MoveCommand
+
 class Event_Help
 	class <<self
 		def switch(id)

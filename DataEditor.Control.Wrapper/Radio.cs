@@ -4,6 +4,8 @@ using System.Text;
 
 namespace DataEditor.Control.Wrapper
 {
+    // TODO: I Don't know how to write out this a piece of shit.
+    // TODO: But although it's here, I have to have a taste.
     public class Radio : Control.WrapControlValueContainer<FuzzyData.FuzzyFixnum, Prototype.ProtoRadioContainer>
     {
         public override string Flag { get { return "radio"; } }

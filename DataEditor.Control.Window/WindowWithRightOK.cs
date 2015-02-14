@@ -38,7 +38,11 @@ namespace DataEditor.Control.Window
             public override int end_x { get { return 100; } }
             public override FuzzyData.FuzzyObject Value
             {
-                get { return origin; }
+                // get Changed. Now Value returns the real value
+                // but not the origin value. 
+                // I don't know what I'm thinking when I wrote down
+                // this stupid code.
+                get { return value; }
                 set
                 {
                     SetByParent = false;
@@ -48,7 +52,7 @@ namespace DataEditor.Control.Window
             }
             public override FuzzyData.FuzzyObject Parent
             {
-                get { return origin; }
+                get { return parent; }
                 set
                 {
                     SetByParent = true;

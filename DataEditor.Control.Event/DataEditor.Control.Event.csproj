@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{233070A6-124E-454F-800B-BCA40F03856B}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{C3A2B054-6B8F-416F-BF2D-8A56C9D4EA2C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DataEditor.Control.Event</RootNamespace>
     <AssemblyName>DataEditor.Control.Event</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,132 +30,157 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>DataEditor.Control.Event.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataEditor.Contract">
+      <HintPath>..\..\DataEditor.RUBY\DataEditor.Arce\bin\Debug\DataEditor.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="DataEditor.Control">
+      <HintPath>..\..\DataEditor.Ruby\DataEditor.Arce\bin\Debug\DataEditor.Control.dll</HintPath>
+    </Reference>
+    <Reference Include="DataEditor.Control.Prototype">
+      <HintPath>..\..\DataEditor.Ruby\DataEditor.Arce\bin\Debug\DataEditor.Control.Prototype.dll</HintPath>
+    </Reference>
+    <Reference Include="DataEditor.Control.Window">
+      <HintPath>W:\VSProjects\dataeditor.ruby\DataEditor.Control.Window\bin\Debug\DataEditor.Control.Window.dll</HintPath>
+    </Reference>
+    <Reference Include="DataEditor.Control.Wrapper">
+      <HintPath>W:\VSProjects\dataeditor.ruby\DataEditor.Control.Wrapper\bin\Debug\DataEditor.Control.Wrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DataEditor.FuzzyData, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>W:\VSProjects\dataeditor.ruby\DataEditor.FuzzyData\bin\Debug\DataEditor.FuzzyData.dll</HintPath>
+    </Reference>
+    <Reference Include="DataEditor.FuzzyData.Extra, Version=0.9.5513.42738, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>W:\VSProjects\dataeditor.ruby\DataEditor.FuzzyData.Extra\bin\Debug\DataEditor.FuzzyData.Extra.dll</HintPath>
+    </Reference>
+    <Reference Include="DataEditor.FuzzyData.Serialization.RubyMarshal, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>W:\VSProjects\dataeditor.ruby\DataEditor.FuzzyData.Serialization.RubyMarshal\bin\Debug\DataEditor.FuzzyData.Serialization.RubyMarshal.dll</HintPath>
+    </Reference>
+    <Reference Include="DataEditor.Help">
+      <HintPath>..\..\DataEditor.Ruby\DataEditor.Arce\bin\Debug\DataEditor.Help.dll</HintPath>
+    </Reference>
+    <Reference Include="DataEditor.Ruby">
+      <HintPath>W:\VSProjects\dataeditor.ruby\DataEditor.Ruby\bin\Debug\DataEditor.Ruby.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProtoFuckingTimer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ProtoFuckingTimer.Designer.cs">
-      <DependentUpon>ProtoFuckingTimer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WrapSelfSwitch.cs" />
-    <Compile Include="WrapColor.cs" />
-    <Compile Include="CommandGroup.cs" />
-    <Compile Include="EventCommand.cs" />
-    <Compile Include="Event.cs" />
-    <Compile Include="EventEditor.cs">
+    <Compile Include="DataModel\Audio.cs" />
+    <Compile Include="DataModel\Command.cs" />
+    <Compile Include="DataModel\CommandType.cs" />
+    <Compile Include="DataModel\CommandGroup.cs" />
+    <Compile Include="DataModel\Extension.cs" />
+    <Compile Include="DataModel\MoveCommand.cs" />
+    <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EventEditor.Designer.cs">
-      <DependentUpon>EventEditor.cs</DependentUpon>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProtoMapList.cs">
+    <Compile Include="Prototype\ProtoColorSpectrum.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ProtoMapList.Designer.cs">
-      <DependentUpon>ProtoMapList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ProtoEventList.cs">
+    <Compile Include="Prototype\ProtoEventCommandList.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ProtoEventPaper.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="EventCommandChoser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EventCommandChoser.Designer.cs">
-      <DependentUpon>EventCommandChoser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ProtoEventPaper.Designer.cs">
-      <DependentUpon>ProtoEventPaper.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ProtoTone.cs">
+    <Compile Include="Prototype\ProtoEventTimer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ProtoTone.Designer.cs">
-      <DependentUpon>ProtoTone.cs</DependentUpon>
+    <Compile Include="Prototype\ProtoEventTimer.designer.cs">
+      <DependentUpon>ProtoEventTimer.cs</DependentUpon>
     </Compile>
-    <Compile Include="WrapFuckingTimer.cs" />
-    <Compile Include="WrapSwitch.Choser.cs">
+    <Compile Include="Prototype\ProtoEventTone.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Prototype\ProtoEventTone.designer.cs">
+      <DependentUpon>ProtoEventTone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Test.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WrapSwitch.Choser.Designer.cs">
-      <DependentUpon>WrapSwitch.Choser.cs</DependentUpon>
+    <Compile Include="Test.Designer.cs">
+      <DependentUpon>Test.cs</DependentUpon>
     </Compile>
-    <Compile Include="WrapSwitch.cs" />
-    <Compile Include="WrapTextWindow.cs" />
-    <Compile Include="WrapTone.cs" />
-    <Compile Include="WrapVariable.cs" />
+    <Compile Include="Window\CommandChooseWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Window\CommandChooseWindow.Designer.cs">
+      <DependentUpon>CommandChooseWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Window\EventShopItemWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Window\EventShopItemWindow.Designer.cs">
+      <DependentUpon>EventShopItemWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Window\MoveRouteWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Window\MoveRouteWindow.Designer.cs">
+      <DependentUpon>MoveRouteWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wrapper\Event.cs" />
+    <Compile Include="Wrapper\EventColor.cs" />
+    <Compile Include="Wrapper\ConsideringEventSwitch.Choser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wrapper\ConsideringEventSwitch.Choser.Designer.cs">
+      <DependentUpon>ConsideringEventSwitch.Choser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wrapper\EventTimer.cs" />
+    <Compile Include="Wrapper\EventSelfswitch.cs" />
+    <Compile Include="Wrapper\EventSwitch.cs" />
+    <Compile Include="Wrapper\EventTextWindow.cs" />
+    <Compile Include="Wrapper\EventTone.cs" />
+    <Compile Include="Wrapper\EventVariable.cs" />
+    <Compile Include="Wrapper\EventSwitch.Choser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wrapper\EventSwitch.Choser.designer.cs">
+      <DependentUpon>EventSwitch.Choser.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataEditor.Contract\DataEditor.Contract.csproj">
-      <Project>{d7dfc2b5-bb85-4037-b052-c4f1e3c1bde0}</Project>
-      <Name>DataEditor.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataEditor.Control.Prototype\DataEditor.Control.Prototype.csproj">
-      <Project>{02449edb-b4b5-47e6-ad29-7cc1c8b0bf09}</Project>
-      <Name>DataEditor.Control.Prototype</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataEditor.Control.Window\DataEditor.Control.Window.csproj">
-      <Project>{9d0f2890-feb9-4a0b-ad23-db7752edde30}</Project>
-      <Name>DataEditor.Control.Window</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataEditor.Control\DataEditor.Control.csproj">
-      <Project>{ae8bbeb5-cb95-4ad0-b7c3-f7c03ff5b352}</Project>
-      <Name>DataEditor.Control</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataEditor.FuzzyData.Extra\DataEditor.FuzzyData.Extra.csproj">
-      <Project>{3332a025-6e2b-4d9f-8a46-9f2350b39750}</Project>
-      <Name>DataEditor.FuzzyData.Extra</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataEditor.FuzzyData\DataEditor.FuzzyData.csproj">
-      <Project>{3516d3c7-f112-4763-9f2d-0b17991c12ff}</Project>
-      <Name>DataEditor.FuzzyData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataEditor.Help\DataEditor.Help.csproj">
-      <Project>{aafc4019-7092-4e66-9f1d-8a3ea4ba75a0}</Project>
-      <Name>DataEditor.Help</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataEditor.Ruby\DataEditor.Ruby.csproj">
-      <Project>{b4233af4-e637-4e9c-8991-3499e9b3ee31}</Project>
-      <Name>DataEditor.Ruby</Name>
-    </ProjectReference>
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EventCommandChoser.resx">
-      <DependentUpon>EventCommandChoser.cs</DependentUpon>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EventEditor.resx">
-      <DependentUpon>EventEditor.cs</DependentUpon>
+    <EmbeddedResource Include="Prototype\ProtoEventCommandList.resx">
+      <DependentUpon>ProtoEventCommandList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProtoFuckingTimer.resx">
-      <DependentUpon>ProtoFuckingTimer.cs</DependentUpon>
+    <EmbeddedResource Include="Prototype\ProtoEventTone.resx">
+      <DependentUpon>ProtoEventTone.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProtoMapList.resx">
-      <DependentUpon>ProtoMapList.cs</DependentUpon>
+    <EmbeddedResource Include="Test.resx">
+      <DependentUpon>Test.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProtoEventPaper.resx">
-      <DependentUpon>ProtoEventPaper.cs</DependentUpon>
+    <EmbeddedResource Include="Window\CommandChooseWindow.resx">
+      <DependentUpon>CommandChooseWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProtoTone.resx">
-      <DependentUpon>ProtoTone.cs</DependentUpon>
+    <EmbeddedResource Include="Window\EventShopItemWindow.resx">
+      <DependentUpon>EventShopItemWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WrapSwitch.Choser.resx">
-      <DependentUpon>WrapSwitch.Choser.cs</DependentUpon>
+    <EmbeddedResource Include="Window\MoveRouteWindow.resx">
+      <DependentUpon>MoveRouteWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wrapper\ConsideringEventSwitch.Choser.resx">
+      <DependentUpon>ConsideringEventSwitch.Choser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

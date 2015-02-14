@@ -27,8 +27,6 @@ namespace DataEditor.Control.Event
             engine.ExecuteFile("\\\\psf\\FILE\\VSProjects\\dataeditor.ruby\\DataEditor.Arce\\Ruby\\XP\\File - xp.rb");
             engine.ExecuteFile("\\\\psf\\FILE\\VSProjects\\dataeditor.ruby\\DataEditor.Arce\\Ruby\\XP\\Event - xp.rb");
             Ruby.RubyBuilder.In(new DataEditor.Control.Wrapper.Container.Group());
-            foreach (var item in protoEventCommandList1.Items)
-                item.ToString();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using DataEditor.Ruby;
 
 namespace DataEditor.Control.Event
 {
@@ -12,11 +13,31 @@ namespace DataEditor.Control.Event
         [STAThread]
         static void Main()
         {
-            Application.Run(new Test());
+            Initialize();
+            Application.Run(new Main());
         }
 
-        static public void Initialize()
+        private static Ruby.RubyEngine engine = new RubyEngine();
+
+        public static void Initialize()
         {
+            // Load this Assembly self into Engine.
+            engine.LoadAssembly(typeof (Program).Assembly);
+            Help.Collector.AddAssembly(typeof (Control.Wrapper.Check).Assembly);
+            Help.Collector.AddAssembly(typeof (Control.Window.WindowWithOK).Assembly);
+            Help.Collector.AddAssembly(typeof(Control.Window.WindowWithOK).Assembly);
+            FuzzyData.Serialization.Factory<byte[]>.SearchFactor(typeof(FuzzyData.FuzzyTable).Assembly);
+        }
+
+        public static void DebugAddingOn()
+        {
+            // DEBUG ONLY CODE
+            engine.Execute("$LOAD_PATH << \"\\\\\\\\psf\\\\FILE\\\\VSProjects\\\\dataeditor.ruby\\\\DataEditor.Arce\"");
+            engine.Execute("Dir.chdir \"\\\\\\\\psf\\\\FILE\\\\VSProjects\\\\dataeditor.ruby\\\\DataEditor.Arce\" ");
+            engine.ExecuteFile("\\\\psf\\FILE\\VSProjects\\dataeditor.ruby\\DataEditor.Arce\\Ruby\\main.rb");
+            engine.ExecuteFile("\\\\psf\\FILE\\VSProjects\\dataeditor.ruby\\DataEditor.Arce\\Ruby\\XP\\File - xp.rb");
+            engine.ExecuteFile("\\\\psf\\FILE\\VSProjects\\dataeditor.ruby\\DataEditor.Arce\\Ruby\\XP\\Event - xp.rb");
+            Ruby.RubyBuilder.In(new DataEditor.Control.Wrapper.Container.Group());
         }
     }
 }

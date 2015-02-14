@@ -13,9 +13,8 @@ namespace DataEditor.Arce
             engine = new RubyEngine();
             Help.Collector.AddAssembly(typeof(DataEditor.Control.Window.EditorWindow).Assembly);
             Help.Collector.AddAssembly(typeof(DataEditor.Control.Wrapper.Text).Assembly);
-            Help.Collector.AddAssembly(typeof(DataEditor.Control.Event.EventCommand).Assembly);
+            Help.Collector.AddAssembly(typeof(DataEditor.Control.Event.DataModel.Command).Assembly);
             Help.Collector.AddAssembly(typeof(DataEditor.Control.ShapeShifter.ShapeShifter).Assembly);
-            engine.LoadAssembly(typeof(DataEditor.Control.Event.EventCommand).Assembly);
             engine.LoadAssembly(typeof(DataEditor.Control.Window.EditorWindow).Assembly);
             Help.Bash.RubyEngine = ((str) => engine.Execute(str));
             Help.Bash.RequestAbout = About;

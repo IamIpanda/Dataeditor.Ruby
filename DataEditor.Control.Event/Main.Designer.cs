@@ -31,11 +31,12 @@
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.listBox1 = new DataEditor.Control.Prototype.ProtoListBox();
-            this.listBox2 = new DataEditor.Control.Prototype.ProtoListBox();
+            this.lbMap = new DataEditor.Control.Prototype.ProtoListBox();
+            this.lbEvent = new DataEditor.Control.Prototype.ProtoListBox();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.listBox3 = new DataEditor.Control.Prototype.ProtoListBox();
-            this.protoEventCommandList1 = new DataEditor.Control.Prototype.ProtoEventCommandList();
+            this.lbPage = new DataEditor.Control.Prototype.ProtoListBox();
+            this.OFD = new System.Windows.Forms.OpenFileDialog();
+            this.peclMain = new DataEditor.Control.Prototype.ProtoEventCommandList();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -75,38 +76,40 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.listBox1);
+            this.splitContainer2.Panel1.Controls.Add(this.lbMap);
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.listBox2);
+            this.splitContainer2.Panel2.Controls.Add(this.lbEvent);
             this.splitContainer2.Size = new System.Drawing.Size(292, 529);
             this.splitContainer2.SplitterDistance = 131;
             this.splitContainer2.TabIndex = 0;
             // 
-            // listBox1
+            // lbMap
             // 
-            this.listBox1.DisappearRectLosingFocus = true;
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(0, 0);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(131, 529);
-            this.listBox1.TabIndex = 0;
+            this.lbMap.DisappearRectLosingFocus = true;
+            this.lbMap.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbMap.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lbMap.FormattingEnabled = true;
+            this.lbMap.ItemHeight = 12;
+            this.lbMap.Location = new System.Drawing.Point(0, 0);
+            this.lbMap.Name = "lbMap";
+            this.lbMap.Size = new System.Drawing.Size(131, 529);
+            this.lbMap.TabIndex = 0;
+            this.lbMap.SelectedIndexChanged += new System.EventHandler(this.lbMap_SelectedIndexChanged);
             // 
-            // listBox2
+            // lbEvent
             // 
-            this.listBox2.DisappearRectLosingFocus = true;
-            this.listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 12;
-            this.listBox2.Location = new System.Drawing.Point(0, 0);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(157, 529);
-            this.listBox2.TabIndex = 0;
+            this.lbEvent.DisappearRectLosingFocus = true;
+            this.lbEvent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbEvent.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lbEvent.FormattingEnabled = true;
+            this.lbEvent.ItemHeight = 12;
+            this.lbEvent.Location = new System.Drawing.Point(0, 0);
+            this.lbEvent.Name = "lbEvent";
+            this.lbEvent.Size = new System.Drawing.Size(157, 529);
+            this.lbEvent.TabIndex = 0;
+            this.lbEvent.SelectedIndexChanged += new System.EventHandler(this.lbEvent_SelectedIndexChanged);
             // 
             // splitContainer3
             // 
@@ -116,38 +119,44 @@
             // 
             // splitContainer3.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.listBox3);
+            this.splitContainer3.Panel1.Controls.Add(this.lbPage);
             // 
             // splitContainer3.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.protoEventCommandList1);
+            this.splitContainer3.Panel2.Controls.Add(this.peclMain);
             this.splitContainer3.Size = new System.Drawing.Size(528, 529);
             this.splitContainer3.SplitterDistance = 176;
             this.splitContainer3.TabIndex = 0;
             // 
-            // listBox3
+            // lbPage
             // 
-            this.listBox3.DisappearRectLosingFocus = true;
-            this.listBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.listBox3.FormattingEnabled = true;
-            this.listBox3.ItemHeight = 12;
-            this.listBox3.Location = new System.Drawing.Point(0, 0);
-            this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(176, 529);
-            this.listBox3.TabIndex = 0;
+            this.lbPage.DisappearRectLosingFocus = true;
+            this.lbPage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbPage.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.lbPage.FormattingEnabled = true;
+            this.lbPage.ItemHeight = 12;
+            this.lbPage.Location = new System.Drawing.Point(0, 0);
+            this.lbPage.Name = "lbPage";
+            this.lbPage.Size = new System.Drawing.Size(176, 529);
+            this.lbPage.TabIndex = 0;
+            this.lbPage.SelectedIndexChanged += new System.EventHandler(this.lbPage_SelectedIndexChanged);
             // 
-            // protoEventCommandList1
+            // OFD
             // 
-            this.protoEventCommandList1.DisappearRectLosingFocus = true;
-            this.protoEventCommandList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.protoEventCommandList1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.protoEventCommandList1.FormattingEnabled = true;
-            this.protoEventCommandList1.Location = new System.Drawing.Point(0, 0);
-            this.protoEventCommandList1.Name = "protoEventCommandList1";
-            this.protoEventCommandList1.Size = new System.Drawing.Size(348, 529);
-            this.protoEventCommandList1.TabIndex = 0;
-            this.protoEventCommandList1.With = null;
+            this.OFD.Filter = "RMXP 工程|*.rxproj";
+            this.OFD.Title = "打开工程";
+            // 
+            // peclMain
+            // 
+            this.peclMain.DisappearRectLosingFocus = true;
+            this.peclMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.peclMain.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.peclMain.FormattingEnabled = true;
+            this.peclMain.Location = new System.Drawing.Point(0, 0);
+            this.peclMain.Name = "peclMain";
+            this.peclMain.Size = new System.Drawing.Size(348, 529);
+            this.peclMain.TabIndex = 0;
+            this.peclMain.With = null;
             // 
             // Main
             // 
@@ -178,9 +187,10 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private Prototype.ProtoEventCommandList protoEventCommandList1;
-        private DataEditor.Control.Prototype.ProtoListBox listBox1;
-        private DataEditor.Control.Prototype.ProtoListBox listBox2;
-        private DataEditor.Control.Prototype.ProtoListBox listBox3;
+        private Prototype.ProtoEventCommandList peclMain;
+        private DataEditor.Control.Prototype.ProtoListBox lbMap;
+        private DataEditor.Control.Prototype.ProtoListBox lbEvent;
+        private DataEditor.Control.Prototype.ProtoListBox lbPage;
+        private System.Windows.Forms.OpenFileDialog OFD;
     }
 }

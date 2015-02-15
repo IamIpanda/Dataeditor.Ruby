@@ -94,8 +94,9 @@ namespace DataEditor.Control.Event.DataModel
             foreach (var command in With)
                 if (command.Type.TextFollowPosition >= 0)
                     sb.Append(Environment.NewLine + command.GetParameter<FuzzyString>(command.Type.TextFollowPosition).Text);
-            if (fstr != null) fstr.Text = sb.ToString();
-            else this.Parameters[this.Type.TextPosition] = new FuzzyString(sb.ToString());
+            var target = ans[this.Type.TextPosition] as FuzzyString;
+            if (target == null) ans[Type.TextPosition] = new FuzzyString(sb.ToString());
+            else target.Text = sb.ToString();
             return ans;
         }
 

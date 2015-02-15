@@ -5,7 +5,7 @@ using System.Text;
 namespace DataEditor.Control.Wrapper
 {
     // TODO: I Don't know how to write out this a piece of shit.
-    // TODO: But although it's here, I have to have a taste.
+    // TODO: But since it's here, I have to have a taste.
     public class Radio : Control.WrapControlValueContainer<FuzzyData.FuzzyFixnum, Prototype.ProtoRadioContainer>
     {
         public override string Flag { get { return "radio"; } }
@@ -80,7 +80,6 @@ namespace DataEditor.Control.Wrapper
         public override void Bind()
         {
             base.Bind();
-            Control.Radio.CheckedChanged += OnRadiosChanged;
             Control.Radio.CheckedChanged += Radio_CheckedChanged;
             Control.EnabledChanged += Control_EnabledChanged;
             Control.Disposed += Control_Disposed;
@@ -108,6 +107,7 @@ namespace DataEditor.Control.Wrapper
                     base.Pull();
                 }
             }
+            OnRadiosChanged(sender, e);
         }
         /// <summary>
         /// 设置为 Unchecked。

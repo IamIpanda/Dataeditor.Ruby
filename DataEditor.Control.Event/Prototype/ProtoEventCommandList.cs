@@ -88,6 +88,7 @@ namespace DataEditor.Control.Prototype
         {
             EndingIndex = -1;
             if (last_end_index >= this.Items.Count) last_end_index = this.Items.Count - 1;
+            if (last_start_index >= this.Items.Count) last_start_index = this.Items.Count - 1;
             var rect_top = this.GetItemRectangle(last_start_index);
             var rect_end = this.GetItemRectangle(last_end_index);
             if (rect_top.Top < 0) rect_top.Y = 0;
@@ -222,7 +223,9 @@ namespace DataEditor.Control.Prototype
                 for (var i = this.EndingIndex; i > selected_index; i--)
                     this.Items.RemoveAt(i);
                 for (var i = 0; i < value.Count; i++)
-                    this.Items.Insert(i + selected_index, value[i]);
+                    this.Items.Insert(i + selected_index + 1, value[i]);
+                this.SelectedIndex = -1;
+                this.SelectedIndex = selected_index;
             }
         }
 
@@ -330,10 +333,11 @@ namespace DataEditor.Control.Prototype
             if (CanInsert == false) return;
             if (cm == null) cm = new CommandChooseWindow();
             if (cm.ShowDialog() != DialogResult.OK) return;
-            var list = cm.SelectedCommands;
             var index = SelectedIndex;
             for (var i = 0; i < cm.SelectedCommands.Count; i++)
                 this.Items.Insert(i + index, cm.SelectedCommands[i]);
+            this.SelectedIndex = -1;
+            this.SelectedIndex = index;
         }
 
         public void Insert(Command command)
@@ -350,7 +354,7 @@ namespace DataEditor.Control.Prototype
             if (window == null) return;
             if (window.Show() != DialogResult.OK) return;
             var with = command.Type.With == null ? null : command.Type.With.call(window, this.With) as IEnumerable<object>;
-            command.FuzzyParameters = window.Value as FuzzyArray;
+            command.FuzzyParameters = window.Parent as FuzzyArray;
             command.SyncToLink();
             command.GenerateString();
             if (with == null) return;

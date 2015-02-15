@@ -65,6 +65,7 @@ namespace DataEditor.Control.Event
                 EventKeys.Add(key);
                 lbEvent.Items.Add(name);
             }
+            if (lbEvent.Items.Count > 0) lbEvent.SelectedIndex = 0;
         }
 
         void SetPageListBox()
@@ -76,6 +77,7 @@ namespace DataEditor.Control.Event
             lbPage.Items.Clear();
             for (int i = 0; i < FuzzyPages.Count; i++)
                 lbPage.Items.Add("第 " + (i + 1).ToString() + " 页");
+            if (lbPage.Items.Count > 0) lbPage.SelectedIndex = 0;
         }
 
         void SetCommandListBox()
@@ -102,9 +104,10 @@ namespace DataEditor.Control.Event
                 FuzzyArray commonList = Help.Data.Instance["commonevent"] as FuzzyArray;
                 Map = Event = commonList;
                 if (Map == null) return;
-                for (int i = 0; i < commonList.Length; i++)
-                    lbPage.Items.Add("公共事件" + i.ToString());
+                for (int i = 0; i < commonList.Length - 1; i++)
+                    lbPage.Items.Add("公共事件 " + (i + 1).ToString());
                 lbPage.Enabled = true;
+                if (lbPage.Items.Count > 0) lbPage.SelectedIndex = 0;
             }
             else
             {
@@ -135,7 +138,7 @@ namespace DataEditor.Control.Event
             peclMain.Enabled = false;
             if (Event == null) return;
             if (EditingCommonEvents)
-                Page = (Event as FuzzyArray)[lbPage.SelectedIndex] as FuzzyObject;
+                Page = (Event as FuzzyArray)[lbPage.SelectedIndex + 1] as FuzzyObject;
             else Page = (Event[PagesSymbol] as FuzzyArray)[lbPage.SelectedIndex] as FuzzyObject;
             if (Page != null) SetCommandListBox();
         }

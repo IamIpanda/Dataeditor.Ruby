@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DataEditor.Control.Event.DataModel;
+using DataEditor.FuzzyData;
 using DataEditor.Help;
 
 namespace DataEditor.Control.Window
@@ -100,6 +101,7 @@ namespace DataEditor.Control.Window
             if (type.Window != null) result = window.Show();
             if (result == null || result == DialogResult.OK)
             {
+                command.FuzzyParameters = window.Parent as FuzzyArray;
                 if (type.With != null)
                 {
                     var with = type.With.call(window, new List<object>());

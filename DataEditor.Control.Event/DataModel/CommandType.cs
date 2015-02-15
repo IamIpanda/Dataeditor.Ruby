@@ -149,7 +149,7 @@ namespace DataEditor.Control.Event.DataModel
                     if (index >= 0) text_position = index;
                     return new FuzzyString(option);
                 case ParameterTextFollowSign:
-                    if (index > 0) follow_position = index;
+                    if (index >= 0) follow_position = index;
                     return new FuzzyString(option);
                 case ParameterFloatSign:
                     double d = 0;

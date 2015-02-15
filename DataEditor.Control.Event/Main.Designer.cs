@@ -35,8 +35,8 @@
             this.lbEvent = new DataEditor.Control.Prototype.ProtoListBox();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.lbPage = new DataEditor.Control.Prototype.ProtoListBox();
-            this.OFD = new System.Windows.Forms.OpenFileDialog();
             this.peclMain = new DataEditor.Control.Prototype.ProtoEventCommandList();
+            this.OFD = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -87,7 +87,7 @@
             // 
             // lbMap
             // 
-            this.lbMap.DisappearRectLosingFocus = true;
+            this.lbMap.DisappearRectLosingFocus = false;
             this.lbMap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbMap.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lbMap.FormattingEnabled = true;
@@ -100,7 +100,7 @@
             // 
             // lbEvent
             // 
-            this.lbEvent.DisappearRectLosingFocus = true;
+            this.lbEvent.DisappearRectLosingFocus = false;
             this.lbEvent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbEvent.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lbEvent.FormattingEnabled = true;
@@ -130,7 +130,7 @@
             // 
             // lbPage
             // 
-            this.lbPage.DisappearRectLosingFocus = true;
+            this.lbPage.DisappearRectLosingFocus = false;
             this.lbPage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbPage.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lbPage.FormattingEnabled = true;
@@ -140,11 +140,6 @@
             this.lbPage.Size = new System.Drawing.Size(176, 529);
             this.lbPage.TabIndex = 0;
             this.lbPage.SelectedIndexChanged += new System.EventHandler(this.lbPage_SelectedIndexChanged);
-            // 
-            // OFD
-            // 
-            this.OFD.Filter = "RMXP 工程|*.rxproj";
-            this.OFD.Title = "打开工程";
             // 
             // peclMain
             // 
@@ -157,6 +152,11 @@
             this.peclMain.Size = new System.Drawing.Size(348, 529);
             this.peclMain.TabIndex = 0;
             this.peclMain.With = null;
+            // 
+            // OFD
+            // 
+            this.OFD.Filter = "RMXP 工程|*.rxproj";
+            this.OFD.Title = "打开工程";
             // 
             // Main
             // 

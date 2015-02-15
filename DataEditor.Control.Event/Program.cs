@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using DataEditor.Help;
 using DataEditor.Ruby;
 
 namespace DataEditor.Control.Event
@@ -22,7 +23,8 @@ namespace DataEditor.Control.Event
         public static void Initialize()
         {
             // Load this Assembly self into Engine.
-            engine.LoadAssembly(typeof (Program).Assembly);
+            engine.LoadAssembly(typeof(Program).Assembly);
+            Collector.AddAssembly(typeof(Program).Assembly);
             Help.Collector.AddAssembly(typeof (Control.Wrapper.Check).Assembly);
             Help.Collector.AddAssembly(typeof (Control.Window.WindowWithOK).Assembly);
             Help.Collector.AddAssembly(typeof(Control.Window.WindowWithOK).Assembly);

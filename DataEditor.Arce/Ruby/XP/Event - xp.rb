@@ -1568,7 +1568,7 @@ target_window = Proc.new do |window, commands|
     model = [0, 1].to_fuzzy
     inner_window = Proc.new do |windNow, value|
       Builder.In(window)
-        Builder.Add(:radio, {actual: :IDEX0, key: 0, text: "物品"}) do
+        Builder.Add(:radio, {actual: :INDEX0, key: 0, text: "物品"}) do
           Builder.Add(:choose, actual: :INDEX1, label: 0, choice: { nil => Filechoice.new("item") })
         end
         Builder.Add(:radio, {actual: :INDEX0, key: 1, text: "武器"}) do

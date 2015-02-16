@@ -357,9 +357,9 @@ namespace DataEditor.Control.Prototype
             command.FuzzyParameters = window.Parent as FuzzyArray;
             command.SyncToLink();
             command.GenerateString();
-            if (with == null) return;
-            var list_with = with.OfType<Command>().Select(obj => obj).ToList();
-            this.With = list_with;
+            if (with != null)
+                With = with.OfType<Command>().Select(obj => obj).ToList();
+            ProtoEventCommandList_SelectedIndexChanged(this, new EventArgs());
         }
 
         private static DataEditor.Help.Clipboard clip = DataEditor.Help.Clipboard.GetClip();

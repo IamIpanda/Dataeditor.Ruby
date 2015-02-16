@@ -140,14 +140,15 @@ end
 target_window = Proc.new do |window, commands|
   window = Builder.Add(:dialog_r) do
     Builder.Order
+    # 没有正常工作
     Builder.Add(:group, { text: "显示位置" }) do
-     Builder.Add(:radio, { actual: :INDEX0, text: "上", key: 0, group: "window_code_104_1" })
-     Builder.Add(:radio, { actual: :INDEX0, text: "中", key: 1, group: "window_code_104_1" })
-     Builder.Add(:radio, { actual: :INDEX0, text: "下", key: 2, group: "window_code_104_1" })
+     Builder.Add(:single_radio, { actual: :INDEX0, text: "上", key: 0, width: 70, group: "window_code_104_1" })
+     Builder.Add(:single_radio, { actual: :INDEX0, text: "中", key: 1, width: 70, group: "window_code_104_1" })
+     Builder.Add(:single_radio, { actual: :INDEX0, text: "下", key: 2, width: 70, group: "window_code_104_1" })
     end
     Builder.Add(:group, { text: "窗口显示" }) do
-     Builder.Add(:radio, { actual: :INDEX1, text: "显示", key: 0, group: "window_code_104_2" })
-     Builder.Add(:radio, { actual: :INDEX1, text: "不显示", key: 1, group: "window_code_104_2" })
+     Builder.Add(:single_radio, { actual: :INDEX1, text: "显示", key: 0, width: 70, group: "window_code_104_2" })
+     Builder.Add(:single_radio, { actual: :INDEX1, text: "不显示", key: 1, width: 70, group: "window_code_104_2" })
     end
   end
 end
@@ -873,7 +874,7 @@ end
 target_window = Proc.new do |window, commands|
  window = Builder.Add(:dialog_audio, { actual: :INDEX0, type: "BGM" })
 end
-$commands_xp[132] = Command.new(132, -1, "BATTLEBGM", "更改战斗 BGM", target_text, "d", target_window, nil)
+$commands_xp[132] = Command.new(132, -1, "BATTLEBGM", "更改战斗 BGM", target_text, "a", target_window, nil)
 
 #=================================================================
 # Code 133
@@ -887,7 +888,7 @@ end
 target_window = Proc.new do |window, commands|
  window = Builder.Add(:dialog_audio, { actual: :INDEX0, type: "ME" })
 end
-$commands_xp[133] = Command.new(133, -1, "BATTLEME", "更改战斗结束的 ME", target_text, "d", target_window, nil)
+$commands_xp[133] = Command.new(133, -1, "BATTLEME", "更改战斗结束的 ME", target_text, "a", target_window, nil)
 
 #=================================================================
 # Code 134
@@ -1422,7 +1423,7 @@ end
 target_window = Proc.new do |window, commands|
  window = Builder.Add(:dialog_audio, { actual: :INDEX0, type: "BGM" })
 end
-$commands_xp[241] = Command.new(241, -1, "PLAYBGM", "演奏 BGM", target_text, "d", target_window, nil)
+$commands_xp[241] = Command.new(241, -1, "PLAYBGM", "演奏 BGM", target_text, "a", target_window, nil)
 
 #=================================================================
 # Code 242
@@ -1454,7 +1455,7 @@ end
 target_window = Proc.new do |window, commands|
  window = Builder.Add(:dialog_audio, { actual: :INDEX0, type: "BGS" })
 end
-$commands_xp[245] = Command.new(245, -1, "PLAYBGS", "演奏 BGS", target_text, "d", target_window, nil)
+$commands_xp[245] = Command.new(245, -1, "PLAYBGS", "演奏 BGS", target_text, "a", target_window, nil)
 
 #=================================================================
 # Code 246
@@ -1504,7 +1505,7 @@ end
 target_window = Proc.new do |window, commands|
  window = Builder.Add(:dialog_audio, { actual: :INDEX0, type: "ME" })
 end
-$commands_xp[249] = Command.new(249, -1, "PLAYME", "演奏 ME", target_text, "d", target_window, nil)
+$commands_xp[249] = Command.new(249, -1, "PLAYME", "演奏 ME", target_text, "a", target_window, nil)
 
 #=================================================================
 # Code 250
@@ -1518,7 +1519,7 @@ end
 target_window = Proc.new do |window, commands|
  window = Builder.Add(:dialog_audio, { actual: :INDEX0, type: "SE" })
 end
-$commands_xp[250] = Command.new(250, -1, "PLAYSE", "演奏 SE", target_text, "d", target_window, nil)
+$commands_xp[250] = Command.new(250, -1, "PLAYSE", "演奏 SE", target_text, "a", target_window, nil)
 
 #=================================================================
 # Code 251
@@ -1544,6 +1545,9 @@ target_window = Proc.new do |window, commands|
   Builder.Add(:check, { actual: :INDEX1, text: "可以逃跑" })
   Builder.Add(:check, { actual: :INDEX2, text: "失败的话继续" })
  end
+end
+target_with = Proc.new do |window, old_with|
+
 end
 $commands_xp[301] = Command.new(301, -1, "BATTLE", "战斗处理", target_text, "ibb", target_window, nil, 604)
 

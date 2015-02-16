@@ -7,14 +7,13 @@ namespace DataEditor.Control.Event.DataModel
 {
     static public class Audio
     {
-        static FuzzySymbol NameSymbol = FuzzySymbol.GetSymbol("@name"),
+        static readonly FuzzySymbol NameSymbol = FuzzySymbol.GetSymbol("@name"),
             VolumeSymbol = FuzzySymbol.GetSymbol("@volume"),
             PitchSymbol = FuzzySymbol.GetSymbol("@pitch"),
             ClassNameSymbol = FuzzySymbol.GetSymbol("RPG::AudioFile");
-        static public FuzzyObject GetAudio(string Name = "", int Volume = 0, int Pitch = 0)
+        static public FuzzyObject GetAudio(string Name = "", int Volume = 50, int Pitch = 100)
         {
-            FuzzyObject fobj = new FuzzyObject();
-            fobj.ClassName = ClassNameSymbol;
+            FuzzyObject fobj = new FuzzyObject {ClassName = ClassNameSymbol};
             fobj.InstanceVariables.Add(NameSymbol, new FuzzyString(Name));
             fobj.InstanceVariables.Add(VolumeSymbol, new FuzzyFixnum(Volume));
             fobj.InstanceVariables.Add(PitchSymbol, new FuzzyFixnum(Pitch));
@@ -22,9 +21,9 @@ namespace DataEditor.Control.Event.DataModel
         }
         static public FuzzyObject GetAudio(string Description)
         {
-            if (Description == null || Description == "") return GetAudio();
-            string[] parts = Description.Split(',');
-            string name = parts[0];
+            if (string.IsNullOrEmpty(Description)) return GetAudio();
+            var parts = Description.Split(',');
+            var name = parts[0];
             int volume = 0, pitch = 0;
             if (parts.Length == 1 || !(int.TryParse(parts[1], out volume))) return GetAudio(name);
             if (parts.Length == 2 || !(int.TryParse(parts[2], out pitch))) return GetAudio(name, volume);

@@ -209,7 +209,14 @@ namespace DataEditor.Control.Wrapper
         public override void Bind()
         {
             base.Bind();
+            Control.CheckedChanged += Control_CheckedChanged;
             Control.Disposed += Control_Disposed;
+        }
+
+        void Control_CheckedChanged(object sender, EventArgs e)
+        {
+            Push();
+            OnRadiosChanged(sender, e);
         }
 
         void Control_Disposed(object sender, EventArgs e)

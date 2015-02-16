@@ -5,7 +5,7 @@
 require "Ruby/VA/File - va.rb"
 
 page = Builder.Add(:tab, { text: "用语" }) do
-		text = Text.new { |i, target| sprintf("%02d:%s", i, target) }
+	text = Text.new { |i, target| sprintf("%02d:%s", i, target) }
 	Builder.Add(:metro, { text: "属性" }) do
 		Builder.Add(:paper, { actual: :elements, label: 0, textbook: text })
 	end

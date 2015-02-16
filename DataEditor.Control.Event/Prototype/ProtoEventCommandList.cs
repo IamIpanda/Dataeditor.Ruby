@@ -98,7 +98,7 @@ namespace DataEditor.Control.Prototype
             if (SelectedIndex == this.Items.Count - 1 || SelectedIndex < 0) return;
             var command = GetCommand(this.SelectedIndex);
             if (command == null) return;
-            if (command.Type.isTextCommand || command.Type.isStartCommand)
+            if (command.Type.isTextCommand || command.isStartCommand)
             {
                 var search_code = command.Code;
                 var search_ending = command.Type.Ends;
@@ -332,6 +332,7 @@ namespace DataEditor.Control.Prototype
         {
             if (CanInsert == false) return;
             if (cm == null) cm = new CommandChooseWindow();
+            cm.StartingIndent = SelectedCommand.Indent;
             if (cm.ShowDialog() != DialogResult.OK) return;
             var index = SelectedIndex;
             for (var i = 0; i < cm.SelectedCommands.Count; i++)

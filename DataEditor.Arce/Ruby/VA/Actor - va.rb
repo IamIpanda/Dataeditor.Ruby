@@ -58,44 +58,44 @@ end
 tab = Builder.Add(:tab, { text: "角色" }) do
 	Builder.Add(:list, { text: "角色" ,textbook: Help.Get_Default_Text }) do 
 		Builder.Add(:metro, { text: "基本设置" }) do
-				Builder.Order
+			Builder.Order
 			Builder.Add(:text, { actual: :name, text: "角色" })
 			Builder.Add(:text, { actual: :nickname, text: "称号" })
-				Builder.Next
+			Builder.Next
 			Builder.Add(:choose, { 
 				actual: :class_id, 
 				text: "职业" ,
 				choice: { nil => Filechoice.new("class") }
-				 })
+				})
 			Builder.Add(:int, { actual: :initial_level, text: "初始等级"})
 			Builder.Add(:int, { actual: :max_level, text: "最终等级"})
-				Builder.Next
+			Builder.Next
 			Builder.Add(:text, { actual: :description, text: "说明", width: 320, Height: 35 })
 		end
 		Builder.Add(:metro, { text: "图像" }) do	
-				Builder.Order
+			Builder.Order
 			Builder.Add(:image, { 
 				actual: {
-				:name => :character_name, 
-				:index => :character_index }, 
-				text: "",
-				path: "Graphics/Characters",
-				show: Help::VX_IMAGE_SHOW,
-				split: Help::VX_IMAGE_SPLIT,
-				width: 85, 
-				height: 85
-				 })
+					:name => :character_name, 
+					:index => :character_index }, 
+					text: "",
+					path: "Graphics/Characters",
+					show: Help::VX_IMAGE_SHOW,
+					split: Help::VX_IMAGE_SPLIT,
+					width: 85, 
+					height: 85
+					})
 			Builder.Add(:image, { 
 				actual: {
-				:name => :face_name, 
-				:index => :face_index }, 
-				text: "",
-				path: "Graphics/Faces",
-				show: Help::XP_IMAGE_SPLIT,
-				split: Help::FACE_SPLIT,
-				width: 100, 
-				height: 100
-				 })
+					:name => :face_name, 
+					:index => :face_index }, 
+					text: "",
+					path: "Graphics/Faces",
+					show: Help::XP_IMAGE_SPLIT,
+					split: Help::FACE_SPLIT,
+					width: 100, 
+					height: 100
+					})
 		end
 		Builder.Add(:metro, :text => "初期装备", :actual => :equips) do 
 			Builder.Add(:lazy_choose, { 
@@ -106,7 +106,7 @@ tab = Builder.Add(:tab, { text: "角色" }) do
 				text: "武器：      ", 
 				source: Proc.new do |target, parent, control|
 					VA_Help.search_weapon(control)
-			end })			
+				end })			
 			Builder.Add(:lazy_choose, { 
 				actual: :INDEX1, 
 				label: 2, 
@@ -119,7 +119,7 @@ tab = Builder.Add(:tab, { text: "角色" }) do
 					else
 						VA_Help.search_armor(control, 1)
 					end
-			end })
+				end })
 			Builder.Add(:lazy_choose, { 
 				actual: :INDEX2, 
 				label: 2, 
@@ -128,7 +128,7 @@ tab = Builder.Add(:tab, { text: "角色" }) do
 				text: "头盔：      ",
 				source: Proc.new do |target, parent, control|
 					VA_Help.search_armor(control, 2)
-			end })
+				end })
 			Builder.Add(:lazy_choose, { 
 				actual: :INDEX3, 
 				label: 2, 
@@ -137,7 +137,7 @@ tab = Builder.Add(:tab, { text: "角色" }) do
 				text: "铠甲：      ",
 				source: Proc.new do |target, parent, control|
 					VA_Help.search_armor(control, 3)
-			end })
+				end })
 			Builder.Add(:lazy_choose, { 
 				actual: :INDEX4, 
 				label: 2, 
@@ -146,9 +146,9 @@ tab = Builder.Add(:tab, { text: "角色" }) do
 				text: "饰品：      ",
 				source: Proc.new do |target, parent, control|
 					VA_Help.search_armor(control, 4)
-			end })
+				end })
 		end
-			Builder.Next
+		Builder.Next
 		Builder.Add(:metro, { text: "特性" }) do
 			VA_Help::Feature.build_feature
 		end

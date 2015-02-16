@@ -9,7 +9,7 @@ class VA_Help
 		@@fuz = [0, 0, 0, false].to_fuzzy
 		def self.build_damage
 			Builder.Add(:metro, { actual: :damage, text: "伤害" }) do
-					Builder.Order
+				Builder.Order
 				Builder.Add(:choose, { actual: :type, text: "类型", choice: {
 					0 => "无",
 					1 => "HP 伤害",
@@ -24,20 +24,20 @@ class VA_Help
 					0 => "无",
 					nil => Fileselect.new(Data["system"]["@elements"])
 					} })
-					Builder.Next
+				Builder.Next
 				target = Builder.Add(:text, { actual: :formula, text: "计算公式" })
-					Builder.Next
+				Builder.Next
 				Builder.Add(:int, { actual: :variance, text: "离散度" })
 				Builder.Add(:bool_choose, { actual: :critical, text: "允许必杀" })
 				proc = Proc.new do |control, args|
 					window = Builder.Add(:dialog)
 					Builder.In(window)
-						Builder.Order
-						Builder.Add(:int, { actual: :INDEX0, text: "基础伤害" })
-						Builder.Add(:int, { actual: :INDEX1, text: "物理关系度" })
-						Builder.Add(:int, { actual: :INDEX2, text: "魔法关系度" })
-						Builder.Next
-						Builder.Add(:check, { actual: :INDEX3, text: "忽略目标的防御力" })
+					Builder.Order
+					Builder.Add(:int, { actual: :INDEX0, text: "基础伤害" })
+					Builder.Add(:int, { actual: :INDEX1, text: "物理关系度" })
+					Builder.Add(:int, { actual: :INDEX2, text: "魔法关系度" })
+					Builder.Next
+					Builder.Add(:check, { actual: :INDEX3, text: "忽略目标的防御力" })
 					Builder.Out
 					window.Value = @@fuz
 					if(window.ShowAndTell)

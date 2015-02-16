@@ -19,65 +19,65 @@ end
 class VA_Help
 	class Feature
 		@@elements = [
-				"体力上限",
-				"魔力上限",
-				"物理攻击",
-				"物理防御",
-				"魔法攻击",
-				"魔法防御",
-				"敏捷值",
-				"幸运值"
-			]
+			"体力上限",
+			"魔力上限",
+			"物理攻击",
+			"物理防御",
+			"魔法攻击",
+			"魔法防御",
+			"敏捷值",
+			"幸运值"
+		]
 		@@abilities = [
-				"物理命中几率",
-				"物理闪避几率",
-				"必杀几率",
-				"必杀闪避几率",
-				"魔法闪避几率",
-				"魔法反射几率",
-				"物理反击几率",
-				"体力值再生速度",
-				"魔力值再生速度",
-				"特技值再生速度"
-			]
+			"物理命中几率",
+			"物理闪避几率",
+			"必杀几率",
+			"必杀闪避几率",
+			"魔法闪避几率",
+			"魔法反射几率",
+			"物理反击几率",
+			"体力值再生速度",
+			"魔力值再生速度",
+			"特技值再生速度"
+		]
 		@@specials = [
-				"受到攻击几率",
-				"防御效果比率",
-				"恢复效果比率",
-				"药理知识",
-				"魔力值消耗率",
-				"特技值补充率",
-				"物理伤害加成",
-				"魔法伤害加成",
-				"地形伤害加成",
-				"经验获取加成"
+			"受到攻击几率",
+			"防御效果比率",
+			"恢复效果比率",
+			"药理知识",
+			"魔力值消耗率",
+			"特技值补充率",
+			"物理伤害加成",
+			"魔法伤害加成",
+			"地形伤害加成",
+			"经验获取加成"
 		]
 		@@equipments = [
-				"武器",
-				"盾牌",
-				"头盔",
-				"铠甲",
-				"饰品"
-			]
+			"武器",
+			"盾牌",
+			"头盔",
+			"铠甲",
+			"饰品"
+		]
 		@@battleflags = [
-				"自动战斗",
-				"擅长防御",
-				"保护弱者",
-				"特技专注"
-			]
+			"自动战斗",
+			"擅长防御",
+			"保护弱者",
+			"特技专注"
+		]
 		@@disappears = [
-				"首领",
-				"瞬间消失",
-				"不消失"
-			]
+			"首领",
+			"瞬间消失",
+			"不消失"
+		]
 		@@outs = [
-				"遇敌几率减半",
-				"随机遇敌无效",
-				"敌人偷袭无效",
-				"先制攻击几率上升",
-				"获得金钱几率双倍",
-				"物品掉落几率双倍"
-			]
+			"遇敌几率减半",
+			"随机遇敌无效",
+			"敌人偷袭无效",
+			"先制攻击几率上升",
+			"获得金钱几率双倍",
+			"物品掉落几率双倍"
+		]
 		def self.build_feature
 			columns = ["类型","内容"]
 			texts = []
@@ -107,7 +107,7 @@ class VA_Help
 					62 => "特殊标志",
 					63 => "消失效果",
 					64 => "队伍能力"
-				 }
+				}
 				text[args[0]["@code"].Value.to_s.to_i].encode
 			end
 			texts[1] = Text.new do |*args|
@@ -133,7 +133,7 @@ class VA_Help
 					part0 = Data["state"][data_id]["@name"].Text
 				when 22
 					part0 = @@abilities[data_id].encode
-						part1 = " + "
+					part1 = " + "
 				when 23
 					part0 = @@specials[data_id].encode
 					part1 = " * "
@@ -183,7 +183,7 @@ class VA_Help
 				Builder.Add(:tabs) do
 					Builder.Add(:tab ,{ text: "抗性" }) do
 						VA_Help::Feature.radio(11, "属性抗性") do
-						 VA_Help::Feature.choose({ nil => Fileselect.new(Data["system"]["@elements"]) })
+							VA_Help::Feature.choose({ nil => Fileselect.new(Data["system"]["@elements"]) })
 							Builder.Text(" * ")
 							VA_Help::Feature.percent
 						end
@@ -220,12 +220,12 @@ class VA_Help
 					end
 					Builder.Add(:tab, { text: "攻击" }) do
 						VA_Help::Feature.radio(31, "攻击附加属性") do
-						 VA_Help::Feature.choose({ nil => Fileselect.new(Data["system"]["@elements"]) })
+							VA_Help::Feature.choose({ nil => Fileselect.new(Data["system"]["@elements"]) })
 						end
 						VA_Help::Feature.radio(32, "攻击附加状态") do
-						 VA_Help::Feature.choose({ nil => Filechoice.new("state") })
-						 Builder.Text(" + ")
-						 VA_Help::Feature.percent
+							VA_Help::Feature.choose({ nil => Filechoice.new("state") })
+							Builder.Text(" + ")
+							VA_Help::Feature.percent
 						end
 						VA_Help::Feature.radio(33, "修正攻击速度") { Builder.Add(:float, {:actual => :value, :label => 0, :digits => 0 }) }
 						VA_Help::Feature.radio(34, "增加攻击次数") { Builder.Add(:float, {:actual => :value, :label => 0, :digits => 0 }) }
@@ -257,14 +257,14 @@ class VA_Help
 			end
 			Builder.Add(:view, { 
 				actual: :features,
-				 label: 0,
-				 columns: columns, 
-				 catalogue: texts, 
+				label: 0,
+				columns: columns, 
+				catalogue: texts, 
 				window: window, 
 				width: 275,
 				height: 350,
 				new: RPG::BaseItem::Feature.new.to_fuzzy 
-				 })
+				})
 		end
 		def self.choose(choices)
 			Builder.Order

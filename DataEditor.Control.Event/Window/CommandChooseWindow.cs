@@ -14,13 +14,15 @@ namespace DataEditor.Control.Window
 {
     public partial class CommandChooseWindow : Form
     {
-        static string all_types = "全部";
+        private const string all_types = "全部";
+
         public CommandChooseWindow()
         {
             InitializeComponent();
             cbMain.Items.Add(all_types);
             cbMain.Items.AddRange(Event.DataModel.CommandGroup.Groups.ToArray());
             cbMain.SelectedIndex = 0;
+            StartingIndent = 0;
         }
 
         private void cbMain_SelectedIndexChanged(object sender, EventArgs e)
@@ -89,11 +91,13 @@ namespace DataEditor.Control.Window
                 this.Close();
         }
 
+        public int StartingIndent { get; set; }
+
         private void lb_DoubleClick(object sender, EventArgs e)
         {
             var type = SelectedCommandType;
             selectedCommands = new List<Command>();
-            var command = new Command(type);
+            var command = new Command(type, StartingIndent);
             selectedCommands.Add(command);
             var window = command.GenerateWindow(new List<Command>());
             this.Hide();

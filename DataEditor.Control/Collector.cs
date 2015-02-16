@@ -65,9 +65,18 @@ namespace DataEditor.Help
             var path = GetAssemblyBufferPath(ass);
             var fileinfo = new System.IO.FileInfo(path);
             if (!fileinfo.Exists) return null;
-            var stream = fileinfo.OpenRead();
-            object ans = Help.Option.GetOption(stream);
-            stream.Close();
+            object ans;
+            try
+            {
+                var stream = fileinfo.OpenRead();
+                ans = Help.Option.GetOption(stream);
+                stream.Close();
+            }
+            catch (Exception ex)
+            {
+                Log.log("Failed load the assembly " + path + "for: " + ex.ToString());
+                return null;
+            }
             var buffer = ans as TypeBuffer;
             if (buffer == null) return null;
             DateTime LastTime = buffer.LastTime;
@@ -82,8 +91,15 @@ namespace DataEditor.Help
             buffer.LastTime = NowTime;
             buffer.Types = value;
             string name = GetAssemblyBufferPath(ass);
-            FileStream stream = new FileStream(name, FileMode.Create);
-            Help.Option.SetOption(stream, buffer);
+            try
+            {
+                FileStream stream = new FileStream(name, FileMode.Create);
+                Help.Option.SetOption(stream, buffer);
+            }
+            catch (Exception ex)
+            {
+                Log.log("Failed to write buffer to " + name.ToString() + " for:\n" + ex.ToString());
+            }
         }
         static public string GetAssemblyBufferPath(Assembly ass)
         {

@@ -29,10 +29,10 @@ namespace DataEditor.Control.Event.DataModel
             if (answer is T) return (T)answer;
             return default(T);
         }
-        public Command(CommandType Origin) 
+        public Command(CommandType Origin, int indent = 0) 
         {
             this.Type = Origin;
-            this.Indent = 0;
+            this.Indent = indent;
             this.Parameters = this.Type.GetParameters();
             this.Link = new FuzzyObject();
             isChecked = true;
@@ -41,7 +41,7 @@ namespace DataEditor.Control.Event.DataModel
             Link.InstanceVariables.Add(IndentSymbol, new FuzzyFixnum(this.Indent));
             Link.InstanceVariables.Add(ParametersSymbol, new FuzzyArray(Parameters.ConvertAll<object>((x) => x)));
         }
-        public Command(FuzzyData.FuzzyObject command)
+        public Command(FuzzyData.FuzzyObject command, int indent = 0)
         {
             object obj;
             FuzzyData.FuzzyFixnum fuzzy_code = null, fuzzy_indent = null;
@@ -54,6 +54,7 @@ namespace DataEditor.Control.Event.DataModel
             if (fuzzy_indent != null) this.Indent = Convert.ToInt32(fuzzy_indent.Value);
             if (fuzzy_parameter != null)
                 this.Parameters = new List<FuzzyObject>(fuzzy_parameter.ConvertAll((o) => o as FuzzyObject));
+            this.Indent = indent;
         }
         #region 带缓存的 ToString 机制
         string StringVersion = null;
@@ -172,6 +173,14 @@ namespace DataEditor.Control.Event.DataModel
             if (!(Link.InstanceVariables[ParametersSymbol] is FuzzyArray))
                 Link.InstanceVariables[ParametersSymbol] = new FuzzyArray();
             isChecked = true;
+        }
+        #endregion
+
+        #region Fucking 301 Fix
+
+        public bool isStartCommand
+        {
+            get { return Type.IsStartProc == null ? Type.isStartCommand : (bool)Type.IsStartProc.call(this.Parameters); }
         }
         #endregion
     }

@@ -19,7 +19,8 @@ namespace DataEditor.Control.Event.DataModel
             ParameterAudioSign = 'a',
             ParameterBoolSign = 'b',
             ParameterMovementSign = 'm',
-            ParameterUndetermindSign = 'u';
+            ParameterUndetermindSign = 'u',
+            ParameterArraySign = 'l';
         protected const string ParameterStrIntSign = "i",
             ParameterStrStringSign = "s",
             ParameterStrTextSign = "t",
@@ -30,7 +31,8 @@ namespace DataEditor.Control.Event.DataModel
             ParameterStrAudioSign = "a",
             ParameterStrBoolSign = "b",
             ParameterStrMovementSign = "m",
-            ParameterStrUndetermindSign = "u";
+            ParameterStrUndetermindSign = "u",
+            ParameterStrArraySign = "l";
         /// <summary>
         /// 指令 ID
         /// </summary>
@@ -169,6 +171,8 @@ namespace DataEditor.Control.Event.DataModel
                 case ParameterUndetermindSign:
                     if (index > 0) undetermined_position = index;
                     return null;
+                case ParameterArraySign:
+                    return new FuzzyArray(GenerateParameters(option).OfType<object>());
             }
             return null;
         }
@@ -179,20 +183,23 @@ namespace DataEditor.Control.Event.DataModel
                 return model.Select(f => f == null ? null : f.Clone() as FuzzyObject).ToList();
             else return GenerateParameters();
         }
-        public List<FuzzyObject> GenerateParameters()
+
+        public List<FuzzyObject> GenerateParameters(string source = null)
         {
             var answer = new List<FuzzyObject>();
             var reg = new System.Text.RegularExpressions.Regex("([A-Za-z])({(.+?)}){0,1}");
-            var matches = reg.Matches(this.Parameters);
+            var matches = reg.Matches(source ?? this.Parameters);
             for (var i = 0; i < matches.Count; i++)
             {
                 var match = matches[i];
-                var type = match.Groups.Count >= 2 ? Convert.ToChar(match.Groups[1].ToString()) : Convert.ToChar(match.Groups[0].ToString());
+                var type = match.Groups.Count >= 2
+                    ? Convert.ToChar(match.Groups[1].ToString())
+                    : Convert.ToChar(match.Groups[0].ToString());
                 answer.Add(match.Groups.Count >= 2
                     ? GetParameter(type, i, match.Groups[3].ToString())
                     : GetParameter(type, i));
             }
-            model = answer;
+            if (source == null) model = answer;
             return answer;
         }
 
@@ -227,6 +234,7 @@ namespace DataEditor.Control.Event.DataModel
         /// <summary>
         /// 此指令是否是一个父指令？
         /// </summary>
+        public Contract.Runable IsStartProc = null; // Fucking 301 Fix
         public bool isStartCommand { get { return this.Ends >= 0 && this.Ends != this.Follow; } }
         /// <summary>
         /// 此指令是否需要延长？

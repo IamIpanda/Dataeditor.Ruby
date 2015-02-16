@@ -12,11 +12,11 @@ Builder.Add(:tab, { text: "职业" }) do
 			Builder.Add(:text, { actual: :name, text: "名称" })
 			Builder.Add(:metro, { actual: :exp_params }) do
 				Builder.Add(:exp, { actual: {
-				:arg0 => :INDEX0, 
-				:arg1 => :INDEX1, 
-				:arg2 => :INDEX2,
-				:arg3 => :INDEX3},
-				 text: "经验值曲线", min: 10, max: 50,
+					:arg0 => :INDEX0, 
+					:arg1 => :INDEX1, 
+					:arg2 => :INDEX2,
+					:arg3 => :INDEX3},
+					text: "经验值曲线", min: 10, max: 50,
 					value: Proc.new do |*args|
 						lv = args[0].to_f
 						basis = args[1][0].to_f
@@ -27,17 +27,17 @@ Builder.Add(:tab, { text: "职业" }) do
 						lv += 1
 						(basis * ((lv - 1) ** (0.9 + acc_a / 250)) * lv * (lv + 1) / (6 + lv ** 2 / 50 / acc_b) + (lv - 1) * extra).round.to_i - s1
 					end
-				})
+					})
 			end
 		end
 		Builder.Add(:metro, { text: "能力值成长曲线" }) do
 			Builder.Add(:actor_parameters, :actual => :params) do
-					Builder.Order
+				Builder.Order
 				Builder.Add(:actor, { index: 0, text: "体力上限" ,color: Painter[16], max_number: 9999 })
 				Builder.Add(:actor, { index: 1, text: "魔力上限" ,color: Painter[18], max_number: 9999 })
 				Builder.Add(:actor, { index: 2, text: "物理攻击" ,color: Painter[19], max_number: 999 })
 				Builder.Add(:actor, { index: 3, text: "物理防御" ,color: Painter[21], max_number: 999 })
-					Builder.Next
+				Builder.Next
 				Builder.Add(:actor, { index: 4, text: "魔法攻击" ,color: Painter[22], max_number: 999 })
 				Builder.Add(:actor, { index: 5, text: "魔法防御" ,color: Painter[23], max_number: 999 })
 				Builder.Add(:actor, { index: 6, text: "敏捷值" ,color: Painter[24], max_number: 999 })
@@ -47,11 +47,11 @@ Builder.Add(:tab, { text: "职业" }) do
 		Builder.Add(:metro, { text: "技能" }) do
 			window = Proc.new do |window, value|
 				Builder.In(window)
-					Builder.Order
-					Builder.Add(:int, { actual: :level, text: "等级" })
-					Builder.Add(:choose, { actual: :skill_id, text: "学会的特技", choice: { nil => Filechoice.new("skill") } })
-					Builder.Next
-					Builder.Add(:text, { actual: :note, text: "备注" })
+				Builder.Order
+				Builder.Add(:int, { actual: :level, text: "等级" })
+				Builder.Add(:choose, { actual: :skill_id, text: "学会的特技", choice: { nil => Filechoice.new("skill") } })
+				Builder.Next
+				Builder.Add(:text, { actual: :note, text: "备注" })
 				Builder.Out
 				window.Value = value
 			end
@@ -65,19 +65,19 @@ Builder.Add(:tab, { text: "职业" }) do
 			end 
 			texts[2] = Text.new { |target, watch, i, j, k | target["@note"].Text }
 			Builder.Add(:view, { 
-				 actual: :learnings,
-				 label: 0,
-				 columns: ["等级", "学会的特技", "备注"], 
-				 catalogue: texts,
-				 window: window,
-				 window_type: 1,
-				 width: 320,
-				 height: 300,
-				 columns_width: [60, 130, 120],
-				 new: nil })
+				actual: :learnings,
+				label: 0,
+				columns: ["等级", "学会的特技", "备注"], 
+				catalogue: texts,
+				window: window,
+				window_type: 1,
+				width: 320,
+				height: 300,
+				columns_width: [60, 130, 120],
+				new: nil })
 		end
 
-			Builder.Next
+		Builder.Next
 		Builder.Add(:metro, { text: "特性" }) do
 			VA_Help::Feature.build_feature
 		end

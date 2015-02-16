@@ -8,19 +8,19 @@ require "Ruby/Fuzzy.rb"
 class RPG
 	class Enemy
 		class Action
-		 def initialize
-		  @skill_id = 1
-		  @condition_type = 0
-		  @condition_param1 = 0
-		  @condition_param2 = 0
-		  @rating = 5
-		 end
-		 attr_accessor :skill_id
-		 attr_accessor :condition_type
-		 attr_accessor :condition_param1
-		 attr_accessor :condition_param2
-		 attr_accessor :rating
-	 end
+			def initialize
+				@skill_id = 1
+				@condition_type = 0
+				@condition_param1 = 0
+				@condition_param2 = 0
+				@rating = 5
+			end
+			attr_accessor :skill_id
+			attr_accessor :condition_type
+			attr_accessor :condition_param1
+			attr_accessor :condition_param2
+			attr_accessor :rating
+		end
 	end
 end
 
@@ -31,25 +31,25 @@ Builder.Add(:tab, { text: "敌人" }) do
 		Builder.Add(:metro, { text: "基本设置" }) do
 			Builder.Add(:text, { actual: :name, text: "名称" })
 			Builder.Add(:image,{ 
-			 actual: {
+				actual: {
 					:name => :battler_name, 
 					:hue => :battler_hue
 					},
-			 	text: "战斗图",
-			 	path: "Graphics/Battlers",
-			 	version: "RPGVXAce",
-			 	show: Help::XP_IMAGE_SPLIT, 
-			 	split: Help::XP_IMAGE_SPLIT,
-			 	width: 150, 
-			 	height: 120
-			 	 })
-				Builder.Next
+					text: "战斗图",
+					path: "Graphics/Battlers",
+					version: "RPGVXAce",
+					show: Help::XP_IMAGE_SPLIT, 
+					split: Help::XP_IMAGE_SPLIT,
+					width: 150, 
+					height: 120
+					})
+			Builder.Next
 			Builder.Add(:metro, { actual: :params }) do
 				Builder.Add(:int, { actual: :INDEX0, text: "最大 HP" })
 				Builder.Add(:int, { actual: :INDEX2, text: "物理攻击" })
 				Builder.Add(:int, { actual: :INDEX4, text: "魔法攻击" })
 				Builder.Add(:int, { actual: :INDEX6, text: "敏捷值" })
-					Builder.Next
+				Builder.Next
 				Builder.Add(:int, { actual: :INDEX1, text: "最大 MP" })
 				Builder.Add(:int, { actual: :INDEX3, text: "物理防御" })
 				Builder.Add(:int, { actual: :INDEX5, text: "魔法防御" })
@@ -93,33 +93,33 @@ Builder.Add(:tab, { text: "敌人" }) do
 						text: "物品",
 						key: 1,
 						group: "VA_ENEMY_DROPITEM_POP" }) do
-							Builder.Add(:choose, { 
-								actual: :data_id, 
-								label: 0, 
-								choice: { nil => Filechoice.new("item") }
-								 })
+						Builder.Add(:choose, { 
+							actual: :data_id, 
+							label: 0, 
+							choice: { nil => Filechoice.new("item") }
+							})
 					end
 					Builder.Add(:radio, { 
 						actual: :kind,
 						text: "武器",
 						key: 2,
 						group: "VA_ENEMY_DROPITEM_POP" }) do
-							Builder.Add(:choose, { 
-								actual: :data_id, 
-								label: 0, 
-								choice: { nil => Filechoice.new("weapon") }
-								 })
+						Builder.Add(:choose, { 
+							actual: :data_id, 
+							label: 0, 
+							choice: { nil => Filechoice.new("weapon") }
+							})
 					end
 					Builder.Add(:radio, { 
 						actual: :kind,
 						text: "防具",
 						key: 3,
 						group: "VA_ENEMY_DROPITEM_POP" }) do
-							Builder.Add(:choose, { 
-								actual: :data_id, 
-								label: 0, 
-								choice: { nil => Filechoice.new("armor") }
-								 })
+						Builder.Add(:choose, { 
+							actual: :data_id, 
+							label: 0, 
+							choice: { nil => Filechoice.new("armor") }
+							})
 					end
 					Builder.Add(:metro, { text: "掉率" }) do
 						Builder.Order
@@ -174,76 +174,76 @@ Builder.Add(:tab, { text: "敌人" }) do
 			end
 			window = Proc.new do |window, target|
 				Builder.In(window)
-					Builder.Order
-					Builder.Add(:choose, { actual: :skill_id, text: "技能", choice: { nil => Filechoice.new("skill") } })
-					Builder.Add(:int, { actual: :rating, text: "优先级" })
-					Builder.Next
-					Builder.Add(:metro, { text: "行动条件" }) do
-						Builder.Add(:radio, { 
-							actual: :condition_type,
-							text: "平时", 
-							group: "VX_ENEMY_ACTION_POP",
-							key: 0 
-						 })
-						Builder.Add(:radio, { 
-							actual: :condition_type,
-						 text: "回合数", 
-						 group: "VX_ENEMY_ACTION_POP",
-						 key: 1
-						 }) do
-							Builder.Order
-							Builder.Add(:int, { actual: :condition_param1, label: 0 })
-							Builder.Text(" + ")
-							Builder.Add(:int, { actual: :condition_param2, label: 0 })
-							Builder.Text(" * n ")
-						end
-						Builder.Add(:radio, { 
-							actual: :condition_type, 
-							text: "体力值", 
-							group: "VX_ENEMY_ACTION_POP",
-							key: 2
-						 }) do
-							Builder.Order
-							Builder.Add(:int, { actual: :condition_param1, label: 0 })
-							Builder.Text(" % ~ ")
-							Builder.Add(:int, { actual: :condition_param2, label: 0 })
-							Builder.Text(" %")
-						end
-						Builder.Add(:radio, { 
-							actual: :condition_type, 
-							text: "魔力值", 
-							group: "VX_ENEMY_ACTION_POP",
-							key: 3
-						 }) do
-							Builder.Order
-							Builder.Add(:int, { actual: :condition_param1, label: 0 })
-							Builder.Text(" % ~ ")
-							Builder.Add(:int, { actual: :condition_param2, label: 0 })
-							Builder.Text(" %")
-						end
-						Builder.Add(:radio, { 
-							actual: :condition_type, 
-							text: "状态", 
-							group: "VX_ENEMY_ACTION_POP",
-							key: 4
-						 }) do
-							Builder.Add(:choose, { 
-								actual: :condition_param1, 
-								label: 0, 
-								choice: { nil => Filechoice.new("state") } 
-							 })
-						end
-						Builder.Add(:radio, { 
-							actual: :condition_type, 
-							text: "队伍等级", 
-							group: "VX_ENEMY_ACTION_POP",
-							key: 5
-						 }) do
-							Builder.Order
-							Builder.Add(:int, { actual: :condition_param1, label: 0 })
-							Builder.Text("或更高")
-						end
+				Builder.Order
+				Builder.Add(:choose, { actual: :skill_id, text: "技能", choice: { nil => Filechoice.new("skill") } })
+				Builder.Add(:int, { actual: :rating, text: "优先级" })
+				Builder.Next
+				Builder.Add(:metro, { text: "行动条件" }) do
+					Builder.Add(:radio, { 
+						actual: :condition_type,
+						text: "平时", 
+						group: "VX_ENEMY_ACTION_POP",
+						key: 0 
+						})
+					Builder.Add(:radio, { 
+						actual: :condition_type,
+						text: "回合数", 
+						group: "VX_ENEMY_ACTION_POP",
+						key: 1
+						}) do
+						Builder.Order
+						Builder.Add(:int, { actual: :condition_param1, label: 0 })
+						Builder.Text(" + ")
+						Builder.Add(:int, { actual: :condition_param2, label: 0 })
+						Builder.Text(" * n ")
 					end
+					Builder.Add(:radio, { 
+						actual: :condition_type, 
+						text: "体力值", 
+						group: "VX_ENEMY_ACTION_POP",
+						key: 2
+						}) do
+						Builder.Order
+						Builder.Add(:int, { actual: :condition_param1, label: 0 })
+						Builder.Text(" % ~ ")
+						Builder.Add(:int, { actual: :condition_param2, label: 0 })
+						Builder.Text(" %")
+					end
+					Builder.Add(:radio, { 
+						actual: :condition_type, 
+						text: "魔力值", 
+						group: "VX_ENEMY_ACTION_POP",
+						key: 3
+						}) do
+						Builder.Order
+						Builder.Add(:int, { actual: :condition_param1, label: 0 })
+						Builder.Text(" % ~ ")
+						Builder.Add(:int, { actual: :condition_param2, label: 0 })
+						Builder.Text(" %")
+					end
+					Builder.Add(:radio, { 
+						actual: :condition_type, 
+						text: "状态", 
+						group: "VX_ENEMY_ACTION_POP",
+						key: 4
+						}) do
+						Builder.Add(:choose, { 
+							actual: :condition_param1, 
+							label: 0, 
+							choice: { nil => Filechoice.new("state") } 
+							})
+					end
+					Builder.Add(:radio, { 
+						actual: :condition_type, 
+						text: "队伍等级", 
+						group: "VX_ENEMY_ACTION_POP",
+						key: 5
+						}) do
+						Builder.Order
+						Builder.Add(:int, { actual: :condition_param1, label: 0 })
+						Builder.Text("或更高")
+					end
+				end
 				Builder.Out
 				window.Value = target
 			end
@@ -258,7 +258,7 @@ Builder.Add(:tab, { text: "敌人" }) do
 				height: 190,
 				new: RPG::Enemy::Action.new.to_fuzzy })
 		end
-			Builder.Next
+		Builder.Next
 		Builder.Add(:metro, { text: "特性" }) do
 			VA_Help::Feature.build_feature
 		end

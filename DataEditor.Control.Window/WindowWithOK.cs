@@ -68,7 +68,6 @@ namespace DataEditor.Control.Window
             }
             void Window_FormClosing(object sender, FormClosingEventArgs e)
             {
-                MessageBox.Show("");
                 var form = sender as System.Windows.Forms.Form;
                 if (form == null) return;
                 FuzzyData.FuzzyObject temp;

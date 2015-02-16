@@ -152,6 +152,7 @@
             this.peclMain.Size = new System.Drawing.Size(348, 529);
             this.peclMain.TabIndex = 0;
             this.peclMain.With = null;
+            this.peclMain.Leave += new System.EventHandler(this.peclMain_Leave);
             // 
             // OFD
             // 

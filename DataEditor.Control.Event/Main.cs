@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DataEditor.Control.Event.DataModel;
 using DataEditor.FuzzyData;
 
 namespace DataEditor.Control.Event
@@ -101,7 +102,7 @@ namespace DataEditor.Control.Event
                 lbPage.Items.Clear();
                 lbEvent.Items.Clear();
                 lbEvent.Enabled = false;
-                FuzzyArray commonList = Help.Data.Instance["commonevent"] as FuzzyArray;
+                var commonList = Help.Data.Instance["commonevent"] as FuzzyArray;
                 Map = Event = commonList;
                 if (Map == null) return;
                 for (int i = 0; i < commonList.Length - 1; i++)
@@ -141,6 +142,15 @@ namespace DataEditor.Control.Event
                 Page = (Event as FuzzyArray)[lbPage.SelectedIndex + 1] as FuzzyObject;
             else Page = (Event[PagesSymbol] as FuzzyArray)[lbPage.SelectedIndex] as FuzzyObject;
             if (Page != null) SetCommandListBox();
+        }
+
+        private void peclMain_Leave(object sender, EventArgs e)
+        {
+            var FuzzyPage = Page[ListSymbol] as FuzzyArray;
+            if (FuzzyPage == null) return;
+            FuzzyPage.Clear();
+            foreach (var command in peclMain.Items.OfType<Command>())
+                FuzzyPage.Add(command.Link);
         }
     }
 }

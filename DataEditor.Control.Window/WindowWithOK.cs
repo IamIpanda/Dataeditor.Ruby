@@ -19,6 +19,7 @@ namespace DataEditor.Control.Window
 
         private void btOK_Click(object sender, EventArgs e)
         {
+            if (!btOK.Focused) btOK.Focus();
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
         }

@@ -7,6 +7,9 @@ require "ruby/Event.rb"
 require "ruby/Fuzzy.rb"
 require "ruby/XP/MoveCommand - xp.rb"
 
+Measurement.Set "variable", 130, 20
+Measurement.Set "switch", 130, 20
+
 $commands_xp = { }
 $command_group_name = ""
 $commands_xp[0] = Command.new(0, -1, "TAB", "空指令", Text.ret(""))
@@ -1037,6 +1040,7 @@ $commands_xp[204] = Command.new(204, -1, "MAPSET", "更改地图设置", target_
 # Parameter : [(88.000000, 88.000000, 88.000000, 88.000000), 88]
 #=================================================================
 target_text = Text.new do |parameters, *followings| 
+	p parameters
 	Event_Help.tone(parameters[0]) + ", @#{ parameters[1].Value }"
 end
 target_window = Proc.new do |window, commands|
@@ -1049,7 +1053,7 @@ target_window = Proc.new do |window, commands|
 	Builder.Out
 	window
 end
-$commands_xp[205] = Command.new(205, -1, "FOGSET", "更改雾色调", target_text, "ui", target_window, nil)
+$commands_xp[205] = Command.new(205, -1, "FOGSET", "更改雾色调", target_text, "ei", target_window, nil)
 
 #=================================================================
 # Code 206
@@ -1595,20 +1599,20 @@ $commands_xp[301].IsStartProc = target_start_command.to_p
 # 为了这个愚蠢的结构我又改了两遍构筑！
 #=================================================================
 target_text = Text.new do |parameters, *followings| 
+	p parameters
 	Event_Help.shop(parameters[0].Value,parameters[1].Value)
 end
 target_window = Proc.new do |window, commands|
 	target = FuzzyArray.new
 	target.Add window.Tag.Link["@parameters"]
-	puts target[0], window.Tag, window.Tag.Link.InstanceVariables
 	commands.each {|command| target.add(command.Link["@parameters"]) }
 	Builder.In(window)
 	catalogue = []
 	catalogue.push Text.new {|target, watch, i, j, k| target.is_a?(FuzzyFixnum) ? "" : Event_Help.shop_item(target[0].Value, target[1].Value).name }
 	catalogue.push Text.new {|target, watch, i, j, k| target.is_a?(FuzzyFixnum) ? "" : Event_Help.shop_item(target[0].Value, target[1].Value).price }
 	model = [0, 1].to_fuzzy
-	inner_window = Proc.new do |window, value|
-		Builder.In(window)
+	target_inner_window = Proc.new do |inner_window, value|
+		Builder.In(inner_window)
 		Builder.Add(:radio, {actual: :INDEX0, key: 0, text: "物品"}) do
 			Builder.Add(:choose, actual: :INDEX1, label: 0, choice: { nil => Filechoice.new("item") })
 		end
@@ -1619,7 +1623,8 @@ target_window = Proc.new do |window, commands|
 			Builder.Add(:choose, actual: :INDEX1, label: 0, choice: { nil => Filechoice.new("armor") })
 		end
 		Builder.Out
-		window.Value = value
+		inner_window.Binding.Text = "编辑商品".encode
+		inner_window.Value = value
 	end
 	view = Builder.Add(:view, {
 		actual: :ORIGIN,
@@ -1628,7 +1633,7 @@ target_window = Proc.new do |window, commands|
 		catalogue: catalogue,
 		new: model,
 		columns_width: [120, 60],
-		window: inner_window,
+		window: target_inner_window,
 		width: 220
 		})
 	Builder.Out
@@ -1636,8 +1641,8 @@ target_window = Proc.new do |window, commands|
 	window
 end
 target_with = Proc.new do |window, oldwith|
-	value = window.Value
-	window.Value = window.Value[0]
+	value = window.Parent
+	window.Parent = value[0]
 	value.RemoveAt 0
 	ans = []
 	for arr in value
@@ -1726,12 +1731,11 @@ target_text = Text.new do |parameters, *followings|
 	part0 + "," + part1 + part2
 end
 target_window = Proc.new do |window, commands|
-	Builder.In(window)
-	Builder.Pop(:actor, 0)
-	Builder.Pop(:operate, 1)
-	Builder.Add(:choose, { actual: :INDEX2, text: "状态", choice: { nil => Filechoice.new("state") } })
-	Builder.Out
-	window
+	window = Builder.Add(:dialog_r) do
+		Builder.Pop(:actor, 0)
+		Builder.Pop(:operate, 1)
+		Builder.Add(:choose, { actual: :INDEX2, text: "状态", choice: { nil => Filechoice.new("state") } })
+	end
 end
 $commands_xp[313] = Command.new(313, -1, "SETSTATE", "更改状态", target_text, "iii", target_window, nil)
 
@@ -1871,6 +1875,46 @@ target_window = Proc.new do |window, commands|
 		Builder.Add(:radio, { actual: :INDEX1, key: 0, text: "武器" }) do
 			Builder.Add(:choose, { actual: :INDEX2, label: 0, choice: { 0 => "无", nil => Filechoice.new("weapon") } })
 		end
+		Builder.Add(:radio, { actual: :INDEX1, key: 1, text: "盾" }) do
+			Builder.Add(:lazy_choose, { 
+				actual: :INDEX2, 
+				label: 0, 
+				textbook: Help.Get_Default_Text, 
+				choice: { 0 => "（无）" }, 
+				source: Proc.new do |target, parent, control|
+					Data["armor"].select {|target| target["@kind"] != nil and target["@kind"].Value == 0 }
+				end })
+		end
+		Builder.Add(:radio, { actual: :INDEX1, key: 2, text: "头部" }) do
+			Builder.Add(:lazy_choose, { 
+				actual: :INDEX2, 
+				label: 0, 
+				textbook: Help.Get_Default_Text, 
+				choice: { 0 => "（无）" }, 
+				source: Proc.new do |target, parent, control|
+					Data["armor"].select {|target| target["@kind"] != nil and target["@kind"].Value == 1 }
+				end })
+		end
+		Builder.Add(:radio, { actual: :INDEX1, key: 3, text: "身体" }) do
+			Builder.Add(:lazy_choose, { 
+				actual: :INDEX2, 
+				label: 0, 
+				textbook: Help.Get_Default_Text, 
+				choice: { 0 => "（无）" }, 
+				source: Proc.new do |target, parent, control|
+					Data["armor"].select {|target| target["@kind"] != nil and target["@kind"].Value == 2 }
+				end })
+		end
+		Builder.Add(:radio, { actual: :INDEX1, key: 4, text: "装饰" }) do
+			Builder.Add(:lazy_choose, { 
+				actual: :INDEX2, 
+				label: 0, 
+				textbook: Help.Get_Default_Text, 
+				choice: { 0 => "（无）" }, 
+				source: Proc.new do |target, parent, control|
+					Data["armor"].select {|target| target["@kind"] != nil and target["@kind"].Value == 3 }
+				end })
+		end
 	end
 	Builder.Out
 	window
@@ -1940,7 +1984,8 @@ target_text = Text.new do |parameters, *followings|
 	part0 = Event_Help.enemy(parameters[0].Value)
 	part1 = Event_Help.add_or_sub(parameters[1].Value)
 	part2 = Event_Help.variable_or_value(parameters[2].Value,parameters[3].Value)
-	part0 + "," + part1 + part2
+	part3 = parameters[4].Value ? ", 允许死亡" : ""
+	part0 + "," + part1 + part2 + part3
 end
 target_window = Proc.new do |window, commands|
 	Builder.In(window)
@@ -2210,7 +2255,7 @@ target_window = Proc.new do |window, commands|
 end
 target_with = Proc.new do |window, oldwith|
 	str = window.Value
-	answer = Event_Help.SeprateText str.Text, 655, $commands_xp 
+	answer = Event_Help.SeprateText str.Text, 655, $commands_xp, window.Tag.Indent
 	str.Text = answer[0]
 	answer[1]
 end

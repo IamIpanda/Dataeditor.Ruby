@@ -327,9 +327,9 @@ class Builder
 				Builder.Add(:choose, { actual: get_symbol(index), label: 0, choice: {
 					0 => "全体同伴",
 					1 => "1 人",
-					1 => "2 人",
-					1 => "3 人",
-					1 => "4 人"
+					2 => "2 人",
+					3 => "3 人",
+					4 => "4 人"
 					} })
 			when :unknown_no_troop_actor
 				Builder.Add(:choose, { actual: get_symbol(index), label: 0, choice: {

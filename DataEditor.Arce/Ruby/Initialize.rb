@@ -15,10 +15,11 @@ Split   = DataEditor::Help::Parameter::Split
 Builder  = DataEditor::Ruby::RubyBuilder
 Engine   = DataEditor::Ruby::RubyEngine
 Measurement	= DataEditor::Help::Measurement.Instance
+Bash = DataEditor::Help::Bash
 
 # Builder 修正。
 # 为 Builder 添加了块的支持。
-def Builder.Add(type,parameter = { },&block)
+def Builder.Add(type, parameter = { }, &block)
 	editor = Builder.Push(type,parameter,block)
 	return editor
 end
@@ -37,10 +38,16 @@ class <<Text
 end
 # 全局方法 puts 修正
 # 改为一个 MessageBox
+def p(*obj)
+	obj = obj[0] if (obj.size == 1) 
+	Bash.DebugViewTarget *obj
+end
+
 def puts(*obj)
 	obj = obj[0] if (obj.size == 1) 
 	System::Windows::Forms::MessageBox.Show obj.inspect
 end
+
 def print(*obj)
 	if (obj.size > 1)
 		ans = new DataEditor::FuzzyData::FuzzyArray()

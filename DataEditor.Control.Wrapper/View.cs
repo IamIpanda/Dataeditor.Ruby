@@ -119,6 +119,7 @@ namespace DataEditor.Control.Wrapper
             if (window_type == 0 )
                 window = new Control.Window.WindowWithOK.WrapWindowWithOK<Control.Window.WindowWithOK>() ;
                 else window = new Control.Window.WindowWithRightOK.WrapWindowWithRightOK<Control.Window.WindowWithRightOK>();
+            int selected_index = Control.SelectedIndices[0];
             var value = SelectedValue;
             var back = value.Clone() as FuzzyData.FuzzyObject;
             window_proc.call(window, value);
@@ -135,10 +136,14 @@ namespace DataEditor.Control.Wrapper
                     if (i < 0)
                     {
                         var temp = value & back;
-                        if (Control.SelectedIndices[0] == base.value.Count) base.value.Remove(value);
+                        if (selected_index >= base.value.Count - 1) 
+                            base.value.Remove(value);
                     }
                     else { index = i; }
                 }
+                if (selected_index >= base.value.Count - 1)
+                    if (model != null && !(max_count >= 0 && Control.Items.Count >= max_count))
+                        Control.Items.Add(new ListViewItem());
                 catalogue.UpdateText();
                 Control.SelectedIndices.Clear();
                 Control.SelectedIndices.Add(index);

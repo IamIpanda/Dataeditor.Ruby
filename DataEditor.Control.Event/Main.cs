@@ -25,7 +25,7 @@ namespace DataEditor.Control.Event
         public Main()
         {
             InitializeComponent();
-            if (OFD.ShowDialog() != DialogResult.OK) Application.Exit();
+            if (OFD.ShowDialog() != DialogResult.OK) { Application.Exit(); return; }
             Help.Path.Instance["project"] = System.IO.Path.GetDirectoryName(OFD.FileName);
             Program.DebugAddingOn();
             SetMapListBox();

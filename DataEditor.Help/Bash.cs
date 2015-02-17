@@ -127,5 +127,12 @@ namespace DataEditor.Help
             }
             static public Comparison<object> Compare = InnerCompare;
         }
+
+        static public void DebugViewTarget(params object[] view)
+        {
+            foreach (var target in view)
+                Log.log("Ruby Back Calling: " + target.ToString());
+            System.Diagnostics.Debugger.Break();
+        }
     }
 }

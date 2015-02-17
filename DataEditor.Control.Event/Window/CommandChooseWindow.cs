@@ -114,6 +114,8 @@ namespace DataEditor.Control.Window
                         foreach (var obj in list.OfType<Command>())
                             selectedCommands.Add(obj);
                 }
+                // That's silly but may be a good solution
+                command.FuzzyParameters = window.Parent as FuzzyArray;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

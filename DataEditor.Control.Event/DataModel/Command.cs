@@ -88,7 +88,7 @@ namespace DataEditor.Control.Event.DataModel
         {
             FuzzyArray ans = new FuzzyArray(this.Parameters.ConvertAll(x => x == null ? null : x.Clone()));
             if (With == null) return ans;
-            if (!this.Type.isTextCommand) return ans;
+            if (this.Type.TextPosition < 0) return ans;
             var fstr = this.GetParameter<FuzzyString>(this.Type.TextPosition);
             var sb = new StringBuilder();
             if (fstr != null) sb.Append(fstr.Text);

@@ -86,7 +86,9 @@ namespace DataEditor.Control.Prototype
         private int last_start_index = 0, last_end_index = 0;
         void ProtoEventCommandList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // 重置
             EndingIndex = -1;
+            // 生成之前刷新的区域
             if (last_end_index >= this.Items.Count) last_end_index = this.Items.Count - 1;
             if (last_start_index >= this.Items.Count) last_start_index = this.Items.Count - 1;
             var rect_top = this.GetItemRectangle(last_start_index);
@@ -94,33 +96,28 @@ namespace DataEditor.Control.Prototype
             if (rect_top.Top < 0) rect_top.Y = 0;
             if (rect_end.Bottom > this.ClientRectangle.Height)
                 rect_end.Y = this.ClientRectangle.Bottom - rect_end.Height;
+            // 重新刷新（刷去）那部分
             this.Invalidate(new Rectangle(rect_top.X, rect_top.Y, rect_end.Width, rect_end.Bottom - rect_top.X));
             if (SelectedIndex == this.Items.Count - 1 || SelectedIndex < 0) return;
+            // 若指令并非一个起始指令，忽略之
             var command = GetCommand(this.SelectedIndex);
             if (command == null) return;
-            if (command.Type.isTextCommand || command.isStartCommand)
+            if (!command.Type.isTextCommand && !command.isStartCommand) return;
+            var search_code = command.Code;
+            var search_ending = command.Type.Ends;
+            var search_indent = command.Indent;
+            var index = this.SelectedIndex;
+            var isText = command.Type.isTextCommand;
+            command = GetCommand(++index);
+            while (isText ? (command.Type.Follow == search_code) : (command.Code != search_ending || command.Indent != search_indent))
             {
-                var search_code = command.Code;
-                var search_ending = command.Type.Ends;
-                var search_indent = command.Indent;
-                var index = this.SelectedIndex;
-                var isText = command.Type.isTextCommand;
                 command = GetCommand(++index);
-                while (isText ? (command.Type.Follow == search_code) : (command.Code != search_ending || command.Indent != search_indent))
-                {
-                    if (index == this.Items.Count - 1) { index++; break; }
-                    command = GetCommand(++index);
-                }
-                while (!isText && command.Code == search_ending)
-                {
-                    if (index == this.Items.Count - 1) { index++; break; }
-                    command = GetCommand(++index);
-                }
-                EndingIndex = index - 1;
-                rect_top = this.GetItemRectangle(last_start_index = this.SelectedIndex);
-                rect_end = this.GetItemRectangle(last_end_index = this.EndingIndex);
-                this.Invalidate(new Rectangle(rect_top.X, rect_top.Y, rect_end.Width, rect_end.Bottom - rect_top.X));
+                if (command == null) break;
             }
+            EndingIndex = index - 1;
+            rect_top = this.GetItemRectangle(last_start_index = this.SelectedIndex);
+            rect_end = this.GetItemRectangle(last_end_index = this.EndingIndex);
+            this.Invalidate(new Rectangle(rect_top.X, rect_top.Y, rect_end.Width, rect_end.Bottom - rect_top.X));
         }
         protected override void OnDrawItem(DrawItemEventArgs e)
         {
@@ -180,6 +177,7 @@ namespace DataEditor.Control.Prototype
         }
         protected DataEditor.Control.Event.DataModel.Command GetCommand(int index)
         {
+            if (index >= Items.Count) return null;
             return this.Items[index] as DataEditor.Control.Event.DataModel.Command;
         }
 
@@ -519,5 +517,6 @@ namespace DataEditor.Control.Prototype
 
         }
         #endregion
+
     }
 }

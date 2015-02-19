@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using DataEditor.FuzzyData;
@@ -18,7 +19,7 @@ namespace DataEditor.Control.Event.DataModel
             ParameterTuneSign = 'e',
             ParameterAudioSign = 'a',
             ParameterBoolSign = 'b',
-            ParameterMovementSign = 'm',
+            ParameterMoveRouteSign = 'm',
             ParameterUndetermindSign = 'u',
             ParameterArraySign = 'l';
         protected const string ParameterStrIntSign = "i",
@@ -30,7 +31,7 @@ namespace DataEditor.Control.Event.DataModel
             ParameterStrTuneSign = "e",
             ParameterStrAudioSign = "a",
             ParameterStrBoolSign = "b",
-            ParameterStrMovementSign = "m",
+            ParameterStrMoveRouteSign = "m",
             ParameterStrUndetermindSign = "u",
             ParameterStrArraySign = "l";
         /// <summary>
@@ -173,6 +174,8 @@ namespace DataEditor.Control.Event.DataModel
                     return null;
                 case ParameterArraySign:
                     return new FuzzyArray(GenerateParameters(option).OfType<object>());
+                case ParameterMoveRouteSign:
+                    return MoveRoute.CreateRoute();
             }
             return null;
         }
@@ -201,6 +204,11 @@ namespace DataEditor.Control.Event.DataModel
             }
             if (source == null) model = answer;
             return answer;
+        }
+
+        public string Model
+        {
+            set { model = GenerateParameters(value); }
         }
 
         protected CommandGroup group = null;
@@ -243,7 +251,8 @@ namespace DataEditor.Control.Event.DataModel
         /// <summary>
         /// 此指令是否一个文字指令？
         /// </summary>
-        public bool isTextCommand { get { return TextPosition >= 0; } }
+        protected bool? is_text_command = null;
+        public bool isTextCommand { get { return is_text_command ?? TextPosition >= 0; } set{ is_text_command = value; } }
         /// <summary>
         /// 指令的文字长度
         /// </summary>

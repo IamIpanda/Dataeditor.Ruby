@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DataEditor.Help;
 
 namespace DataEditor.Control
 {
@@ -17,8 +18,16 @@ namespace DataEditor.Control
         {
             if (parent == null) return;
             foreach (System.Windows.Forms.Control control in Controls )
-                if (control.Tag != null && control.Tag is ObjectEditor)
+                if (control.Tag is ObjectEditor)
                     (control.Tag as ObjectEditor).Parent = parent;
+        }
+        public override void Push()
+        {
+            // 理论上而言，这段代码是必须用手动调用触发，而不是通过机制触发的。
+            Log.log(this.Flag + " called a forced push");
+            foreach (System.Windows.Forms.Control control in Controls)
+                if (control.Tag is ObjectEditor && (control.Tag as ObjectEditor).Value != null)
+                    (control.Tag as ObjectEditor).Push();
         }
         public override void Reset()
         {

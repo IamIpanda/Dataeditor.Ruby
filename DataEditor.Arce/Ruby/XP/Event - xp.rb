@@ -278,7 +278,7 @@ target_text = Text.new do |parameters, *followings|
 		"脚本 ".encode + parameters[1].Text
 	end
 end
-target_window = Proc.new do |window, commands| 
+target_window = Proc.new do |window, with|
 	Builder.In(window)
 	Builder.Add(:tabs) do
 		Builder.Add(:tab, { text: "1" }) do
@@ -312,7 +312,7 @@ target_window = Proc.new do |window, commands|
 					5 => "以外"
 					} })
 			end
-			accept_2 = Proc.new { |value, parent, radio_key| window.Tag.SetUndetermined(parent, "ii") }
+			accept_2 = Proc.new { |value, parent, radio_key| window.Tag.SetUndetermined(parent, "si") }
 			Builder.Add(:radio, { actual: :INDEX0, text: "独立开关", key: 2, group: "window_code_111", accept: accept_2 }) do
 				Builder.Order
 				Builder.Add(:self_switch, { actual: :INDEX1, label: 0 })
@@ -363,7 +363,7 @@ target_window = Proc.new do |window, commands|
 		Builder.Add(:tab, { text: "3" }) do
 			accept_5 = Proc.new { |value, parent, radio_key| window.Tag.SetUndetermined(parent, "ii") }
 			Builder.Add(:radio, { actual: :INDEX0, text: "敌人", key: 5, group: "window_code_111", accept: accept_5 }) do
-				Builder.Pop(:no_troop_enemy, 1)
+				Builder.Pop(:raw_no_troop_enemy, 1)
 				Builder.Add(:radio, { actual: :INDEX1, text: "出现", key: 0, group: "window_code_111#4" })
 				Builder.Add(:radio, { actual: :INDEX1, text: "拥有状态", key: 1, group: "window_code_111#4" }) do
 					Builder.Add(:choose, { actual: :INDEX2, label: 0, choice: { nil => Filechoice.new("state") } })
@@ -428,10 +428,41 @@ target_window = Proc.new do |window, commands|
 			end
 		end
 	end
+	set_else = false
+	with.each { |command| set_else = true if command.Code == 411 }
+	fuzzy_set = DataEditor::FuzzyData::FuzzyBool.new
+	fuzzy_set.Value = set_else
+	control_set = Builder.Add(:check, { text: "当不符合条件时设置" })
+	control_set.Value = fuzzy_set
 	Builder.Out
 	window
 end
-$commands_xp[111] = Command.new(111, -1, "IF", "条件分歧", target_text, "iu", target_window, nil, 412)
+
+target_with = Proc.new do |window, oldwith|
+	oldwithcommands = [[], []]
+	key = 0
+	for command in oldwith
+		case command.Code
+		when 0 then next
+		when 412 then break
+		when 411 then key = 1
+		else oldwithcommands[key].push command
+		end
+	end
+	set_else = window.check.Value.Value
+	ans = oldwithcommands[0]
+	indent = window.Tag.Indent
+	ans += Event_Help.CreateCommands [0], $commands_xp, indent + 1
+	if set_else
+		ans += Event_Help.CreateCommands [411], $commands_xp, indent
+		ans += oldwithcommands[1]
+		ans += Event_Help.CreateCommands [0], $commands_xp, indent + 1
+	end
+	ans += Event_Help.CreateCommands [412], $commands_xp, indent
+	ans
+end
+$commands_xp[111] = Command.new(111, -1, "IF", "条件分歧", target_text, "iu", target_window, target_with, 412)
+$commands_xp[111].Model = "iii"
 
 #=================================================================
 # Code 112
@@ -540,6 +571,7 @@ target_window = Proc.new do |window, commands|
 	Builder.In(window)
 	Builder.Pop(:group_switch_2, 0)
 	Builder.Add(:group, { text: "操作" }) do
+		Builder.Order
 		Builder.Add(:single_radio, { actual: :INDEX2, text: "ON", key: 0, group: "window_code_121" })
 		Builder.Add(:single_radio, { actual: :INDEX2, text: "OFF", key: 1, group: "window_code_121" })
 	end
@@ -804,7 +836,7 @@ target_window = Proc.new do |window, commands|
 	Builder.Out
 	window
 end
-$commands_xp[127] = Command.new(127, -1, "WEAPON", "增减武器", target_text, "iiii", target_window, nil)
+$commands_xp[127] = Command.new(127, -1, "WEAPON", "增减武器", target_text, "i{1}iii", target_window, nil)
 
 #=================================================================
 # Code 128
@@ -846,7 +878,7 @@ target_text = Text.new do |parameters, *followings|
 	(init == 1 ? ", 初始化" : "").encode
 end
 target_window = Proc.new do |window, commands|
-	window = Builder.Add(:dialog) do
+	window = Builder.Add(:dialog_r) do
 		Builder.Add(:choose, { actual: :INDEX0, text: "角色", choice: { nil => Filechoice.new("actor")} })
 		Builder.Pop(:operate_actor, 1)
 		Builder.Add(:int_check, { actual: :INDEX2, text: "初始化" })
@@ -1040,7 +1072,7 @@ $commands_xp[204] = Command.new(204, -1, "MAPSET", "更改地图设置", target_
 # Parameter : [(88.000000, 88.000000, 88.000000, 88.000000), 88]
 #=================================================================
 target_text = Text.new do |parameters, *followings| 
-	p parameters
+	# p parameters
 	Event_Help.tone(parameters[0]) + ", @#{ parameters[1].Value }"
 end
 target_window = Proc.new do |window, commands|
@@ -1123,8 +1155,8 @@ target_text = Text.new do |parameters, *followings|
 	ans = Event_Help.event(parameters[0].Value)
 	route = parameters[1]
 	appendix = []
-	appendix.push "重复动作" if route["@repeat"]
-	appendix.push "忽略不能移动的场合" if route["@skippable"]
+	appendix.push "重复动作" if route["@repeat"].Value
+	appendix.push "忽略不能移动的场合" if route["@skippable"].Value
 	ans + (appendix.length == 0 ? "" : "(" + appendix.join(", ") + ")")
 end
 target_window = Proc.new do |window, commands|
@@ -1144,6 +1176,7 @@ target_with = Proc.new do |window, oldwith|
 	ans
 end
 $commands_xp[209] = Command.new(209, -1, "MOVE", "设置移动路线", target_text, "u", target_window, nil, 509)
+$commands_xp[209].isTextCommand = true
 
 #=================================================================
 # Code 210
@@ -1655,6 +1688,7 @@ target_with = Proc.new do |window, oldwith|
 	ans
 end
 $commands_xp[302] = Command.new(302, -1, "SHOP", "商店处理", target_text, "ii{1}", target_window, target_with, 605)
+$commands_xp[302].isTextCommand = true
 
 #=================================================================
 # Code 303

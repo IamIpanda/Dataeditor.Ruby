@@ -47,6 +47,7 @@
     <Compile Include="DataModel\CommandGroup.cs" />
     <Compile Include="DataModel\Extension.cs" />
     <Compile Include="DataModel\MoveCommand.cs" />
+    <Compile Include="DataModel\MoveRoute.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -32,11 +32,13 @@ namespace DataEditor.Help
     {
         public static Action Instance { get; set; }
         protected Action() { }
-        static Action() { Instance = new Action(); }
+        static Action() { Instance = new Action(); Instance.Enabled = true; }
         protected LinkedList<Change> Record = new LinkedList<Change>();
         Stack<Change> Redid = new Stack<Change>();
+        public bool Enabled { get; set; }
         public void Do(FuzzyData.FuzzyObject old,FuzzyData.FuzzyObject _new)
         {
+            if (Enabled != true) return;
             Log.log("Action 记录了一个动作，来自" + old.GetType().ToString()); 
             while (Record.Count >= 99) Record.RemoveFirst();
             Change change = new Change(old, _new);
@@ -46,6 +48,7 @@ namespace DataEditor.Help
         }
         public void Undo()
         {
+            if (Enabled != true) return;
             if (!CanUndo) return;
             Log.log("Action 弹回了一个动作");
             Change c = Record.Last.Value;
@@ -56,12 +59,12 @@ namespace DataEditor.Help
         }
         public void Redo()
         {
+            if (Enabled != true) return;
             if (!CanRedo) return;
             Log.log("Action 重做了一个动作");
             var change = Redid.Pop();
             Record.AddLast(change.Clone() as Change);
             change.Redo();
-            
             if (Act != null) Act(this, new ActionEventArgs(change, ActionType.Redo));
         }
         public bool CanRedo { get { return Redid.Count > 0; } }

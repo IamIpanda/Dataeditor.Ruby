@@ -28,7 +28,6 @@ namespace DataEditor.Control.Wrapper
                 if (radio.Control.Radio != son_radio)
                     radio.TurnOffRadio();
                 else radio.Push();
-           
         }
         // ========================
 
@@ -46,7 +45,14 @@ namespace DataEditor.Control.Wrapper
         public override void Push() 
         {
             if (value == null) return;
-            if (Control.Radio.Checked && radio_key > 0) value.Value = radio_key;
+            if (Control.Radio.Checked && radio_key > 0)
+            {
+                value.Value = radio_key;
+                if (Control.Radio.Focused)
+                    base.Pull();
+                else
+                    base.Push();
+            }
         }
         public override void Pull()
         {
@@ -104,7 +110,7 @@ namespace DataEditor.Control.Wrapper
                     var chosen = argument.GetArgument<Contract.Runable>("accept");
                     if (chosen != null)
                         chosen.call(value, parent, radio_key);
-                    base.Pull();
+                    // base.Pull();
                 }
             }
             OnRadiosChanged(sender, e);

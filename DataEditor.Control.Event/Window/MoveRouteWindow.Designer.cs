@@ -64,7 +64,6 @@
             this.protoEventCommandList1.TabIndex = 0;
             this.protoEventCommandList1.With = null;
             this.protoEventCommandList1.InsertCalled += new System.EventHandler(this.protoEventCommandList1_InsertCalled);
-            this.protoEventCommandList1.EditCalled += new System.EventHandler(this.protoEventCommandList1_EditCalled);
             // 
             // listBox1
             // 

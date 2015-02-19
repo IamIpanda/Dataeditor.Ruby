@@ -62,6 +62,7 @@
             this.lb.Size = new System.Drawing.Size(282, 431);
             this.lb.TabIndex = 0;
             this.lb.DoubleClick += new System.EventHandler(this.lb_DoubleClick);
+            this.lb.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lb_KeyDown);
             // 
             // cbMain
             // 
@@ -77,6 +78,7 @@
             this.cbMain.SelectedIndexChanged += new System.EventHandler(this.cbMain_SelectedIndexChanged);
             this.cbMain.DropDownClosed += new System.EventHandler(this.cbMain_DropDownClosed);
             this.cbMain.TextChanged += new System.EventHandler(this.cbMain_TextChanged);
+            this.cbMain.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbMain_KeyDown);
             // 
             // btCancel
             // 

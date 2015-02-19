@@ -100,7 +100,7 @@ namespace DataEditor.Control.Window
             var command = new Command(type, StartingIndent);
             selectedCommands.Add(command);
             var window = command.GenerateWindow(new List<Command>());
-            this.Hide();
+            Help.Action.Instance.Enabled = false;
             DialogResult? result = null;
             if (type.Window != null) result = window.Show();
             if (result == null || result == DialogResult.OK)
@@ -119,7 +119,7 @@ namespace DataEditor.Control.Window
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
-            else this.Show();
+            Help.Action.Instance.Enabled = true;
         }
 
         public Event.DataModel.CommandType SelectedCommandType
@@ -137,6 +137,41 @@ namespace DataEditor.Control.Window
         {
             this.DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        private void cbMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                lb.SelectedIndex = 0;
+                if (lb.SelectedItem is String)
+                {
+                    cbMain.Focus();
+                    cbMain.Text = "";
+                }
+                else
+                    lb.Focus();
+                e.Handled = true;
+            }
+            if (e.KeyData == Keys.Down || e.KeyData == Keys.PageDown)
+            {
+                lb.SelectedIndex = 0;
+                if (lb.SelectedItem is String)
+                    cbMain.Focus();
+                else lb.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void lb_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyData == Keys.Enter)
+                lb_DoubleClick(sender, new EventArgs());
+            if ((e.KeyData == Keys.Up && lb.SelectedIndex == 0) || e.KeyData == Keys.PageUp)
+            {
+                cbMain.SelectAll();
+                cbMain.Focus();
+            }
         }
 
     }

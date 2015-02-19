@@ -10,9 +10,10 @@ namespace DataEditor.Control.Wrapper.Container
         public override void Bind()
         {
             base.Bind();
-            Control.Dock = System.Windows.Forms.DockStyle.Fill;
+            //Control.Dock = System.Windows.Forms.DockStyle.Fill;
             Control.SelectedIndexChanged += Control_SelectedIndexChanged;
             Control.ControlAdded += Control_ControlAdded;
+            //Control.
         }
 
         void Control_ControlAdded(object sender, System.Windows.Forms.ControlEventArgs e)

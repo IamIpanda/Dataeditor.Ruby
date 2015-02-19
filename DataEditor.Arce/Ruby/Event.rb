@@ -232,9 +232,9 @@ class Builder
 					end
 					Builder.Add(:radio, { actual: get_symbol(index), text: "统一" ,group: "group_switch_2", ison: isRange }) do
 						Builder.Order
-						Builder.Add(:int, { actual: get_symbol(index), label: 0 })
-						Builder.Text(" ~ ")
-						Builder.Add(:int, { actual: get_symbol(index + 1), label: 0 })
+						Builder.Add(:int, { actual: get_symbol(index), label: 0, minvalue: 1 })
+						Builder.Text("～")
+						Builder.Add(:int, { actual: get_symbol(index + 1), label: 0, minvalue: 1 })
 					end
 				end
 			when :group_variable_2
@@ -253,9 +253,9 @@ class Builder
 					end
 					Builder.Add(:radio, { actual: get_symbol(index), text: "统一" ,group: "group_switch_2", ison: isRange }) do
 						Builder.Order
-						Builder.Add(:int, { actual: get_symbol(index), label: 0 })
-						Builder.Text(" ~ ")
-						Builder.Add(:int, { actual: get_symbol(index + 1), label: 0 })
+						Builder.Add(:int, { actual: get_symbol(index), label: 0, minvalue: 1 })
+						Builder.Text("～")
+						Builder.Add(:int, { actual: get_symbol(index + 1), label: 0, minvalue: 1 })
 					end
 				end
 			when :operate
@@ -296,6 +296,15 @@ class Builder
 					} })
 			when :speed
 				Builder.Add(:choose, { actual: get_symbol(index), text: "速度", width: 65, choice: {
+					1 => "1:Slowest",
+					2 => "2:Slower",
+					3 => "3:Slow",
+					4 => "4:Fast",
+					5 => "5:Faster",
+					6 => "6:Fastest"
+					} })
+			when :frequency
+				Builder.Add(:choose, { actual: get_symbol(index), text: "频度", width: 65, choice: {
 					1 => "1:Slowest",
 					2 => "2:Slower",
 					3 => "3:Slow",

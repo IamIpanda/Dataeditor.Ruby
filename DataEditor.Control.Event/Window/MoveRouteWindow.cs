@@ -9,8 +9,6 @@ using DataEditor.Control.Event.DataModel;
 using System.Windows.Forms;
 using DataEditor.FuzzyData;
 
-// ReSharper disable CheckNamespace
-
 namespace DataEditor.Control.Window
 {
     public partial class MoveRouteWindow : Window.WindowWithOK
@@ -25,14 +23,9 @@ namespace DataEditor.Control.Window
                     listBox1.Items.Add(type);
         }
 
-        private void protoEventCommandList1_EditCalled(object sender, EventArgs e)
-        {
-
-        }
-
         private void protoEventCommandList1_InsertCalled(object sender, EventArgs e)
         {
-
+            protoEventCommandList1.Edit();
         }
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
@@ -44,6 +37,7 @@ namespace DataEditor.Control.Window
             {
                 var window = move.GenerateWindow(new List<Command>());
                 if (window.Show() != DialogResult.OK) return;
+                move.FuzzyParameters = window.Value as FuzzyArray;
             }
             protoEventCommandList1.Insert(move);
         }
@@ -86,6 +80,11 @@ namespace DataEditor.Control.Window
             }
 
             public override void SetSize(Size size) { }
+            public override void Bind()
+            {
+                base.Bind();
+                Window.Closed += delegate { this.Push(); };
+            }
         }
 
         class MoveCommandList : Prototype.ProtoEventCommandList

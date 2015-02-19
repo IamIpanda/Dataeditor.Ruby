@@ -112,17 +112,32 @@ target_text = Text.new do |parameters, *followings|
 	para1 = para1 > 0 ? "+" + para1.to_s : para1.to_s
 	"#{para0}, #{para1}"
 end
-$move_commands[14] = Command.new(14, -1, "", "跳跃", target_text, "ii")
+target_window = Proc.new do |window, commands|
+	window = Builder.Add(:dialog_r) do
+		Builder.Order
+		Builder.Add(:int, { actual: :INDEX0, text: "X", minvalue: -9999 })
+		Builder.Add(:int, { actual: :INDEX1, text: "Y", minvalue: -9999 })
+	end
+end
+
+$move_commands[14] = Command.new(14, -1, "", "跳跃", target_text, "ii", target_window)
 #=================================================================
 # Code 15
 # 等待
 #-----------------------------------------------------------------
-# Parameter : []
+# Parameter : [14]
 #=================================================================
 target_text = Text.new do |parameters, *followings|
 	parameters[0].to_s + " 帧".encode
 end
-$move_commands[15] = Command.new(15, -1, "", "等待", target_text, "i")
+target_window = Proc.new do |window, commands|
+	window = Builder.Add(:dialog_r) do
+		Builder.Order
+		Builder.Add(:int, { actual: :INDEX0, text: "等待" })
+		Builder.Text("帧", 0, -1)
+	end
+end
+$move_commands[15] = Command.new(15, -1, "", "等待", target_text, "i", target_window)
 #=================================================================
 # Code 16
 # 脸向下
@@ -209,7 +224,12 @@ $move_commands[26] = Command.new(26, -1, "", "背向主角")
 target_text = Text.new do |parameters, *followings|
 	sprintf("%04d", parameters[0].Value)
 end
-$move_commands[27] = Command.new(27, -1, "", "开关 ON", target_text, "i")
+target_window = Proc.new do |window, commands|
+	window = Builder.Add(:dialog_r) do
+		Builder.Add(:int, { actual: :INDEX0, text: "开关编号" })
+	end
+end
+$move_commands[27] = Command.new(27, -1, "", "开关 ON", target_text, "i", target_window)
 #=================================================================
 # Code 28
 # 开关 OFF
@@ -219,17 +239,27 @@ $move_commands[27] = Command.new(27, -1, "", "开关 ON", target_text, "i")
 target_text = Text.new do |parameters, *followings|
 	sprintf("%04d", parameters[0].Value)
 end
-$move_commands[28] = Command.new(28, -1, "", "开关 OFF", target_text, "i")
+target_window = Proc.new do |window, commands|
+	window = Builder.Add(:dialog_r) do
+		Builder.Add(:int, { actual: :INDEX0, text: "开关编号" })
+	end
+end
+$move_commands[28] = Command.new(28, -1, "", "开关 OFF", target_text, "i", target_window)
 #=================================================================
 # Code 29
 # 更改移动速度
 #-----------------------------------------------------------------
-# Parameter : []
+# Parameter : [4]
 #=================================================================
 target_text = Text.new do |parameters, *followings|
 	parameters[0].to_s
 end
-$move_commands[29] = Command.new(29, -1, "", "更改移动速度", target_text, "i")
+target_window = Proc.new do |window, commands|
+	window = Builder.Add(:dialog_r) do
+		Builder.Pop :speed, 0
+	end
+end
+$move_commands[29] = Command.new(29, -1, "", "更改移动速度", target_text, "i", target_window)
 #=================================================================
 # Code 30
 # 更改移动频度
@@ -239,7 +269,12 @@ $move_commands[29] = Command.new(29, -1, "", "更改移动速度", target_text, 
 target_text = Text.new do |parameters, *followings|
 	parameters[0].to_s
 end
-$move_commands[30] = Command.new(30, -1, "", "更改移动频度", target_text, "i")
+target_window = Proc.new do |window, commands|
+	window = Builder.Add(:dialog_r) do
+		Builder.Pop :frequency, 0
+	end
+end
+$move_commands[30] = Command.new(30, -1, "", "更改移动频度", target_text, "i", target_window)
 #=================================================================
 # Code 31
 # 移动时动画 ON
@@ -319,6 +354,11 @@ $move_commands[40] = Command.new(40, -1, "", "总在最前显示 OFF")
 target_text = Text.new do |parameters, *followings|
 	parameters[0].to_s + ", " + parameters[1].to_s + ", " + parameters[2].to_s + ", " + parameters[3].to_s
 end
+target_window = Proc.new do |window, commands|
+	window = Builder.Add(:dialog_r) do
+		
+	end
+end
 $move_commands[41] = Command.new(41, -1, "", "更改角色图形", target_text, "siii")
 #=================================================================
 # Code 42
@@ -329,7 +369,12 @@ $move_commands[41] = Command.new(41, -1, "", "更改角色图形", target_text, 
 target_text = Text.new do |parameters, *followings|
 	parameters[0].to_s
 end
-$move_commands[42] = Command.new(42, -1, "", "更改不透明度", target_text, "i")
+target_window = Proc.new do |window, commands|
+	window = Builder.Add(:dialog_r) do
+		Builder.Add(:int, { actual: :INDEX0, text: "不透明度" })
+	end
+end
+$move_commands[42] = Command.new(42, -1, "", "更改不透明度", target_text, "i", target_window)
 #=================================================================
 # Code 43
 # 更改合成方式
@@ -339,7 +384,16 @@ $move_commands[42] = Command.new(42, -1, "", "更改不透明度", target_text, 
 target_text = Text.new do |parameters, *followings|
 	["普通", "加法", "减法"][parameters[0].Value].encode
 end
-$move_commands[43] = Command.new(43, -1, "", "更改合成方式", target_text, "i")
+target_window = Proc.new do |window, commands|
+	window = Builder.Add(:dialog_r) do
+		Builder.Add(:choose, { actual: :INDEX0, text: "合成方式", choice: {
+			0 => "普通",
+			1 => "加法",
+			2 => "减法"
+		} })
+	end
+end
+$move_commands[43] = Command.new(43, -1, "", "更改合成方式", target_text, "i", target_window)
 #=================================================================
 # Code 44
 # 播放 SE
@@ -349,7 +403,10 @@ $move_commands[43] = Command.new(43, -1, "", "更改合成方式", target_text, 
 target_text = Text.new do |parameters, *followings|
 	Event_Help.audio(parameters[0])
 end
-$move_commands[44] = Command.new(44, -1, "", "播放 SE", target_text, "a")
+target_window = Proc.new do |window, commands|
+	window = Builder.Add(:dialog_audio, { type: "SE" }) 
+end
+$move_commands[44] = Command.new(44, -1, "", "播放 SE", target_text, "a", target_window)
 #=================================================================
 # Code 45
 # 执行脚本
@@ -359,4 +416,10 @@ $move_commands[44] = Command.new(44, -1, "", "播放 SE", target_text, "a")
 target_text = Text.new do |parameters, *followings|
 	parameters[0].to_s
 end
-$move_commands[45] = Command.new(45, -1, "", "脚本", target_text, "s")
+target_window = Proc.new do |window, commands|
+	Builder.In window
+	Builder.Add(:text, { actual: :INDEX0, label: 0, width: 270 })
+	Builder.Out
+	window
+end
+$move_commands[45] = Command.new(45, -1, "", "脚本", target_text, "s", target_window)

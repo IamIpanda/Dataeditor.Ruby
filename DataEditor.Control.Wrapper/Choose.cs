@@ -67,7 +67,7 @@ namespace DataEditor.Control.Wrapper
                     string id_symbol;
                     if (file_choice.TryGetArgument<string>("ID", out id_symbol) == false) id_symbol = "";
                     FuzzyData.FuzzySymbol id_fuzzy_symbol = null;
-                    if (id_symbol != null && id_symbol != "")
+                    if (!string.IsNullOrEmpty(id_symbol))
                         id_fuzzy_symbol = FuzzyData.FuzzySymbol.GetSymbol("@" + id_symbol);
                     // 对于 FuzzyString 组，需先滤掉所有开头的空字符串
                     //（对于一般的字符串组来说，滤掉的是 0）
@@ -90,7 +90,7 @@ namespace DataEditor.Control.Wrapper
                         // 如果指定了过滤器，并且过滤器宣告此值无效，那么忽略之。
                         if (filter != null && Convert.ToBoolean(filter.call(target, parent)) == false) continue;
                         // 如果指定了ID，那么依次结算
-                        if (id_symbol != null && id_symbol != "")
+                        if (!string.IsNullOrEmpty(id_symbol))
                         {
                             // 搜索 ID
                             FuzzyData.FuzzyFixnum j_fix = target[id_fuzzy_symbol] as FuzzyData.FuzzyFixnum;

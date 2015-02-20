@@ -12,6 +12,7 @@ namespace DataEditor.Control.Wrapper
         public override void Pull()
         {
             Control.Items.Clear();
+            Control.ResetDo();
             foreach (var obj in value.OfType<FuzzyObject>())
                 Control.Items.Add(new Command(obj));
         }
@@ -25,7 +26,7 @@ namespace DataEditor.Control.Wrapper
 
         public override bool ValueIsChanged()
         {
-            return false;
+            return true;
         }
 
     }

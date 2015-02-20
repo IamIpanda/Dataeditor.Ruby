@@ -46,6 +46,16 @@ namespace DataEditor.Help
             Redid.Clear();
             if (Act != null) Act(this, new ActionEventArgs(change, ActionType.Do));
         }
+
+        public void Do(Change change)
+        {
+            if (Enabled != true) return;
+            Log.log("Action 记录了一个动作，类型为 " + change.GetType().ToString());
+            while(Record.Count > 99) Record.RemoveFirst();
+            Record.AddLast(change);
+            Redid.Clear();
+            if (Act != null) Act(this, new ActionEventArgs(change, ActionType.Do));
+        }
         public void Undo()
         {
             if (Enabled != true) return;

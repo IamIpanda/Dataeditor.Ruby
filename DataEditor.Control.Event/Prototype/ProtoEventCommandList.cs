@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
-using System.Drawing;
-using System.Linq;
-using DataEditor.Control.Event.DataModel;
+﻿using DataEditor.Control.Event.DataModel;
 using DataEditor.Control.Window;
 using DataEditor.FuzzyData;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace DataEditor.Control.Prototype
 {
     public class ProtoEventCommandList : Prototype.ProtoListBox
     {
         #region 自动生成的代码
+
         private ContextMenuStrip RightMenu;
         private System.ComponentModel.IContainer components;
         private ToolStripMenuItem MenuItemInsert;
@@ -22,59 +22,65 @@ namespace DataEditor.Control.Prototype
         private ToolStripMenuItem MenuItemCopy;
         private ToolStripMenuItem MenuItemPaste;
         private ToolStripMenuItem MenuItemDelete;
-        #endregion
 
-        const int IndentShift = 18;
-        readonly SolidBrush SignBrush = new SolidBrush(Color.Black);
+        #endregion 自动生成的代码
+
+        private const int IndentShift = 18;
+        private readonly SolidBrush SignBrush = new SolidBrush(Color.Black);
 
         public ProtoEventCommandList()
         {
             InitializeComponent();
+            SignColors = new Dictionary<object, Color>();
         }
 
-        void ProtoEventCommandList_KeyPress(object sender, KeyPressEventArgs e)
+        private void ProtoEventCommandList_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == ' ') e.Handled = true;
         }
 
-        void ProtoEventCommandList_KeyDown(object sender, KeyEventArgs e)
+        private void ProtoEventCommandList_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
                 case Keys.Up:
-                {
-                    var index = this.SelectedIndex - 1;
-                    if (index < 0) index = this.Items.Count - 1;
-                    var command = GetCommand(index);
-                    while (index >= 0 && (command == null || command.Type.isChildCommand))
-                        command = GetCommand(--index);
-                    if (this.SelectedIndex >= 0)
-                        this.SetSelected(this.SelectedIndex, false);
-                    this.SetSelected(index, true);
-                    e.Handled = true;
-                }
+                    {
+                        var index = this.SelectedIndex - 1;
+                        if (index < 0) index = this.Items.Count - 1;
+                        var command = GetCommand(index);
+                        while (index >= 0 && (command == null || command.Type.isChildCommand))
+                            command = GetCommand(--index);
+                        if (this.SelectedIndex >= 0)
+                            this.SetSelected(this.SelectedIndex, false);
+                        this.SetSelected(index, true);
+                        e.Handled = true;
+                    }
                     break;
+
                 case Keys.Down:
-                {
-                    var index = this.SelectedIndex + 1;
-                    if (index >= Items.Count) index = 0;
-                    var command = GetCommand(index);
-                    while (index <= Items.Count - 1 && (command == null || command.Type.isChildCommand))
-                        command = GetCommand(++index);
-                    if (this.SelectedIndex >= 0)
-                        this.SetSelected(this.SelectedIndex, false);
-                    this.SetSelected(index, true);
-                    e.Handled = true;
-                }
+                    {
+                        var index = this.SelectedIndex + 1;
+                        if (index >= Items.Count) index = 0;
+                        var command = GetCommand(index);
+                        while (index <= Items.Count - 1 && (command == null || command.Type.isChildCommand))
+                            command = GetCommand(++index);
+                        if (this.SelectedIndex >= 0)
+                            this.SetSelected(this.SelectedIndex, false);
+                        this.SetSelected(index, true);
+                        e.Handled = true;
+                    }
                     break;
+
                 case Keys.Space:
                     OnEditCalled();
                     e.Handled = true;
                     break;
+
                 case Keys.Enter:
                     OnInsertCalled();
                     e.Handled = true;
                     break;
+
                 case Keys.Delete:
                     OnDeleteCalled();
                     e.Handled = true;
@@ -82,9 +88,10 @@ namespace DataEditor.Control.Prototype
             }
         }
 
-        int EndingIndex = -1;
+        private int EndingIndex = -1;
         private int last_start_index = 0, last_end_index = 0;
-        void ProtoEventCommandList_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void ProtoEventCommandList_SelectedIndexChanged(object sender, EventArgs e)
         {
             // 重置
             EndingIndex = -1;
@@ -112,13 +119,16 @@ namespace DataEditor.Control.Prototype
             while (isText ? (command.Type.Follow == search_code) : (command.Code != search_ending || command.Indent != search_indent))
             {
                 command = GetCommand(++index);
-                if (command == null) break;
+                if (command != null) continue;
+                index += isText ? 0 : 1;
+                break;
             }
-            EndingIndex = index - 1;
+            EndingIndex = index - (isText ? 1 : 0);
             rect_top = this.GetItemRectangle(last_start_index = this.SelectedIndex);
             rect_end = this.GetItemRectangle(last_end_index = this.EndingIndex);
             this.Invalidate(new Rectangle(rect_top.X, rect_top.Y, rect_end.Width, rect_end.Bottom - rect_top.X));
         }
+
         protected override void OnDrawItem(DrawItemEventArgs e)
         {
             // 各种情况的处理
@@ -141,7 +151,7 @@ namespace DataEditor.Control.Prototype
             Brush ForeBrush = GetEventBrush(e, command, handled_focused);
             float shift = IndentShift * command.Indent;
             // 总会描绘的标记（Sign）
-            e.Graphics.DrawString(command.Type.isChildCommand ? Command.ChildSign : Command.FocusSign, Font, handled_focused ? ForeBrush : SignBrush, shift, e.Bounds.Y);
+            e.Graphics.DrawString(command.Type.isChildCommand ? Command.ChildSign : Command.FocusSign, Font, handled_focused ? ForeBrush : GetSignBrush(e.Index), shift, e.Bounds.Y);
             if (command.Code <= 0) return;
             shift += IndentShift;
             // 指令名称
@@ -151,7 +161,7 @@ namespace DataEditor.Control.Prototype
                 shift += command.Type.NameLength ?? command.Type.GenerateNameLength(e.Graphics, Font);
             }
             // 指令顺延
-            if (command.Type.isProlongCommand) 
+            if (command.Type.isProlongCommand)
                 shift += command.Type.ParentNameLength ?? command.Type.GetParentTextCommandLength(e.Graphics, Font);
             var str = command.ToString();
             // “ ： ”
@@ -175,12 +185,12 @@ namespace DataEditor.Control.Prototype
                 cy += ItemHeight;
             }
         }
+
         protected DataEditor.Control.Event.DataModel.Command GetCommand(int index)
         {
             if (index >= Items.Count) return null;
             return this.Items[index] as DataEditor.Control.Event.DataModel.Command;
         }
-
 
         protected override bool GetFocused(DrawItemState state)
         {
@@ -194,6 +204,7 @@ namespace DataEditor.Control.Prototype
             if (EndingIndex < 0 || this.SelectedIndex < 0) return false;
             return (this.SelectedIndex < index && index <= EndingIndex);
         }
+
         protected Brush GetEventBrush(DrawItemEventArgs e, Command command, bool handled_focused)
         {
             if (handled_focused)
@@ -202,6 +213,12 @@ namespace DataEditor.Control.Prototype
             if (ForeColors.TryGetValue(e.Index, out color))
                 return ProtoListControlHelp.GetBrush(CheckEnabled(color));
             return ProtoListControlHelp.GetBrush(CheckEnabled(command.Type.Color));
+        }
+
+        protected Brush GetSignBrush(int index)
+        {
+            Color color;
+            return SignColors.TryGetValue(Items[index], out color) ? ProtoListControlHelp.GetBrush(color) : SignBrush;
         }
 
         public List<Command> With
@@ -238,10 +255,15 @@ namespace DataEditor.Control.Prototype
         }
 
         public event EventHandler InsertCalled;
+
         public event EventHandler EditCalled;
+
         public event EventHandler CopyCalled;
+
         public event EventHandler CutCalled;
+
         public event EventHandler PasteCalled;
+
         public event EventHandler DeleteCalled;
 
         private void MenuItemCopy_Click(object sender, EventArgs e)
@@ -280,30 +302,35 @@ namespace DataEditor.Control.Prototype
                 InsertCalled(this, new EventArgs());
             else Insert();
         }
+
         public void OnEditCalled()
         {
             if (EditCalled != null)
                 EditCalled(this, new EventArgs());
             else Edit();
         }
+
         public void OnCopyCalled()
         {
             if (CopyCalled != null)
                 CopyCalled(this, new EventArgs());
             else Copy();
         }
+
         public void OnCutCalled()
         {
             if (CutCalled != null)
                 CutCalled(this, new EventArgs());
             else Cut();
         }
+
         public void OnPasteCalled()
         {
             if (PasteCalled != null)
                 PasteCalled(this, new EventArgs());
             else Paste();
         }
+
         public void OnDeleteCalled()
         {
             if (DeleteCalled != null)
@@ -325,7 +352,9 @@ namespace DataEditor.Control.Prototype
                 return !selected.Type.isChildCommand;
             }
         }
+
         private CommandChooseWindow cm = null;
+
         public void Insert()
         {
             if (CanInsert == false) return;
@@ -335,13 +364,16 @@ namespace DataEditor.Control.Prototype
             var index = SelectedIndex;
             for (var i = 0; i < cm.SelectedCommands.Count; i++)
                 this.Items.Insert(i + index, cm.SelectedCommands[i]);
+            Do(ActionType.Add, index, index + cm.SelectedCommands.Count - 1);
             this.SelectedIndex = -1;
             this.SelectedIndex = index;
         }
 
         public void Insert(Command command)
         {
-            this.Items.Insert(SelectedIndex, command);
+            int index = SelectedIndex;
+            this.Items.Insert(index, command);
+            Do(ActionType.Add, index, -1);
         }
 
         public void Edit()
@@ -349,6 +381,7 @@ namespace DataEditor.Control.Prototype
             if (CanOperate == false) return;
             var command = SelectedCommand;
             if (command.Type.isChildCommand) return;
+            if (SelectedCommand.Type.Window == null) return;
             var window = SelectedCommand.GenerateWindow(this.With);
             if (window == null) return;
             if (window.Show() != DialogResult.OK) return;
@@ -356,8 +389,10 @@ namespace DataEditor.Control.Prototype
             command.FuzzyParameters = window.Parent as FuzzyArray;
             command.SyncToLink();
             command.GenerateString();
+            int index = SelectedIndex;
             if (with != null)
                 With = with.OfType<Command>().Select(obj => obj).ToList();
+            Do(ActionType.Change, index, index + (with == null ? 0 : with.Count(x => true)));
             ProtoEventCommandList_SelectedIndexChanged(this, new EventArgs());
         }
 
@@ -372,20 +407,23 @@ namespace DataEditor.Control.Prototype
                 arr.Add(command.Link);
             return arr;
         }
+
         public void Copy()
         {
             if (CanOperate == false) return;
             clip.Set(GetFuzzySelectedCommands());
         }
+
         public void Cut()
         {
             if (CanOperate == false) return;
             clip.Set(GetFuzzySelectedCommands());
             OnDeleteCalled();
         }
+
         public void Paste()
         {
-            if (CanOperate == false) return;
+            if (CanInsert == false) return;
             if (!(clip.CanGet())) return;
             var answer = clip.Get() as FuzzyArray;
             if (answer == null) return;
@@ -401,9 +439,11 @@ namespace DataEditor.Control.Prototype
                 this.Items.Insert(index, command);
                 index++;
             }
+            Do(ActionType.Add, index, index + commands.Count - 1);
             SelectedIndex = -1;
             SelectedIndex = index;
         }
+
         public void Delete()
         {
             var command = SelectedCommand;
@@ -415,12 +455,56 @@ namespace DataEditor.Control.Prototype
                     this.Items.RemoveAt(i);
             else this.Items.RemoveAt(index);
             if (index >= this.Items.Count) index = this.Items.Count - 1;
+            Do(ActionType.Remove, index, -1);
             SelectedIndex = -1;
             this.SelectedIndex = index;
         }
 
+        #region Flag Colors
+
+        public enum ActionType { Add, Change, Remove };
+
+        public Dictionary<object, Color> SignColors { get; set; }
+        private const int InsertCommandSignColorID = 3;
+        private const int EditCommandSignColorID = 23;
+        private const int RemoveCommandSignColorID = 17;
+        public void Do(ActionType type, int start_index, int ending_index, object tag = null)
+        {
+            if (ending_index < 0) ending_index = start_index;
+            object target;
+            switch (type)
+            {
+                case ActionType.Add:
+                    for (var j = start_index; j <= ending_index; j++)
+                        SignColors[this.Items[j]] = Help.Painter.Instance[InsertCommandSignColorID];
+                    break;
+
+                case ActionType.Change:
+                    for (var j = start_index; j <= ending_index; j++)
+                    {
+                        target = Items[j];
+                        if (!(SignColors.ContainsKey(target)) || SignColors[target] != Help.Painter.Instance[InsertCommandSignColorID])
+                            SignColors[target] = Help.Painter.Instance[EditCommandSignColorID];
+                    }
+                    break;
+
+                case ActionType.Remove:
+                    var target_index = start_index - 1;
+                    if (target_index < 0) target_index = 0;
+                    SignColors[Items[target_index]] = Help.Painter.Instance[RemoveCommandSignColorID];
+                    break;
+            }
+        }
+
+        public void ResetDo()
+        {
+            ForeColors.Clear();
+        }
+
+        #endregion Flag Colors
 
         #region 自动生成的代码
+
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -434,9 +518,9 @@ namespace DataEditor.Control.Prototype
             this.MenuItemDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.RightMenu.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // RightMenu
-            // 
+            //
             this.RightMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuItemInsert,
             this.MenuItemEdit,
@@ -447,66 +531,66 @@ namespace DataEditor.Control.Prototype
             this.MenuItemDelete});
             this.RightMenu.Name = "RightMenu";
             this.RightMenu.Size = new System.Drawing.Size(101, 142);
-            // 
+            //
             // MenuItemInsert
-            // 
+            //
             this.MenuItemInsert.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.MenuItemInsert.Name = "MenuItemInsert";
             this.MenuItemInsert.Size = new System.Drawing.Size(100, 22);
             this.MenuItemInsert.Text = "插入";
             this.MenuItemInsert.Click += new System.EventHandler(this.MenuItemInsert_Click);
-            // 
+            //
             // MenuItemEdit
-            // 
+            //
             this.MenuItemEdit.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.MenuItemEdit.Name = "MenuItemEdit";
             this.MenuItemEdit.Size = new System.Drawing.Size(100, 22);
             this.MenuItemEdit.Text = "编辑";
             this.MenuItemEdit.Click += new System.EventHandler(this.MenuItemEdit_Click);
-            // 
+            //
             // toolStripSeparator1
-            // 
+            //
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(97, 6);
-            // 
+            //
             // MenuItemCut
-            // 
+            //
             this.MenuItemCut.Name = "MenuItemCut";
             this.MenuItemCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.MenuItemCut.ShowShortcutKeys = false;
             this.MenuItemCut.Size = new System.Drawing.Size(100, 22);
             this.MenuItemCut.Text = "剪切";
             this.MenuItemCut.Click += new System.EventHandler(this.MenuItemCut_Click);
-            // 
+            //
             // MenuItemCopy
-            // 
+            //
             this.MenuItemCopy.Name = "MenuItemCopy";
             this.MenuItemCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.MenuItemCopy.ShowShortcutKeys = false;
             this.MenuItemCopy.Size = new System.Drawing.Size(100, 22);
             this.MenuItemCopy.Text = "复制";
             this.MenuItemCopy.Click += new System.EventHandler(this.MenuItemCopy_Click);
-            // 
+            //
             // MenuItemPaste
-            // 
+            //
             this.MenuItemPaste.Name = "MenuItemPaste";
             this.MenuItemPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.MenuItemPaste.ShowShortcutKeys = false;
             this.MenuItemPaste.Size = new System.Drawing.Size(100, 22);
             this.MenuItemPaste.Text = "粘贴";
             this.MenuItemPaste.Click += new System.EventHandler(this.MenuItemPaste_Click);
-            // 
+            //
             // MenuItemDelete
-            // 
+            //
             this.MenuItemDelete.Name = "MenuItemDelete";
             this.MenuItemDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.MenuItemDelete.ShowShortcutKeys = false;
             this.MenuItemDelete.Size = new System.Drawing.Size(100, 22);
             this.MenuItemDelete.Text = "删除";
             this.MenuItemDelete.Click += new System.EventHandler(this.MenuItemDelete_Click);
-            // 
+            //
             // ProtoEventCommandList
-            // 
+            //
             this.ContextMenuStrip = this.RightMenu;
             this.SelectedIndexChanged += new System.EventHandler(this.ProtoEventCommandList_SelectedIndexChanged);
             this.DoubleClick += new System.EventHandler(this.ProtoEventCommandList_DoubleClick);
@@ -514,9 +598,8 @@ namespace DataEditor.Control.Prototype
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ProtoEventCommandList_KeyPress);
             this.RightMenu.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
-        #endregion
 
+        #endregion 自动生成的代码
     }
 }

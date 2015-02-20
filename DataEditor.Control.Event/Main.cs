@@ -84,6 +84,7 @@ namespace DataEditor.Control.Event
         void SetCommandListBox()
         {
             peclMain.Items.Clear();
+            peclMain.ResetDo();
             var FuzzyPage = Page[ListSymbol] as FuzzyArray;
             if(FuzzyPage == null) return;
             peclMain.Enabled = true;

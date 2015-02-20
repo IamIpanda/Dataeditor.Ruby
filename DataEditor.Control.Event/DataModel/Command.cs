@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using DataEditor.FuzzyData;
@@ -41,7 +42,7 @@ namespace DataEditor.Control.Event.DataModel
             Link.InstanceVariables.Add(IndentSymbol, new FuzzyFixnum(this.Indent));
             Link.InstanceVariables.Add(ParametersSymbol, new FuzzyArray(Parameters.ConvertAll<object>((x) => x)));
         }
-        public Command(FuzzyData.FuzzyObject command, int indent = 0)
+        public Command(FuzzyData.FuzzyObject command, int indent = -1)
         {
             object obj;
             FuzzyData.FuzzyFixnum fuzzy_code = null, fuzzy_indent = null;
@@ -54,7 +55,8 @@ namespace DataEditor.Control.Event.DataModel
             if (fuzzy_indent != null) this.Indent = Convert.ToInt32(fuzzy_indent.Value);
             if (fuzzy_parameter != null)
                 this.Parameters = new List<FuzzyObject>(fuzzy_parameter.ConvertAll((o) => o as FuzzyObject));
-            this.Indent = indent;
+            if (indent > 0)
+                this.Indent = indent;
         }
         #region 带缓存的 ToString 机制
         string StringVersion = null;

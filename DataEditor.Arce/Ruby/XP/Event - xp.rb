@@ -1175,7 +1175,7 @@ target_with = Proc.new do |window, oldwith|
 	end
 	ans
 end
-$commands_xp[209] = Command.new(209, -1, "MOVE", "设置移动路线", target_text, "u", target_window, nil, 509)
+$commands_xp[209] = Command.new(209, -1, "MOVE", "设置移动路线", target_text, "im", target_window, nil, 509)
 $commands_xp[209].isTextCommand = true
 
 #=================================================================
@@ -1953,7 +1953,7 @@ target_window = Proc.new do |window, commands|
 	Builder.Out
 	window
 end
-$commands_xp[319] = Command.new(319, -1, "SETBODY", "变更装备", target_text, "iii", target_window, nil)
+$commands_xp[319] = Command.new(319, -1, "SETBODY", "变更装备", target_text, "i{1}ii", target_window, nil)
 
 #=================================================================
 # Code 320
@@ -2184,10 +2184,10 @@ $commands_xp[338] = Command.new(338, -1, "DAMAGE", "伤害处理", target_text, 
 #=================================================================
 target_text = Text.new do |parameters, *followings| 
 	parts = []
-	parts.push (parameters[0].Value ? Event_Help.enemy(parameters[1].Value) : Event_Help.actor(parameters[1].Value))
-	parts.push (parameters[2].Value ? ["攻击", "防御", "逃跑", "什么也不做"][parameters[3].Value].encode : Data["skill"][parameters[3].Value].name)
-	parts.push (parameters[4].Value < 0 ? ["最后的目标", "随机"][parameters[4].Value].encode : "Index #{parameters[4].Value + 1}")
-	parts.push "立即执行".encode if parameters[5].Value > 0
+	parts.push (parameters[0].Value != 0 ? (parameters[1].Value.to_s + " 人").to_s : Event_Help.enemy(parameters[1].Value))
+	parts.push (parameters[2].Value != 0 ? Data["skill"][parameters[3].Value].name : ["攻击", "防御", "逃跑", "什么也不做"][parameters[3].Value].encode)
+	parts.push (parameters[4].Value != 0 ? ["最后的目标", "随机"][parameters[4].Value].encode : "Index #{parameters[4].Value + 1}")
+	parts.push ("立即执行".encode) if parameters[5].Value > 0
 	parts.join ", "
 end
 
@@ -2202,13 +2202,18 @@ target_window = Proc.new do |window, commands|
 		end
 	end
 	Builder.Add(:group, { text: "行为" }) do
+		Builder.Order
 		Builder.Add(:radio, { actual: :INDEX2, text: "基本", key: 0, group: "window_code_337#2" }) do
 			Builder.Add(:choose, { actual: :INDEX3, label: 0, choice: { 0 => "攻击", 1 => "防御", 2 => "逃跑", 3 => "什么也不做" } })
 		end
+		Builder.Next
 		Builder.Add(:radio, { actual: :INDEX2, text: "特技", key: 1, group: "window_code_337#2" }) do
 			Builder.Add(:choose, { actual: :INDEX3, label: 0, choice: { nil => Filechoice.new("skill") } })
 		end
-		Builder.Add(:choose, { actual: :INDEX4, text: "行为对象", label: 2, choice: {
+		Builder.Next
+		Builder.Text "行为对象"
+		Builder.Space 15
+		Builder.Add(:choose, { actual: :INDEX4, label: 0, choice: {
 			-2 => "最后的目标",
 			-1 => "随机",
 			0 => "Index 1",

@@ -26,14 +26,17 @@ namespace DataEditor.Control.Wrapper
             if (stats.RawReverse.ContainsKey(j)) { Control.SelectedIndex = stats.Reverse[j]; return; }
             if (flexiable.RawReverse.ContainsKey(j)) { Control.SelectedIndex = flexiable.Reverse[j]; return; }
             Help.Log.log("无法查找此值（j）：" + j.ToString());
+            if(Control.Items.Count == 0) return;
+            Control.SelectedIndex = 0;
+            Push();
         }
 
         public override bool ValueIsChanged()
         {
             if (parent == null) return false;
             int i = Control.SelectedIndex;
-            if (stats.RawVerse.ContainsKey(i)) { return stats.Verse[i] == Control.SelectedIndex ; }
-            if (flexiable.RawVerse.ContainsKey(i)) { return flexiable.Verse[i] == Control.SelectedIndex; }
+            if (stats.RawVerse.ContainsKey(i)) { return stats.Verse[i] != value.Value ; }
+            if (flexiable.RawVerse.ContainsKey(i)) { return flexiable.Verse[i] != value.Value; }
             return false;
         }
         public override void Bind()

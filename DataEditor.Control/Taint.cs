@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DataEditor.FuzzyData;
 
 namespace DataEditor.Help
 {
@@ -11,6 +12,7 @@ namespace DataEditor.Help
         protected Taint() 
         {
             Help.Action.Instance.Act += Instance_Act;
+            Tag = new TaintTag();
         }
         protected Dictionary<FuzzyData.FuzzyObject, Contract.TaintState> records 
             = new Dictionary<FuzzyData.FuzzyObject, Contract.TaintState>();
@@ -92,6 +94,27 @@ namespace DataEditor.Help
                 }
             }
         }
+
+        public class TaintTag
+        {
+            private Dictionary<FuzzyObject, object> tag = new Dictionary<FuzzyObject, object>();
+
+            public object this[FuzzyObject key]
+            {
+                get
+                {
+                    object ans;
+                    return tag.TryGetValue(key, out ans) ? ans : null;
+                }
+                set
+                {
+                    if (tag.ContainsKey(key)) tag[key] = value;
+                    else tag.Add(key, value);
+                }
+            }
+        }
+        public TaintTag Tag { get; set; }
+
         public class TaintEventArgs : EventArgs
         {
             public TaintEventArgs InnerEventArg { get; set; }
@@ -168,7 +191,7 @@ namespace DataEditor.Help
                     return Help.Painter.Instance[20];
                 case Contract.TaintState.UnTainted:
                 default:
-                    return System.Windows.Forms.Label.DefaultForeColor;
+                    return System.Windows.Forms.Control.DefaultForeColor;
             }
         }
 

@@ -218,7 +218,7 @@ namespace DataEditor.Control.Prototype
         protected Brush GetSignBrush(int index)
         {
             Color color;
-            return SignColors.TryGetValue(Items[index], out color) ? ProtoListControlHelp.GetBrush(color) : SignBrush;
+            return SignColors.TryGetValue((Items[index] as Command).Link, out color) ? ProtoListControlHelp.GetBrush(color) : SignBrush;
         }
 
         public List<Command> With
@@ -372,6 +372,7 @@ namespace DataEditor.Control.Prototype
         public void Insert(Command command)
         {
             int index = SelectedIndex;
+            if (index < 0) return;
             this.Items.Insert(index, command);
             Do(ActionType.Add, index, -1);
         }
@@ -439,7 +440,7 @@ namespace DataEditor.Control.Prototype
                 this.Items.Insert(index, command);
                 index++;
             }
-            Do(ActionType.Add, index, index + commands.Count - 1);
+            Do(ActionType.Add, index - 1, index + commands.Count - 2);
             SelectedIndex = -1;
             SelectedIndex = index;
         }
@@ -468,6 +469,7 @@ namespace DataEditor.Control.Prototype
         private const int InsertCommandSignColorID = 3;
         private const int EditCommandSignColorID = 23;
         private const int RemoveCommandSignColorID = 17;
+        private const int SavedCommandSignColorID = 22;
         public void Do(ActionType type, int start_index, int ending_index, object tag = null)
         {
             if (ending_index < 0) ending_index = start_index;
@@ -476,13 +478,13 @@ namespace DataEditor.Control.Prototype
             {
                 case ActionType.Add:
                     for (var j = start_index; j <= ending_index; j++)
-                        SignColors[this.Items[j]] = Help.Painter.Instance[InsertCommandSignColorID];
+                        SignColors[(this.Items[j] as Command).Link] = Help.Painter.Instance[InsertCommandSignColorID];
                     break;
 
                 case ActionType.Change:
                     for (var j = start_index; j <= ending_index; j++)
                     {
-                        target = Items[j];
+                        target = (Items[j] as Command).Link;
                         if (!(SignColors.ContainsKey(target)) || SignColors[target] != Help.Painter.Instance[InsertCommandSignColorID])
                             SignColors[target] = Help.Painter.Instance[EditCommandSignColorID];
                     }
@@ -491,11 +493,16 @@ namespace DataEditor.Control.Prototype
                 case ActionType.Remove:
                     var target_index = start_index - 1;
                     if (target_index < 0) target_index = 0;
-                    SignColors[Items[target_index]] = Help.Painter.Instance[RemoveCommandSignColorID];
+                    SignColors[(Items[target_index] as Command).Link] = Help.Painter.Instance[RemoveCommandSignColorID];
                     break;
             }
         }
 
+        public void SaveDo()
+        {
+            var temp = SignColors.Keys.ToList();
+            temp.ForEach(key => SignColors[key] = Help.Painter.Instance[SavedCommandSignColorID]);
+        }
         public void ResetDo()
         {
             ForeColors.Clear();

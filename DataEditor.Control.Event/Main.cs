@@ -84,10 +84,10 @@ namespace DataEditor.Control.Event
         void SetCommandListBox()
         {
             peclMain.Items.Clear();
-            peclMain.ResetDo();
             var FuzzyPage = Page[ListSymbol] as FuzzyArray;
             if(FuzzyPage == null) return;
             peclMain.Enabled = true;
+            peclMain.SignColors = Help.Taint.Instance.Tag[FuzzyPage] as Dictionary<object, Color> ?? new Dictionary<object, Color>();
             foreach (var command in FuzzyPage.OfType<FuzzyObject>())
                 peclMain.Items.Add(new Event.DataModel.Command(command));
         }
@@ -149,6 +149,8 @@ namespace DataEditor.Control.Event
         {
             var FuzzyPage = Page[ListSymbol] as FuzzyArray;
             if (FuzzyPage == null) return;
+            peclMain.SaveDo();
+            Help.Taint.Instance.Tag[FuzzyPage] = peclMain.SignColors;
             FuzzyPage.Clear();
             foreach (var command in peclMain.Items.OfType<Command>())
                 FuzzyPage.Add(command.Link);

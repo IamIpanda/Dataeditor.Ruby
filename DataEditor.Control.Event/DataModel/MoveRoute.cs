@@ -15,6 +15,7 @@ namespace DataEditor.Control.Event.DataModel
             ans.ClassName = ClassName;
             ans.InstanceVariables.Add(SkippableSymbol, new FuzzyBool());
             ans.InstanceVariables.Add(RepeatSymbol, new FuzzyBool());
+            ans.InstanceVariables.Add(ListSymbol, new FuzzyArray());
             return ans;
         }
 

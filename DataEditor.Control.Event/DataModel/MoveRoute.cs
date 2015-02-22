@@ -15,7 +15,10 @@ namespace DataEditor.Control.Event.DataModel
             ans.ClassName = ClassName;
             ans.InstanceVariables.Add(SkippableSymbol, new FuzzyBool());
             ans.InstanceVariables.Add(RepeatSymbol, new FuzzyBool());
-            ans.InstanceVariables.Add(ListSymbol, new FuzzyArray());
+            var fuzzylist = new FuzzyArray();
+            var type = CommandType.TargetGroup("Move")[0];
+            if (type != null) fuzzylist.Add(new Command(type).Link);
+            ans.InstanceVariables.Add(ListSymbol, fuzzylist);
             return ans;
         }
 
@@ -43,6 +46,10 @@ namespace DataEditor.Control.Event.DataModel
             if (fuzzy_repeat != null) fuzzy_repeat.Value = Value;
         }
 
+        public static FuzzyArray getList(FuzzyObject route)
+        {
+            return route[ListSymbol] as FuzzyArray;
+        }
         public static void setList(FuzzyObject route, List<MoveCommand> commands)
         {
             if (!(route.InstanceVariables.ContainsKey(ListSymbol)) || !(route[ListSymbol] is FuzzyArray))

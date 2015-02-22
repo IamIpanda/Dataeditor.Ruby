@@ -74,7 +74,6 @@ target_with = Proc.new do |window, oldwith|
 	key = 0
 	for command in oldwith
 		case command.Code
-		when 0 then next
 		when 404 then break
 		when 402 then key += 1
 		when 403 then key = 5
@@ -99,7 +98,7 @@ target_with = Proc.new do |window, oldwith|
 		para.Parameters[1].Text = texts[i].Binding.Text
 		ans.push para
 		ans += oldwithcommands[i]
-		ans.push Instance.new $commands_xp[0], indent + 1
+		ans.push Instance.new $commands_xp[0], indent + 1 if oldwithcommands[i].Count == 0
 		ans.to_s # I had told you It's MAGIC!! DON'T TOUCH IT!
 	end
 	if window.Value[1].Value == 5
@@ -432,7 +431,7 @@ target_window = Proc.new do |window, with|
 	with.each { |command| set_else = true if command.Code == 411 }
 	fuzzy_set = DataEditor::FuzzyData::FuzzyBool.new
 	fuzzy_set.Value = set_else
-	control_set = Builder.Add(:check, { text: "当不符合条件时设置" })
+	control_set = Builder.Add(:check, { text: "当不符合条件时设置", actual: :ORIGIN })
 	control_set.Value = fuzzy_set
 	Builder.Out
 	window
@@ -1149,7 +1148,7 @@ $commands_xp[208] = Command.new(208, -1, "TRANSPARENT", "更改透明状态", ta
 # Code 209
 # 设置移动路线
 #-----------------------------------------------------------------
-# Parameter : WTF
+# Parameter : 0, #<MoveRoute>
 #=================================================================
 target_text = Text.new do |parameters, *followings|
 	ans = Event_Help.event(parameters[0].Value)
@@ -1160,22 +1159,25 @@ target_text = Text.new do |parameters, *followings|
 	ans + (appendix.length == 0 ? "" : "(" + appendix.join(", ") + ")")
 end
 target_window = Proc.new do |window, commands|
-	window = Builder.Add(:dialog_move, { actual: :INDEX1 })
+	window = Builder.Add(:dialog_move, { actual: :ORIGIN })
 end
 target_with = Proc.new do |window, oldwith|
 	# Generate with Route
 	route = window.Value
 	list = route["@list"]
 	ans = []
+	indent = window.Tag.Indent
 	for child in list
+		next if child["@code"].Value <= 0
 		command = Instance.new $commands_xp[509]
 		command.Indent = window.Tag.Indent
-		command.Parameters.push child
+		command.Parameters[0] = child
+		command.SyncToLink
 		ans.push command
 	end
 	ans
 end
-$commands_xp[209] = Command.new(209, -1, "MOVE", "设置移动路线", target_text, "im", target_window, nil, 509)
+$commands_xp[209] = Command.new(209, -1, "MOVE", "设置移动路线", target_text, "im", target_window, target_with, 509)
 $commands_xp[209].isTextCommand = true
 
 #=================================================================
@@ -2371,7 +2373,7 @@ $commands_xp[413] = Command.new(413, 112, "ENDLOOP", "以上反复", target_text
 target_text = Text.new do |parameters, followings|
 	MoveInstance.new(parameters[0]).ToString
 end
-$commands_xp[508] = Command.new(509, 209, "MOVEMENT", "某个移动", target_text, "", nil, nil, 209)
+$commands_xp[509] = Command.new(509, 209, "MOVEMENT", "某个移动", target_text, "o", nil, nil, 209)
 #=================================================================
 # Code 601
 #-----------------------------------------------------------------

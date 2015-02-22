@@ -30,7 +30,7 @@ namespace DataEditor.Control
             // 理论上而言，这段代码是必须用手动调用触发，而不是通过机制触发的。
             Log.log(this.Flag + " called a forced push");
             foreach (System.Windows.Forms.Control control in Controls)
-                if (control.Tag is ObjectEditor)
+                if (control.Tag is ObjectEditor && !(control is System.Windows.Forms.Form))
                     (control.Tag as ObjectEditor).Push();
         }
         public override void Reset()

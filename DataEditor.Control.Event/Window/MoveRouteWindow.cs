@@ -42,13 +42,14 @@ namespace DataEditor.Control.Window
             protoEventCommandList1.Insert(move);
         }
 
-        List<MoveCommand> _commands = null;
         public List<MoveCommand> Value
         {
-            get { return _commands; }
+            get
+            {
+                return protoEventCommandList1.Items.OfType<MoveCommand>().ToList();
+            }
             set
             {
-                _commands = value;
                 protoEventCommandList1.Items.Clear();
                 value.ForEach((x) => protoEventCommandList1.Items.Add(x));
                 if (protoEventCommandList1.Items.Count > 0) protoEventCommandList1.SelectedIndex = 0;
@@ -65,7 +66,7 @@ namespace DataEditor.Control.Window
             public override void Pull()
             {
                 base.Pull();
-                var list = this.value["@list"] as FuzzyData.FuzzyArray;
+                var list = MoveRoute.getList(value);
                 if (list == null) return;
                 var fuzzyList = list.Select(command => new MoveCommand(command as FuzzyData.FuzzyObject)).ToList();
                 Window.Value = fuzzyList;

@@ -525,9 +525,9 @@ namespace DataEditor.Control.Prototype
             this.MenuItemDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.RightMenu.SuspendLayout();
             this.SuspendLayout();
-            //
+            // 
             // RightMenu
-            //
+            // 
             this.RightMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuItemInsert,
             this.MenuItemEdit,
@@ -538,75 +538,84 @@ namespace DataEditor.Control.Prototype
             this.MenuItemDelete});
             this.RightMenu.Name = "RightMenu";
             this.RightMenu.Size = new System.Drawing.Size(101, 142);
-            //
+            // 
             // MenuItemInsert
-            //
+            // 
             this.MenuItemInsert.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold);
             this.MenuItemInsert.Name = "MenuItemInsert";
             this.MenuItemInsert.Size = new System.Drawing.Size(100, 22);
             this.MenuItemInsert.Text = "插入";
             this.MenuItemInsert.Click += new System.EventHandler(this.MenuItemInsert_Click);
-            //
+            // 
             // MenuItemEdit
-            //
+            // 
             this.MenuItemEdit.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.MenuItemEdit.Name = "MenuItemEdit";
             this.MenuItemEdit.Size = new System.Drawing.Size(100, 22);
             this.MenuItemEdit.Text = "编辑";
             this.MenuItemEdit.Click += new System.EventHandler(this.MenuItemEdit_Click);
-            //
+            // 
             // toolStripSeparator1
-            //
+            // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(97, 6);
-            //
+            // 
             // MenuItemCut
-            //
+            // 
             this.MenuItemCut.Name = "MenuItemCut";
             this.MenuItemCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.MenuItemCut.ShowShortcutKeys = false;
             this.MenuItemCut.Size = new System.Drawing.Size(100, 22);
             this.MenuItemCut.Text = "剪切";
             this.MenuItemCut.Click += new System.EventHandler(this.MenuItemCut_Click);
-            //
+            // 
             // MenuItemCopy
-            //
+            // 
             this.MenuItemCopy.Name = "MenuItemCopy";
             this.MenuItemCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.MenuItemCopy.ShowShortcutKeys = false;
             this.MenuItemCopy.Size = new System.Drawing.Size(100, 22);
             this.MenuItemCopy.Text = "复制";
             this.MenuItemCopy.Click += new System.EventHandler(this.MenuItemCopy_Click);
-            //
+            // 
             // MenuItemPaste
-            //
+            // 
             this.MenuItemPaste.Name = "MenuItemPaste";
             this.MenuItemPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.MenuItemPaste.ShowShortcutKeys = false;
             this.MenuItemPaste.Size = new System.Drawing.Size(100, 22);
             this.MenuItemPaste.Text = "粘贴";
             this.MenuItemPaste.Click += new System.EventHandler(this.MenuItemPaste_Click);
-            //
+            // 
             // MenuItemDelete
-            //
+            // 
             this.MenuItemDelete.Name = "MenuItemDelete";
             this.MenuItemDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.MenuItemDelete.ShowShortcutKeys = false;
             this.MenuItemDelete.Size = new System.Drawing.Size(100, 22);
             this.MenuItemDelete.Text = "删除";
             this.MenuItemDelete.Click += new System.EventHandler(this.MenuItemDelete_Click);
-            //
+            // 
             // ProtoEventCommandList
-            //
+            // 
             this.ContextMenuStrip = this.RightMenu;
             this.SelectedIndexChanged += new System.EventHandler(this.ProtoEventCommandList_SelectedIndexChanged);
             this.DoubleClick += new System.EventHandler(this.ProtoEventCommandList_DoubleClick);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ProtoEventCommandList_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ProtoEventCommandList_KeyPress);
+            this.Leave += new System.EventHandler(this.ProtoEventCommandList_Leave);
             this.RightMenu.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
         #endregion 自动生成的代码
+
+        private void ProtoEventCommandList_Leave(object sender, EventArgs e)
+        {
+            if (!DisappearRectLosingFocus) return;
+            EndingIndex = -1;
+            Invalidate();
+        }
     }
 }

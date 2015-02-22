@@ -20,6 +20,7 @@ namespace DataEditor.Control.Event.DataModel
             ParameterAudioSign = 'a',
             ParameterBoolSign = 'b',
             ParameterMoveRouteSign = 'm',
+            ParameterMoveCommandSign = 'o',
             ParameterUndetermindSign = 'u',
             ParameterArraySign = 'l';
         protected const string ParameterStrIntSign = "i",
@@ -32,6 +33,7 @@ namespace DataEditor.Control.Event.DataModel
             ParameterStrAudioSign = "a",
             ParameterStrBoolSign = "b",
             ParameterStrMoveRouteSign = "m",
+            ParameterStrMoveCommandSign = "o",
             ParameterStrUndetermindSign = "u",
             ParameterStrArraySign = "l";
         /// <summary>
@@ -176,6 +178,8 @@ namespace DataEditor.Control.Event.DataModel
                     return new FuzzyArray(GenerateParameters(option).OfType<object>());
                 case ParameterMoveRouteSign:
                     return MoveRoute.CreateRoute();
+                case ParameterMoveCommandSign:
+                    return new MoveCommand(CommandType.TryGetCommandType(0, "Move")).Link;
             }
             return null;
         }

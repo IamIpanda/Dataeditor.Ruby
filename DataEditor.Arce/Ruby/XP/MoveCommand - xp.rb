@@ -259,7 +259,7 @@ target_window = Proc.new do |window, commands|
 		Builder.Pop :speed, 0
 	end
 end
-$move_commands[29] = Command.new(29, -1, "", "更改移动速度", target_text, "i", target_window)
+$move_commands[29] = Command.new(29, -1, "", "更改移动速度", target_text, "i{1}", target_window)
 #=================================================================
 # Code 30
 # 更改移动频度
@@ -274,7 +274,7 @@ target_window = Proc.new do |window, commands|
 		Builder.Pop :frequency, 0
 	end
 end
-$move_commands[30] = Command.new(30, -1, "", "更改移动频度", target_text, "i", target_window)
+$move_commands[30] = Command.new(30, -1, "", "更改移动频度", target_text, "i{1}", target_window)
 #=================================================================
 # Code 31
 # 移动时动画 ON

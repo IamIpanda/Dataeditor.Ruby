@@ -4,6 +4,7 @@
 
 require "Ruby/XP/File - xp.rb"
 require "Ruby/XP/Event - xp.rb"
+
 tab = Builder.Add(:tab, { text: "公共事件" }) do
 	Builder.Add(:list, { textbook: Help.Get_Default_Text ,text: "公共事件" }) do
 		Builder.Add(:group) do
@@ -15,5 +16,6 @@ tab = Builder.Add(:tab, { text: "公共事件" }) do
 		end
 	end
 end
+
 tab.Value = Data["commonevent"]
 

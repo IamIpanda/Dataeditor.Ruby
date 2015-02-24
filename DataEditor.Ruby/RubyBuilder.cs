@@ -94,15 +94,23 @@ namespace DataEditor.Ruby
         }
 
 
-        static Stack<RubyBuilder> Builders = new Stack<RubyBuilder>();
+        private static Stack<RubyBuilder> Builders = new Stack<RubyBuilder>();
+
+        static RubyBuilder()
+        {
+            var gaia = new RubyBuilder(DataEditor.Control.Wrapper.Container.Gaia.Instance);
+            Builders.Push(gaia);
+            StackTop = gaia;
+        }
         public static void In(DataContainer container)
         {
             Builders.Push(new RubyBuilder(container));
             StackTop = Builders.Peek();
         }
+
         public static System.Drawing.Size Out()
         {
-            if (Builders.Count == 0) return default(System.Drawing.Size);
+            if (Builders.Count <= 1) return default(System.Drawing.Size);
             var builder = Builders.Pop();
             var size = new System.Drawing.Size(builder.max_x + builder.container.end_x, builder.max_y + builder.container.end_y);
             builder.container.SetSize(size);

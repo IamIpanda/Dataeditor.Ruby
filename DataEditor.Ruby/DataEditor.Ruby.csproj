@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gaia.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Proc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

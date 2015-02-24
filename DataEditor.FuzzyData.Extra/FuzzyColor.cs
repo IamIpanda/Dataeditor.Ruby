@@ -71,5 +71,12 @@ namespace DataEditor.FuzzyData
             this.a = from.a;
             base.Clone(source);
         }
+
+        public override object Clone()
+        {
+            var color = new FuzzyColor();
+            color.Clone(this);
+            return color;
+        }
     }
 }

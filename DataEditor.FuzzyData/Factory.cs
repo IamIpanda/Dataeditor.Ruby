@@ -43,9 +43,6 @@ namespace DataEditor.FuzzyData.Serialization
         }
         public static ISerializationFactory<SerializationType> Factor(Type type)
         {
-            if (type.ToString() == "DataEditor.FuzzyData.FuzzyTable")
-            { 
-            }
             if (typeDictionary.ContainsKey(type))
                 return typeDictionary[type];
             else

@@ -589,6 +589,10 @@ namespace DataEditor.FuzzyData.Serialization.RubyMarshal
                 case RubyMarshal.Types.UserDefined:
                     {
                         FuzzySymbol klass = ReadUnique();
+                        if (klass.Name == "Tone")
+                        {
+                            
+                        }
                         var factor = Factory<byte[]>.Factor(klass.Name);
                         if (factor == null)
                         {

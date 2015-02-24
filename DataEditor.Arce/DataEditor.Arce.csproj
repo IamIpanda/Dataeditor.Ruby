@@ -336,6 +336,9 @@
     <None Include="Ruby\XP\Item - xp.rb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Ruby\XP\MoveCommand - xp.rb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Ruby\XP\RPG - xp.data">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -138,7 +138,7 @@ target_text = Text.new do |parameters, *followings|
 	arg0 = parameters[0].Value
 	arg1 = parameters[1].Value
 	choice0 = ["上","中","下"]
-	choice1 = ["透明","不透明"]
+	choice1 = ["显示","不显示"]
 	"#{ choice0[arg0].encode }, #{ choice1[arg1].encode }"
 end
 target_window = Proc.new do |window, commands|
@@ -1633,8 +1633,7 @@ $commands_xp[301].IsStartProc = target_start_command.to_p
 # Parameter : [0, 1]
 # 为了这个愚蠢的结构我又改了两遍构筑！
 #=================================================================
-target_text = Text.new do |parameters, *followings| 
-	p parameters
+target_text = Text.new do |parameters, *followings|
 	Event_Help.shop(parameters[0].Value,parameters[1].Value)
 end
 target_window = Proc.new do |window, commands|
@@ -1685,6 +1684,7 @@ target_with = Proc.new do |window, oldwith|
 		command.Indent = window.Tag.Indent
 		command.Parameters.Add arr[0]
 		command.Parameters.Add arr[1]
+		command.SyncToLink
 		ans.push command
 	end
 	ans

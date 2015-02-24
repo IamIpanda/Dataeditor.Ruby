@@ -6,10 +6,10 @@ require "Ruby/XP/File - xp.rb"
 tab = Builder.Add(:tab, { text: "状态" }) do
 	Builder.Add(:list, { textbook: Help.Get_Default_Text, text: "状态", default: RPG::State.new }) do
 		Builder.Add(:group, { text: "" }) do
-				Builder.Order
+			Builder.Order
 			Builder.Add(:metro) do
 				Builder.Add(:text, { actual: :name, text: "名称" })
-					choice = Filechoice.new("animation")
+				choice = Filechoice.new("animation")
 				Builder.Add(:choose, { actual: :animation_id, text: "动画" ,choice: { nil => choice } })
 				Builder.Add(:choose, { actual: :restriction, text: "限制" ,choice: {
 					0 => "无",
@@ -18,7 +18,7 @@ tab = Builder.Add(:tab, { text: "状态" }) do
 					3 => "普通攻击同伴",
 					4 => "不行动"
 					} })
-					Builder.Next
+				Builder.Next
 			end
 			Builder.Add(:group) do
 				Builder.Add(:check, { actual: :nonresistance, text: "不能抵抗" })
@@ -27,45 +27,44 @@ tab = Builder.Add(:tab, { text: "状态" }) do
 				Builder.Add(:check, { actual: :cant_evade, text: "不能回避攻击" })
 				Builder.Add(:check, { actual: :slip_damage, text: "连续伤害" })
 			end
-				Builder.Next
+			Builder.Next
 			Builder.Add(:int, { actual: :rating, text: "定量" })
 			Builder.Add(:int, { actual: :hit_rate, text: "命中率 %" })
 			Builder.Add(:int, { actual: :maxhp_rate, text: "MaxHP %" })
 			Builder.Add(:int, { actual: :maxsp_rate, text: "MaxSP %" })
-				Builder.Next
+			Builder.Next
 			Builder.Add(:int, { actual: :str_rate, text: "力量 %" })
 			Builder.Add(:int, { actual: :dex_rate, text: "灵巧 %" })
 			Builder.Add(:int, { actual: :agi_rate, text: "速度 %" })
 			Builder.Add(:int, { actual: :int_rate, text: "魔力 %" })
-				Builder.Next
+			Builder.Next
 			Builder.Add(:int, { actual: :atk_rate, text: "攻击力 %" })
 			Builder.Add(:int, { actual: :pdef_rate, text: "物理防御 %" })
 			Builder.Add(:int, { actual: :mdef_rate, text: "魔法防御 %" })
 			Builder.Add(:int, { actual: :eva, text: "回避修正 %" })
-				Builder.Next
-			 Builder.Add(:group, { text: "解除条件" }) do
-			 			Builder.Order
-			 		Builder.Add(:check, { actual: :battle_only, text: "战斗结束时解除" })
-			 			Builder.Next(4)
-			 		Builder.Add(:int, { actual: :hold_turn, label: 0 })
-			 			Builder.Text("回合经过后", 0, 4)
-			 		Builder.Add(:int, { actual: :auto_release_prob, label: 0 })
-			 			Builder.Text("% 的概率解除", 0, 4)
-			 			Builder.Next(4)
-			 			Builder.Text("受到物理攻击后", 0, 4)
-			 		Builder.Add(:int, { actual: :shock_release_prob, label: 0 })
-			 			Builder.Text("% 的概率解除", 0, 4)
-			 end
-			 	Builder.OrderAndNext
-				text = Text.new { |*args| args[0].Text }
+			Builder.Next
+			Builder.Add(:group, { text: "解除条件" }) do
+				Builder.Order
+				Builder.Add(:check, { actual: :battle_only, text: "战斗结束时解除" })
+				Builder.Next(4)
+				Builder.Add(:int, { actual: :hold_turn, label: 0 })
+				Builder.Text("回合经过后", 0, 4)
+				Builder.Add(:int, { actual: :auto_release_prob, label: 0 })
+				Builder.Text("% 的概率解除", 0, 4)
+				Builder.Next(4)
+				Builder.Text("受到物理攻击后", 0, 4)
+				Builder.Add(:int, { actual: :shock_release_prob, label: 0 })
+				Builder.Text("% 的概率解除", 0, 4)
+			end
+			Builder.OrderAndNext
+			text = Text.new { |*args| args[0].Text }
 			Builder.Add(:checklist, { actual: :guard_element_set ,text: "属性", data: Data["system"]["@elements"], textbook: text })
-		 Builder.Add(:bufflist, { actual: {"+" => :plus_state_set, "-" => :minus_state_set},text: "状态变化",
-			 data: Data["state"], textbook: Help.Get_Silence_Text, default: "" })
+			Builder.Add(:bufflist, { actual: {"+" => :plus_state_set, "-" => :minus_state_set},text: "状态变化",
+				data: Data["state"], textbook: Help.Get_Silence_Text, default: "" })
 		end
 	end
 end
 tab.Value = Data["state"]
-
 =begin
 RPG::State
 id 

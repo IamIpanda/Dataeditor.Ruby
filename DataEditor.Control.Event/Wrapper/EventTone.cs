@@ -27,7 +27,7 @@ namespace DataEditor.Control.Wrapper
 
         public override bool ValueIsChanged()
         {
-            return false;
+            return true;
         }
         public override void Bind()
         {

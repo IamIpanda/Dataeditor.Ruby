@@ -10,6 +10,8 @@ namespace DataEditor.Control.Wrapper
 {
     public class Event : Control.WrapControlEditor<FuzzyData.FuzzyArray, Prototype.ProtoEventCommandList>
     {
+        public override string Flag { get { return "event"; } }
+
         public override void Pull()
         {
             Control.Items.Clear();

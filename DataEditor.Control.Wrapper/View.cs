@@ -141,10 +141,10 @@ namespace DataEditor.Control.Wrapper
                     }
                     else { index = i; }
                 }
+                catalogue.UpdateText();
                 if (selected_index >= base.value.Count - 1)
                     if (model != null && !(max_count >= 0 && Control.Items.Count >= max_count))
                         Control.Items.Add(new ListViewItem());
-                catalogue.UpdateText();
                 Control.SelectedIndices.Clear();
                 Control.SelectedIndices.Add(index);
                 isChanged = true;

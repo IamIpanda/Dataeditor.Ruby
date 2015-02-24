@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace DataEditor.Control.Prototype
@@ -68,15 +69,18 @@ namespace DataEditor.Control.Prototype
             if (size.Height > height) height = size.Height;
             if (Help.Environment.Instance.EnableFloatWindow && OverSize(size))
             {
-                window = new ProtoAutoSizeTextbox_PopupWindow();
-                window.Location = this.PointToScreen(new System.Drawing.Point(0, 0));
+                window = new ProtoAutoSizeTextbox_PopupWindow
+                {
+                    Location = this.PointToScreen(new System.Drawing.Point(0, 0)),
+                    Value = this.Text,
+                    MinSize = new System.Drawing.Size(this.origin_width, this.origin_height),
+                    Size = new System.Drawing.Size(width, height)
+                };
                 window.FormClosed += window_FormClosed;
-                window.Value = this.Text;
-                window.MinSize = new System.Drawing.Size(this.origin_width, this.origin_height);
-                window.Size = new System.Drawing.Size(width, height);
+                window.Show();
+                window.Size = new Size(width, height);
                 window.SetColor(this.ForeColor, this.BackColor);
                 window.SetIndex(this.SelectionStart, this.SelectionLength);
-                window.Show();
                 window.Focus();
                 ResetSize();
             }

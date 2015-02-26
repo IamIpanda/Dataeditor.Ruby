@@ -66,16 +66,22 @@ namespace DataEditor.Control.Window
             public override void Pull()
             {
                 base.Pull();
-                var list = MoveRoute.getList(value);
+                if (!(value is FuzzyArray)) return;
+                var target = (value as FuzzyArray)[1] as FuzzyObject;
+                if (target == null) return;
+                var list = MoveRoute.getList(target);
                 if (list == null) return;
-                var fuzzyList = list.Select(command => new MoveCommand(command as FuzzyData.FuzzyObject)).ToList();
+                var fuzzyList = list.Select(command => new MoveCommand(command as FuzzyData.FuzzyObject)).ToList(); 
                 Window.Value = fuzzyList;
             }
 
             public override void Push()
             {
                 base.Push();
-                var list = this.value["@list"] as FuzzyData.FuzzyArray;
+                if (!(value is FuzzyArray)) return;
+                var target = (value as FuzzyArray)[1] as FuzzyObject;
+                if (target == null) return;
+                var list = target["@list"] as FuzzyData.FuzzyArray;
                 list.Clear();
                 Window.Value.ForEach((move) => list.Add(move.Link));
             }

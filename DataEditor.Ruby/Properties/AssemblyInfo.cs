@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("DataEditor.Ruby")]
 [assembly: AssemblyDescription("包含了对于 IronRuby 的支持。")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("IamIs")]
 [assembly: AssemblyProduct("DataEditor.Ruby")]
 [assembly: AssemblyCopyright("Copyright © 2013")]
 [assembly: AssemblyTrademark("")]

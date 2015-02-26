@@ -65,8 +65,13 @@ class Split
 	VALUE = DataEditor::Help::Parameter::Split::SplitType.Value
 end
 class String
-	def encode
-		return self.ToString(System::Text::Encoding.UTF8)
+	alias origin_encode encode
+	def encode(*args)
+		if args.length == 0
+			return self.ToString(System::Text::Encoding.UTF8)
+		else
+			return origin_encode(*args)
+		end
 	end
 end
 
@@ -155,4 +160,14 @@ class DataEditor::Control::WrapBaseContainer
 		ans = ans[0] if ans.length == 1
 		return ans
 	end
+end
+
+# jojo！我不做人啦
+alias origin_require require
+@@required_files = []
+def require(str)
+	return false if @@required_files.include? str
+	@@required_files.push str
+	str = File.join System::Windows::Forms::Application.StartupPath, str
+	origin_require str.encode("gb2312")
 end

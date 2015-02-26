@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Text;
 using DataEditor.FuzzyData;
 
@@ -68,7 +69,10 @@ namespace DataEditor.Help
         }
         public void Save()
         {
+            var list = new List<FuzzyObject>();
             foreach (var key in records.Keys)
+                list.Add(key);
+            foreach (var key in list)
                 records[key] = Contract.TaintState.Saved;
         }
         public void Save(FuzzyData.FuzzyObject obj)

@@ -14,7 +14,6 @@ namespace DataEditor.Control.Event
         private static void Main()
         {
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-#if DEBUG
             string[] loads = new string[] { @"Program\Serialization\DataEditor.FuzzyData.Serialization.RubyMarshal.dll"
                 , @"Program\Serialization\UserDefined\DataEditor.FuzzyData.Extra.dll" };
             Array.ForEach(loads, (string ass) =>
@@ -23,7 +22,6 @@ namespace DataEditor.Control.Event
                     System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath),
                     ass));
             });
-#endif
             Initialize();
             Application.Run(new Main());
         }
@@ -50,6 +48,10 @@ namespace DataEditor.Control.Event
             engine.ExecuteFile("\\\\psf\\FILE\\VSProjects\\dataeditor.ruby\\DataEditor.Arce\\Ruby\\main.rb");
             engine.ExecuteFile("\\\\psf\\FILE\\VSProjects\\dataeditor.ruby\\DataEditor.Arce\\Ruby\\XP\\File - xp.rb");
             engine.ExecuteFile("\\\\psf\\FILE\\VSProjects\\dataeditor.ruby\\DataEditor.Arce\\Ruby\\XP\\Event - xp.rb");
+#else
+            engine.ExecuteFile("Ruby\\main.rb");
+            engine.ExecuteFile("Ruby\\XP\\File - xp.rb");
+            engine.ExecuteFile("Ruby\\XP\\Event - xp.rb");
 #endif
         }
 

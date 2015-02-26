@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("DataEditor.FuzzyData.Extra")]
 [assembly: AssemblyDescription("对于 FuzzyData 的 RGSS 特有数据类型的扩展支持。")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("IamI")]
 [assembly: AssemblyProduct("DataEditor.FuzzyData.Extra")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]

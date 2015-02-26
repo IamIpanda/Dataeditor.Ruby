@@ -233,10 +233,11 @@ namespace DataEditor.Control.Prototype
             }
             set
             {
-                if (this.SelectedIndex < 0 || this.EndingIndex < 0) return;
+                if (this.SelectedIndex < 0) return;
                 var selected_index = this.SelectedIndex;
-                for (var i = this.EndingIndex; i > selected_index; i--)
-                    this.Items.RemoveAt(i);
+                if (this.EndingIndex > 0)
+                    for (var i = this.EndingIndex; i > selected_index; i--)
+                        this.Items.RemoveAt(i);
                 for (var i = 0; i < value.Count; i++)
                     this.Items.Insert(i + selected_index + 1, value[i]);
                 this.SelectedIndex = -1;
@@ -391,8 +392,7 @@ namespace DataEditor.Control.Prototype
             command.SyncToLink();
             command.GenerateString();
             int index = SelectedIndex;
-            if (with != null)
-                With = with.OfType<Command>().Select(obj => obj).ToList();
+            With = with.OfType<Command>().ToList();
             Do(ActionType.Change, index, index + (with == null ? 0 : with.Count(x => true)));
             ProtoEventCommandList_SelectedIndexChanged(this, new EventArgs());
         }

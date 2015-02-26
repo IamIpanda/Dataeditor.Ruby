@@ -12,7 +12,7 @@ tab = Builder.Add(:tab, { text: "公共事件" }) do
 			Builder.Add(:text, { actual: :name, text: "名称" })
 			Builder.Add(:choose, { actual: :trigger, text: "触发条件", choice: { 0 => "无", 1 => "自动执行", 2 => "并行处理" } })
 				Builder.Next
-			Builder.Add(:event, { actual: :list, text: "未命名", commands: $commands_xp, groups: $groups_xp, width: 600, height: 400 })
+			Builder.Add(:event, { actual: :list, label: 0, width: 600, height: 400 })
 		end
 	end
 end

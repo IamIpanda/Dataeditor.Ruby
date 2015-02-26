@@ -71,7 +71,7 @@ end
 target_with = Proc.new do |window, oldwith|
 	# analyze old with
 	oldwithcommands = { 0 => [], 1 => [], 2 => [], 3 => [], 4 => [], 5 => [] }
-	key = 0
+	key = -1
 	for command in oldwith
 		case command.Code
 		when 404 then break
@@ -1591,13 +1591,15 @@ end
 target_with = Proc.new do |window, oldwith|
 	old_list = [[], [], []]
 	index = 0
-	for command in oldwith
-		case oldwith.Code
-		when 601 then continue
-		when 602 then index = 1
-		when 603 then index = 2
-		when 604 then return
-		else old_list[index].push command
+	if oldwith != nil
+		for command in oldwith
+			case command.Code
+			when 601 then next
+			when 602 then index = 1
+			when 603 then index = 2
+			when 604 then break
+			else old_list[index].push command
+			end
 		end
 	end
 	parameters = window.Value

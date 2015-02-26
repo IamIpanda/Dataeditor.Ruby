@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("DataEditor.Control.Prototype")]
 [assembly: AssemblyDescription("包含了程序使用的所有自绘控件原型。")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("IamI")]
 [assembly: AssemblyProduct("DataEditor.Control.Prototype")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]

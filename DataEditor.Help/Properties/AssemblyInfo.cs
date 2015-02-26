@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("DataEditor.Help")]
 [assembly: AssemblyDescription("包含了一系列关键字组成的系列支持类别。")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("IamI")]
 [assembly: AssemblyProduct("DataEditor.Help")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]

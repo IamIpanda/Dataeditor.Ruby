@@ -47,7 +47,7 @@ Builder.Add(:tab, { text: "职业" }) do
 					array.IndexOf(new)
 				end
 				model = RPG::Class::Learning.new.to_fuzzy
-			Builder.Add(:view, { actual: :learnings, text: "特技" ,columns: ["等级","学会的特技"], column_width: column_width,
+			Builder.Add(:view, { actual: :learnings, text: "特技" ,columns: ["等级","学会的特技"], columns_width: column_width,
 				catalogue: texts, window: window, window_type: 1, width: 260, height: 150, new: model, after: after })
 		end
 	end

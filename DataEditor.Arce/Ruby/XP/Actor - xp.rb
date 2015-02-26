@@ -1,7 +1,6 @@
 # This File is in coding: utf-8
 # Arce Script: actor - xp.rb
 # describe the user interface of actor
-
 require "Ruby/XP/File - xp.rb"
 
 tab = Builder.Add(:tab, { text: "角色"}) do
